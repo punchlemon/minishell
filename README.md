@@ -10,10 +10,10 @@
 
 ## :gun: Usage
 ```
-git clone git@github.com:punchlemon/template
+git clone git@github.com:punchlemon/minishell
 ```
 ```
-make ; ./template
+make ; ./minishell
 ```
 
 ## :pushpin: Requirements
