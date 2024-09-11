@@ -1,12 +1,11 @@
-# :ocean: template
-> This is template created for use in other 42 projects.
+# :ocean: Minishell
+> Shell reimplementation.
 
 ## :full_moon_with_face: Demo
-:construction: Please create in each repo.
+
 
 ## :eyes: Overview
-> I am creating a library in C that works like the Go language.
-> The functionality is very small, but the goal is to be able to use string, rune, slice, etc.
+> Shell reimplementation.
 
 ## :gun: Usage
 ```
