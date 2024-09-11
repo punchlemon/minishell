@@ -12,11 +12,13 @@
 
 #include "minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **environ)
 {
 	char	*buf;
 	char	**split;
 
+	(void)argc;
+	(void)argv;
 	buf = malloc(sizeof(char) * 42);
 	if (!buf)
 		return (1);
@@ -24,6 +26,6 @@ int	main(void)
 	split = ft_split(buf, ' ');
 	if (!split)
 		return (1);
-	exe(split);
+	exe(split, environ);
 	return (0);
 }

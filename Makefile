@@ -16,6 +16,7 @@ ANLS_FILES = \
 
 EXEC_FILES = \
 	exe \
+	utils \
 
 ANLS_DIR_FILES = $(addprefix $(ANLS_DIR)/, $(ANLS_FILES))
 
