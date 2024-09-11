@@ -6,11 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:34:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/11 15:34:15 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:38:16 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <stdlib.h>
+#include "string.h"
 
 static char	**ft_freemem(char ***p, size_t last_index)
 {

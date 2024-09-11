@@ -1,29 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/11 15:10:33by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
+/*   Updated: 2024/09/11 16:37:48 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include "string.h"
 
-int	main(void)
+void	delete_pp(char **src)
 {
-	char	*buf;
-	char	**split;
+	size_t	i;
 
-	buf = malloc(sizeof(char) * 42);
-	if (!buf)
-		return (1);
-	read(0, buf, 42);
-	split = ft_split(buf, ' ');
-	if (!split)
-		return (1);
-	exe(split);
-	return (0);
+	i = 0;
+	while (src[i])
+	{
+		free(src[i]);
+		i++;
+	}
+	free(src);
+}
+
+void	exe(char **srcs)
+{
+	size_t	i;
+	char	c;
+
+	i = 0;
+	while (srcs[i])
+	{
+		c = i + '0';
+		write(1, &c, 1);
+		write(1, ": ", 2);
+		write(1, srcs[i], ft_strlen(srcs[i]));
+		write(1, "\n", 1);
+		i++;
+	}
+	delete_pp(srcs);
 }

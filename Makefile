@@ -2,12 +2,29 @@ NAME = minishell
 INCLUDES_DIR = includes
 SRCS_DIR = srcs
 OBJS_DIR = objs
+ANLS_DIR = analysis
+EXEC_DIR = execution
 NPK_FLAG = --noprint-directory
+
+DIRS = \
+	$(ANLS_DIR) \
+	$(EXEC_DIR) \
+
+ANLS_FILES = \
+	ft_split \
+	ft_strlcpy \
+
+EXEC_FILES = \
+	exe \
+
+ANLS_DIR_FILES = $(addprefix $(ANLS_DIR)/, $(ANLS_FILES))
+
+EXEC_DIR_FILES = $(addprefix $(EXEC_DIR)/, $(EXEC_FILES))
 
 FILES = \
 	main \
-	ft_split \
-	ft_strlcpy \
+	$(ANLS_DIR_FILES) \
+	$(EXEC_DIR_FILES) \
 
 CFLAGS = -Wall -Werror -Wextra -g
 IFLAGS = -I$(INCLUDES_DIR)
@@ -24,6 +41,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 
 $(OBJS_DIR):
 	@mkdir -p $@
+	@$(foreach dir, $(DIRS), mkdir -p $@/$(dir);)
 
 all: $(NAME)
 

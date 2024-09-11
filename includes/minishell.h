@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/11 15:43:16 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:35:18 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_node {
 }	t_node;
 
 // functions
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	**ft_split(char const *s, char c);
+void	exe(char **srcs);
 
 #endif
