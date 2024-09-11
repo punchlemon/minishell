@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   create_string_slice.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 15:35:46 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/11 18:27:37 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/11 18:31:40 by retanaka          #+#    #+#             */
+/*   Updated: 2024/09/11 19:24:05 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "string.h"
+#include "ft_string.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+t_string_slice	*create_string_slice(t_string *str)
 {
-	size_t	src_len;
+	t_string_slice	*res;
 
-	src_len = -1;
-	while (*(src + ++src_len))
-		;
-	if (dstsize == 0)
-		return (src_len);
-	if (dstsize > src_len + 1)
-		dstsize = src_len + 1;
-	*(char *)(dst + dstsize - 1) = 0;
-	while (--dstsize)
-		*(char *)(dst + dstsize - 1) = *(char *)(src + dstsize - 1);
-	return (src_len);
+	return (res);
+}
+
+void	delete_string_slice(t_string_slice *strs)
+{
+}
+
+t_string_slice	*devide_string_slice_len(t_string_slice *strs, size_t len)
+{
+	t_string_slice	*res;
+
+	return (res);
 }

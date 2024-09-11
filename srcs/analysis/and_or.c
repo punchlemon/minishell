@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   and_or.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 15:35:46 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/11 18:27:37 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/11 17:29:00 by retanaka          #+#    #+#             */
+/*   Updated: 2024/09/11 19:24:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "string.h"
+#include "minishell.h"
+#include "ft_string.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+char	**and_or(char *src)
 {
-	size_t	src_len;
+	char		**res;
+	t_string	*str;
 
-	src_len = -1;
-	while (*(src + ++src_len))
-		;
-	if (dstsize == 0)
-		return (src_len);
-	if (dstsize > src_len + 1)
-		dstsize = src_len + 1;
-	*(char *)(dst + dstsize - 1) = 0;
-	while (--dstsize)
-		*(char *)(dst + dstsize - 1) = *(char *)(src + dstsize - 1);
-	return (src_len);
+	str = create_string(src);
+	return ;
 }
