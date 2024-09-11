@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/11 15:43:16 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/11 15:35:46 by retanaka          #+#    #+#             */
+/*   Updated: 2024/09/11 15:35:55 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <unistd.h>
-# include <stdlib.h>
+#include "minishell.h"
 
-typedef struct s_node {
-	int				value;
-	struct s_node	**children;
-	int				child_count;
-	char			*open;
-	char			*command;
-}	t_node;
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	src_len;
 
-// functions
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char	**ft_split(char const *s, char c);
-
-#endif
+	src_len = -1;
+	while (*(src + ++src_len))
+		;
+	if (dstsize == 0)
+		return (src_len);
+	if (dstsize > src_len + 1)
+		dstsize = src_len + 1;
+	*(char *)(dst + dstsize - 1) = 0;
+	while (--dstsize)
+		*(char *)(dst + dstsize - 1) = *(char *)(src + dstsize - 1);
+	return (src_len);
+}

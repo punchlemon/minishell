@@ -6,28 +6,60 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/11 13:49:34 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:10:33by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
 #include "minishell.h"
+
+size_t	ft_strlen(char *src)
+{
+	size_t	i;
+	if (!src)
+		return (0);
+	i = 0;
+	while (src[i])
+		i++;
+	return (i);
+}
+
+void	delete_pp(char **src)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i])
+	{
+		free(src[i]);
+		i++;
+	}
+	free(src);
+}
 
 int	main(void)
 {
-	char	**ls_op;
+	char	*buf;
+	char	**split;
+	size_t	i;
+	char	c;
 
-	ls_op = malloc(sizeof(char *) * 4);
-	if (!ls_op)
+	buf = malloc(sizeof(char) * 42);
+	if (!buf)
 		return (1);
-
-	ls_op[0] = "ls";
-	ls_op[1] = "-llllll";
-	ls_op[2] = "-a";
-	ls_op[3] = NULL;
-	if (!access("/usr/bin/ls", F_OK) && !access("/usr/bin/ls", X_OK))
-		execv("/usr/bin/ls", ls_op);
-	free(ls_op);
+	read(0, buf, 42);
+	split = ft_split(buf, ' ');
+	if (!split)
+		return (1);
+	i = 0;
+	while (split[i])
+	{
+		c = i + '0';
+		write(1, &c, 1);
+		write(1, ": ", 2);
+		write(1, split[i], ft_strlen(split[i]));
+		write(1, "\n", 1);
+		i++;
+	}
+	delete_pp(split);
 	return (0);
 }

@@ -6,6 +6,8 @@ NPK_FLAG = --noprint-directory
 
 FILES = \
 	main \
+	ft_split \
+	ft_strlcpy \
 
 CFLAGS = -Wall -Werror -Wextra -g
 IFLAGS = -I$(INCLUDES_DIR)
