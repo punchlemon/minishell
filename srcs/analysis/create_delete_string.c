@@ -3,27 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   create_delete_string.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:34:18 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/11 19:24:10 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:56:05 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "ft_string.h"
-
-size_t	ft_strlen(char *src)
-{
-	size_t	i;
-
-	if (!src)
-		return (0);
-	i = 0;
-	while (src[i])
-		i++;
-	return (i);
-}
 
 int	update_cap(size_t len, size_t *cap)
 {
