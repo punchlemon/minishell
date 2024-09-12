@@ -11,8 +11,17 @@ DIRS = \
 	$(EXEC_DIR) \
 
 ANLS_FILES = \
+	and_or \
+	compare_bytes \
+	copy_bytes \
 	ft_split \
+	ft_string_slice \
+	ft_string \
 	ft_strlcpy \
+	mem_zero \
+	split_string \
+	string_to_char \
+	string_utils \
 
 EXEC_FILES = \
 	exe \
