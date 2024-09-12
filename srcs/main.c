@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/12 18:23:36 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:38:08 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,23 @@
 
 int	main(int argc, char **argv, char **environ)
 {
-	char	*buf;
-	char	**pp;
+	char	*line;
+	char	**split;
 
 	(void)argc;
 	(void)argv;
-	(void)environ;
-	buf = malloc(sizeof(char) * 42);
-	if (!buf)
-		return (1);
-	read(0, buf, 42);
-	pp = and_or(buf);
-	if (!pp)
-		return (1);
-	exe(pp, environ);
+	while (1)
+	{
+		line = readline("minishell$ ");
+		if (line == NULL)
+			break ;
+		if (*line)
+			add_history(line);
+		split = and_or(line);
+		if (split == NULL)
+			return (1);
+		exe(split, environ);
+		free(line);
+	}
 	return (0);
 }

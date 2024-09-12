@@ -6,12 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:35:46 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/11 18:27:37 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:39:25 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "string.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

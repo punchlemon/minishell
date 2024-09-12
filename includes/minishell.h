@@ -6,14 +6,24 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/12 17:56:30 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:36:05 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 # include <unistd.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
+# include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef struct s_node
 {

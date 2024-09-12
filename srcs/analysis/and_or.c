@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:29:00 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/12 18:23:02 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:39:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char	**and_or(char *src)
 	str = create_string(src);
 	if (!str)
 		return (NULL);
-	str->len--;
 	str_slice = split_string(str);
 	if (!str_slice)
 		return (delete_string(str));
