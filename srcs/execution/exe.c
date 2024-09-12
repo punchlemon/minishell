@@ -6,18 +6,11 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/11 19:13:36 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:03:34 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include "ft_string.h"
-#include <errno.h>
 #include "minishell.h"
 
 void	delete_pp(char **src)

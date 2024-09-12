@@ -29,6 +29,7 @@ FILES = \
 
 CFLAGS = -Wall -Werror -Wextra -g
 IFLAGS = -I$(INCLUDES_DIR)
+LFLAGS = -lreadline
 VFLAGS = \
 	--track-origins=yes \
 	--leak-check=full \
@@ -47,7 +48,7 @@ $(OBJS_DIR):
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) -o $@
+	@$(CC) $(LFLAGS) $(OBJS) -o $@
 
 clean:
 	@$(RM) -r $(OBJS_DIR)
