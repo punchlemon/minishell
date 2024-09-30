@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/30 17:58:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:42:49 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ typedef struct s_cmd_node
 
 // functions
 // cmd
-// t_cmd_node	*create_cmd_node(void);
-// t_cmd_node	*create_cmd_node_from_str_slice(t_str_slice *str_s);
-// t_pipe_cmd	*create_p_cmd(t_str_slice *str_s);
-// void		*delete_cmd_n(t_cmd_node *cmd_n);
-// void		*delete_p_cmd(t_pipe_cmd *p_cmd);
+t_cmd_node	*create_cmd_node_elm(t_str_slice *str_s);
+t_cmd_node	*create_cmd_node(t_str_slice *str_s);
+t_pipe_cmd	*create_pipe_cmd(t_str_slice *str_s);
+void		*delete_cmd_node(t_cmd_node *cmd_n);
+void		*delete_pipe_cmd(t_pipe_cmd *p_cmd);
 
 // analysis
 // analysis.c
@@ -58,7 +58,7 @@ t_cmd_node	*analysis(char *src);
 t_cmd_node	*and_or(t_str *str);
 
 // is_valid_str_and_or.c
-// int			is_valid_str_and_or(t_str *str);
+int			is_valid_str_and_or(t_str *str);
 
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char		**ft_split(char const *s, char c);
