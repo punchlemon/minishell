@@ -61,7 +61,7 @@ void		*delete_str(t_str *str);
 // int			find_first_index_from_str(t_str *target, t_str *key);
 
 // get_str_slice.c
-// t_str_list	*get_str_list_from_str_slice(t_str_slice *str_s, size_t n);
+t_str_list	*get_str_list_from_str_slice(t_str_slice *str_s, size_t n);
 // char		get_char_from_str_slice(t_str_slice *str_s, size_t n);
 
 // insert_str_slice.c
@@ -89,6 +89,14 @@ int			put_str_slice(t_str_slice *str_s, int *len);
 // split_str_slice.c
 // t_str_list	*split_str_slice_n(t_str_slice *str_s, size_t n);
 // t_str_slice	*split_str_slice(t_str_slice *str_s);
+
+// str_to_char.c
+char		*str_to_char_array(t_str *str);
+void		*free_char_pntr_array(char **p_arr, size_t n);
+char		**str_slice_to_char_pntr_array(t_str_slice *str_s);
+
+// str_utils.c
+int			update_cap(t_str *str);
 
 // trim_edge_str.c
 // void		trim_right_str_n(t_str *str, size_t n);
