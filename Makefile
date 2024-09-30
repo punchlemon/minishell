@@ -30,6 +30,7 @@ STRG_FILES = \
 	is_equal_str \
 	put_str_slice \
 	put_str \
+	str_to_char \
 	str_utils \
 	utils \
 
