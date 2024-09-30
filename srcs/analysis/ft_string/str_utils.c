@@ -6,12 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:55 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/23 16:23:28 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:13:14 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
-#include <unistd.h>
 
 int	update_cap(t_str *str)
 {
