@@ -99,13 +99,13 @@ char		**str_slice_to_char_pntr_array(t_str_slice *str_s);
 int			update_cap(t_str *str);
 
 // trim_edge_str.c
-// void		trim_right_str_n(t_str *str, size_t n);
-// t_str		*trim_left_edge_str(t_str **str_ref);
-// void		trim_right_edge_str(t_str *str);
-// t_str		*trim_edge_str(t_str **str_ref);
+void		trim_right_str_n(t_str *str, size_t n);
+t_str		*trim_left_edge_str(t_str **str_ref);
+void		trim_right_edge_str(t_str *str);
+t_str		*trim_edge_str(t_str **str_ref);
 
 // trim_space_str.c
-// t_str		*trim_space_str(t_str **str_ref);
+t_str		*trim_space_str(t_str **str_ref);
 
 // utils.c
 size_t		ft_strlen(char *src);
