@@ -28,6 +28,8 @@ STRG_FILES = \
 	delete_str \
 	delete_str_slice \
 	is_equal_str \
+	put_str_slice \
+	put_str \
 	str_utils \
 	utils \
 
