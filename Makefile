@@ -4,24 +4,40 @@ SRCS_DIR = srcs
 OBJS_DIR = objs
 ANLS_DIR = analysis
 EXEC_DIR = execution
+MEMY_DIR = ft_memory
+STRG_DIR = ft_string
 NPK_FLAG = --noprint-directory
 
 DIRS = \
 	$(ANLS_DIR) \
 	$(EXEC_DIR) \
 
-ANLS_FILES = \
-	and_or \
+ANLS_DIR_DIRS = \
+	$(MEMY_DIR) \
+	$(STRG_DIR) \
+
+MEMY_FILES = \
 	compare_bytes \
-	copy_bytes \
+	ft_memory \
+	ft_memzero \
+	is_equal_mem \
+
+STRG_FILES = \
+	create_str \
+	create_str_slice \
+	delete_str \
+	delete_str_slice \
+	is_equal_str \
+	str_utils \
+	utils \
+
+ANLS_FILES = \
+	analysis \
+	and_or \
 	ft_split \
-	ft_string_slice \
-	ft_string \
 	ft_strlcpy \
-	mem_zero \
-	split_string \
-	string_to_char \
-	string_utils \
+	$(addprefix $(MEMY_DIR)/, $(MEMY_FILES)) \
+	$(addprefix $(STRG_DIR)/, $(STRG_FILES)) \
 
 EXEC_FILES = \
 	exe \
@@ -47,17 +63,18 @@ VFLAGS = \
 SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(FILES)))
 
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	@$(CC) $(LFLAGS) $(OBJS) -o $@
+
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 $(OBJS_DIR):
 	@mkdir -p $@
 	@$(foreach dir, $(DIRS), mkdir -p $@/$(dir);)
-
-all: $(NAME)
-
-$(NAME): $(OBJS)
-	@$(CC) $(LFLAGS) $(OBJS) -o $@
+	@$(foreach dir, $(ANLS_DIR_DIRS), mkdir -p $@/$(ANLS_DIR)/$(dir);)
 
 clean:
 	@$(RM) -r $(OBJS_DIR)
