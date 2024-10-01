@@ -6,29 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 00:14:41 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 14:12:20 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:18:08 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
-
-// t_str_list	*get_list_containing_n_char(t_str_slice *str_s, size_t n)
-// {
-// 	size_t		i;
-// 	t_str_list	*str_l;
-
-// 	str_l = str_s->list;
-// 	i = 0;
-// 	while (i < str_s->len)
-// 	{
-// 		if (n < str_l->str->len)
-// 			return (str_l);
-// 		else
-// 			n -= str_l->str->len;
-// 		str_l = str_l->next;
-// 	}
-// 	return (NULL);
-// }
 
 t_str_slice	*split_str_slice_end_n(t_str_slice *str_s, size_t n)
 {
