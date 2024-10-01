@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_cmd_node.c                                  :+:      :+:    :+:   */
+/*   create_pipe_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 11:00:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/30 19:33:19 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/21 20:29:40 by retanaka          #+#    #+#             */
+/*   Updated: 2024/09/30 18:30:27 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_memory.h"
+#include "ft_string.h"
 #include "minishell.h"
 
-void	*delete_cmd_node(t_cmd_node *cmd_n)
+t_pipe_cmd	*create_pipe_cmd(t_str_slice *str_s)
 {
-	t_cmd_node	*head_n;
-	t_cmd_node	*next_n;
+	t_pipe_cmd	*p_cmd;
 
-	head_n = cmd_n;
-	while (1)
-	{
-		next_n = cmd_n->next;
-		cmd_n->op = 0;
-		cmd_n->p_cmd = delete_pipe_cmd(cmd_n->p_cmd);
-		cmd_n->next = NULL;
-		free(cmd_n);
-		if (next_n == head_n)
-			return (NULL);
-		cmd_n = next_n;
-	}
+	p_cmd = ft_calloc(sizeof(t_pipe_cmd));
+	if (!p_cmd)
+		return (NULL);
+	p_cmd->str_s = str_s;
 }
