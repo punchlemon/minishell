@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:18:07 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/30 17:52:04 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/30 23:54:50 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_cmd_node	*analysis(char *src)
 	str = create_str(src);
 	if (!str)
 		return (NULL);
-	if (!trim_space_str(&str)) //// もしかしたらtrim_space_strの引数を少し変える必要があるかも
+	if (!trim_space_str(&str))
 		return (delete_str(str));
 	cmd_n = and_or(str);
 	delete_str(str);

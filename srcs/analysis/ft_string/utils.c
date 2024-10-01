@@ -6,11 +6,17 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:25:33 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/23 16:17:50 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/09/30 22:48:53 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+
+int	ft_isspace(char c)
+{
+	return (c == ' ' || c == '\n' || c == '\t'
+		|| c == '\v' || c == '\f' || c == '\r');
+}
 
 size_t	ft_strlen(char *src)
 {

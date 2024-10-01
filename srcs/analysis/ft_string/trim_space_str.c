@@ -6,18 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:18:57 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/25 09:09:39 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:32:16 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_memory.h"
 #include "ft_string.h"
-
-int	ft_isspace(char c)
-{
-	return (c == ' ' || c == '\n' || c == '\t'
-		|| c == '\v' || c == '\f' || c == '\r');
-}
 
 t_str	*trim_left_space_str(t_str **str_ref)
 {
@@ -38,7 +32,7 @@ t_str	*trim_left_space_str(t_str **str_ref)
 	*str_ref = new_str;
 }
 
-void	trim_right_space_str(t_str *str)
+size_t	trim_right_space_str(t_str *str)
 {
 	size_t	i;
 
@@ -46,10 +40,26 @@ void	trim_right_space_str(t_str *str)
 	while (i < str->len && ft_isspace(str->data[str->len - 1 - i]))
 		i++;
 	if (!i)
-		return ;
+		return (i);
 	ft_memzero(str->data + str->len - i, i);
 	str->len -= i;
-	return ;
+	return (i);
+}
+
+t_str_slice	*trim_right_space_str_slice(t_str_slice *str_s)
+{
+	t_str_list	*head_l;
+	t_str_list	*str_l;
+
+	head_l = str_s->list;
+	str_l = head_l;
+	while (1)
+	{
+		str_s->total_str_len -= trim_right_space_str(str_l->str);
+		str_l = str_l->next;
+		if (str_l == head_l)
+			return (str_s);
+	}
 }
 
 t_str	*trim_space_str(t_str **str_ref)
