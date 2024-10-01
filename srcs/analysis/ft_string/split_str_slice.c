@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 00:14:41 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 14:18:08 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:37:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@ t_str_slice	*split_str_slice_space(t_str_slice *str_s)
 		tmp_s = split_str_space(&(str_l->str));
 		if (!tmp_s)
 			return (NULL);
-		insert_str_slice_n(str_s, tmp_s, i);// 多分remove_listみたいなことしないといけない
+		remove_str_slice_n(str_s, i);
+		insert_str_slice_n(str_s, tmp_s, i);
 		i += tmp_s->len;
-		clear_str_slice(tmp_s);
+		tmp_s->list = NULL;
+		tmp_s->len = 0;
+		tmp_s->total_str_len = 0;
+		free(tmp_s);
 	}
 	return (str_s);
 }

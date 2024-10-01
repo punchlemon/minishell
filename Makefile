@@ -36,9 +36,12 @@ STR_FILES = \
 	create_str_slice \
 	delete_str \
 	delete_str_slice \
+	get_str_slice \
+	insert_str_slice \
 	is_equal_str \
 	put_str_slice \
 	put_str \
+	remove_str_slice \
 	split_str_slice \
 	split_str \
 	str_to_char \

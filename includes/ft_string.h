@@ -56,17 +56,11 @@ void		*delete_str_slice(t_str_slice *strs);
 // delete_str.c
 void		*delete_str(t_str *str);
 
-// find_str.c
-// int			find_first_index_from_str(t_str *target, t_str *key);
-
 // get_str_slice.c
-// t_str_list	*get_str_list_from_str_slice(t_str_slice *str_s, size_t n);
-// char		get_char_from_str_slice(t_str_slice *str_s, size_t n);
-// t_str_list	*get_list_containing_n_char(t_str_slice *str_s, size_t n)
+t_str_list	*get_str_list_from_str_slice(t_str_slice *str_s, size_t n);
 
 // insert_str_slice.c
-// void		insert_str_list(t_str_list *dst_ss, t_str_list *str_l);
-// void		insert_str_slice_n(t_str_slice *dst_s, t_str_slice *src_s, size_t n);
+void		insert_str_slice_n(t_str_slice *dst_s, t_str_slice *src_s, size_t n);
 
 // is_equal_str.c
 int			is_equal_str(t_str *s1, t_str *s2);
@@ -79,8 +73,7 @@ int			put_str(t_str *str, int *len);
 int			put_str_slice(t_str_slice *str_s, int *len);
 
 // remove_str_slice.c
-// t_str_slice	*remove_str_slice_n(t_str_slice *str_s, size_t n);
-// t_str_list	*remove_str_list(t_str_list *str_l);
+t_str_slice	*remove_str_slice_n(t_str_slice *str_s, size_t n);
 
 // split_str_slice.c
 t_str_list	*split_str_slice_end_n(t_str_slice *str_s, size_t n);
