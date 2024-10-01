@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:13:14 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 00:12:02 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:18:45 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,60 @@
 #include "ft_string.h"
 #include "minishell.h"
 
-t_cmd_node	*create_cmd_node_elm(t_str_slice *str_s)
+t_cmd_node	*create_cmd_node_elm(t_str *str, int op)
 {
-	t_cmd_node	*cmd_node;
+	t_str_slice	*str_s;
+	t_cmd_node	*cmd_n;
 
+	cmd_n = ft_calloc(sizeof(t_cmd_node));
+	if (!cmd_n)
+		return (NULL);
+	str_s = create_str_slice(str);
 	if (!str_s)
+		return (free(cmd_n), NULL);
+	cmd_n->p_cmd = create_pipe_cmd(str_s);
+	if (!cmd_n->p_cmd)
+		return (free(cmd_n), delete_str_slice(str_s), NULL);
+	cmd_n->op = op;
+	cmd_n->next = cmd_n;
+	return (cmd_n);
+}
+
+t_cmd_node	*append_cmd_node(t_cmd_node **cmd_n_ref, t_str_list **str_l_ref)
+{
+	t_cmd_node	*cmd_n;
+	int			op;
+
+	if (is_equal_str_src((*str_l_ref)->str, "&&"))
+		op = AND;
+	else
+		op = OR;
+	*str_l_ref = (*str_l_ref)->next;
+	cmd_n = create_cmd_node_elm((*str_l_ref)->str, op);
+	if (!cmd_n)
 		return (NULL);
-	cmd_node = ft_calloc(sizeof(t_cmd_node));
-	if (!cmd_node)
-		return (NULL);
-	cmd_node->op = CMD;
-	cmd_node->p_cmd = create_pipe_cmd(str_s);
-	if (!cmd_node->p_cmd)
-		return (free(cmd_node), NULL);
-	return (cmd_node);
+	cmd_n->next = (*cmd_n_ref);
+	(*cmd_n_ref)->next = cmd_n;
+	*cmd_n_ref = cmd_n;
+	return (*cmd_n_ref);
 }
 
 t_cmd_node	*create_cmd_node(t_str_slice *str_s)
 {
 	t_cmd_node	*cmd_n;
-	t_cmd_node	*tmp_n;
-	t_str		*str;
-	size_t		i;
+	t_str_list	*head_l;
+	t_str_list	*str_l;
 
-	str = str_s->list->str;
-	i = 0;
-	while (i < str_s->len)
+	head_l = str_s->list;
+	cmd_n = create_cmd_node_elm(head_l->str, CMD);
+	if (!cmd_n)
+		return (NULL);
+	str_l = head_l->next;
+	while (str_l != head_l)
 	{
-		if (!compare_str_src(str, "&&"));
-		else if (!compare_str_src(str, "||"));
+		if (!append_cmd_node(&cmd_n, &str_l))
+			return (delete_cmd_node(cmd_n));
+		str_l = str_l->next;
 	}
 	return (cmd_n);
 }

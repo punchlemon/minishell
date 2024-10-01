@@ -6,12 +6,32 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:18:07 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/30 23:54:50 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:32:15 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 #include "minishell.h"
+
+t_cmd_node	*split_cmd_node(t_cmd_node *cmd_n)
+{
+	t_cmd_node	*head_n;
+	t_str_slice	*tmp_s;
+
+	head_n = cmd_n;
+	while (1)
+	{
+		tmp_s = split_str_slice_space(cmd_n->p_cmd->str_s);
+		if (!tmp_s)
+			return (NULL);
+		delete_str_slice(cmd_n->p_cmd->str_s);
+		cmd_n->p_cmd->str_s = tmp_s;
+		cmd_n = cmd_n->next;
+		if (cmd_n == head_n)
+			return (cmd_n);
+	}
+	return (NULL);
+}
 
 t_cmd_node	*analysis(char *src)
 {
@@ -29,5 +49,6 @@ t_cmd_node	*analysis(char *src)
 	delete_str(str);
 	if (!cmd_n)
 		return (NULL);
+	split_cmd_node(cmd_n);
 	return (cmd_n);
 }

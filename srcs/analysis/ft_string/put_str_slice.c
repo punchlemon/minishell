@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:31:40 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/24 03:55:13 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:25:35 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	put_str_slice(t_str_slice *str_s, int *len)
 	int		tmp;
 	size_t	i;
 
+	tmp = 0;
 	i = 0;
 	while (i < str_s->len)
 	{

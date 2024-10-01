@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 22:22:10 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/27 08:29:29 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:25:52 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ t_str_list	*remove_str_list(t_str_list *str_l)
 
 t_str_slice	*remove_str_slice_n(t_str_slice *str_s, size_t n)
 {
-	t_str_list	*prev;
-	t_str_list	*next;
 	t_str_list	*str_l;
 
 	str_l = get_str_list_from_str_slice(str_s, n);

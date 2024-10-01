@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:18:57 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 13:32:16 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:28:56 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_str	*trim_left_space_str(t_str **str_ref)
 		return (NULL);
 	delete_str(str);
 	*str_ref = new_str;
+	return (*str_ref);
 }
 
 size_t	trim_right_space_str(t_str *str)

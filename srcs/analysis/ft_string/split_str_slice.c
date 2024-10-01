@@ -6,11 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 00:14:41 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 14:37:19 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:28:07 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
+#include <stdlib.h>
 
 t_str_slice	*split_str_slice_end_n(t_str_slice *str_s, size_t n)
 {
@@ -33,6 +34,7 @@ t_str_slice	*split_str_slice_space(t_str_slice *str_s)
 	t_str_slice	*tmp_s;
 	size_t		i;
 
+	i = 0;
 	str_l = str_s->list;
 	while (i < str_s->len)
 	{
@@ -46,6 +48,7 @@ t_str_slice	*split_str_slice_space(t_str_slice *str_s)
 		tmp_s->len = 0;
 		tmp_s->total_str_len = 0;
 		free(tmp_s);
+		i++;
 	}
 	return (str_s);
 }

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 20:29:40 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/30 18:30:27 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:19:03 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ t_pipe_cmd	*create_pipe_cmd(t_str_slice *str_s)
 	if (!p_cmd)
 		return (NULL);
 	p_cmd->str_s = str_s;
+	return (p_cmd);
 }

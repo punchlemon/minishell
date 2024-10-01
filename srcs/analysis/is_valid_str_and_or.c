@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:51:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/30 17:57:43 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:50:59 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,20 @@ int	manage_and_or_flag(char *and_or_flag_ref, char c)
 	if (*and_or_flag_ref == 1)
 	{
 		if (c != '&' && c != '|' && c != '\0')
+		{
 			*and_or_flag_ref = 0;
-		else if (is_space(c))
+			return (1);
+		}
+		else if (ft_isspace(c))
 			return (1);
 		else
 			return (0);
 	}
 	else if (c == *and_or_flag_ref)
+	{
 		*and_or_flag_ref = 1;
+		return (1);
+	}
 	else
 		return (0);
 }

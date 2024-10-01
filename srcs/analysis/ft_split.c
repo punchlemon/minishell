@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:34:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/11 19:02:41 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:48:47 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft_string.h"
+#include "minishell.h"
 
 static char	**ft_freemem(char ***p, size_t last_index)
 {

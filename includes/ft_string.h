@@ -24,9 +24,9 @@ typedef struct s_str
 
 typedef struct s_str_list
 {
-	t_str		*str;
-	t_str_list	*next;
-	t_str_list	*prev;
+	t_str				*str;
+	struct s_str_list	*next;
+	struct s_str_list	*prev;
 }	t_str_list;
 
 typedef struct s_str_slice
@@ -76,7 +76,7 @@ int			put_str_slice(t_str_slice *str_s, int *len);
 t_str_slice	*remove_str_slice_n(t_str_slice *str_s, size_t n);
 
 // split_str_slice.c
-t_str_list	*split_str_slice_end_n(t_str_slice *str_s, size_t n);
+t_str_slice	*split_str_slice_end_n(t_str_slice *str_s, size_t n);
 t_str_slice	*split_str_slice_space(t_str_slice *str_s);
 
 // split_str.c

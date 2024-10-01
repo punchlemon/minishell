@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 01:56:33 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 13:33:53 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:35:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_str_slice	*split_str_and_or(t_str *str)
 	while (i < str->len)
 	{
 		c = str->data[i];
-		if (!flag && (c == '&' || c == '|')
-			|| flag && !(c == '&' || c == '|' || ft_isspace(c)))
+		if ((!flag && (c == '&' || c == '|'))
+			|| (flag && !(c == '&' || c == '|' || ft_isspace(c))))
 		{
 			if (!split_str_slice_end_n(str_s, i))
 				return (delete_str_slice(str_s));
@@ -41,6 +41,7 @@ t_str_slice	*split_str_and_or(t_str *str)
 	}
 	return (trim_right_space_str_slice(str_s));
 }
+/// ""や''、()に囲まれた&&や||を検出してその&や|ではsplitしないようにしないといけない
 
 t_cmd_node	*and_or(t_str *str)
 {
@@ -49,7 +50,8 @@ t_cmd_node	*and_or(t_str *str)
 
 	if (!is_valid_str_and_or(str))
 		return (NULL);
-	if (!split_str_and_or(str))
+	str_s = split_str_and_or(str);
+	if (!str_s)
 		return (NULL);
 	cmd_n = create_cmd_node(str_s);
 	if (!cmd_n)

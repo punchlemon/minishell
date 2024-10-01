@@ -25,8 +25,8 @@ CMD_FILES = \
 	delete_pipe_cmd \
 
 MEM_FILES = \
-	compare_bytes \
-	ft_memory \
+	ft_calloc \
+	ft_memcpy \
 	ft_memzero \
 	is_equal_mem \
 
@@ -56,7 +56,7 @@ ANLS_FILES = \
 	ft_split \
 	ft_strlcpy \
 	is_valid_str_and_or \
-	$(addprefix $(CMD_DIR)/, $(STR_FILES)) \
+	$(addprefix $(CMD_DIR)/, $(CMD_FILES)) \
 	$(addprefix $(MEM_DIR)/, $(MEM_FILES)) \
 	$(addprefix $(STR_DIR)/, $(STR_FILES)) \
 

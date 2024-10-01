@@ -6,13 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:18:23 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/30 07:27:35 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:21:10 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	*ft_memcpy(char *dst, char *src, size_t n)
+void	ft_memcpy(char *dst, char *src, size_t n)
 {
 	size_t	i;
 

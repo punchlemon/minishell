@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 14:24:38 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:18:35 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_cmd_node
 // functions
 // cmd
 // create_cmd_node.c
-t_cmd_node	*create_cmd_node_elm(t_str_slice *str_s);
+t_cmd_node	*create_cmd_node_elm(t_str *str, int op);
 t_cmd_node	*create_cmd_node(t_str_slice *str_s);
 
 // create_pipe_cmd.c

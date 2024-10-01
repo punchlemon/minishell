@@ -6,30 +6,31 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:31:12 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/30 06:46:54 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:25:13 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
+#include <stdlib.h>
 
 void	*delete_str_list(t_str_list	*list)
 {
 	t_str_list	*start;
-	t_str_list	*l;
 	t_str_list	*tmp;
 
 	start = list;
 	while (1)
 	{
-		l->str = delete_str(l->str);
-		tmp = l->next;
-		l->prev = NULL;
-		l->next = NULL;
-		free(l);
+		list->str = delete_str(list->str);
+		tmp = list->next;
+		list->prev = NULL;
+		list->next = NULL;
+		free(list);
 		if (tmp == start)
 			return (NULL);
-		l = tmp;
+		list = tmp;
 	}
+	return (NULL);
 }
 
 void	*delete_str_slice(t_str_slice *str_s)

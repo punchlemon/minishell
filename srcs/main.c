@@ -23,8 +23,6 @@ void	execute_first_cmd(int op, char **argv, char **environ, int *status)
 
 void	execute_one_cmd(int op, char **argv, char **environ, int *status)
 {
-	int	status;
-
 	if (op == AND && !*status) /// 前回が成功してる (*status == 0) なら実行する
 		exe(argv, environ);
 	else if (op == OR && *status) /// 前回が失敗してる (*status != 0) なら実行する

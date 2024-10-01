@@ -6,12 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:16:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/30 17:09:13 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:28:40 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_memory.h"
 #include "ft_string.h"
+#include <stdlib.h>
 
 char	*str_to_char_array(t_str *str)
 {
