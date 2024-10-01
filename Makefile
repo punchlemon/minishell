@@ -4,8 +4,9 @@ SRCS_DIR = srcs
 OBJS_DIR = objs
 ANLS_DIR = analysis
 EXEC_DIR = execution
-MEMY_DIR = ft_memory
-STRG_DIR = ft_string
+CMD_DIR = cmd
+MEM_DIR = ft_memory
+STR_DIR = ft_string
 NPK_FLAG = --noprint-directory
 
 DIRS = \
@@ -13,16 +14,24 @@ DIRS = \
 	$(EXEC_DIR) \
 
 ANLS_DIR_DIRS = \
-	$(MEMY_DIR) \
-	$(STRG_DIR) \
+	$(CMD_DIR) \
+	$(MEM_DIR) \
+	$(STR_DIR) \
 
-MEMY_FILES = \
+CMD_FILES = \
+	create_cmd_node \
+	create_pipe_cmd \
+	delete_cmd_node \
+	delete_pipe_cmd \
+
+MEM_FILES = \
 	compare_bytes \
 	ft_memory \
 	ft_memzero \
 	is_equal_mem \
 
-STRG_FILES = \
+STR_FILES = \
+	append_str_slice \
 	create_str \
 	create_str_slice \
 	delete_str \
@@ -30,8 +39,12 @@ STRG_FILES = \
 	is_equal_str \
 	put_str_slice \
 	put_str \
+	split_str_slice \
+	split_str \
 	str_to_char \
 	str_utils \
+	trim_edge_str \
+	trim_space_str \
 	utils \
 
 ANLS_FILES = \
@@ -39,8 +52,10 @@ ANLS_FILES = \
 	and_or \
 	ft_split \
 	ft_strlcpy \
-	$(addprefix $(MEMY_DIR)/, $(MEMY_FILES)) \
-	$(addprefix $(STRG_DIR)/, $(STRG_FILES)) \
+	is_valid_str_and_or \
+	$(addprefix $(CMD_DIR)/, $(STR_FILES)) \
+	$(addprefix $(MEM_DIR)/, $(MEM_FILES)) \
+	$(addprefix $(STR_DIR)/, $(STR_FILES)) \
 
 EXEC_FILES = \
 	exe \

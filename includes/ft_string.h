@@ -38,7 +38,6 @@ typedef struct s_str_slice
 
 // ft_string functions
 // append_str_slice.c
-void		append_str_list_one(t_str_list *dst_l, t_str_list *src_l);
 t_str_slice	*append_str_slice_one_str_no_total(t_str_slice *str_s, t_str *str);
 t_str_slice	*append_str_slice_one_str(t_str_slice *str_s, t_str *str);
 
@@ -61,8 +60,9 @@ void		*delete_str(t_str *str);
 // int			find_first_index_from_str(t_str *target, t_str *key);
 
 // get_str_slice.c
-t_str_list	*get_str_list_from_str_slice(t_str_slice *str_s, size_t n);
+// t_str_list	*get_str_list_from_str_slice(t_str_slice *str_s, size_t n);
 // char		get_char_from_str_slice(t_str_slice *str_s, size_t n);
+// t_str_list	*get_list_containing_n_char(t_str_slice *str_s, size_t n)
 
 // insert_str_slice.c
 // void		insert_str_list(t_str_list *dst_ss, t_str_list *str_l);
@@ -82,13 +82,13 @@ int			put_str_slice(t_str_slice *str_s, int *len);
 // t_str_slice	*remove_str_slice_n(t_str_slice *str_s, size_t n);
 // t_str_list	*remove_str_list(t_str_list *str_l);
 
+// split_str_slice.c
+t_str_list	*split_str_slice_end_n(t_str_slice *str_s, size_t n);
+t_str_slice	*split_str_slice_space(t_str_slice *str_s);
+
 // split_str.c
 t_str		*split_str_in_two(t_str *str, size_t len);
-t_str_slice	*split_str_space(t_str *str);
-
-// split_str_slice.c
-// t_str_list	*split_str_slice_end_n(t_str_slice *str_s, size_t n);
-// t_str_slice	*split_str_slice_space(t_str_slice *str_s);
+t_str_slice	*split_str_space(t_str **str_ref);
 
 // str_to_char.c
 char		*str_to_char_array(t_str *str);
@@ -105,9 +105,13 @@ void		trim_right_edge_str(t_str *str);
 t_str		*trim_edge_str(t_str **str_ref);
 
 // trim_space_str.c
+t_str		*trim_left_space_str(t_str **str_ref);
+size_t		trim_right_space_str(t_str *str);
+t_str_slice	*trim_right_space_str_slice(t_str_slice *str_s);
 t_str		*trim_space_str(t_str **str_ref);
 
 // utils.c
+int			ft_isspace(char c);
 size_t		ft_strlen(char *src);
 int			put(char *src);
 int			put_len(char *src, size_t len);
