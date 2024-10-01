@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/30 19:42:49 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:24:38 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,17 @@ typedef struct s_cmd_node
 
 // functions
 // cmd
+// create_cmd_node.c
 t_cmd_node	*create_cmd_node_elm(t_str_slice *str_s);
 t_cmd_node	*create_cmd_node(t_str_slice *str_s);
+
+// create_pipe_cmd.c
 t_pipe_cmd	*create_pipe_cmd(t_str_slice *str_s);
+
+// delete_cmd_node.c
 void		*delete_cmd_node(t_cmd_node *cmd_n);
+
+// delete_pipe_cmd.c
 void		*delete_pipe_cmd(t_pipe_cmd *p_cmd);
 
 // analysis
@@ -62,9 +69,6 @@ int			is_valid_str_and_or(t_str *str);
 
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char		**ft_split(char const *s, char c);
-size_t		ft_strlen(char *src);
-int			put(char *src);
-int			put_len(char *src, size_t len);
 
 void		exe(char **srcs, char **environ);
 char		*ft_strchr(const char *s, int c);
