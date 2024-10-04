@@ -39,7 +39,7 @@ void	execute(t_cmd_node *cmd_n, char **environ)
 	int		status;
 
 	i = 0;
-	while (1)
+	while (cmd_n)
 	{
 		argv = str_slice_to_char_pntr_array(cmd_n->p_cmd->str_s);
 		if (!argv)
@@ -68,6 +68,7 @@ int	main(int argc, char **argv, char **environ)
 		if (*line)
 			add_history(line);
 		cmd_n = analysis(line);
+		// print_cmd_node(cmd_n);
 		if (!cmd_n)
 			continue ;
 		execute(cmd_n, environ);

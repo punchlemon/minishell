@@ -23,6 +23,7 @@ CMD_FILES = \
 	create_pipe_cmd \
 	delete_cmd_node \
 	delete_pipe_cmd \
+	print_cmd_node \
 
 MEM_FILES = \
 	ft_calloc \

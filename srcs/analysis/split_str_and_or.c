@@ -17,8 +17,8 @@ int	move_quote(char *src, size_t *l)
 {
 	char	c;
 
-	c = src[(*l)++];
-	while (!src[(*l)++])
+	c = src[*l];
+	while (src[++(*l)])
 	{
 		if (src[*l] == c)
 			return (1);
@@ -30,7 +30,7 @@ int	move_paren(char *src, size_t *l)
 {
 	char	c;
 
-	while (!src[*l])
+	while (src[*l])
 	{
 		c = src[*l];
 		if (c == '"' || c == '\'')
@@ -73,7 +73,7 @@ int	check_and_or(t_str_slice *str_s, char *src, size_t *i, size_t *l)
 		if (!c || c == '&' || c == '|')
 			return (0);
 		if (!ft_isspace(c))
-			return (*i += (*l + 2 + n), *l = 0, 1);
+			return (*i += (*l + 2 + n - 1), *l = 0, 1);
 		n++;
 	}
 }
@@ -101,7 +101,6 @@ int	move_word(t_str_slice *str_s, char *src, size_t *i, size_t *l)
 	}
 	else if (c == ')')
 		return (0);
-	else
-		(*l)++;
+	(*l)++;
 	return (1);
 }

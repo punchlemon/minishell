@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 17:40:51 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:13:47 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,16 @@ t_cmd_node	*create_cmd_node_elm(t_str *str, int op);
 t_cmd_node	*create_cmd_node(t_str_slice *str_s);
 
 // create_pipe_cmd.c
-t_pipe_cmd	*create_pipe_cmd(t_str_slice *str_s);
+t_pipe_cmd	*create_pipe_cmd(t_str *str);
 
 // delete_cmd_node.c
 void		*delete_cmd_node(t_cmd_node *cmd_n);
 
 // delete_pipe_cmd.c
 void		*delete_pipe_cmd(t_pipe_cmd *p_cmd);
+
+// print_cmd_node.c
+void		print_cmd_node(t_cmd_node *cmd_n);
 
 // analysis
 // analysis.c
