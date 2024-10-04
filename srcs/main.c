@@ -68,6 +68,8 @@ int	main(int argc, char **argv, char **environ)
 		if (*line)
 			add_history(line);
 		cmd_n = analysis(line);
+		if (!cmd_n)
+			continue ;
 		execute(cmd_n, environ);
 		delete_cmd_node(cmd_n);
 		free(line);

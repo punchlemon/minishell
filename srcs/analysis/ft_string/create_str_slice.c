@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:28:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 16:23:37 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:43:53 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_str_list	*create_str_list(t_str *str)
 	list = ft_calloc(sizeof(t_str_list));
 	if (!list)
 		return (NULL);
-	new = create_str(str->data);
+	new = create_str_len(str->data, str->len);
 	if (!new)
 		return (free(list), NULL);
 	list->next = list;

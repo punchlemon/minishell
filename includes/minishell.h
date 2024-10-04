@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 16:18:35 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:40:51 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,16 @@ void		*delete_pipe_cmd(t_pipe_cmd *p_cmd);
 t_cmd_node	*analysis(char *src);
 
 // and_or.c
-t_cmd_node	*and_or(t_str *str);
+t_cmd_node	*and_or(t_str **str_ref);
 
 // is_valid_str_and_or.c
 int			is_valid_str_and_or(t_str *str);
+
+// split_str_and_or.c
+int	move_quote(char *src, size_t *l);
+int	move_paren(char *src, size_t *l);
+int	check_and_or(t_str_slice *str_s, char *src, size_t *i, size_t *l);
+int	move_word(t_str_slice *str_s, char *src, size_t *i, size_t *l);
 
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char		**ft_split(char const *s, char c);

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:30:20 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 16:23:47 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:48:31 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	*delete_str(t_str *str)
 	free(str->data);
 	str->data = NULL;
 	str->len = 0;
-	str->cap = 0;
 	free(str);
 	return (NULL);
 }

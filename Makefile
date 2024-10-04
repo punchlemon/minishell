@@ -39,13 +39,13 @@ STR_FILES = \
 	get_str_slice \
 	insert_str_slice \
 	is_equal_str \
+	put_num \
 	put_str_slice \
 	put_str \
 	remove_str_slice \
 	split_str_slice \
 	split_str \
 	str_to_char \
-	str_utils \
 	trim_edge_str \
 	trim_space_str \
 	utils \
@@ -56,6 +56,7 @@ ANLS_FILES = \
 	ft_split \
 	ft_strlcpy \
 	is_valid_str_and_or \
+	split_str_and_or \
 	$(addprefix $(CMD_DIR)/, $(CMD_FILES)) \
 	$(addprefix $(MEM_DIR)/, $(MEM_FILES)) \
 	$(addprefix $(STR_DIR)/, $(STR_FILES)) \

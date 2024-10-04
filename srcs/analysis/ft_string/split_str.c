@@ -6,60 +6,52 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 17:46:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 13:40:53 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:29:37 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_memory.h"
 #include "ft_string.h"
 
-t_str	*split_str_in_two(t_str *str, size_t len)
+size_t	count_word_len(char *src)
 {
-	t_str		*str_right;
+	char	c;
+	size_t	i;
 
-	str_right = create_str_len(str->data + len , str->len - len);
-	if (!str_right)
-		return (NULL);
-	trim_right_str_n(str, len);
-	return (str_right);
+	i = 0;
+	while (1)
+	{
+		c = src[i];
+		if (ft_isspace(c) || !c)
+			break ;
+		i++;
+	}
+	return (i);
 }
 
-t_str_slice	*split_str_space_trail_space(t_str *str)
+t_str_slice	*split_str_space(t_str *str)
 {
 	t_str_slice	*str_s;
-	int			flag;
+	t_str		*tmp;
+	size_t		l;
 	size_t		i;
 
-	str_s = create_str_slice(str);
+	str_s = ft_calloc(sizeof(t_str_slice));
 	if (!str_s)
 		return (NULL);
-	flag = 0;
 	i = 0;
 	while (i < str->len)
 	{
-		if (flag && !ft_isspace(str->data[i]))
+		if (!ft_isspace(str->data[i]))
 		{
-			if (!split_str_slice_end_n(str_s, i))
+			l = count_word_len(str->data + i);
+			tmp = create_str_len(str->data + i, l);
+			if (!append_str_slice_one_str(str_s, tmp))
 				return (delete_str_slice(str_s));
-			flag = 0;
-			i = 0;
-			continue ;
+			i += l;
 		}
-		else if (!flag && ft_isspace(str->data[i]))
-			flag = 1;
 		i++;
 	}
 	return (str_s);
 }
-
-t_str_slice	*split_str_space(t_str **str_ref)
-{
-	t_str_slice	*str_s;
-
-	if (!trim_left_space_str(str_ref))
-		return (NULL);
-	str_s = split_str_space_trail_space(*str_ref);
-	if (!str_s)
-		return (NULL);
-	return (trim_right_space_str_slice(str_s));
-}
+/// iとlをsplit_str_spaceだけで管理して、iのアドレスを渡すことで管理した方がいいと思う

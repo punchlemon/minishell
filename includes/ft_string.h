@@ -18,7 +18,6 @@
 typedef struct s_str
 {
 	size_t	len;
-	size_t	cap;
 	char	*data;
 }	t_str;
 
@@ -40,6 +39,7 @@ typedef struct s_str_slice
 // append_str_slice.c
 t_str_slice	*append_str_slice_one_str_no_total(t_str_slice *str_s, t_str *str);
 t_str_slice	*append_str_slice_one_str(t_str_slice *str_s, t_str *str);
+t_str_slice	*append_str_slice(t_str_slice *dst_s, t_str_slice *src_s);
 
 // create_str_slice.c
 t_str_list	*create_str_list(t_str *str);
@@ -66,11 +66,18 @@ void		insert_str_slice_n(t_str_slice *dst_s, t_str_slice *src_s, size_t n);
 int			is_equal_str(t_str *s1, t_str *s2);
 int			is_equal_str_src(t_str *str, char *src);
 
+// put_num.c
+int			put_num(int num);
+int			put_unum(unsigned int num);
+
 // put_str.c
-int			put_str(t_str *str, int *len);
+void		put_str_no_nl(t_str *str);
+void		put_str(t_str *str);
+int			put_str_len(t_str *str, int *len);
 
 // put_str_slice.c
-int			put_str_slice(t_str_slice *str_s, int *len);
+void		put_str_slice(t_str_slice *str_s);
+int			put_str_slice_len(t_str_slice *str_s, int *len);
 
 // remove_str_slice.c
 t_str_slice	*remove_str_slice_n(t_str_slice *str_s, size_t n);
@@ -79,17 +86,16 @@ t_str_slice	*remove_str_slice_n(t_str_slice *str_s, size_t n);
 t_str_slice	*split_str_slice_end_n(t_str_slice *str_s, size_t n);
 t_str_slice	*split_str_slice_space(t_str_slice *str_s);
 
+// split_str_and_or.c
+t_str_slice	*split_str_ref_and_or(t_str **str_ref);
+
 // split_str.c
-t_str		*split_str_in_two(t_str *str, size_t len);
-t_str_slice	*split_str_space(t_str **str_ref);
+t_str_slice	*split_str_space(t_str *str);
 
 // str_to_char.c
 char		*str_to_char_array(t_str *str);
 void		*free_char_pntr_array(char **p_arr, size_t n);
 char		**str_slice_to_char_pntr_array(t_str_slice *str_s);
-
-// str_utils.c
-int			update_cap(t_str *str);
 
 // trim_edge_str.c
 void		trim_right_str_n(t_str *str, size_t n);
