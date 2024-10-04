@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:03:59 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/23 21:56:46 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/04 22:16:32 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int	find_first_index_from_str(t_str *target, t_str *key)
 {
 	size_t	i;
+
 	if (key->len == 0)
 		return (target->len);
 	if (target->len < key->len)

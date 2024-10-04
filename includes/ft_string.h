@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:49:10 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/24 03:45:03by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/04 22:19:33 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ void		*delete_str(t_str *str);
 
 // get_str_slice.c
 t_str_list	*get_str_list_from_str_slice(t_str_slice *str_s, size_t n);
-
-// insert_str_slice.c
-void		insert_str_slice_n(t_str_slice *dst_s, t_str_slice *src_s, size_t n);
 
 // is_equal_str.c
 int			is_equal_str(t_str *s1, t_str *s2);

@@ -38,7 +38,6 @@ STR_FILES = \
 	delete_str \
 	delete_str_slice \
 	get_str_slice \
-	insert_str_slice \
 	is_equal_str \
 	put_num \
 	put_str_slice \

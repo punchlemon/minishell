@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 01:56:33 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 21:40:00 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/04 22:17:39 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_memory.h"
 #include "minishell.h"
 
-t_str_slice *split_str_and_or_init(t_str *str)
+t_str_slice	*split_str_and_or_init(t_str *str)
 {
 	t_str_slice	*str_s;
 
@@ -60,7 +60,7 @@ t_cmd_node	*and_or(t_str **str_ref)
 	str_s = split_str_ref_and_or(str_ref);
 	if (!str_s)
 		return (NULL);
-		cmd_n = create_cmd_node(str_s);
+	cmd_n = create_cmd_node(str_s);
 	delete_str_slice(str_s);
 	if (!cmd_n)
 		return (NULL);

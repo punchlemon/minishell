@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 10:51:50 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 18:48:08 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/04 22:16:25 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	append_str_list_one(t_str_list *dst_l, t_str_list *src_l)
 {
 	t_str_list	*dst_head;
 	t_str_list	*dst_tail;
+
 	dst_head = dst_l;
 	dst_tail = dst_head->prev;
 	dst_head->prev = src_l;
