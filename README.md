@@ -39,6 +39,8 @@ make ; ./minishell
 * [https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_10](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_10)
 
 ## :moyai: Author
+* [noburestaurant](https://github.com/noburestaurant)
+* [punchlemon](https://github.com/punchlemon)
 
 ## :black_nib: Licence
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
