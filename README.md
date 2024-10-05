@@ -1,5 +1,4 @@
 # :ocean: Minishell
-> Shell reimplementation.
 
 ## :full_moon_with_face: Demo
 
