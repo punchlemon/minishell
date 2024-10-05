@@ -9,7 +9,7 @@
 
 ## :gun: Usage
 ```
-git clone git@github.com:punchlemon/minishell
+git clone git@github.com:punchlemon/minishell ; cd minishell
 ```
 ```
 make ; ./minishell
@@ -31,6 +31,10 @@ make ; ./minishell
 </p>
 
 ## :memo: Reference
+* [https://github.com/Wolframike/minishell/wiki/minishell-syntax-diagram](https://github.com/Wolframike/minishell/wiki/minishell-syntax-diagram)
+* [https://github.com/harsssh/minishell/wiki/Railroad-Diagram](https://github.com/harsssh/minishell/wiki/Railroad-Diagram)
+* [https://www.bottlecaps.de/rr/ui](https://www.bottlecaps.de/rr/ui)
+* [https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_10](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_10)
 
 ## :moyai: Author
 
@@ -38,6 +42,8 @@ make ; ./minishell
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## :memo: To-Do
+- [ ] 現状ではand_orには対応しているが、'|'一文字をキャンセルしているのでパイプに対応していない。これを対応させる "fix pipe"
+- [ ] pipeの構造体名が少し違和感があるのでpipeに変更する
 
 ## :rocket: WIP
 
