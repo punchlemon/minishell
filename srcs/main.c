@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 18:01:19 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:09:25 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	execute_first_cmd(int op, char **argv, char **environ, int *status)
 {
 	if (op == CMD)
-		exe(argv, environ);
+		exe(argv, environ, status);
 	else
 	{
 		put_unum((unsigned int)op);
 		exit(1);
 	}
-	*status = 0; /// 本来はstatusをexeの結果によって更新する必要がある
+	// *status = 0; /// 本来はstatusをexeの結果によって更新する必要がある
 }
 
 void	execute_one_cmd(int op, char **argv, char **environ, int *status)
@@ -29,19 +29,19 @@ void	execute_one_cmd(int op, char **argv, char **environ, int *status)
 	if (op == AND)
 	{
 		if (!*status) /// 前回が成功してる (*status == 0) なら実行する
-			exe(argv, environ);
+			exe(argv, environ, status);
 	}
 	else if (op == OR)
 	{
 		if (*status) /// 前回が失敗してる (*status != 0) なら実行する
-			exe(argv, environ);
+			exe(argv, environ, status);
 	}
 	else
 	{
 		put_unum((unsigned int)op);
 		exit(1);
 	}
-	*status = 0; /// 本来はstatusをexeの結果によって更新する必要がある
+	// *status = 0; /// 本来はstatusをexeの結果によって更新する必要がある
 }
 
 void	execute(t_cmd_node *cmd_n, char **environ)
