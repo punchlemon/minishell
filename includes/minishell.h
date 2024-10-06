@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 22:19:56 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 17:08:11 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		print_cmd_node(t_cmd_node *cmd_n);
 
 // analysis
 // analysis.c
-t_cmd_node	*analysis(char *src);
+int			analysis(char *src, t_cmd_node **cmd_n_ref);
 
 // and_or.c
 t_cmd_node	*and_or(t_str **str_ref);

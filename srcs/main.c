@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 22:25:03 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:01:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,9 @@ int	main(int argc, char **argv, char **environ)
 {
 	char		*line;
 	t_cmd_node	*cmd_n;
+	int			res;
 
+	res = 0;
 	(void)argc;
 	(void)argv;
 	while (1)
@@ -79,10 +81,12 @@ int	main(int argc, char **argv, char **environ)
 			break ;
 		if (*line)
 			add_history(line);
-		cmd_n = analysis(line);
-		// print_cmd_node(cmd_n);
-		if (!cmd_n)
+		res = analysis(line, &cmd_n);
+		if (res == 2)
+			exit(0);
+		if (res == 1 || !cmd_n)
 			continue ;
+		// print_cmd_node(cmd_n);
 		execute(cmd_n, environ);
 		delete_cmd_node(cmd_n);
 		free(line);
