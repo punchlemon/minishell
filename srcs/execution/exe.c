@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 16:43:14 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:46:01 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,19 @@ void	exec_child(char **srcs, char **splited_path_envp, char **environ)
 	execve(path_cmd, srcs, environ);
 }
 
+void	free_two_dimention_array(char **strs)
+{
+	int	i;
+
+	i = 0;
+	while (strs[i])
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
+}
+
 void	exe(char **srcs, char **environ, int *status)
 {
 	char	**splited_path_envp;
@@ -143,6 +156,7 @@ void	exe(char **srcs, char **environ, int *status)
 	else if (child == 0)
 		exec_child(srcs, splited_path_envp, environ);
 	waitpid(child, status, 0);
+	free_two_dimention_array(splited_path_envp);
 	delete_pp(srcs);
 	if (WIFEXITED(*status))
 		WEXITSTATUS(*status);
