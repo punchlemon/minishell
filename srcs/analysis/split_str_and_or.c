@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 11:39:38 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 22:16:51 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 12:16:33 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ int	check_and_or(t_str_slice *str_s, char *src, size_t *i, size_t *l)
 	size_t	n;
 
 	c = src[*l];
-	if ((!*i && !*l) || c != src[*l + 1])
+	if ((!*i && !*l) || (c == '&' && src[*l + 1] != '&'))
 		return (0);
+	if (c != src[*l + 1])
+		return ((*l)++, 1);
 	str = create_str_len(src, *l);
 	if (!str || !append_str_slice_one_str(str_s, str))
 		return (0);
