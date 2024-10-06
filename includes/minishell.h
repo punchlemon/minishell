@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 22:19:56 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:36:46 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ int			move_word(t_str_slice *str_s, char *src, size_t *i, size_t *l);
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char		**ft_split(char const *s, char c);
 
-void		exe(char **srcs, char **environ);
+// void		exe(char **srcs, char **environ);
+void		exe(char **srcs, char **environ, int *status);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strjoin(char *s1, char *s2);
 
