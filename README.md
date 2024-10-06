@@ -46,11 +46,11 @@ make ; ./minishell
 
 ## :memo: To-Do
 - [ ] pipeの構造体名が少し違和感があるのでpipeに変更する "change name p_cmd -> pipe"
-- [ ] exitでminishellを終了できるようにする "enable exit"
 - [ ] ctrl+cでプログラムが終了しないようにする "disable ctrl+c"
-- [ ] ただ改行が入力されたときに改行のみを出力する部分を関数かする "functionalize enter"
 
 ## :rocket: WIP
 
 ## :star2: Done
+- [x] ただ改行が入力されたときに改行のみを出力する部分を関数かする "functionalize enter"
+- [x] exitでminishellを終了できるようにする "enable exit"
 - [x] 現状ではand_orには対応しているが、'|'一文字をキャンセルしているのでパイプに対応していない。これを対応させる "fix pipe"
