@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 18:09:25 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:27:26 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	execute(t_cmd_node *cmd_n, char **environ)
 			execute_first_cmd(cmd_n->op, argv, environ, &status);
 		else
 			execute_one_cmd(cmd_n->op, argv, environ, &status);
+		free_char_pntr_array(argv, cmd_n->p_cmd->str_s->len);
 		cmd_n = cmd_n->next;
 		i++;
 	}
@@ -83,9 +84,9 @@ int	main(int argc, char **argv, char **environ)
 			add_history(line);
 		res = analysis(line, &cmd_n);
 		if (res == 2)
-			exit(0);
+			return (free(line), 0);
 		if (res == 1 || !cmd_n)
-			continue ;
+			continue ;			/// ちゃんとmemoryをfreeする
 		// print_cmd_node(cmd_n);
 		execute(cmd_n, environ);
 		delete_cmd_node(cmd_n);

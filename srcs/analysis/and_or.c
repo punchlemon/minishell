@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 01:56:33 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 22:17:39 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:42:11 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ t_str_slice	*split_str_ref_and_or(t_str **str_ref)
 		if (!move_word(str_s, str->data + i, &i, &l))
 			return (delete_str_slice(str_s));
 	}
-	str = create_str_len(str->data + i, l);
-	if (!str || !append_str_slice_one_str(str_s, str))
+	if (!str)
 		return (NULL);
+	if (!append_str_slice_one_src_len(str_s, str->data + i, l))
+		return (delete_str(str));
 	return (str_s);
 }
 

@@ -109,4 +109,3 @@ VALGRIND_LOG = valgrind.log
 
 val: re
 	@valgrind $(VFLAGS) ./$(NAME) > $(VALGRIND_LOG) 2>&1
-	@code $(VALGRIND_LOG)

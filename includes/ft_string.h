@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:49:10 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 22:19:33 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:39:52 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_str_slice
 // append_str_slice.c
 t_str_slice	*append_str_slice_one_str_no_total(t_str_slice *str_s, t_str *str);
 t_str_slice	*append_str_slice_one_str(t_str_slice *str_s, t_str *str);
+t_str_slice	*append_str_slice_one_src_len(t_str_slice *str_s, char *src
+	, size_t len);
 t_str_slice	*append_str_slice(t_str_slice *dst_s, t_str_slice *src_s);
 
 // create_str_slice.c
