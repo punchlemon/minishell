@@ -87,7 +87,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(FILES)))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(LFLAGS) $(OBJS) -o $@
+	@$(CC) $(OBJS) $(LFLAGS) -o $@
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
