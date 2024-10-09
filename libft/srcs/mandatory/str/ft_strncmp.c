@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:58:49 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 13:35:37 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:33:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	{
 		if (c1[i] != c2[i])
 			return (c1[i] - c2[i]);
-		if (c1[i] == '\0')
+		if (!c1[i])
 			break ;
 		i++;
 	}
