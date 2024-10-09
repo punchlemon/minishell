@@ -6,86 +6,119 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:34:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 16:31:45 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:27:05 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "ft_string.h"
-#include "minishell.h"
 
-static char	**ft_freemem(char ***p, size_t last_index)
+static void	ft_count_words(size_t *word_count, const char *src, char c)
 {
 	size_t	i;
 
-	i = -1;
-	while (++i < last_index)
-	{
-		free(*(char **)((*p) + i));
-		*(char **)((*p) + i) = NULL;
-	}
-	free(*p);
-	*p = NULL;
-	return (NULL);
-}
-
-static int	ft_countword(char const *s, char c)
-{
-	size_t	count;
-
-	count = 0;
-	while (*s)
-	{
-		while (*s && *s == c)
-			s++;
-		if (*s)
-			count++;
-		while (*s && *s != c)
-			s++;
-	}
-	return (count);
-}
-
-static char	*ft_storeword(char const **s, char c)
-{
-	char	*temp;
-	size_t	len;
-
-	len = 0;
-	while (**s != '\0' && **s != c)
-	{
-		len++;
-		(*s)++;
-	}
-	temp = malloc((len + 1) * sizeof(char));
-	if (temp != NULL)
-		ft_strlcpy(temp, *s - len, len + 1);
-	return (temp);
-}
-
-char	**ft_split(const char *s, char c)
-{
-	char	**buff;
-	size_t	i;
-
-	if (s == NULL)
-		return (NULL);
-	buff = malloc((ft_countword(s, c) + 1) * sizeof(char *));
-	if (buff == NULL)
-		return (NULL);
+	*word_count = 0;
 	i = 0;
-	while (*s)
+	while (src[i])
 	{
-		while (*s && *s == c)
-			s++;
-		if (*s)
+		while (src[i] && src[i] == c)
+			i++;
+		if (src[i])
+			(*word_count)++;
+		while (src[i] && src[i] != c)
+			i++;
+	}
+}
+
+static void	ft_count_word_lengths(size_t *word_lengths, const char *src, char c)
+{
+	size_t	i;
+	size_t	j;
+	size_t	word_length;
+
+	word_length = 0;
+	j = 0;
+	i = 0;
+	while (src[i])
+	{
+		while (src[i] && src[i] == c)
+			i++;
+		while (src[i] && src[i] != c)
 		{
-			buff[i] = ft_storeword(&s, c);
-			if (buff[i] == NULL)
-				return (ft_freemem(&buff, i));
+			word_length++;
 			i++;
 		}
+		word_lengths[j] = word_length;
+		j++;
 	}
-	*(char **)(buff + i) = NULL;
-	return (buff);
+}
+
+static char	**allocate_word_memory(size_t *word_lengths, char **pp
+	, size_t word_count)
+{
+	size_t	i;
+
+	pp[word_count] = NULL;
+	i = 0;
+	while (i < word_count)
+	{
+		pp[i] = malloc(sizeof(char) * (word_lengths[i] + 1));
+		if (!pp[i])
+		{
+			while (i--)
+			{
+				free(pp[i]);
+				pp[i] = NULL;
+			}
+			free(pp);
+			pp = NULL;
+			break ;
+		}
+		i++;
+	}
+	while (word_count--)
+		word_lengths[word_count] = 0;
+	return (free(word_lengths), pp);
+}
+
+static void	ft_store_words(char **pp, const char *src, char c)
+{
+	size_t	i;
+	size_t	j;
+	size_t	k;
+
+	j = 0;
+	i = 0;
+	while (src[i])
+	{
+		k = 0;
+		while (src[i] && src[i] == c)
+			i++;
+		while (src[i] && src[i] != c)
+		{
+			pp[j][k] = src[i];
+			i++;
+			k++;
+		}
+		j++;
+	}
+}
+
+char	**ft_split(const char *src, char c)
+{
+	char	**pp;
+	size_t	word_count;
+	size_t	*word_lengths;
+
+	ft_count_words(&word_count, src, c);
+	word_lengths = malloc(sizeof(size_t) * (word_count));
+	if (!word_lengths)
+		return (NULL);
+	ft_count_word_lengths(word_lengths, src, c);
+	pp = malloc(sizeof(char *) * (word_count + 1));
+	if (!pp)
+		return (free(word_lengths), NULL);
+	if (!allocate_word_memory(word_lengths, pp, word_count))
+		return (NULL);
+	ft_store_words(pp, src, c);
+	return (pp);
 }

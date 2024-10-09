@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 01:56:33 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 14:23:45 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:44:20 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ t_str_arr	*split_str_ref_and_or(t_str **str_ref)
 	return (str_arr);
 }
 
-t_and_or	*and_or(t_str **str_ref)
+t_and_or	*and_or(char *src)
 {
-	t_str_arr	*str_arr;
+	char		**pp;
 	t_and_or	*and_or;
 
-	str_arr = split_str_ref_and_or(str_ref);
-	if (!str_arr)
+	pp = split_and_or(src);
+	if (!pp)
 		return (NULL);
-	and_or = create_and_or(str_arr);
-	delete_str_arr(str_arr);
+	and_or = create_and_or(pp);
+	delete_str_arr(pp);
 	if (!and_or)
 		return (NULL);
 	return (and_or);
