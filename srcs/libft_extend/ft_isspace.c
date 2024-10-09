@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memzero.c                                       :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 17:46:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/30 06:55:28 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/09 14:58:46 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/09 15:01:03 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-void	ft_memzero(char *dst, size_t n)
+int	ft_isspace(const char c)
 {
-	while (n--)
-		dst[n] = 0;
+	return (c == ' ' || c == '\n' || c == '\t'
+		|| c == '\v' || c == '\f' || c == '\r');
 }

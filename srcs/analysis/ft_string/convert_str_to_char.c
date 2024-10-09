@@ -6,12 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:16:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 19:23:30 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:25:36 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_memory.h"
 #include "ft_string.h"
+#include "libft_extend.h"
 #include <stdlib.h>
 
 char	*convert_str_to_char_p(t_str *str)
@@ -23,20 +24,6 @@ char	*convert_str_to_char_p(t_str *str)
 		return (NULL);
 	ft_memcpy(p, str->data, str->len);
 	return (p);
-}
-
-void	*free_char_pp(char **pp)
-{
-	size_t	i;
-
-	i = 0;
-	while (pp[i])
-	{
-		free(pp[i]);
-		i++;
-	}
-	free(pp);
-	return (NULL);
 }
 
 char	**convert_str_arr_to_char_pp(t_str_arr *str_arr)
@@ -56,7 +43,7 @@ char	**convert_str_arr_to_char_pp(t_str_arr *str_arr)
 		str = str_l->str;
 		pp[i] = convert_str_to_char_p(str);
 		if (!pp[i])
-			return (free_char_pp(pp));
+			return (free_pp(pp), NULL);
 		str_l = str_l->next;
 		i++;
 	}

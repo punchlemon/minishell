@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 19:05:07 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 14:35:28 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:27:59 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_and_or	*create_and_or_elm(t_str *str, int op)
 	and_or = ft_calloc(sizeof(t_and_or));
 	if (!and_or)
 		return (NULL);
-	and_or->pipe = create_pipe(str);
+	and_or->pipe = create_pipe(src);
 	if (!and_or->pipe)
 		return (free(and_or), NULL);
 	and_or->op = op;

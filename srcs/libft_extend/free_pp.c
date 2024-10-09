@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   free_pp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 12:18:23 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 16:21:10 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/09 15:22:48 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/09 15:24:16 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stdlib.h>
 
-void	ft_memcpy(char *dst, char *src, size_t n)
+void	free_pp(void **pp)
 {
 	size_t	i;
 
-	if (src > dst)
+	i = 0;
+	while (pp[i])
 	{
-		i = 0;
-		while (i < n)
-		{
-			dst[i] = src[i];
-			i++;
-		}
+		free(pp[i]);
+		i++;
 	}
-	else if (src < dst)
-		while (n--)
-			dst[n] = src[n];
+	free(pp);
 }

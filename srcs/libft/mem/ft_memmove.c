@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 22:59:26 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 16:20:12 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/16 12:18:23 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/09 15:17:12 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include <stdlib.h>
+#include <unistd.h>
 
-void	*ft_calloc(size_t n)
+void	*ft_memmove(void *dst, const void *src, size_t n)
 {
-	void	*p;
+	size_t		i;
+	char		*d;
+	const char	*s;
 
-	p = malloc(n);
-	if (!p)
+	if (dst == NULL && src == NULL)
 		return (NULL);
-	ft_memzero(p, n);
-	return (p);
+	if (s > d)
+	{
+		i = 0;
+		while (i < n)
+		{
+			d[i] = s[i];
+			i++;
+		}
+	}
+	else if (s < d)
+		while (n--)
+			d[n] = s[n];
+	return (dst);
 }

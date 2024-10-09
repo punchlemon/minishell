@@ -1,27 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_equal_mem.c                                     :+:      :+:    :+:   */
+/*   ft_split_func.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 21:40:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/09/23 21:42:47 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/09 14:59:38 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/09 15:00:42 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-int	is_equal_mem(char *s1, char *s2, size_t n)
+char	**ft_split_func(const char *src, int (*f)(const char c))
 {
-	size_t	i;
-
-	i = 0;
-	while (i < n)
-	{
-		if (s1[i] != s2[i])
-			return (0);
-		i++;
-	}
-	return (1);
 }

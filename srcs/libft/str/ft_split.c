@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:34:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 14:48:47 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:31:45 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	*ft_storeword(char const **s, char c)
 	return (temp);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(const char *s, char c)
 {
 	char	**buff;
 	size_t	i;

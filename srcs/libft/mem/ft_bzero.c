@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_cmd.c                                       :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 12:26:13 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 15:19:34 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/11 17:46:04 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/09 15:12:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "ft_string.h"
-#include "libft_extend.h"
-#include "minishell.h"
+#include <unistd.h>
 
-t_cmd	*create_cmd(const char *src)
+void	ft_bzero(void *dst, size_t n)
 {
-	t_cmd		*cmd;
-	char		**splitted_src;
+	char	*d;
 
-	splitted_src = ft_split_func(src, ft_isspace);
-	if (!splitted_src)
-		return (NULL);
-	cmd = ft_calloc(sizeof(t_cmd));
-	cmd->argv = splitted_src;
-	cmd->in = 0;
-	cmd->out = 0;///// io_redirectによってfdが入れられる
-	return (cmd);
+	d = (char *)dst;
+	while (n--)
+		d[n] = 0;
 }

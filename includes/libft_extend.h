@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.h                                             :+:      :+:    :+:   */
+/*   libft_extend.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 14:13:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 15:27:44 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/09 14:55:33 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/09 15:24:49 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPE_H
-# define PIPE_H
-
-# include "cmd.h"
-
-// structures
-typedef struct s_pipe
-{
-	t_cmd			*cmd;
-	struct s_pipe	*next;
-}	t_pipe;
+#ifndef LIBFT_EXTEND_H
+# define LIBFT_EXTEND_H
 
 // functions
-// create_pipe.c
-t_pipe		*create_pipe(char *src);
-
-// delete_pipe.c
-void		*delete_pipe(t_pipe *pipe);
+void	free_pp(void **pp);
+int		ft_isspace(const char c);
+int		ft_strcmp(const char *s1, const char *s2);
+char	**ft_split_func(const char *src, int (*f)(const char c));
 
 #endif

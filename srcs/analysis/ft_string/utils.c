@@ -6,18 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:25:33 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 14:00:00 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:58:52 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <unistd.h>
-
-int	ft_isspace(char c)
-{
-	return (c == ' ' || c == '\n' || c == '\t'
-		|| c == '\v' || c == '\f' || c == '\r');
-}
 
 int	put(char *src)
 {

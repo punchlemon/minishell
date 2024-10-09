@@ -6,17 +6,20 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:31:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 12:31:30 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:26:54 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "cmd.h"
+#include "libft_extend.h"
+#include <stdlib.h>
 
 void	*delete_cmd(t_cmd *cmd)
 {
 	cmd->in = 0;
 	cmd->out = 0;
-	cmd->argv = free_char_pp(cmd->argv);
+	free_pp(cmd->argv);
+	cmd->argv = NULL;
 	free(cmd);
 	return (NULL);
 }
