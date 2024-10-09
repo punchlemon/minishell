@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 11:39:38 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 12:16:33 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 19:42:02 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	move_paren(char *src, size_t *l)
 	return (0);
 }
 
-int	check_and_or(t_str_slice *str_s, char *src, size_t *i, size_t *l)
+int	check_and_or(t_str_arr *str_arr, char *src, size_t *i, size_t *l)
 {
 	char	c;
 	t_str	*str;
@@ -63,10 +63,10 @@ int	check_and_or(t_str_slice *str_s, char *src, size_t *i, size_t *l)
 	if (c != src[*l + 1])
 		return ((*l)++, 1);
 	str = create_str_len(src, *l);
-	if (!str || !append_str_slice_one_str(str_s, str))
+	if (!str || !append_str_arr_one_str(str_arr, str))
 		return (0);
 	str = create_str_len(src + *l, 2);
-	if (!str || !append_str_slice_one_str(str_s, str))
+	if (!str || !append_str_arr_one_str(str_arr, str))
 		return (0);
 	n = 0;
 	while (1)
@@ -80,7 +80,7 @@ int	check_and_or(t_str_slice *str_s, char *src, size_t *i, size_t *l)
 	}
 }
 
-int	move_word(t_str_slice *str_s, char *src, size_t *i, size_t *l)
+int	move_word(t_str_arr *str_arr, char *src, size_t *i, size_t *l)
 {
 	char	c;
 
@@ -98,7 +98,7 @@ int	move_word(t_str_slice *str_s, char *src, size_t *i, size_t *l)
 	}
 	else if (c == '&' || c == '|')
 	{
-		if (!check_and_or(str_s, src, i, l))
+		if (!check_and_or(str_arr, src, i, l))
 			return (0);
 	}
 	else if (c == ')')

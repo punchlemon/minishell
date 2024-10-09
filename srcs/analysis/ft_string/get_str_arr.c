@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_equal_str.c                                     :+:      :+:    :+:   */
+/*   get_str_arr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 21:38:06 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 19:27:55 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/14 00:43:33 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/06 19:26:48 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
 #include "ft_string.h"
 
-int	is_equal_str(t_str *str, char *src)
+t_str_list	*get_str_list_from_str_arr(t_str_arr *str_arr, size_t n)
 {
-	size_t	n;
+	t_str_list	*l;
 
-	n = ft_strlen(src);
-	if (str->len != n)
-		return (0);
-	return (is_equal_mem(str->data, src, n));
+	l = str_arr->list;
+	while (n--)
+		l = l->next;
+	return (l);
 }

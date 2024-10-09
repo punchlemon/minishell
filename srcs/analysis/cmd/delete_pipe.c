@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_str.c                                         :+:      :+:    :+:   */
+/*   delete_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 17:03:59 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 22:16:32 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/22 11:03:04 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/09 12:31:08 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "ft_string.h"
+#include "minishell.h"
 
-int	find_first_index_from_str(t_str *target, t_str *key)
+void	*delete_pipe(t_pipe *pipe)
 {
-	size_t	i;
-
-	if (key->len == 0)
-		return (target->len);
-	if (target->len < key->len)
-		return (-1);
-	i = 0;
-	while (i < (target->len - key->len + 1))
-	{
-		if (is_equal_mem(target->data + i, key->data, key->len))
-			return (i);
-		i++;
-	}
-	return (-1);
+	pipe->cmd = delete_cmd(pipe->cmd);
+	free(pipe);
+	return (NULL);
 }

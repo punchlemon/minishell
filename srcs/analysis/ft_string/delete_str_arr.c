@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_str_slice.c                                 :+:      :+:    :+:   */
+/*   delete_str_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:31:12 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 22:16:41 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 19:24:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ void	*delete_str_list(t_str_list	*list)
 	return (NULL);
 }
 
-void	*delete_str_slice(t_str_slice *str_s)
+void	*delete_str_arr(t_str_arr *str_arr)
 {
-	if (str_s->list)
+	if (str_arr->list)
 	{
-		delete_str_list(str_s->list);
-		str_s->len = 0;
-		str_s->total_str_len = 0;
-		str_s->list = NULL;
+		delete_str_list(str_arr->list);
+		str_arr->len = 0;
+		str_arr->total = 0;
+		str_arr->list = NULL;
 	}
-	free(str_s);
+	free(str_arr);
 	return (NULL);
 }

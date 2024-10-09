@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_pipe_cmd.c                                  :+:      :+:    :+:   */
+/*   delete_and_or.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 20:29:40 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 19:03:02 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/22 11:00:09 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/09 12:20:13 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "ft_string.h"
 #include "minishell.h"
 
-t_pipe_cmd	*create_pipe_cmd(t_str *str)
+void	*delete_and_or(t_and_or *and_or)
 {
-	t_pipe_cmd	*p_cmd;
-	t_str_slice	*str_s;
+	t_and_or	*next;
 
-	str_s = split_str_space(str);
-	if (!str_s)
-		return (NULL);
-	p_cmd = ft_calloc(sizeof(t_pipe_cmd));
-	if (!p_cmd)
-		return (delete_str_slice(str_s));
-	p_cmd->str_s = str_s;
-	return (p_cmd);
+	while (and_or)
+	{
+		next = and_or->next;
+		and_or->op = 0;
+		and_or->pipe = delete_pipe(and_or->pipe);
+		and_or->next = NULL;
+		free(and_or);
+		and_or = next;
+	}
+	return (NULL);
 }

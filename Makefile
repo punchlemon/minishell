@@ -8,6 +8,7 @@ CMD_DIR = cmd
 MEM_DIR = ft_memory
 STR_DIR = ft_string
 NPK_FLAG = --noprint-directory
+CC = clang
 
 DIRS = \
 	$(ANLS_DIR) \
@@ -19,11 +20,13 @@ ANLS_DIR_DIRS = \
 	$(STR_DIR) \
 
 CMD_FILES = \
-	create_cmd_node \
-	create_pipe_cmd \
-	delete_cmd_node \
-	delete_pipe_cmd \
-	print_cmd_node \
+	create_and_or \
+	create_cmd \
+	create_pipe \
+	delete_and_or \
+	delete_cmd \
+	delete_pipe \
+	print_and_or \
 
 MEM_FILES = \
 	ft_calloc \
@@ -32,20 +35,20 @@ MEM_FILES = \
 	is_equal_mem \
 
 STR_FILES = \
-	append_str_slice \
+	append_str_arr \
+	convert_str_to_char \
 	create_str \
-	create_str_slice \
+	create_str_arr \
 	delete_str \
-	delete_str_slice \
-	get_str_slice \
+	delete_str_arr \
+	get_str_arr \
 	is_equal_str \
 	put_num \
-	put_str_slice \
+	put_str_arr \
 	put_str \
-	remove_str_slice \
-	split_str_slice \
+	remove_str_arr \
+	split_str_arr \
 	split_str \
-	str_to_char \
 	trim_edge_str \
 	trim_space_str \
 	utils \
@@ -55,7 +58,6 @@ ANLS_FILES = \
 	and_or \
 	ft_split \
 	ft_strlcpy \
-	is_valid_str_and_or \
 	split_str_and_or \
 	$(addprefix $(CMD_DIR)/, $(CMD_FILES)) \
 	$(addprefix $(MEM_DIR)/, $(MEM_FILES)) \
@@ -73,7 +75,7 @@ FILES = \
 	$(ANLS_DIR_FILES) \
 	$(EXEC_DIR_FILES) \
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 IFLAGS = -I$(INCLUDES_DIR)
 LFLAGS = -lreadline
 VFLAGS = \

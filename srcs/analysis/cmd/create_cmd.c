@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_cmd_node.c                                  :+:      :+:    :+:   */
+/*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 11:00:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 21:19:36 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/09 12:26:13 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/09 12:26:49 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_memory.h"
+#include "ft_string.h"
 #include "minishell.h"
 
-void	*delete_cmd_node(t_cmd_node *cmd_n)
+t_cmd	*create_cmd(t_str *str)
 {
-	t_cmd_node	*next_n;
+	t_cmd	*cmd;
+	t_str_arr	*str_arr;
 
-	while (cmd_n)
-	{
-		next_n = cmd_n->next;
-		cmd_n->op = 0;
-		cmd_n->p_cmd = delete_pipe_cmd(cmd_n->p_cmd);
-		cmd_n->next = NULL;
-		free(cmd_n);
-		cmd_n = next_n;
-	}
-	return (NULL);
+	str_arr = split_str_space(str);
+	if (!str_arr)
+		return (NULL);
+	cmd = ft_calloc(sizeof(t_cmd));
+	cmd->argv = convert_str_arr_to_char_pp(str_arr);
+	delete_str_arr(str_arr);
+	if (!cmd->argv)
+		return (NULL);
+	cmd->in = 0;
+	cmd->out = 0;///// io_redirectによってfdが入れられる
+	return (cmd);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_to_char.c                                      :+:      :+:    :+:   */
+/*   convert_str_to_char.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:16:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 16:28:40 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 19:23:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,51 @@
 #include "ft_string.h"
 #include <stdlib.h>
 
-char	*str_to_char_array(t_str *str)
+char	*convert_str_to_char_p(t_str *str)
 {
-	char	*arr;
+	char	*p;
 
-	arr = ft_calloc(sizeof(char) * (str->len + 1));
-	if (!arr)
+	p = ft_calloc(sizeof(char) * (str->len + 1));
+	if (!p)
 		return (NULL);
-	ft_memcpy(arr, str->data, str->len);
-	return (arr);
+	ft_memcpy(p, str->data, str->len);
+	return (p);
 }
 
-void	*free_char_pntr_array(char **p_arr, size_t n)
+void	*free_char_pp(char **pp)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < n)
+	while (pp[i])
 	{
-		free(p_arr[i]);
+		free(pp[i]);
 		i++;
 	}
-	free(p_arr);
+	free(pp);
 	return (NULL);
 }
 
-char	**str_slice_to_char_pntr_array(t_str_slice *str_s)
+char	**convert_str_arr_to_char_pp(t_str_arr *str_arr)
 {
 	t_str_list	*str_l;
 	t_str		*str;
-	char		**p_arr;
+	char		**pp;
 	size_t		i;
 
-	p_arr = ft_calloc(sizeof(char *) * (str_s->len + 1));
-	if (!p_arr)
+	pp = ft_calloc(sizeof(char *) * (str_arr->len + 1));
+	if (!pp)
 		return (NULL);
-	p_arr[str_s->len] = NULL;
-	str_l = str_s->list;
+	str_l = str_arr->list;
 	i = 0;
-	while (i < str_s->len)
+	while (i < str_arr->len)
 	{
 		str = str_l->str;
-		p_arr[i] = str_to_char_array(str);
-		if (!p_arr[i])
-			return (free_char_pntr_array(p_arr, i));
+		pp[i] = convert_str_to_char_p(str);
+		if (!pp[i])
+			return (free_char_pp(pp));
 		str_l = str_l->next;
 		i++;
 	}
-	return (p_arr);
+	return (pp);
 }

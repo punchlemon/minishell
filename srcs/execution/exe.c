@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 18:46:01 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:29:38 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ void	exe(char **srcs, char **environ, int *status)
 		exec_child(srcs, splited_path_envp, environ);
 	waitpid(child, status, 0);
 	free_two_dimention_array(splited_path_envp);
-	delete_pp(srcs);
 	if (WIFEXITED(*status))
 		WEXITSTATUS(*status);
 }

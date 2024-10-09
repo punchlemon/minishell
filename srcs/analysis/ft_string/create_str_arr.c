@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_str_slice.c                                 :+:      :+:    :+:   */
+/*   create_str_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 23:28:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 13:43:53 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/06 19:21:30 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/06 19:23:52 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ t_str_list	*create_str_list(t_str *str)
 	return (list);
 }
 
-t_str_slice	*create_str_slice(t_str *str)
+t_str_arr	*create_str_arr(t_str *str)
 {
-	t_str_slice	*str_s;
+	t_str_arr	*str_arr;
 
-	str_s = ft_calloc(sizeof(t_str_slice));
-	if (!str_s)
+	str_arr = ft_calloc(sizeof(t_str_arr));
+	if (!str_arr)
 		return (NULL);
-	str_s->list = create_str_list(str);
-	if (!str_s->list)
-		return (free(str_s), NULL);
-	str_s->len = 1;
-	str_s->total_str_len = str->len;
-	return (str_s);
+	str_arr->list = create_str_list(str);
+	if (!str_arr->list)
+		return (free(str_arr), NULL);
+	str_arr->len = 1;
+	str_arr->total = str->len;
+	return (str_arr);
 }

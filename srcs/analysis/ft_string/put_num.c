@@ -6,15 +6,15 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:46:07 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/02 22:52:51 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 19:37:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <limits.h>
 #define INT_BUF_LEN 11
-#define UINT_BUF_LEN 10
 #define INT_MIN_STR "-2147483648"
+# define SIZE_T_BUF_LEN 20
 
 int	put_num(int num)
 {
@@ -40,12 +40,12 @@ int	put_num(int num)
 	return (write(1, ptr, buffer + INT_BUF_LEN - ptr));
 }
 
-int	put_unum(unsigned int num)
+int	put_size_t(size_t num)
 {
-	char	buffer[UINT_BUF_LEN];
+	char	buffer[SIZE_T_BUF_LEN];
 	char	*ptr;
 
-	ptr = buffer + UINT_BUF_LEN;
+	ptr = buffer + SIZE_T_BUF_LEN;
 	while (1)
 	{
 		*(--ptr) = '0' + (num % 10);
@@ -53,5 +53,5 @@ int	put_unum(unsigned int num)
 		if (num == 0)
 			break ;
 	}
-	return (write(1, ptr, buffer + UINT_BUF_LEN - ptr));
+	return (write(1, ptr, buffer + SIZE_T_BUF_LEN - ptr));
 }

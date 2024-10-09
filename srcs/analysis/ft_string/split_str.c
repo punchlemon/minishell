@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 17:46:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 18:29:37 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:21:07 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ size_t	count_word_len(char *src)
 	return (i);
 }
 
-t_str_slice	*split_str_space(t_str *str)
+t_str_arr	*split_str_space(t_str *str)
 {
-	t_str_slice	*str_s;
+	t_str_arr	*str_arr;
 	t_str		*tmp;
 	size_t		l;
 	size_t		i;
 
-	str_s = ft_calloc(sizeof(t_str_slice));
-	if (!str_s)
+	str_arr = ft_calloc(sizeof(t_str_arr));
+	if (!str_arr)
 		return (NULL);
 	i = 0;
 	while (i < str->len)
@@ -46,12 +46,11 @@ t_str_slice	*split_str_space(t_str *str)
 		{
 			l = count_word_len(str->data + i);
 			tmp = create_str_len(str->data + i, l);
-			if (!append_str_slice_one_str(str_s, tmp))
-				return (delete_str_slice(str_s));
+			if (!append_str_arr_one_str(str_arr, tmp))
+				return (delete_str_arr(str_arr));
 			i += l;
 		}
 		i++;
 	}
-	return (str_s);
+	return (str_arr);
 }
-/// iとlをsplit_str_spaceだけで管理して、iのアドレスを渡すことで管理した方がいいと思う

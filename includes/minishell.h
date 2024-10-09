@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 18:10:29 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:32:47 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,51 +30,62 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct s_pipe_cmd
+typedef struct s_cmd
 {
-	t_str_slice	*str_s;
-}	t_pipe_cmd;
+	int		in;
+	int		out;
+	char	**argv;
+}	t_cmd;
 
-typedef struct s_cmd_node
+typedef struct s_pipe
 {
-	int					op;
-	t_pipe_cmd			*p_cmd;
-	struct s_cmd_node	*next;
-}	t_cmd_node;
+	t_cmd			*cmd;
+	struct s_pipe	*next;
+}	t_pipe;
+
+typedef struct s_and_or
+{
+	int				op;
+	t_pipe			*pipe;
+	struct s_and_or	*next;
+}	t_and_or;
 
 // functions
 // cmd
-// create_cmd_node.c
-t_cmd_node	*create_cmd_node_elm(t_str *str, int op);
-t_cmd_node	*create_cmd_node(t_str_slice *str_s);
+// create_and_or.c
+t_and_or	*create_and_or_elm(t_str *str, int op);
+t_and_or	*create_and_or(t_str_arr *str_arr);
 
-// create_pipe_cmd.c
-t_pipe_cmd	*create_pipe_cmd(t_str *str);
+// create_cmd.c
+t_cmd		*create_cmd(t_str *str);
 
-// delete_cmd_node.c
-void		*delete_cmd_node(t_cmd_node *cmd_n);
+// create_pipe.c
+t_pipe		*create_pipe(t_str *str);
 
-// delete_pipe_cmd.c
-void		*delete_pipe_cmd(t_pipe_cmd *p_cmd);
+// delete_and_or.c
+void		*delete_and_or(t_and_or *and_or);
 
-// print_cmd_node.c
-void		print_cmd_node(t_cmd_node *cmd_n);
+// delete_cmd.c
+void	*delete_cmd(t_cmd *cmd);
+
+// delete_pipe.c
+void		*delete_pipe(t_pipe *pipe);
+
+// print_and_or.c
+void		print_and_or(t_and_or *and_or);
 
 // analysis
 // analysis.c
-int			analysis(char *src, t_cmd_node **cmd_n_ref);
+int			analysis(char *src, t_and_or **and_or_ref);
 
 // and_or.c
-t_cmd_node	*and_or(t_str **str_ref);
-
-// is_valid_str_and_or.c
-int			is_valid_str_and_or(t_str *str);
+t_and_or	*and_or(t_str **str_ref);
 
 // split_str_and_or.c
 int			move_quote(char *src, size_t *l);
 int			move_paren(char *src, size_t *l);
-int			check_and_or(t_str_slice *str_s, char *src, size_t *i, size_t *l);
-int			move_word(t_str_slice *str_s, char *src, size_t *i, size_t *l);
+int			check_and_or(t_str_arr *str_arr, char *src, size_t *i, size_t *l);
+int			move_word(t_str_arr *str_arr, char *src, size_t *i, size_t *l);
 
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char		**ft_split(char const *s, char c);

@@ -6,62 +6,57 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 18:27:26 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:29:07 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_first_cmd(int op, char **argv, char **environ, int *status)
+void	execute_first_cmd(t_and_or *and_or, char **environ, int *status)
 {
-	if (op == CMD)
-		exe(argv, environ, status);
+	if (and_or->op == CMD)
+		exe(and_or->pipe->cmd->argv, environ, status);
 	else
 	{
-		put_unum((unsigned int)op);
+		put_num(and_or->op);
 		exit(1);
 	}
-	// *status = 0; /// 本来はstatusをexeの結果によって更新する必要がある
 }
 
-void	execute_one_cmd(int op, char **argv, char **environ, int *status)
+void	execute_one_cmd(t_and_or *and_or, char **environ, int *status)
 {
-	if (op == AND)
+	if (and_or->op == AND)
 	{
-		if (!*status) /// 前回が成功してる (*status == 0) なら実行する
-			exe(argv, environ, status);
+		if (!*status)
+			exe(and_or->pipe->cmd->argv, environ, status);
 	}
-	else if (op == OR)
+	else if (and_or->op == OR)
 	{
-		if (*status) /// 前回が失敗してる (*status != 0) なら実行する
-			exe(argv, environ, status);
+		if (*status)
+			exe(and_or->pipe->cmd->argv, environ, status);
 	}
 	else
 	{
-		put_unum((unsigned int)op);
+		put_num(and_or->op);
 		exit(1);
 	}
-	// *status = 0; /// 本来はstatusをexeの結果によって更新する必要がある
 }
 
-void	execute(t_cmd_node *cmd_n, char **environ)
+void	execute(t_and_or *and_or, char **environ)
 {
-	char	**argv;
 	size_t	i;
 	int		status;
 
 	i = 0;
-	while (cmd_n)
+	while (and_or)
 	{
-		argv = str_slice_to_char_pntr_array(cmd_n->p_cmd->str_s);
-		if (!argv)
+		if (!and_or->pipe->cmd->argv)
 			exit(1);
 		if (i == 0)
-			execute_first_cmd(cmd_n->op, argv, environ, &status);
+			execute_first_cmd(and_or, environ, &status);
 		else
-			execute_one_cmd(cmd_n->op, argv, environ, &status);
-		free_char_pntr_array(argv, cmd_n->p_cmd->str_s->len);
-		cmd_n = cmd_n->next;
+			execute_one_cmd(and_or, environ, &status);
+		and_or = and_or->next;
 		i++;
 	}
 }
@@ -69,7 +64,7 @@ void	execute(t_cmd_node *cmd_n, char **environ)
 int	main(int argc, char **argv, char **environ)
 {
 	char		*line;
-	t_cmd_node	*cmd_n;
+	t_and_or	*and_or;
 	int			res;
 
 	res = 0;
@@ -82,15 +77,14 @@ int	main(int argc, char **argv, char **environ)
 			break ;
 		if (*line)
 			add_history(line);
-		res = analysis(line, &cmd_n);
-		if (res == 2)
-			return (free(line), 0);
-		if (res == 1 || !cmd_n)
-			continue ;			/// ちゃんとmemoryをfreeする
-		// print_cmd_node(cmd_n);
-		execute(cmd_n, environ);
-		delete_cmd_node(cmd_n);
+		res = analysis(line, &and_or);
 		free(line);
+		if (res == 2)
+			return (rl_clear_history(), 0);
+		if (res == 1 || !and_or)
+			continue ;
+		execute(and_or, environ);
+		delete_and_or(and_or);
 	}
 	return (0);
 }

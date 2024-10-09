@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:18:57 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 16:28:56 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/06 19:40:25 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,19 @@ size_t	trim_right_space_str(t_str *str)
 	return (i);
 }
 
-t_str_slice	*trim_right_space_str_slice(t_str_slice *str_s)
+t_str_arr	*trim_right_space_str_arr(t_str_arr *str_arr)
 {
 	t_str_list	*head_l;
 	t_str_list	*str_l;
 
-	head_l = str_s->list;
+	head_l = str_arr->list;
 	str_l = head_l;
 	while (1)
 	{
-		str_s->total_str_len -= trim_right_space_str(str_l->str);
+		str_arr->total -= trim_right_space_str(str_l->str);
 		str_l = str_l->next;
 		if (str_l == head_l)
-			return (str_s);
+			return (str_arr);
 	}
 }
 
