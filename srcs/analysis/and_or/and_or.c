@@ -6,12 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 01:56:33 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 16:44:20 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 20:47:57 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 #include "ft_memory.h"
+#include "libft_extend.h"
 #include "and_or.h"
 
 t_str_arr	*split_str_and_or_init(t_str *str)
@@ -62,7 +63,8 @@ t_and_or	*and_or(char *src)
 	if (!pp)
 		return (NULL);
 	and_or = create_and_or(pp);
-	delete_str_arr(pp);
+	free_pp((void **)pp);
+	// delete_str_arr(pp);
 	if (!and_or)
 		return (NULL);
 	return (and_or);

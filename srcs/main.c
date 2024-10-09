@@ -6,11 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 14:05:12 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 20:44:49 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "libft_extend.h"
 #include "minishell.h"
 
 void	execute_first_cmd(t_and_or *and_or, char **environ, int *status)

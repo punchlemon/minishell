@@ -1,24 +1,29 @@
+.PHONY: all clean fclean re
 NAME = minishell
+LIBFT_DIR = libft
+LIBFT_A = libft.a
+
 INCLUDES_DIR = includes
 SRCS_DIR = srcs
 OBJS_DIR = objs
-ANLS_DIR = analysis
-EXEC_DIR = execution
-LIBFT_DIR = libft
+
+ANALYSIS_DIR = analysis
+EXECUTION_DIR = execution
+
 AND_OR_DIR = and_or
 CMD_DIR = cmd
-MEM_DIR = ft_memory
 STR_DIR = ft_string
 PIPE_DIR = pipe
-NPK_FLAG = --noprint-directory
+
+NPD_FLAG = --no-print-directory
 CC = clang
 
 DIRS = \
-	$(ANLS_DIR) \
-	$(EXEC_DIR) \
+	$(ANALYSIS_DIR) \
+	$(EXECUTION_DIR) \
 	$(LIBFT_DIR) \
 
-ANLS_DIR_DIRS = \
+ANALYSIS_DIR_DIRS = \
 	$(AND_OR_DIR) \
 	$(CMD_DIR) \
 	$(MEM_DIR) \
@@ -35,12 +40,6 @@ AND_OR_FILES = \
 CMD_FILES = \
 	create_cmd \
 	delete_cmd \
-
-MEM_FILES = \
-	ft_calloc \
-	ft_memcpy \
-	ft_memzero \
-	is_equal_mem \
 
 STR_FILES = \
 	append_str_arr \
@@ -65,39 +64,31 @@ PIPE_FILES = \
 	create_pipe \
 	delete_pipe \
 
-ANLS_FILES = \
+ANALYSIS_FILES = \
 	analysis \
-	ft_split \
-	ft_strlcpy \
 	$(addprefix $(AND_OR_DIR)/, $(AND_OR_FILES)) \
 	$(addprefix $(CMD_DIR)/, $(CMD_FILES)) \
 	$(addprefix $(MEM_DIR)/, $(MEM_FILES)) \
 	$(addprefix $(STR_DIR)/, $(STR_FILES)) \
 	$(addprefix $(PIPE_DIR)/, $(PIPE_FILES)) \
 
-EXEC_FILES = \
+EXECUTION_FILES = \
 	exe \
 	utils \
 
-LIBFT_FILES = \
-	ft_memcmp \
-	ft_strcmp \
-	ft_strlen \
-	ft_strncmp \
-
-ANLS_DIR_FILES = $(addprefix $(ANLS_DIR)/, $(ANLS_FILES))
-EXEC_DIR_FILES = $(addprefix $(EXEC_DIR)/, $(EXEC_FILES))
+ANALYSIS_DIR_FILES = $(addprefix $(ANALYSIS_DIR)/, $(ANALYSIS_FILES))
+EXECUTION_DIR_FILES = $(addprefix $(EXECUTION_DIR)/, $(EXECUTION_FILES))
 LIBFT_DIR_FILES = $(addprefix $(LIBFT_DIR)/, $(LIBFT_FILES))
 
 FILES = \
 	main \
-	$(ANLS_DIR_FILES) \
-	$(EXEC_DIR_FILES) \
+	$(ANALYSIS_DIR_FILES) \
+	$(EXECUTION_DIR_FILES) \
 	$(LIBFT_DIR_FILES) \
 
 CFLAGS = -Wall -Werror -Wextra
-IFLAGS = -I$(INCLUDES_DIR)
-LFLAGS = -lreadline
+IFLAGS = -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/$(INCLUDES_DIR)
+LFLAGS = -lreadline -lft
 VFLAGS = \
 	--track-origins=yes \
 	--leak-check=full \
@@ -110,8 +101,11 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(addsuffix .o, $(FILES)))
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(LIBFT_DIR)/$(LIBFT_A) | $(OBJS)
 	@$(CC) $(OBJS) $(LFLAGS) -o $@
+
+$(LIBFT_DIR)/$(LIBFT_A):
+	@make $(NPD_FLAG) -C $(LIBFT_DIR) all
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
@@ -119,12 +113,14 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 $(OBJS_DIR):
 	@mkdir -p $@
 	@$(foreach dir, $(DIRS), mkdir -p $@/$(dir);)
-	@$(foreach dir, $(ANLS_DIR_DIRS), mkdir -p $@/$(ANLS_DIR)/$(dir);)
+	@$(foreach dir, $(ANALYSIS_DIR_DIRS), mkdir -p $@/$(ANALYSIS_DIR)/$(dir);)
 
 clean:
+	@make $(NPD_FLAG) -C $(LIBFT_DIR) clean
 	@$(RM) -r $(OBJS_DIR)
 
 fclean: clean
+	@make $(NPD_FLAG) -C $(LIBFT_DIR) fclean
 	@$(RM) $(NAME) $(VALGRIND_LOG)
 
 re: fclean all

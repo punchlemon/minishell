@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:09:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 14:24:29 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 20:45:40 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		*delete_and_or(t_and_or *and_or);
 void		print_and_or(t_and_or *and_or);
 
 // and_or.c
-t_and_or	*and_or(t_str **str_ref);
+t_and_or	*and_or(char *src);
 
 // split_str_and_or.c
 int			move_quote(char *src, size_t *l);
