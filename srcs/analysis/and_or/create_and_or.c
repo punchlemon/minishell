@@ -6,13 +6,14 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 19:05:07 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 19:28:12 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:35:28 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_memory.h"
 #include "ft_string.h"
-#include "minishell.h"
+#include "and_or.h"
+#include <stdlib.h>
 
 t_and_or	*create_and_or_elm(t_str *str, int op)
 {

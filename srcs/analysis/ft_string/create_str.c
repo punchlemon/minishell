@@ -6,12 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:27:23 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 13:38:51 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:58:29 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_memory.h"
 #include "ft_string.h"
+#include "libft.h"
 #include <stdlib.h>
 
 t_str	*create_str(char *src)

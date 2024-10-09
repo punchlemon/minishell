@@ -6,12 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 22:20:24 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 22:20:25 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:00:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "ft_string.h"
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {

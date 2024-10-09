@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   analysis.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 14:27:06 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/09 14:20:17 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/09 14:24:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ANALYSIS_H
+# define ANALYSIS_H
 
-# include "analysis.h"
-# include "execution.h"
+# define ANALYSIS_ERROR "minishell: syntax error\n"
+
+# include "and_or.h"
 
 // functions
-size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char		**ft_split(char const *s, char c);
+// analysis.c
+int			analysis(char *src, t_and_or **and_or_ref);
 
 #endif

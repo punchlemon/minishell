@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analysis.c                                         :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 15:18:07 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 14:05:22 by retanaka         ###   ########.fr       */
+/*   Created: 2024/04/15 16:09:16 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/09 13:31:56 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
-#include "minishell.h"
+#include <unistd.h>
 
-int	analysis(char *src, t_and_or **and_or_ref)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_str		*str;
+	size_t				i;
+	const unsigned char	*c1;
+	const unsigned char	*c2;
 
-	str = create_str(src);
-	if (!str)
-		return (put(ANALYSIS_ERROR), 0);
-	if (!trim_space_str(&str))
-		return (put(ANALYSIS_ERROR), 0);
-	if (!*(str->data))
-		return (delete_str(str), 1);
-	*and_or_ref = and_or(&str);
-	delete_str(str);
-	if (!*and_or_ref)
-		return (put(ANALYSIS_ERROR), 0);
-	return (3);
+	c1 = (const unsigned char *)s1;
+	c2 = (const unsigned char *)s2;
+	i = 0;
+	while (i < n)
+	{
+		if (c1[i] != c2[i])
+			return (c1[i] - c2[i]);
+		i++;
+	}
+	return (0);
 }

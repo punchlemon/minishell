@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 12:29:38 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:46:51 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	*get_path_cmd(char *cmd, char **splited_path_envp)
 		free(cmd);
 		exit(127);
 	}
-	free(cmd);
+	// free(cmd);
 	return (path_cmd);
 }
 

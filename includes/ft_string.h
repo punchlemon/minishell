@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:49:10 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 19:36:20 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:58:04 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ t_str		*trim_space_str(t_str **str_ref);
 
 // utils.c
 int			ft_isspace(char c);
-size_t		ft_strlen(char *src);
 int			put(char *src);
 int			put_len(char *src, size_t len);
 

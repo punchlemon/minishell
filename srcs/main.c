@@ -6,10 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 12:29:07 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:05:12 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
 void	execute_first_cmd(t_and_or *and_or, char **environ, int *status)
@@ -77,11 +78,11 @@ int	main(int argc, char **argv, char **environ)
 			break ;
 		if (*line)
 			add_history(line);
+		if (!ft_strcmp(line, "exit"))
+			return (free(line), rl_clear_history(), 0);
 		res = analysis(line, &and_or);
 		free(line);
-		if (res == 2)
-			return (rl_clear_history(), 0);
-		if (res == 1 || !and_or)
+		if (res == 1)
 			continue ;
 		execute(and_or, environ);
 		delete_and_or(and_or);

@@ -6,13 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 01:56:33 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 19:41:26 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:23:45 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 #include "ft_memory.h"
-#include "minishell.h"
+#include "and_or.h"
 
 t_str_arr	*split_str_and_or_init(t_str *str)
 {
