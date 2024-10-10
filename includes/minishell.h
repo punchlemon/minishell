@@ -6,18 +6,16 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 14:27:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/10 16:45:17 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "analysis.h"
-# include "execution.h"
+# define SYNTAX_ERROR() write(1, "minishell: syntax error\n", 24)
 
-// functions
-size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char		**ft_split(char const *s, char c);
+# include "and_or.h"
+# include "execution.h"
 
 #endif

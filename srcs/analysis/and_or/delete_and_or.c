@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 11:00:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 12:20:13 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:11:46 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 void	*delete_and_or(t_and_or *and_or)
 {
+	size_t		i;
 	t_and_or	*next;
 
-	while (and_or)
+	i = 0;
+	while (and_or[i].pipe)
 	{
-		next = and_or->next;
-		and_or->op = 0;
-		and_or->pipe = delete_pipe(and_or->pipe);
-		and_or->next = NULL;
-		free(and_or);
-		and_or = next;
+		and_or[i].op = 0;
+		and_or[i].pipe = delete_pipe(and_or[i].pipe);
+		i++;
 	}
+	free(and_or);
 	return (NULL);
 }
+
+///　NULLを入れられることには対応していない

@@ -5,69 +5,61 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/06 19:05:07 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 15:27:59 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/23 01:56:33 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/10 17:13:42 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "ft_string.h"
 #include "and_or.h"
-#include <stdlib.h>
-
-t_and_or	*create_and_or_elm(t_str *str, int op)
+#include "libft_extend.h"
+static size_t	count_and_or(char *src)
 {
-	t_and_or	*and_or;
+	size_t	i;
 
-	and_or = ft_calloc(sizeof(t_and_or));
-	if (!and_or)
-		return (NULL);
-	and_or->pipe = create_pipe(src);
-	if (!and_or->pipe)
-		return (free(and_or), NULL);
-	and_or->op = op;
-	and_or->next = NULL;
-	return (and_or);
-}
-
-t_and_or	*append_and_or(t_and_or **cmd_n_ref, t_str_list **str_l_ref)
-{
-	t_and_or	*and_or;
-	int			op;
-
-	if (is_equal_str((*str_l_ref)->str, "&&"))
-		op = AND;
-	else if (is_equal_str((*str_l_ref)->str, "||"))
-		op = OR;
-	else
-		return (put("here\n"), NULL);
-	*str_l_ref = (*str_l_ref)->next;
-	and_or = create_and_or_elm((*str_l_ref)->str, op);
-	if (!and_or)
-		return (NULL);
-	(*cmd_n_ref)->next = and_or;
-	*cmd_n_ref = and_or;
-	return (*cmd_n_ref);
-}
-
-t_and_or	*create_and_or(t_str_arr *str_s)
-{
-	t_and_or	*head_n;
-	t_and_or	*and_or;
-	t_str_list	*head_l;
-	t_str_list	*str_l;
-
-	head_l = str_s->list;
-	and_or = create_and_or_elm(head_l->str, CMD);
-	if (!and_or)
-		return (NULL);
-	head_n = and_or;
-	str_l = head_l->next;
-	while (str_l != head_l)
+	i = 0;
+	while (src[i])
 	{
-		if (!append_and_or(&and_or, &str_l))
-			return (delete_and_or(head_n));
-		str_l = str_l->next;
+		i++;
 	}
-	return (head_n);
+	return (i);
+}
+
+static void	store_range_and_or(size_t *range, char src)
+{
+}
+
+static size_t	lexer_and_or(size_t **range, char *src)
+{
+	size_t		len;
+
+	len = count_and_or(src);
+	if (!len)
+		return (0);
+	*range = ft_calloc(sizeof(size_t) * 3 * len + 1);
+	if (!*range)
+		return (0);
+	store_range_and_or(*range, src);
+	return (len);
+}
+
+static void	store_and_or(t_and_or *and_or, size_t *range, char src)
+{
+}
+
+t_and_or	*create_and_or(char *src)
+{
+	char		**pp;
+	t_and_or	*and_or;
+	size_t		*range;
+	size_t		len;
+
+	len = lexer_and_or(src, &range);
+	if (!range)
+		return (NULL);
+	and_or = ft_calloc(sizeof(t_and_or) * len + 1);
+	if (!and_or)
+		return (NULL);
+	store_and_or(and_or, range, src);
+	free(range);
+	return (and_or);
 }
