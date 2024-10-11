@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   and_or.h                                           :+:      :+:    :+:   */
+/*   analysis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 14:09:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/11 18:53:18 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/11 17:47:09 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/11 19:16:18 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AND_OR_H
-# define AND_OR_H
+#include "and_or.h"
 
-# define CMD 0
-# define AND 1
-# define OR 2
-
-# include "ft_string.h"
-# include "pipe.h"
-
-// structures
-typedef struct s_and_or
+t_and_or	*analysis(char *src)
 {
-	int				op;
-	t_pipe			*pipe;
-}	t_and_or;
+	int			*lex_data;
+	t_and_or	*and_or;
 
-// functions
-// delete_and_or.c
-void		*delete_and_or(t_and_or *and_or);
-
-// print_and_or.c
-void		print_and_or(t_and_or *and_or);
-
-#endif
+	lex_data = lexer(src);
+	if (!lex_data)
+		return (NULL);
+	and_or = parser(src, lex_data);
+	free(lex_data);
+	return (and_or);
+}

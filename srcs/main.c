@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/10 16:43:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:51:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **environ)
 			if (!ft_strcmp(line, "exit"))
 				return (free(line), rl_clear_history(), 0);
 			add_history(line);
-			and_or = create_and_or(line);
+			and_or = analysis(line);
 			if (and_or)
 				execute(and_or, environ);
 			else

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:04:26 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 19:45:01 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/11 21:08:58 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,24 @@
 
 void	print_and_or(t_and_or *and_or)
 {
+	size_t	i;
+
 	if (!and_or)
 		return ((void)put("and_or:(null)\n"));
 	if (!and_or->pipe)
 		return ((void)put("and_or->pipe:(null)\n"));
-	while (and_or)
+	i = 0;
+	while (and_or[i].pipe)
 	{
-		put("op:");
-		if (and_or->op == CMD)
-			put("cmd");
-		else if (and_or->op == AND)
-			put("and");
-		else if (and_or->op == OR)
-			put("or");
-		put(" ");
-		// put_str_arr(and_or->pipe->str_s);
-		// put_char_ppも実装するべき
-		and_or = and_or->next;
+		write(1, "op:", 3);
+		if (and_or[i].op == CMD)
+			write(1, "cmd ", 4);
+		else if (and_or[i].op == AND)
+			write(1, "and ", 4);
+		else if (and_or[i].op == OR)
+			write(1, "or ", 3);
+		i++;
 	}
 }
+
+// put関数を全部ft_printfに変更する

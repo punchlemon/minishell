@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   and_or.h                                           :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 14:09:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/11 18:53:18 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/11 18:35:47 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/11 21:07:47 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AND_OR_H
-# define AND_OR_H
+#ifndef LEXER_H
+# define LEXER_H
 
-# define CMD 0
-# define AND 1
-# define OR 2
-
-# include "ft_string.h"
-# include "pipe.h"
-
-// structures
-typedef struct s_and_or
-{
-	int				op;
-	t_pipe			*pipe;
-}	t_and_or;
+# include <stdlib.h>
 
 // functions
-// delete_and_or.c
-void		*delete_and_or(t_and_or *and_or);
+// check_lex.c
+int	check_lex(int *lex_data);
 
-// print_and_or.c
-void		print_and_or(t_and_or *and_or);
+// count_lex.c
+size_t	count_lex(const char *src);
+
+// lexer.c
+int		ft_istoken(const char c);
+int		*lexer(const char *src);
+
+// store_lex.c
+void	store_lex(int *lex_data, const char *src);
 
 #endif
