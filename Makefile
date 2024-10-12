@@ -1,5 +1,6 @@
 .PHONY: all clean fclean re
 NAME = minishell
+
 LIBFT_DIR = libft
 LIBFT_A = libft.a
 
@@ -19,39 +20,23 @@ $(addsuffix .c, \
 				create_cmd \
 				delete_cmd \
 			) \
-			$(addprefix ft_string/, \
-				append_str_arr \
-				convert_str_to_char \
-				create_str \
-				create_str_arr \
-				delete_str \
-				delete_str_arr \
-				get_str_arr \
-				is_equal_str \
-				put_num \
-				put_str_arr \
-				put_str \
-				remove_str_arr \
-				split_str_arr \
-				split_str \
-				trim_edge_str \
-				trim_space_str \
-				utils \
-			) \
 			$(addprefix lexer/, \
 				check_lex \
 				count_lex \
 				lexer \
 				store_lex \
-			)
+			) \
 			$(addprefix pipe/, \
 				create_pipe \
 				delete_pipe \
 			) \
+			$(addprefix parser/, \
+				parser \
+			) \
+			analysis \
 		) \
 		$(addprefix execution/, \
 			exe \
-			utils \
 		) \
 		main \
 	) \
@@ -65,7 +50,7 @@ NPD_FLAG = --no-print-directory
 
 CFLAGS = -Wall -Werror -Wextra
 IFLAGS = -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/$(INCLUDES_DIR)
-LFLAGS = -lreadline -lft
+LFLAGS = -lreadline -L$(LIBFT_DIR) -lft
 VFLAGS = \
 	--track-origins=yes \
 	--leak-check=full \

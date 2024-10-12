@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/04 22:20:24 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 14:00:30 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/12 12:53:11 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/12 12:53:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "ft_string.h"
-#include "libft.h"
+#include <stdlib.h>
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -28,31 +26,4 @@ char	*ft_strchr(const char *s, int c)
 	if ((unsigned char)c == '\0')
 		return ((char *)&s[i]);
 	return (NULL);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	int		total_len;
-	char	*ans;
-	int		i;
-
-	total_len = (int)ft_strlen(s1) + (int)ft_strlen(s2) + 1;
-	ans = (char *)malloc(sizeof(char) * total_len);
-	if (ans == NULL)
-		return (NULL);
-	i = 0;
-	while (*s1)
-	{
-		ans[i] = *s1;
-		s1++;
-		i++;
-	}
-	while (*s2)
-	{
-		ans[i] = *s2;
-		s2++;
-		i++;
-	}
-	ans[i] = '\0';
-	return (ans);
 }

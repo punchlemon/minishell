@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 11:00:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/10 17:11:46 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:35:26 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	*delete_and_or(t_and_or *and_or)
 {
 	size_t		i;
-	t_and_or	*next;
 
 	i = 0;
 	while (and_or[i].pipe)

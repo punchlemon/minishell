@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:09:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/11 18:53:18 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:49:59 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # define AND 1
 # define OR 2
 
-# include "ft_string.h"
 # include "pipe.h"
 
 // structures

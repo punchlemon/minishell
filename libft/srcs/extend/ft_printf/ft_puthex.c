@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_str.c                                       :+:      :+:    :+:   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 23:30:20 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/04 13:48:31 by retanaka         ###   ########.fr       */
+/*   Created: 2024/05/10 14:20:07 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/12 13:20:16 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
-#include "ft_string.h"
-#include <stdlib.h>
+#include "ft_printf.h"
 
-void	*delete_str(t_str *str)
+int	ft_puthex_check(unsigned int n, char format, int *count)
 {
-	ft_memzero(str->data, str->len);
-	free(str->data);
-	str->data = NULL;
-	str->len = 0;
-	free(str);
-	return (NULL);
+	return (ft_putnumber_check((unsigned long long)n, format, count, 16));
 }

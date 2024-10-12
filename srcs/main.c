@@ -6,13 +6,22 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/11 17:51:30 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/12 13:13:09 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "libft_extend.h"
 #include "minishell.h"
+
+// RESET \033[0m
+// RED \033[31m
+// GREEN \033[32m
+// YELLOW \033[33m
+// BLUE \033[34m
+// MAGENTA \033[35m
+// CYAN \033[36m
+// WHITE \033[37m
 
 static void	execute(t_and_or *and_or, char **environ)
 {
@@ -48,7 +57,7 @@ int	main(int argc, char **argv, char **environ)
 	(void)argv;
 	while (1)
 	{
-		line = readline("minishell$ ");
+		line = readline("\033[32mminishell\033[34m$\033[0m ");
 		if (line == NULL)
 			return (1);
 		if (*line)

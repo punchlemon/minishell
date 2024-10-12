@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_pp.c                                          :+:      :+:    :+:   */
+/*   ft_putdec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 15:22:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/12 12:37:58 by retanaka         ###   ########.fr       */
+/*   Created: 2024/05/10 14:20:07 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/12 13:20:01 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "ft_printf.h"
 
-void	free_pp(char **pp)
+int	ft_putdec_check(int n, char format, int *count)
 {
-	size_t	i;
+	unsigned long long	u_n;
 
-	i = 0;
-	while (pp[i])
+	if (n < 0 && format != 'u')
 	{
-		free(pp[i]);
-		i++;
+		if ((long long)n == -2147483648)
+		{
+			ft_putstr_check("-2147483648", count);
+			return (*count);
+		}
+		ft_putchar_check('-', count);
+		n = -n;
+		if (*count == -1)
+			return (*count);
 	}
-	free(pp);
+	u_n = (unsigned long long)n & 0xffffffff;
+	return (ft_putnumber_check(u_n, format, count, 10));
 }

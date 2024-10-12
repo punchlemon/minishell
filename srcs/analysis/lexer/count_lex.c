@@ -6,10 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:02:49 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/11 21:04:20 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/12 13:50:01 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lexer.h"
+#include "ft_printf.h"
 #include "libft.h"
 #include "libft_extend.h"
 #include <stdlib.h>
@@ -36,6 +38,7 @@ static int	count_quote(const char *src, size_t *i, size_t *len)
 			return (0);
 	}
 	*len += 3;
+	return (1);
 }
 
 static int	count_word(const char *src, size_t *i, size_t *len)
@@ -96,6 +99,7 @@ size_t	count_lex(const char *src)
 			if (!count_token(src, &i, &len))
 				return (0);
 		}
+		i++;
 	}
 	return (len);
 }

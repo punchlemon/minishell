@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 23:25:33 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 14:58:52 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/12 12:53:41 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/12 13:00:32 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
+#include <stdlib.h>
 
-int	put(char *src)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	if (!src)
-		return (write(1, "(null)", 6));
-	return (write(1, src, ft_strlen(src)));
-}
+	int		total_len;
+	char	*ans;
+	int		i;
 
-int	put_len(char *src, size_t len)
-{
-	if (!src)
-		return (write(1, "(null)", 6));
-	return (write(1, src, len));
+	total_len = (int)ft_strlen(s1) + (int)ft_strlen(s2) + 1;
+	ans = (char *)malloc(sizeof(char) * total_len);
+	if (ans == NULL)
+		return (NULL);
+	i = 0;
+	while (*s1)
+	{
+		ans[i] = *s1;
+		s1++;
+		i++;
+	}
+	while (*s2)
+	{
+		ans[i] = *s2;
+		s2++;
+		i++;
+	}
+	ans[i] = '\0';
+	return (ans);
 }

@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_str.c                                          :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 17:34:18 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 19:37:49 by retanaka         ###   ########.fr       */
+/*   Created: 2024/05/10 14:20:07 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/12 13:20:55 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
+#include "ft_printf.h"
 
-void	put_str_no_nl(t_str *str)
+int	ft_putptr_check(unsigned long long p, int *count)
 {
-	put("[len:");
-	put_size_t(str->len);
-	put("\"");
-	if (!str->data)
-		write(1, "(null)", 6);
-	else
-		write(1, str->data, str->len);
-	put("\"]");
-}
-
-void	put_str(t_str *str)
-{
-	put_str_no_nl(str);
-	put("\n");
-}
-
-int	put_str_len(t_str *str, int *len)
-{
-	int	tmp;
-
-	tmp = write(1, str->data, str->len);
-	*len += tmp;
-	return (tmp);
+	ft_putstr_check("0x", count);
+	if (*count == -1)
+		return (*count);
+	ft_putnumber_check(p, 'p', count, 16);
+	return (*count);
 }

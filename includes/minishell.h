@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/10 16:45:17 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:46:07 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,8 @@
 
 # include "and_or.h"
 # include "execution.h"
+
+// functions
+t_and_or	*analysis(char *src);
 
 #endif

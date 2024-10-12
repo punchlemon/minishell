@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analysis.c                                         :+:      :+:    :+:   */
+/*   ft_putoct.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 17:47:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/12 13:03:55 by retanaka         ###   ########.fr       */
+/*   Created: 2024/05/10 14:20:07 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/12 13:20:43 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
-#include <stdlib.h>
+#include "ft_printf.h"
 
-t_and_or	*analysis(char *src)
+int	ft_putoct_check(unsigned int n, int *count)
 {
-	int			*lex_data;
-	t_and_or	*and_or;
-
-	lex_data = lexer(src);
-	if (!lex_data)
-		return (NULL);
-	and_or = parser(src, lex_data);
-	free(lex_data);
-	return (and_or);
+	return (ft_putnumber_check((unsigned long long)n, 'o', count, 8));
 }

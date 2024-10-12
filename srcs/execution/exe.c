@@ -6,12 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 12:46:51 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:51:23 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
 #include "minishell.h"
+#include "libft.h"
 
 void	delete_pp(char **src)
 {

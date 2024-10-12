@@ -6,21 +6,21 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:04:26 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/11 21:08:58 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:50:57 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
 #include "minishell.h"
+#include <unistd.h>
 
 void	print_and_or(t_and_or *and_or)
 {
 	size_t	i;
 
 	if (!and_or)
-		return ((void)put("and_or:(null)\n"));
+		return ((void)write(1, "and_or:(null)\n", 14));
 	if (!and_or->pipe)
-		return ((void)put("and_or->pipe:(null)\n"));
+		return ((void)write(1, "and_or->pipe:(null)\n", 20));
 	i = 0;
 	while (and_or[i].pipe)
 	{

@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_str_arr.c                                      :+:      :+:    :+:   */
+/*   analysis.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 00:43:33 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/06 19:26:48 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/12 13:02:10 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/12 13:03:24 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
+#ifndef ANALYSIS_H
+# define ANALYSIS_H
 
-t_str_list	*get_str_list_from_str_arr(t_str_arr *str_arr, size_t n)
-{
-	t_str_list	*l;
+# include "and_or.h"
 
-	l = str_arr->list;
-	while (n--)
-		l = l->next;
-	return (l);
-}
+// functions
+int			*lexer(const char *src);
+t_and_or	*parser(char *src, int *lex_data);
+
+#endif
