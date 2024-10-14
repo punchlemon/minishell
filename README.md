@@ -59,11 +59,11 @@ make ; ./minishell
 - [ ] *の処理について考える
 - [ ] /の処理について考える
 - [ ] $の処理について考える
-- [ ] check_lexの要件を考える
-- [ ] spaceというflagを撤廃する "delete space"
 
 ## 🚀 WIP
 
+- [ ] check_lex_wordを実装する
+- [ ] spaceというflagを撤廃する "delete space"
 
 ## 🌟 Done
 
