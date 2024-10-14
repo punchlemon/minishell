@@ -45,12 +45,11 @@ make ; ./minishell
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## :memo: To-Do
-- [ ] pipeの構造体名が少し違和感があるのでpipeに変更する "change name p_cmd -> pipe"
 - [ ] ctrl+cでプログラムが終了しないようにする "disable ctrl+c"
 
 ## :rocket: WIP
+- [ ] ls""''のようなword周りのアルゴリズムを整理する "fix count_word, store_word"
 
 ## :star2: Done
 - [x] ただ改行が入力されたときに改行のみを出力する部分を関数かする "functionalize enter"
 - [x] exitでminishellを終了できるようにする "enable exit"
-- [x] 現状ではand_orには対応しているが、'|'一文字をキャンセルしているのでパイプに対応していない。これを対応させる "fix pipe"
