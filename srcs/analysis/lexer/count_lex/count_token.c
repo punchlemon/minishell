@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   count_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 12:27:03 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 09:25:58 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/14 13:00:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft_extend.h"
+#include <stdlib.h>
 
-# define SYNTAX_ERROR() write(1, "minishell: syntax error\n", 24)
+int	count_token(const char *src, size_t *i, size_t *lex_data_len)
+{
+	char		c;
 
-# include "and_or.h"
-# include "execution.h"
-
-// functions
-t_and_or	*analysis(char *src);
-
-#endif
+	c = src[(*i)++];
+	if (c != '(' && c != ')')
+	{
+		if (c == src[*i])
+			(*i)++;
+		else
+		{
+			if (c == '&')
+				return (0);
+		}
+	}
+	(*lex_data_len)++;
+	while (ft_isspace(src[*i]))
+		(*i)++;
+	return (1);
+}

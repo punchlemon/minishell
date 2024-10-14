@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   store_lex.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 12:27:03 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 12:21:22 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/14 12:49:45 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef STORE_LEX_H
+# define STORE_LEX_H
 
-# define SYNTAX_ERROR() write(1, "minishell: syntax error\n", 24)
-
-# include "and_or.h"
-# include "execution.h"
+#include "t_lex_data.h"
 
 // functions
-t_and_or	*analysis(char *src);
+void	store_token(t_lex_data *lex_data, const char *src, size_t *i
+	, size_t *lex_data_i);
+void	store_word(t_lex_data *lex_data, const char *src, size_t *i
+	, size_t *lex_data_i);
 
 #endif

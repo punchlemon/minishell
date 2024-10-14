@@ -6,11 +6,10 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:26:13 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/12 12:51:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:29:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memory.h"
 #include "libft_extend.h"
 #include "minishell.h"
 

@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analysis.h                                         :+:      :+:    :+:   */
+/*   count_lex.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 13:02:10 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/13 23:39:52 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 12:11:28 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/14 12:13:53 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANALYSIS_H
-# define ANALYSIS_H
+#ifndef COUNT_LEX_H
+# define COUNT_LEX_H
 
-# include "and_or.h"
-# include <stdlib.h>
-
-// structions
-typedef struct s_lex_data
-{
-	int		token;
-	size_t	head;
-	size_t	tail;
-}	t_lex_data;
+#include <stdlib.h>
 
 // functions
-t_lex_data	*lexer(const char *src);
-t_and_or	*parser(char *src, t_lex_data *lex_data);
+int	count_word(const char *src, size_t *i, size_t *lex_data_len);
+int	count_token(const char *src, size_t *i, size_t *lex_data_len);
 
 #endif

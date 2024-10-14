@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:35:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/13 23:38:30 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:38:45 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@
 # define DLESS 12 // <<
 # define DGREAT 13 // >>
 
-# include "analysis.h"
+# include "t_lex_data.h"
 # include <stdlib.h>
 
 // functions
-int		ft_istoken(const char c);
 size_t	count_lex(const char *src);
 void	store_lex(const char *str, t_lex_data *lex_data);
 int		check_lex(t_lex_data *lex_data);

@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memory.h                                        :+:      :+:    :+:   */
+/*   analysis.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 14:32:12 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/01 16:21:07 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/12 13:02:10 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/14 12:31:53 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MEMORY_H
-# define FT_MEMORY_H
+#ifndef ANALYSIS_H
+# define ANALYSIS_H
 
-# include <unistd.h>
+# include "and_or.h"
+# include "t_lex_data.h"
+# include <stdlib.h>
 
-// ft_memory functions
-// ft_calloc.c
-void	*ft_calloc(size_t n);
+// structions
 
-// ft_memcpy.c
-void	ft_memcpy(char *dst, char *src, size_t n);
-
-// ft_memzero.c
-void	ft_memzero(char *dst, size_t n);
-
-// is_equal_mem.c
-int		is_equal_mem(char *s1, char *s2, size_t n);
+// functions
+t_lex_data	*lexer(const char *src);
+t_and_or	*parser(char *src, t_lex_data *lex_data);
 
 #endif

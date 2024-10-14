@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   t_lex_data.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 12:27:03 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 12:30:42 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/14 12:31:36 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef T_LEX_DATA_H
+# define T_LEX_DATA_H
 
-# define SYNTAX_ERROR() write(1, "minishell: syntax error\n", 24)
+# include <stdlib.h>
 
-# include "and_or.h"
-# include "execution.h"
-
-// functions
-t_and_or	*analysis(char *src);
+typedef struct s_lex_data
+{
+	int		token;
+	size_t	head;
+	size_t	tail;
+}	t_lex_data;
 
 #endif

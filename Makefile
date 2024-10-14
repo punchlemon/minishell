@@ -21,11 +21,18 @@ $(addsuffix .c, \
 				delete_cmd \
 			) \
 			$(addprefix lexer/, \
+				$(addprefix count_lex/, \
+					count_lex \
+					count_token \
+					count_word \
+				) \
+				$(addprefix store_lex/, \
+					store_lex \
+					store_token \
+					store_word \
+				) \
 				check_lex \
-				count_lex \
-				ft_istoken \
 				lexer \
-				store_lex \
 			) \
 			$(addprefix pipe/, \
 				create_pipe \

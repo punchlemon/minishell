@@ -21,6 +21,7 @@ $(addsuffix .c, \
 			) \
 			$(addprefix is/, \
 				ft_isspace \
+				ft_istoken \
 			) \
 			$(addprefix mem/, \
 				free_pp \
