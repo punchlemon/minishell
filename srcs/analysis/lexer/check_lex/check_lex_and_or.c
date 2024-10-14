@@ -6,12 +6,14 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:42:52 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 17:35:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 01:13:59 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "t_lex_data.h"
 #include "check_lex.h"
+
+#include "ft_printf.h"
 
 int	check_lex_and_or(const t_lex_data *lex_data, const size_t len)
 {

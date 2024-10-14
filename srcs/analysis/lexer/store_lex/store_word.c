@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:22:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 19:58:11 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 01:28:00 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	store_quote(t_lex_data *lex_data, const char *src, size_t *i
 	lex_data[*lex_data_i].head = *i;
 	while (src[*i] != c)
 		(*i)++;
-	lex_data[(*lex_data_i)++].tail = *i;
-	c = src[++(*i)];
+	lex_data[(*lex_data_i)++].tail = ++(*i);
+	c = src[*i];
 	if (ft_isspace(c))
 		while (ft_isspace(src[*i]))
 			(*i)++;
@@ -58,10 +58,7 @@ static void	store_normal_word(t_lex_data *lex_data, const char *src, size_t *i
 			return ;
 		}
 		else if (ft_istoken(c) || !c)
-		{
-			lex_data[(*lex_data_i)++].tail = *i;
-			return ;
-		}
+			return ((void)(lex_data[(*lex_data_i)++].tail = *i));
 		else if (c == '"' || c == '\'')
 		{
 			lex_data[(*lex_data_i)++].tail = *i;

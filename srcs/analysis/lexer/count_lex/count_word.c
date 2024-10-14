@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 09:23:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 19:54:01 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 01:10:52 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int	count_quote(const char *src, size_t *i, size_t *lex_data_len)
 			return (0);
 		(*i)++;
 	}
-	c = src[++(*i)];
+	++(*i);
+	c = src[*i];
 	if (ft_isspace(c))
 	{
 		while (ft_isspace(src[*i]))
