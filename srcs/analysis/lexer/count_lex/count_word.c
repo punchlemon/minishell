@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 09:23:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 13:37:18 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:23:04 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	count_space(const char *src, size_t *i, size_t *lex_data_len)
 	if (src[*i] && !ft_istoken(src[*i]))
 		(*lex_data_len)++;
 }
+
 static int	count_quote(const char *src, size_t *i, size_t *lex_data_len)
 {
 	char	c;

@@ -6,12 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:56:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 13:30:54 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:10:20 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "store_lex.h"
-#include "lexer.h"
 #include "t_lex_data.h"
 #include "libft_extend.h"
 

@@ -53,7 +53,14 @@ make ; ./minishell
 
 ## 📝 To-Do
 
+- [ ] \*.oだけでなく\*.dも出力できるようにする
+- [ ] parserを実行できるようにする
 - [ ] ctrl+cでプログラムが終了しないようにする "disable ctrl+c"
+- [ ] *の処理について考える
+- [ ] /の処理について考える
+- [ ] $の処理について考える
+- [ ] check_lexの要件を考える
+- [ ] spaceというflagを撤廃する "delete space"
 
 ## 🚀 WIP
 

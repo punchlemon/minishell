@@ -91,4 +91,20 @@ re: fclean all
 VALGRIND_LOG = valgrind.log
 
 val: re
-	@valgrind $(VFLAGS) ./$(NAME) > $(VALGRIND_LOG) 2>&1
+	@valgrind $(VFLAGS) ./$(NAME) 2> $(VALGRIND_LOG)
+
+norm:
+	@$(call check_norminette, $(SRCS_DIR))
+	@$(call check_norminette, $(INCLUDES_DIR))
+
+define ok
+	echo $1"$(GREEN)OK$(RESET)"
+endef
+
+define check_norminette
+	@if norminette $1 | grep -q Error; then \
+		norminette $1 | grep Error; \
+	else \
+		$(call ok, $1": "); \
+	fi
+endef
