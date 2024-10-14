@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:52:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 16:22:00 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:45:25 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_lex_data	*lexer(const char *src)
 	if (!lex_data)
 		return (NULL);
 	store_lex(src, lex_data);
-	if (!check_lex(lex_data))
+	if (!check_lex(lex_data, lex_data_len))
 		return (free(lex_data), NULL);
 	return (lex_data);
 }

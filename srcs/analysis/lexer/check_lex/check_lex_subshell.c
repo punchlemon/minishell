@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   check_lex_subshell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 18:35:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 17:58:42 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 16:45:28 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/14 17:43:31 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include "t_lex_data.h"
+#include "check_lex.h"
 
-# include "t_lex_data.h"
-# include <stdlib.h>
+int	check_lex_subshell(const t_lex_data *lex_data, size_t *i, const size_t len)
+{
+	size_t	j;
 
-// functions
-size_t	count_lex(const char *src);
-void	store_lex(const char *str, t_lex_data *lex_data);
-int		check_lex(const t_lex_data *lex_data, const size_t lex_data_len);
-
-#endif
+	j = len - 1;
+	while (j > *i)
+	{
+		if (lex_data[j].token == RPAREN)
+		{
+			if (!check_lex_and_or(lex_data, j - *i))
+				return (0);
+			*i = j + 1;
+			return (1);
+		}
+		else if (lex_data[j].token == LPAREN)
+			return (0);
+		j--;
+	}
+	return (0);
+}

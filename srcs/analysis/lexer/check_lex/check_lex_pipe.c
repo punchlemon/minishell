@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   check_lex_pipe.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 18:35:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 17:58:42 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 16:43:04 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/14 17:35:50 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include "t_lex_data.h"
+#include "check_lex.h"
 
-# include "t_lex_data.h"
-# include <stdlib.h>
-
-// functions
-size_t	count_lex(const char *src);
-void	store_lex(const char *str, t_lex_data *lex_data);
-int		check_lex(const t_lex_data *lex_data, const size_t lex_data_len);
-
-#endif
+int	check_lex_pipe(const t_lex_data *lex_data, size_t *i, const size_t len)
+{
+	if (!check_lex_cmd(lex_data, i, len))
+		return (0);
+	while (*i < len)
+	{
+		if (lex_data[*i].token == PIPE)
+		{
+			if (++(*i) >= len)
+				return (0);
+		}
+		else
+			return (0);
+		if (!check_lex_cmd(lex_data, i, len))
+			return (0);
+	}
+	return (1);
+}

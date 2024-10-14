@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   check_lex_io_redirect.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 18:35:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 17:58:42 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 16:45:23 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/14 18:03:56 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include "t_lex_data.h"
+#include "check_lex.h"
 
-# include "t_lex_data.h"
-# include <stdlib.h>
-
-// functions
-size_t	count_lex(const char *src);
-void	store_lex(const char *str, t_lex_data *lex_data);
-int		check_lex(const t_lex_data *lex_data, const size_t lex_data_len);
-
-#endif
+int	check_lex_io_redirect(const t_lex_data *lex_data, size_t *i,
+		const size_t len)
+{
+	if (++(*i) >= len)
+		return (0);
+	return (check_lex_word(lex_data, i, len));
+}
