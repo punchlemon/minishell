@@ -63,10 +63,10 @@ make ; ./minishell
 ## 🚀 WIP
 
 - [ ] check_lex_wordを実装する
-- [ ] spaceというflagを撤廃する "delete space"
 
 ## 🌟 Done
 
+- [X] spaceというflagを撤廃する "delete space"
 - [X] ls""''のようなword周りのアルゴリズムを整理する "fix count_word, store_word"
 - [X] ただ改行が入力されたときに改行のみを出力する部分を関数かする "functionalize enter"
 - [X] exitでminishellを終了できるようにする "enable exit"

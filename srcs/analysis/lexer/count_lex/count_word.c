@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 09:23:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 16:23:04 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:54:01 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 #include <stdlib.h>
 
 int	count_word(const char *src, size_t *i, size_t *lex_data_len);
-
-static void	count_space(const char *src, size_t *i, size_t *lex_data_len)
-{
-	while (ft_isspace(src[*i]))
-		(*i)++;
-	if (src[*i] && !ft_istoken(src[*i]))
-		(*lex_data_len)++;
-}
 
 static int	count_quote(const char *src, size_t *i, size_t *lex_data_len)
 {
@@ -39,7 +31,11 @@ static int	count_quote(const char *src, size_t *i, size_t *lex_data_len)
 	}
 	c = src[++(*i)];
 	if (ft_isspace(c))
-		return (count_space(src, i, lex_data_len), 1);
+	{
+		while (ft_isspace(src[*i]))
+			(*i)++;
+		return (1);
+	}
 	else if (ft_istoken(c) || !c)
 		return (1);
 	else
@@ -55,7 +51,11 @@ static int	count_normal_word(const char *src, size_t *i, size_t *lex_data_len)
 	{
 		c = src[++(*i)];
 		if (ft_isspace(c))
-			return (count_space(src, i, lex_data_len), 1);
+		{
+			while (ft_isspace(src[*i]))
+				(*i)++;
+			return (1);
+		}
 		else if (ft_istoken(c) || !c)
 			return (1);
 		else if (c == '"' || c == '\'')

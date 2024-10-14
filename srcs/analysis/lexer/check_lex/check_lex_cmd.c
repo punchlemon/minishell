@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:45:29 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 18:02:56 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:51:10 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	check_lex_cmd(const t_lex_data *lex_data, size_t *i, const size_t len)
 		if (*i >= len)
 			return (1);
 		while (*i < len)
-			if (!check_lex_noral_cmd(lex_data, i, len))
+			if (!check_lex_normal_cmd(lex_data, i, len))
 				return (0);
 		return (1);
 	}

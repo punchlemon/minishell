@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:52:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 17:45:25 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:01:52 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,3 @@ t_lex_data	*lexer(const char *src)
 		return (free(lex_data), NULL);
 	return (lex_data);
 }
-
-// // for debug
-// #include "ft_printf.h"
-// insert @ 32
-// // for debug
-// ft_printf("lex_data_len:%d\n", (int)lex_data_len);
-// for (int i = 0;; i++)
-// {
-// 	if (lex_data[i].token == END)
-// 	{
-// 		ft_printf("end\n");
-// 		break ;
-// 	}
-// 	ft_printf("i:%d token:%d, head:%d, tail:%d\n", i, lex_data[i].token
-// 		, (int)lex_data[i].head, (int)lex_data[i].tail);
-// }
-// // for debug

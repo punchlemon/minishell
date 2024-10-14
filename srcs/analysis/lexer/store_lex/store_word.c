@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:22:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 16:13:41 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:58:11 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,6 @@
 
 void	store_word(t_lex_data *lex_data, const char *src, size_t *i,
 			size_t *lex_data_i);
-
-static void	store_space(t_lex_data *lex_data, const char *src, size_t *i,
-	size_t *lex_data_i)
-{
-	while (ft_isspace(src[*i]))
-		(*i)++;
-	if (src[*i] && !ft_istoken(src[*i]))
-		lex_data[(*lex_data_i)++].token = SPACE;
-}
 
 static void	store_quote(t_lex_data *lex_data, const char *src, size_t *i
 	, size_t *lex_data_i)
@@ -41,7 +32,8 @@ static void	store_quote(t_lex_data *lex_data, const char *src, size_t *i
 	lex_data[(*lex_data_i)++].tail = *i;
 	c = src[++(*i)];
 	if (ft_isspace(c))
-		store_space(lex_data, src, i, lex_data_i);
+		while (ft_isspace(src[*i]))
+			(*i)++;
 	else if (ft_istoken(c) || !c)
 		return ;
 	else
@@ -61,7 +53,8 @@ static void	store_normal_word(t_lex_data *lex_data, const char *src, size_t *i
 		if (ft_isspace(c))
 		{
 			lex_data[(*lex_data_i)++].tail = *i;
-			store_space(lex_data, src, i, lex_data_i);
+			while (ft_isspace(src[*i]))
+				(*i)++;
 			return ;
 		}
 		else if (ft_istoken(c) || !c)
