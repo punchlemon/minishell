@@ -6,37 +6,39 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:52:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/12 14:29:33 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/13 23:51:11 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "analysis.h"
 #include "lexer.h"
 #include "ft_printf.h"
-#include "libft.h"
-#include "libft_extend.h"
-#include <stdlib.h>
 
-int	ft_istoken(const char c)
+t_lex_data	*lexer(const char *src)
 {
-	return (c == '&' || c == '|'
-		|| c == '(' || c == ')'
-		|| c == '<' || c == '>');
-}
+	size_t		lex_data_len;
+	t_lex_data	*lex_data;
 
-size_t	*lexer(const char *src)
-{
-	size_t	len;
-	size_t	*lex_data;
-
-	len = count_lex(src);
-	if (!len)
+	lex_data_len = count_lex(src);
+	if (!lex_data_len)
 		return (NULL);
-	lex_data = ft_calloc(sizeof(int) * (len + 1));
+	ft_printf("lex_data_len:%d\n", (int)lex_data_len);
+	lex_data = malloc(sizeof(t_lex_data) * (lex_data_len + 1));
 	if (!lex_data)
 		return (NULL);
-	store_lex(lex_data, src);
+	store_lex(src, lex_data);
+
+
+	for (int i = 0;; i++)
+	{
+		ft_printf("i:%d token:%d, head:%d, tail:%d\n", i, lex_data[i].token
+			, (int)lex_data[i].head, (int)lex_data[i].tail);
+		if (lex_data[i].token == END)
+			break ;
+	}
+
+
 	if (!check_lex(lex_data))
 		return (free(lex_data), NULL);
-	ft_printf("check_lex is finished!\n");
 	return (lex_data);
 }

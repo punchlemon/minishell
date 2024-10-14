@@ -6,102 +6,112 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:02:49 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/12 13:50:01 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/14 02:09:09 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "ft_printf.h"
 #include "libft.h"
 #include "libft_extend.h"
-#include <stdlib.h>
+#include "ft_printf.h"
 
-static void	count_space(const char *src, size_t *i, size_t *len)
+int	count_space(const char *src, size_t *i, size_t *lex_data_len)
 {
-	while (src[*i] && ft_isspace(src[*i]))
+	while (ft_isspace(src[*i]))
 		(*i)++;
-	(*len)++;
+	(*lex_data_len)++;
+	if (!src[*i])
+		return (0);
+	return (1);
 }
 
-static int	count_quote(const char *src, size_t *i, size_t *len)
+static int	count_quote(const char *src, size_t *i, size_t *lex_data_len)
 {
 	char	c;
-	char	tmp;
 
 	c = src[*i];
 	while (1)
 	{
-		tmp = src[++(*i)];
-		if (tmp == c)
-			break ;
-		if (!tmp)
+		(*i)++;
+		if (src[*i] == c)
+		{
+			(*lex_data_len)++;
+			(*i)++;
+			return (1);
+		}
+		else if (!src[*i])
 			return (0);
 	}
-	*len += 3;
-	return (1);
 }
 
-static int	count_word(const char *src, size_t *i, size_t *len)
+static int	count_word(const char *src, size_t *i, size_t *lex_data_len)
 {
 	char	c;
 
 	while (1)
 	{
 		c = src[*i];
-		if (ft_istoken(c) || ft_isspace(c) || c)
-			break ;
+		if (ft_istoken(c) || ft_isspace(c) || !c)
+			return ((*lex_data_len)++, 1);
 		if (c == '"' || c == '\'')
 		{
-			*len += 3;
-			if (!count_quote(src, i, len))
+			ft_printf("%d\n", (int)*i);
+			(*lex_data_len)++;
+			if (!count_quote(src, i, lex_data_len))
 				return (0);
+			if (!src[*i] || ft_istoken(src[*i]) || ft_isspace(src[*i]))
+				return (1);
+			(*i)--;
 		}
 		(*i)++;
 	}
-	*len += 3;
-	return (1);
 }
 
-static int	count_token(const char *src, size_t *i, size_t *len)
+static int	count_token(const char *src, size_t *i, size_t *lex_data_len)
 {
-	char	c;
+	char		c;
 
 	c = src[*i];
-	if (c != '(' && c != ')' && c == src[*i + 1])
-		(*i)++;
-	else if (c == '&')
-		return (0);
-	(*len)++;
+	(*i)++;
+	if (c != '(' && c != ')')
+	{
+		if (c == src[*i])
+			(*i)++;
+		else
+		{
+			if (c == '&')
+				return (0);
+		}
+	}
+	(*lex_data_len)++;
 	return (1);
 }
 
 size_t	count_lex(const char *src)
 {
-	size_t	i;
-	size_t	len;
-	char	c;
+	size_t		i;
+	size_t		lex_data_len;
 
-	len = 0;
+	lex_data_len = 0;
 	i = 0;
-	while (1)
+	while (ft_isspace(src[i]))
+		i++;
+	while (src[i])
 	{
-		count_space(src, &i, &len);
-		c = src[i];
-		if (!c)
-			break ;
-		if (!ft_istoken(c))
+		if (ft_istoken(src[i]))
 		{
-			if (!count_word(src, &i, &len))
+			if (!count_token(src, &i, &lex_data_len))
 				return (0);
 		}
 		else
 		{
-			if (!count_token(src, &i, &len))
+			if (!count_word(src, &i, &lex_data_len))
 				return (0);
 		}
-		i++;
+		if (!src[i])
+			break ;
+		if (!count_space(src, &i, &lex_data_len))
+			return (lex_data_len);
 	}
-	return (len);
+	return (lex_data_len);
 }
-
-//countする時点ではtokenのあとにtokenが来ても、すなわち&&||のような状態になっていたとしても成功とみなす

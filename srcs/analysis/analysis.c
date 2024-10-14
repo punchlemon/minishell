@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:47:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/12 13:03:55 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/13 23:40:56 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_and_or	*analysis(char *src)
 {
-	int			*lex_data;
+	t_lex_data	*lex_data;
 	t_and_or	*and_or;
 
 	lex_data = lexer(src);

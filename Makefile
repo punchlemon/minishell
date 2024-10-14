@@ -23,6 +23,7 @@ $(addsuffix .c, \
 			$(addprefix lexer/, \
 				check_lex \
 				count_lex \
+				ft_istoken \
 				lexer \
 				store_lex \
 			) \
