@@ -54,20 +54,15 @@ make ; ./minishell
 ## 📝 To-Do
 
 - [ ] \*.oだけでなく\*.dも出力できるようにする
-- [ ] parserを実行できるようにする
 - [ ] ctrl+cでプログラムが終了しないようにする "disable ctrl+c"
 - [ ] *の処理について考える
 - [ ] /の処理について考える
 - [ ] $の処理について考える
-- [ ] check_lex_subshellのバグを修正する "fix check_lex_subshell"
 
 ## 🚀 WIP
 
+- [ ] parserを実行できるようにする
 
 ## 🌟 Done
 
-- [X] check_lex_wordを実装する
-- [X] spaceというflagを撤廃する "delete space"
-- [X] ls""''のようなword周りのアルゴリズムを整理する "fix count_word, store_word"
-- [X] ただ改行が入力されたときに改行のみを出力する部分を関数かする "functionalize enter"
-- [X] exitでminishellを終了できるようにする "enable exit"
+- [X] check_lex_subshellのバグを修正する "fix check_lex_subshell"

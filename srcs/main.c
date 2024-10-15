@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 01:29:52 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:02:53 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ int	main(int argc, char **argv, char **environ)
 			and_or = analysis(line);
 			if (and_or)
 				execute(and_or, environ);
-			else
-				write(1, "minishell: syntax error\n", 24);
 		}
 		free(line);
 	}

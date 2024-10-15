@@ -6,12 +6,14 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:45:29 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 19:51:10 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:00:17 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "t_lex_data.h"
 #include "check_lex.h"
+
+#include "ft_printf.h"
 
 static int	check_lex_normal_cmd(const t_lex_data *lex_data, size_t *i,
 		const size_t len)
