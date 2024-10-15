@@ -6,11 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:42:52 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 01:13:59 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:57:44 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "t_lex_data.h"
+#include "analysis.h"
 #include "check_lex.h"
 
 #include "ft_printf.h"

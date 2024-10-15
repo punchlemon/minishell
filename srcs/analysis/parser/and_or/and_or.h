@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_pipe.c                                      :+:      :+:    :+:   */
+/*   and_or.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 11:03:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 12:31:08 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/09 14:09:05 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/15 14:11:12 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef AND_OR_H
+# define AND_OR_H
 
-void	*delete_pipe(t_pipe *pipe)
-{
-	pipe->cmd = delete_cmd(pipe->cmd);
-	free(pipe);
-	return (NULL);
-}
+# include "parser.h"
+
+// functions
+void		print_and_or(t_and_or *and_or);
+
+#endif

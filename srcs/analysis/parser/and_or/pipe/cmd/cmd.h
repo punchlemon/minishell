@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_and_or.c                                    :+:      :+:    :+:   */
+/*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 11:00:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/12 12:35:26 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/09 14:18:27 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/15 13:53:24 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef CMD_H
+# define CMD_H
 
-void	*delete_and_or(t_and_or *and_or)
-{
-	size_t		i;
+# include "parser.h"
 
-	i = 0;
-	while (and_or[i].pipe)
-	{
-		and_or[i].op = 0;
-		and_or[i].pipe = delete_pipe(and_or[i].pipe);
-		i++;
-	}
-	free(and_or);
-	return (NULL);
-}
+// functions
+t_cmd	*create_cmd(const char *src);
+void	*delete_cmd(t_cmd *cmd);
 
-///　NULLを入れられることには対応していない
+#endif

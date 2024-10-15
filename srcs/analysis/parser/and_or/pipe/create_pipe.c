@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   create_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 18:35:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 13:56:03 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/21 20:29:40 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/15 14:04:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include "libft.h"
+#include "parser.h"
+#include "cmd/cmd.h"
 
-# include <stdlib.h>
-
-// structions
-typedef struct s_lex_data
+t_pipe	*create_pipe(char *src)
 {
-	int		token;
-	size_t	head;
-	size_t	tail;
-}	t_lex_data;
+	t_pipe	*pipe;
 
-// functions
-size_t	count_lex(const char *src);
-void	store_lex(const char *str, t_lex_data *lex_data);
-int		check_lex(const t_lex_data *lex_data, const size_t lex_data_len);
-
-#endif
+	pipe = ft_calloc(sizeof(t_pipe));
+	if (!pipe)
+		return (NULL);
+	pipe->cmd = create_cmd(src);
+	return (pipe);
+}

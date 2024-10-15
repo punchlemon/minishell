@@ -61,7 +61,8 @@ make ; ./minishell
 
 ## 🚀 WIP
 
-- [ ] parserを実行できるようにする
+- [ ] parserを実行できるようにする "add parser"
+- [ ] lex_and_orのバグを修正する "fix lex_and_or"
 
 ## 🌟 Done
 

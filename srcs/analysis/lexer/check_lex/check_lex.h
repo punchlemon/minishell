@@ -6,14 +6,14 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:47:53 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 18:05:01 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:48:27 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHECK_LEX_H
 # define CHECK_LEX_H
 
-# include "t_lex_data.h"
+# include "lexer.h"
 
 // functions
 int	check_lex_and_or(const t_lex_data *lex_data, const size_t len);

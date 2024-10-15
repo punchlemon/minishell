@@ -6,11 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:43:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 17:35:50 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:58:58 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "t_lex_data.h"
+#include "analysis.h"
 #include "check_lex.h"
 
 int	check_lex_pipe(const t_lex_data *lex_data, size_t *i, const size_t len)

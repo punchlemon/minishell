@@ -1,30 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_cmd.c                                       :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 12:26:13 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 16:20:28 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/11 18:44:52 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/15 14:11:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_extend.h"
-#include "minishell.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-t_cmd	*create_cmd(const char *src)
+# define CMD 0
+# define AND 1
+# define OR 2
+
+#include "lexer.h"
+
+// structures
+typedef struct s_cmd
 {
-	t_cmd		*cmd;
-	char		**splitted_src;
+	int		in;
+	int		out;
+	char	**argv;
+}	t_cmd;
 
-	splitted_src = ft_split_func(src, ft_isspace);
-	if (!splitted_src)
-		return (NULL);
-	cmd = ft_calloc(sizeof(t_cmd));
-	cmd->argv = splitted_src;
-	cmd->in = 0;
-	cmd->out = 0;
-	return (cmd);
-}
-///// io_redirectによってfdが入れられる
+typedef struct s_pipe
+{
+	t_cmd			*cmd;
+	struct s_pipe	*next;
+}	t_pipe;
+
+typedef struct s_and_or
+{
+	int				op;
+	t_pipe			*pipe;
+}	t_and_or;
+
+// functions
+void		*delete_and_or(t_and_or *and_or);
+
+#endif

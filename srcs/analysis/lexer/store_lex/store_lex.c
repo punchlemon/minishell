@@ -6,17 +6,15 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:56:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 16:10:20 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:00:12 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "analysis.h"
 #include "store_lex.h"
-#include "t_lex_data.h"
 #include "libft_extend.h"
 
-// for debug
 #include "ft_printf.h"
-// for debug
 
 void	store_lex(const char *src, t_lex_data *lex_data)
 {

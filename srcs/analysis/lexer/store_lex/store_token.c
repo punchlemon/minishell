@@ -6,11 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:22:00 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 16:10:46 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:00:23 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "t_lex_data.h"
+#include "analysis.h"
 #include "libft_extend.h"
 
 void	store_repeat_token(t_lex_data *lex_data, const char *src, size_t *i

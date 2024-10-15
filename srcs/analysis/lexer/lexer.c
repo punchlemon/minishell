@@ -6,12 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:52:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 20:01:52 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:46:48 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "t_lex_data.h"
 
 t_lex_data	*lexer(const char *src)
 {

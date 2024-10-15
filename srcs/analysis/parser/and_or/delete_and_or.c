@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd.h                                              :+:      :+:    :+:   */
+/*   delete_and_or.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 14:18:27 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/12 12:35:45 by retanaka         ###   ########.fr       */
+/*   Created: 2024/09/22 11:00:09 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/15 14:06:17 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CMD_H
-# define CMD_H
+#include "parser.h"
+#include "pipe/pipe.h"
+#include <stdlib.h>
 
-typedef struct s_cmd
+void	*delete_and_or(t_and_or *and_or)
 {
-	int		in;
-	int		out;
-	char	**argv;
-}	t_cmd;
+	size_t		i;
 
-// functions
-// create_cmd.c
-t_cmd	*create_cmd(const char *src);
+	i = 0;
+	while (and_or[i].pipe)
+	{
+		and_or[i].op = 0;
+		and_or[i].pipe = delete_pipe(and_or[i].pipe);
+		i++;
+	}
+	free(and_or);
+	return (NULL);
+}
 
-// delete_cmd.c
-void	*delete_cmd(t_cmd *cmd);
-
-#endif
+///　NULLを入れられることには対応していない

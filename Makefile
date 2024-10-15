@@ -12,15 +12,16 @@ SRCS = \
 $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
 		$(addprefix analysis/, \
-			$(addprefix and_or/, \
-				delete_and_or \
-				print_and_or \
-			) \
-			$(addprefix cmd/, \
-				create_cmd \
-				delete_cmd \
-			) \
 			$(addprefix lexer/, \
+				$(addprefix check_lex/, \
+					check_lex_and_or \
+					check_lex_cmd \
+					check_lex_io_redirect \
+					check_lex_pipe \
+					check_lex_subshell \
+					check_lex_word \
+					check_lex \
+				) \
 				$(addprefix count_lex/, \
 					count_lex \
 					count_token \
@@ -31,22 +32,21 @@ $(addsuffix .c, \
 					store_token \
 					store_word \
 				) \
-				$(addprefix check_lex/, \
-					check_lex_and_or \
-					check_lex_cmd \
-					check_lex_io_redirect \
-					check_lex_pipe \
-					check_lex_subshell \
-					check_lex_word \
-					check_lex \
-				) \
 				lexer \
 			) \
-			$(addprefix pipe/, \
-				create_pipe \
-				delete_pipe \
-			) \
 			$(addprefix parser/, \
+				$(addprefix and_or/, \
+					$(addprefix pipe/, \
+						$(addprefix cmd/, \
+							create_cmd \
+							delete_cmd \
+						) \
+						create_pipe \
+						delete_pipe \
+					) \
+					delete_and_or \
+					print_and_or \
+				) \
 				parser \
 			) \
 			analysis \
