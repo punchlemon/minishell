@@ -16,11 +16,10 @@ $(addsuffix .c, \
 				$(addprefix check_lex/, \
 					check_lex_and_or \
 					check_lex_cmd \
-					check_lex_io_redirect \
 					check_lex_pipe \
-					check_lex_subshell \
 					check_lex_word \
 					check_lex \
+					token_is \
 				) \
 				$(addprefix count_lex/, \
 					count_lex \

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:45:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 13:59:31 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:37:49 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,13 @@
 
 int	check_lex_word(const t_lex_data *lex_data, size_t *i, const size_t len)
 {
-	int	token;
-
-	token = lex_data[(*i)++].token;
-	if (token != NORMAL && token != SINGLE && token != DOUBLE)
+	if (!token_is_word(lex_data[(*i)++].token))
 		return (0);
 	while (*i < len)
 	{
-		token = lex_data[*i].token;
-		if (token != NORMAL && token != SINGLE && token != DOUBLE)
+		if (!token_is_word(lex_data[*i].token))
 			break ;
-		else if (lex_data[*i].head - lex_data[*i - 1].tail == 1)
+		if (lex_data[*i].head - lex_data[*i - 1].tail == 1)
 			(*i)++;
 		else
 			break ;
