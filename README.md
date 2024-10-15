@@ -58,6 +58,7 @@ make ; ./minishell
 - [ ] *の処理について考える
 - [ ] /の処理について考える
 - [ ] $の処理について考える
+- [ ] wikiのsyntax diagramを書き換える
 
 ## 🚀 WIP
 
