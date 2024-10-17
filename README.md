@@ -63,6 +63,10 @@ make ; ./minishell
 ## 🚀 WIP
 
 - [ ] parserを実行できるようにする "add parser"
+- [ ] create_wordを完成させる
+- [ ] create_redirectを完成させる
+- [ ] create_subshellを完成させる
+- [ ] create_normal_cmdを完成させる
 
 ## 🌟 Done
 
