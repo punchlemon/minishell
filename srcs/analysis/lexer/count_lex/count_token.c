@@ -6,14 +6,14 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 09:25:58 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/14 13:00:30 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 22:59:39 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_extend.h"
 #include <stdlib.h>
 
-int	count_token(const char *src, size_t *i, size_t *lex_data_len)
+int	count_token(const char *src, size_t *i, size_t *len)
 {
 	char		c;
 
@@ -28,7 +28,7 @@ int	count_token(const char *src, size_t *i, size_t *lex_data_len)
 				return (0);
 		}
 	}
-	(*lex_data_len)++;
+	(*len)++;
 	while (ft_isspace(src[*i]))
 		(*i)++;
 	return (1);

@@ -6,30 +6,28 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:22:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 14:00:40 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 23:19:21 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "analysis.h"
 #include "libft_extend.h"
+#include "store_lex.h"
 
-void	store_word(t_lex_data *lex_data, const char *src, size_t *i,
-			size_t *lex_data_i);
-
-static void	store_quote(t_lex_data *lex_data, const char *src, size_t *i
-	, size_t *lex_data_i)
+static void	store_quote(t_tokens *tokens, const char *src, size_t *i
+	, size_t *t_i)
 {
 	char	c;
 
 	c = src[(*i)++];
 	if (c == '\'')
-		lex_data[*lex_data_i].token = SINGLE;
+		tokens->data[*t_i].type = SINGLE;
 	else
-		lex_data[*lex_data_i].token = DOUBLE;
-	lex_data[*lex_data_i].head = *i;
+		tokens->data[*t_i].type = DOUBLE;
+	tokens->data[*t_i].head = *i;
 	while (src[*i] != c)
 		(*i)++;
-	lex_data[(*lex_data_i)++].tail = ++(*i);
+	tokens->data[(*t_i)++].tail = ++(*i);
 	c = src[*i];
 	if (ft_isspace(c))
 		while (ft_isspace(src[*i]))
@@ -37,42 +35,41 @@ static void	store_quote(t_lex_data *lex_data, const char *src, size_t *i
 	else if (ft_istoken(c) || !c)
 		return ;
 	else
-		store_word(lex_data, src, i, lex_data_i);
+		store_word(tokens, src, i, t_i);
 }
 
-static void	store_normal_word(t_lex_data *lex_data, const char *src, size_t *i
-	, size_t *lex_data_i)
+static void	store_normal_word(t_tokens *tokens, const char *src, size_t *i
+	, size_t *t_i)
 {
 	char	c;
 
-	lex_data[*lex_data_i].token = NORMAL;
-	lex_data[*lex_data_i].head = *i;
+	tokens->data[*t_i].type = NORMAL;
+	tokens->data[*t_i].head = *i;
 	while (1)
 	{
 		c = src[++(*i)];
 		if (ft_isspace(c))
 		{
-			lex_data[(*lex_data_i)++].tail = *i;
+			tokens->data[(*t_i)++].tail = *i;
 			while (ft_isspace(src[*i]))
 				(*i)++;
 			return ;
 		}
 		else if (ft_istoken(c) || !c)
-			return ((void)(lex_data[(*lex_data_i)++].tail = *i));
+			return ((void)(tokens->data[(*t_i)++].tail = *i));
 		else if (c == '"' || c == '\'')
 		{
-			lex_data[(*lex_data_i)++].tail = *i;
-			store_quote(lex_data, src, i, lex_data_i);
+			tokens->data[(*t_i)++].tail = *i;
+			store_quote(tokens, src, i, t_i);
 			return ;
 		}
 	}
 }
 
-void	store_word(t_lex_data *lex_data, const char *src, size_t *i
-	, size_t *lex_data_i)
+void	store_word(t_tokens *tokens, const char *src, size_t *i, size_t *t_i)
 {
 	if (src[*i] == '"' || src[*i] == '\'')
-		store_quote(lex_data, src, i, lex_data_i);
+		store_quote(tokens, src, i, t_i);
 	else
-		store_normal_word(lex_data, src, i, lex_data_i);
+		store_normal_word(tokens, src, i, t_i);
 }

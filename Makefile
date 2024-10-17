@@ -14,12 +14,12 @@ $(addsuffix .c, \
 		$(addprefix analysis/, \
 			$(addprefix lexer/, \
 				$(addprefix check_lex/, \
-					check_lex_and_or \
-					check_lex_cmd \
-					check_lex_pipe \
-					check_lex_word \
+					check_and_or \
+					check_cmd \
 					check_lex \
-					token_is \
+					check_pipe \
+					check_word \
+					type_is \
 				) \
 				$(addprefix count_lex/, \
 					count_lex \

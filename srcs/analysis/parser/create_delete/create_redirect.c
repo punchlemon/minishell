@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   create_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 18:35:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 13:56:03 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/17 00:24:36 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/17 10:03:45 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include "t_analysis.h"
+#include "t_minishell.h"
 
-# include <stdlib.h>
-
-// structions
-typedef struct s_lex_data
+char	*create_word(const char *src, const t_tokens *tokens, size_t *i)
 {
-	int		token;
-	size_t	head;
-	size_t	tail;
-}	t_lex_data;
+}
 
-// functions
-size_t	count_lex(const char *src);
-void	store_lex(const char *str, t_lex_data *lex_data);
-int		check_lex(const t_lex_data *lex_data, const size_t lex_data_len);
-
-#endif
+t_redirect	*create_redirect(const char *src, const t_tokens *tokens,
+	size_t *i)
+{
+}

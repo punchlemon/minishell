@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   and_or.h                                           :+:      :+:    :+:   */
+/*   delete_parser.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 14:09:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 14:11:12 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/16 16:33:49 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/17 12:58:58 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AND_OR_H
-# define AND_OR_H
+#ifndef DELETE_PARSER_H
+# define DELETE_PARSER_H
 
-# include "parser.h"
+# include "t_minishell.h"
 
-// functions
-void		print_and_or(t_and_or *and_or);
+void	delete_subshell(t_subshell *subshell);
+void	delete_normal_cmd(t_normal_cmd *normal_cmd);
+void	delete_cond(t_cond *cond);
+void	delete_conds(t_cond *conds);
 
 #endif

@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_pipe.c                                      :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 11:03:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 14:04:52 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/11 18:35:47 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/16 16:45:05 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cmd/cmd.h"
-#include <stdlib.h>
+#ifndef LEXER_H
+# define LEXER_H
 
-void	*delete_pipe(t_pipe *pipe)
-{
-	pipe->cmd = delete_cmd(pipe->cmd);
-	free(pipe);
-	return (NULL);
-}
+# include "t_analysis.h"
+# include <stdlib.h>
+
+// functions
+size_t	count_lex(const char *src);
+void	store_lex(const char *str, t_tokens *tokens);
+int		check_lex(const t_tokens *tokens);
+
+#endif

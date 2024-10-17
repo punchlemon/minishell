@@ -6,33 +6,33 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:56:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 14:00:12 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 23:14:39 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "analysis.h"
-#include "store_lex.h"
 #include "libft_extend.h"
+#include "store_lex.h"
 
 #include "ft_printf.h"
 
-void	store_lex(const char *src, t_lex_data *lex_data)
+void	store_lex(const char *src, t_tokens *tokens)
 {
 	size_t	i;
-	size_t	lex_data_i;
+	size_t	t_i;
 
-	lex_data_i = 0;
+	t_i = 0;
 	i = 0;
 	while (ft_isspace(src[i]))
 		i++;
 	while (src[i])
 	{
 		if (ft_istoken(src[i]))
-			store_token(lex_data, src, &i, &lex_data_i);
+			store_token(tokens, src, &i, &t_i);
 		else
-			store_word(lex_data, src, &i, &lex_data_i);
+			store_word(tokens, src, &i, &t_i);
 		if (!src[i])
 			break ;
 	}
-	lex_data[lex_data_i].token = END;
+	tokens->data[t_i].type = END;
 }

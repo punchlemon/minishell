@@ -6,21 +6,19 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 09:23:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 01:10:52 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 23:00:37 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_extend.h"
-#include <stdlib.h>
+#include "count_lex.h"
 
-int	count_word(const char *src, size_t *i, size_t *lex_data_len);
-
-static int	count_quote(const char *src, size_t *i, size_t *lex_data_len)
+static int	count_quote(const char *src, size_t *i, size_t *len)
 {
 	char	c;
 
 	c = src[(*i)++];
-	(*lex_data_len)++;
+	(*len)++;
 	while (src[*i] != c)
 	{
 		if (src[*i] == c)
@@ -40,14 +38,14 @@ static int	count_quote(const char *src, size_t *i, size_t *lex_data_len)
 	else if (ft_istoken(c) || !c)
 		return (1);
 	else
-		return (count_word(src, i, lex_data_len));
+		return (count_word(src, i, len));
 }
 
-static int	count_normal_word(const char *src, size_t *i, size_t *lex_data_len)
+static int	count_normal_word(const char *src, size_t *i, size_t *len)
 {
 	char	c;
 
-	(*lex_data_len)++;
+	(*len)++;
 	while (1)
 	{
 		c = src[++(*i)];
@@ -60,14 +58,14 @@ static int	count_normal_word(const char *src, size_t *i, size_t *lex_data_len)
 		else if (ft_istoken(c) || !c)
 			return (1);
 		else if (c == '"' || c == '\'')
-			return (count_quote(src, i, lex_data_len));
+			return (count_quote(src, i, len));
 	}
 }
 
-int	count_word(const char *src, size_t *i, size_t *lex_data_len)
+int	count_word(const char *src, size_t *i, size_t *len)
 {
 	if (src[*i] == '"' || src[*i] == '\'')
-		return (count_quote(src, i, lex_data_len));
+		return (count_quote(src, i, len));
 	else
-		return (count_normal_word(src, i, lex_data_len));
+		return (count_normal_word(src, i, len));
 }

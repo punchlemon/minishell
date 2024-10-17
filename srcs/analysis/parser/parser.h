@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.h                                             :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 14:13:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 13:53:59 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/11 18:44:52 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/17 12:54:43 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPE_H
-# define PIPE_H
+#ifndef PARSER_H
+# define PARSER_H
 
-# include "parser.h"
+# include "t_analysis.h"
+# include "t_minishell.h"
 
-// functions
-t_pipe		*create_pipe(char *src);
-void		*delete_pipe(t_pipe *pipe);
+t_cond	*create_exec_plan(const char *src, const t_tokens *tokens, size_t *i);
 
 #endif

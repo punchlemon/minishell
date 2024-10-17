@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_is.c                                         :+:      :+:    :+:   */
+/*   type_is.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:54:00 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 15:55:23 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 23:45:13 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "analysis.h"
 
-int	token_is_word(int token)
+int	type_is_word(int type)
 {
-	return (token == NORMAL || token == SINGLE || token == DOUBLE);
+	return (type == NORMAL || type == SINGLE || type == DOUBLE);
 }
 
-int	token_is_subshell(int token)
+int	type_is_subshell(int type)
 {
-	return (token == LPAREN);
+	return (type == LPAREN);
 }
 
-int	token_is_io_redirect(int token)
+int	type_is_io_redirect(int type)
 {
-	return (token == LESS || token == GREAT
-		|| token == DLESS || token == DGREAT);
+	return (type == LESS || type == GREAT
+		|| type == DLESS || type == DGREAT);
 }
 
-int token_is_normal_cmd(int token)
+int	type_is_normal_cmd(int type)
 {
-	return (token_is_io_redirect(token) || token_is_word(token));
+	return (type_is_io_redirect(type) || type_is_word(type));
 }
 
-int	token_is_cmd(int token)
+int	type_is_cmd(int type)
 {
-	return (token_is_subshell(token) || token_is_normal_cmd(token));
+	return (type_is_subshell(type) || type_is_normal_cmd(type));
 }

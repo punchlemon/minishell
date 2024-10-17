@@ -6,17 +6,20 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:43:51 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 14:08:51 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/17 00:37:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "t_analysis.h"
+#include "t_minishell.h"
 #include "parser.h"
-#include <stdlib.h>
 
-t_and_or	*parser(char *src, t_lex_data *lex_data)
+#include "ft_printf.h"
+
+t_exec_plan	*parser(const char *src, const t_tokens *tokens)
 {
-	if (src && lex_data)
-		return (NULL);
-	return (NULL);
+	size_t		i;
+
+	i = 0;
+	return (create_exec_plan(src, tokens, &i));
 }

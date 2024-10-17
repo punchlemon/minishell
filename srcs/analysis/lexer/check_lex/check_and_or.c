@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_lex_pipe.c                                   :+:      :+:    :+:   */
+/*   check_and_or.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 16:43:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 16:27:57 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 16:42:52 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/15 23:46:03 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 
 #include "ft_printf.h"
 
-int	check_lex_pipe(const t_lex_data *lex_data, size_t *i, const size_t len)
+int	check_and_or(const t_tokens *tokens)
 {
-	if (!check_lex_cmd(lex_data, i, len))
+	size_t	i;
+
+	i = 0;
+	if (!type_is_cmd(tokens->data[i].type)
+		|| !check_pipe(tokens, &i))
 		return (0);
-	while (*i < len)
+	while (i < tokens->len)
 	{
-		if (lex_data[*i].token != PIPE)
-			return (1);
-		if (++(*i) >= len)
+		if (((tokens->data[i].type != AND_IF)
+				&& (tokens->data[i].type != OR_IF)) || ++i >= tokens->len)
 			return (0);
-		if (!token_is_cmd(lex_data[*i].token)
-			|| !check_lex_cmd(lex_data, i, len))
+		if (!type_is_cmd(tokens->data[i].type) || !check_pipe(tokens, &i))
 			return (0);
 	}
 	return (1);

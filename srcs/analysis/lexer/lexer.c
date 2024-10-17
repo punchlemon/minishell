@@ -6,25 +6,27 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:52:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 13:46:48 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/15 23:08:33 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_lex_data	*lexer(const char *src)
+t_tokens	*lexer(const char *src)
 {
-	size_t		lex_data_len;
-	t_lex_data	*lex_data;
+	t_tokens	*tokens;
 
-	lex_data_len = count_lex(src);
-	if (!lex_data_len)
+	tokens = malloc(sizeof(t_tokens));
+	if (!tokens)
 		return (NULL);
-	lex_data = malloc(sizeof(t_lex_data) * (lex_data_len + 1));
-	if (!lex_data)
-		return (NULL);
-	store_lex(src, lex_data);
-	if (!check_lex(lex_data, lex_data_len))
-		return (free(lex_data), NULL);
-	return (lex_data);
+	tokens->len = count_lex(src);
+	if (!tokens->len)
+		return (free(tokens), NULL);
+	tokens->data = malloc(sizeof(t_token) * (tokens->len + 1));
+	if (!tokens->data)
+		return (free(tokens), NULL);
+	store_lex(src, tokens);
+	if (!check_lex(tokens))
+		return (free(tokens->data), free(tokens), NULL);
+	return (tokens);
 }

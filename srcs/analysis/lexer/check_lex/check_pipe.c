@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd.h                                              :+:      :+:    :+:   */
+/*   check_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 14:18:27 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 13:53:24 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 16:43:04 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/15 23:38:57 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CMD_H
-# define CMD_H
+#include "analysis.h"
+#include "check_lex.h"
 
-# include "parser.h"
+#include "ft_printf.h"
 
-// functions
-t_cmd	*create_cmd(const char *src);
-void	*delete_cmd(t_cmd *cmd);
-
-#endif
+int	check_pipe(const t_tokens *tokens, size_t *i)
+{
+	if (!check_cmd(tokens, i))
+		return (0);
+	while (*i < tokens->len)
+	{
+		if (tokens->data[*i].type != PIPE)
+			return (1);
+		if (++(*i) >= tokens->len)
+			return (0);
+		if (!type_is_cmd(tokens->data[*i].type)
+			|| !check_cmd(tokens, i))
+			return (0);
+	}
+	return (1);
+}
