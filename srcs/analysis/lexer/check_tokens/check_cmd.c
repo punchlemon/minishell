@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:45:29 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 23:36:18 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 23:59:13 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_subshell(const t_token *tokens, size_t *i)
 	if (!j)
 		return (0);
 	*i += j;
-	return (0);
+	return (1);
 }
 
 static int	check_redirect(const t_token *tokens, size_t *i)

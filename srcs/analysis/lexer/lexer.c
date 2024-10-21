@@ -6,11 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:52:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 23:45:50 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/22 00:00:43 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+#include "../analysis.h"
 
 t_token	*lexer(const char *src)
 {
@@ -29,7 +31,7 @@ t_token	*lexer(const char *src)
 		tokens[i++].type = HEAD;
 	tokens[i].type = TAIL;
 	store_tokens(src, tokens);
-	// if (!check_tokens(tokens))
-	// 	return (free(tokens), NULL);
+	if (!check_tokens(tokens))
+		return (free(tokens), NULL);
 	return (tokens);
 }
