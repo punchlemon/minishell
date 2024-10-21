@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:32:31 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 23:42:15 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/22 00:10:01 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static size_t	count_conds(const t_token *tokens)
 	}
 	return (conds_count);
 }
+///// 消費するtokenの数と用意するmallocの大きさをそれぞれ同時に数える必要あり
 
 // static t_cond	*store_conds(const char *src, const t_token *tokens, size_t *i,
 // 	t_cond *conds)

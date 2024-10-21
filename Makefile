@@ -30,6 +30,9 @@ $(addsuffix .c, \
 				) \
 				lexer \
 			) \
+			$(addprefix parser/, \
+				parser \
+			) \
 			analysis \
 			print_analysis \
 			type_is \
