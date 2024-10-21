@@ -6,44 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:47:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/17 16:09:56 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:27:57 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "analysis.h"
 #include "ft_printf.h"
-
-void	print_tokens(t_tokens *tokens)
-{
-	size_t		i;
-
-	i = 0;
-	while (i < tokens->len)
-	{
-		ft_printf("i:%u type:%d, head:%u, tail:%u\n",
-			(unsigned int)i,
-			tokens->data[i].type,
-			(unsigned int)tokens->data[i].head,
-			(unsigned int)tokens->data[i].tail);
-		i++;
-	}
-}
-
-void	print_conds(t_cond *conds)
-{
-	size_t		i;
-
-	i = 0;
-	// while (i < tokens->len)
-	// {
-	// 	ft_printf("i:%u type:%d, head:%u, tail:%u\n",
-	// 		(unsigned int)i,
-	// 		tokens->data[i].type,
-	// 		(unsigned int)tokens->data[i].head,
-	// 		(unsigned int)tokens->data[i].tail);
-	// 	i++;
-	// }
-}
 
 t_cond	*analysis(char *src)
 {
@@ -51,9 +19,14 @@ t_cond	*analysis(char *src)
 	t_cond		*conds;
 
 	tokens = lexer(src);
+	print_tokens(tokens);
+	ft_printf("\n\n\n");
 	if (!tokens)
 		return (ft_printf("minishell: syntax error\n"), NULL);
 	conds = parser(src, tokens);
+	print_conds(conds);
+	ft_printf("\n\n\n");
 	free(tokens);
 	return (conds);
 }
+// mallocの失敗とsyntax errorが混同している

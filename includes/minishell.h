@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:31:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/16 16:13:29 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:54:15 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include "execution.h"
 # include "t_minishell.h"
+# include "type.h"
 
-t_exec_plan	*analysis(char *src);
-void		delete_exec_plan(t_exec_plan *exec_plan);
+t_cond	*analysis(char *src);
+void	delete_conds(t_cond *conds);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/17 13:46:22 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:55:13 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ static void	execute(t_cond *conds, char **environ)
 	while (conds[i].type != TAIL)
 	{
 		if (conds[i].type == HEAD)
-			exe(conds[i].pipeline[0].normal_cmd->words, environ, &status);
-		else if (conds[i].type == AND)
+			exe(conds[i].pipeline[0].words, environ, &status);
+		else if (conds[i].type == AND_IF)
 		{
 			if (!status)
-				exe(conds[i].pipeline[0].normal_cmd->words, environ, &status);
+				exe(conds[i].pipeline[0].words, environ, &status);
 		}
 		else
 		{
 			if (status)
-				exe(conds[i].pipeline[0].normal_cmd->words, environ, &status);
+				exe(conds[i].pipeline[0].words, environ, &status);
 		}
 		i++;
 	}
@@ -75,8 +75,8 @@ int	main(int argc, char **argv, char **environ)
 			// if (!ft_strcmp(line, "exit"))
 			// 	cleanup_and_exit(line);
 			conds = analysis(line);
-			if (conds)
-				execute(conds, environ);
+			// if (conds)
+			// 	execute(conds, environ);
 		}
 		free(line);
 	}

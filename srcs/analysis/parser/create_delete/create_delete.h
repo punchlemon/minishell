@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:15:40 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 10:52:44 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:10:09 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 # include "type.h"
 
 char		*create_word(const char *src, const t_tokens *tokens, size_t *i);
-char		**create_words(const char *src, const t_tokens *tokens, size_t *i);
+char		**create_words(const char *src, const t_tokens *tokens, size_t i);
 t_redirect	*create_redirects(const char *src, const t_tokens *tokens,
-					size_t *i);
+					size_t i);
 t_cmd_unit	*create_pipeline(const char *src, const t_tokens *tokens,
 					size_t *i);
 t_cond		*create_conds(const char *src, const t_tokens *tokens, size_t *i);
+void		delete_words(char **words);
+void		delete_redirects(t_redirect *redirects);
 void		delete_pipeline(t_cmd_unit *pipeline);
 void		delete_conds(t_cond *conds);
 

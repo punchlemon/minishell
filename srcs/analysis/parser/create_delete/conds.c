@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:32:31 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 10:51:43 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:59:16 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_cond	*store_conds(const char *src, const t_tokens *tokens, size_t *i,
 		if (!conds[conds_i].pipeline)
 		{
 			while (conds_i--)
-				delete_cond(conds[conds_i]);
+				delete_pipeline(conds[conds_i].pipeline);
 			return (free(conds), NULL);
 		}
 		conds_i++;

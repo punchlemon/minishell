@@ -19,7 +19,6 @@ $(addsuffix .c, \
 					check_lex \
 					check_pipe \
 					check_word \
-					type_is \
 				) \
 				$(addprefix count_lex/, \
 					count_lex \
@@ -34,21 +33,17 @@ $(addsuffix .c, \
 				lexer \
 			) \
 			$(addprefix parser/, \
-				$(addprefix and_or/, \
-					$(addprefix pipe/, \
-						$(addprefix cmd/, \
-							create_cmd \
-							delete_cmd \
-						) \
-						create_pipe \
-						delete_pipe \
-					) \
-					delete_and_or \
-					print_and_or \
+				$(addprefix create_delete/, \
+					conds \
+					pipeline \
+					redirects \
+					words \
 				) \
 				parser \
 			) \
 			analysis \
+			print_analysis \
+			type_is \
 		) \
 		$(addprefix execution/, \
 			exe \

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:56:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 00:56:55 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:57:17 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void	store_lex(const char *src, t_tokens *tokens)
 		if (!src[i])
 			break ;
 	}
-	tokens->data[t_i].type = END;
+	tokens->data[t_i].type = TAIL;
 }
