@@ -13,33 +13,22 @@ $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
 		$(addprefix analysis/, \
 			$(addprefix lexer/, \
-				$(addprefix check_lex/, \
-					check_and_or \
+				$(addprefix check_tokens/, \
 					check_cmd \
-					check_lex \
-					check_pipe \
+					check_tokens \
 					check_word \
 				) \
-				$(addprefix count_lex/, \
-					count_lex \
+				$(addprefix count_tokens/, \
 					count_token \
+					count_tokens \
 					count_word \
 				) \
-				$(addprefix store_lex/, \
-					store_lex \
+				$(addprefix store_tokens/, \
 					store_token \
+					store_tokens \
 					store_word \
 				) \
 				lexer \
-			) \
-			$(addprefix parser/, \
-				$(addprefix create_delete/, \
-					conds \
-					pipeline \
-					redirects \
-					words \
-				) \
-				parser \
 			) \
 			analysis \
 			print_analysis \

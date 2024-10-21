@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_lex.h                                        :+:      :+:    :+:   */
+/*   count_tokens.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 12:21:22 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/17 16:10:45 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 12:11:28 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/21 23:14:08 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STORE_LEX_H
-# define STORE_LEX_H
+#ifndef COUNT_TOKENS_H
+# define COUNT_TOKENS_H
 
-# include "t_analysis.h"
 # include <stdlib.h>
 
 // functions
-void	store_token(t_tokens *tokens, const char *src, size_t *i, size_t *t_i);
-void	store_word(t_tokens *tokens, const char *src, size_t *i, size_t *t_i);
+int	count_word(const char *src, size_t *i, size_t *len);
+int	count_token(const char *src, size_t *i, size_t *len);
 
 #endif

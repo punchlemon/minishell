@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 14:55:13 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 23:48:52 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,30 @@
 // 	exit (0);
 // }
 
-static void	execute(t_cond *conds, char **environ)
-{
-	size_t	i;
-	int		status;
+// static void	execute(t_cond *conds, char **environ)
+// {
+// 	size_t	i;
+// 	int		status;
 
-	i = 0;
-	while (conds[i].type != TAIL)
-	{
-		if (conds[i].type == HEAD)
-			exe(conds[i].pipeline[0].words, environ, &status);
-		else if (conds[i].type == AND_IF)
-		{
-			if (!status)
-				exe(conds[i].pipeline[0].words, environ, &status);
-		}
-		else
-		{
-			if (status)
-				exe(conds[i].pipeline[0].words, environ, &status);
-		}
-		i++;
-	}
-	delete_conds(conds);
-}
+// 	i = 0;
+// 	while (conds[i].type != TAIL)
+// 	{
+// 		if (conds[i].type == HEAD)
+// 			exe(conds[i].pipeline[0].words, environ, &status);
+// 		else if (conds[i].type == AND_IF)
+// 		{
+// 			if (!status)
+// 				exe(conds[i].pipeline[0].words, environ, &status);
+// 		}
+// 		else
+// 		{
+// 			if (status)
+// 				exe(conds[i].pipeline[0].words, environ, &status);
+// 		}
+// 		i++;
+// 	}
+// 	delete_conds(conds);
+// }
 
 int	main(int argc, char **argv, char **environ)
 {
@@ -75,6 +75,8 @@ int	main(int argc, char **argv, char **environ)
 			// if (!ft_strcmp(line, "exit"))
 			// 	cleanup_and_exit(line);
 			conds = analysis(line);
+			(void)conds;
+			(void)environ;
 			// if (conds)
 			// 	execute(conds, environ);
 		}

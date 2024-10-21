@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_word.c                                       :+:      :+:    :+:   */
+/*   count_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 16:45:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/17 17:08:54 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/11 18:02:49 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/21 23:15:11 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_lex.h"
+#include "libft_extend.h"
+#include "count_tokens.h"
 
-#include "ft_printf.h"
-
-int	check_word(const t_tokens *tokens, size_t *i)
+size_t	count_tokens(const char *src)
 {
-	if (!type_is_word(tokens->data[(*i)++].type))
-		return (0);
-	while (*i < tokens->len)
+	size_t		i;
+	size_t		len;
+
+	len = 0;
+	i = 0;
+	while (ft_isspace(src[i]))
+		i++;
+	while (src[i])
 	{
-		if (!type_is_word(tokens->data[*i].type))
-			break ;
-		if (tokens->data[*i].head - tokens->data[*i - 1].tail == 1)
-			(*i)++;
+		if (ft_istoken(src[i]))
+		{
+			if (!count_token(src, &i, &len))
+				return (0);
+		}
 		else
+		{
+			if (!count_word(src, &i, &len))
+				return (0);
+		}
+		if (!src[i])
 			break ;
 	}
-	return (1);
+	return (len);
 }

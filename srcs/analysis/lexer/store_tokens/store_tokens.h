@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_lex.c                                        :+:      :+:    :+:   */
+/*   store_tokens.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 21:05:36 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/17 17:09:50 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 12:21:22 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/21 23:14:20 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_lex.h"
+#ifndef STORE_TOKENS_H
+# define STORE_TOKENS_H
 
-int	check_lex(const t_tokens *tokens)
-{
-	return (check_and_or(tokens));
-}
+# include "t_analysis.h"
+# include <stdlib.h>
+
+// functions
+void	store_token(t_token *tokens, const char *src, size_t *i, size_t *t_i);
+void	store_word(t_token *tokens, const char *src, size_t *i, size_t *t_i);
+
+#endif

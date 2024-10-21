@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:35:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 00:58:41 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 23:23:23 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 # define LEXER_H
 
 # include "t_analysis.h"
+# include "type.h"
 # include <stdlib.h>
 
 // functions
-int		check_lex(const t_tokens *tokens);
-size_t	count_lex(const char *src);
-void	store_lex(const char *str, t_tokens *tokens);
+int		check_tokens(const t_token *tokens);
+size_t	count_tokens(const char *src);
+void	store_tokens(const char *str, t_token *tokens);
 
 #endif

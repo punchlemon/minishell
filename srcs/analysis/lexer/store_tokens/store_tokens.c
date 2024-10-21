@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_lex.c                                        :+:      :+:    :+:   */
+/*   store_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 18:02:49 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 22:58:10 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/11 18:56:04 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/21 23:13:39 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "t_analysis.h"
+#include "type.h"
 #include "libft_extend.h"
-#include "count_lex.h"
+#include "store_tokens.h"
 
-size_t	count_lex(const char *src)
+#include "ft_printf.h"
+
+void	store_tokens(const char *src, t_token *tokens)
 {
-	size_t		i;
-	size_t		len;
+	size_t	i;
+	size_t	t_i;
 
-	len = 0;
+	t_i = 0;
 	i = 0;
 	while (ft_isspace(src[i]))
 		i++;
 	while (src[i])
 	{
 		if (ft_istoken(src[i]))
-		{
-			if (!count_token(src, &i, &len))
-				return (0);
-		}
+			store_token(tokens, src, &i, &t_i);
 		else
-		{
-			if (!count_word(src, &i, &len))
-				return (0);
-		}
+			store_word(tokens, src, &i, &t_i);
 		if (!src[i])
 			break ;
 	}
-	return (len);
+	tokens[i].type = TAIL;
 }

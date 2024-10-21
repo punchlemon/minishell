@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_pipe.c                                       :+:      :+:    :+:   */
+/*   check_tokens.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 16:43:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/17 17:08:39 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 16:47:53 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/21 23:36:40 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "type.h"
-#include "check_lex.h"
+#ifndef CHECK_TOKENS_H
+# define CHECK_TOKENS_H
 
-#include "ft_printf.h"
+# include "t_analysis.h"
+# include "type.h"
 
-int	check_pipe(const t_tokens *tokens, size_t *i)
-{
-	if (!check_cmd(tokens, i))
-		return (0);
-	while (*i < tokens->len)
-	{
-		if (tokens->data[*i].type != PIPE)
-			return (1);
-		if (++(*i) >= tokens->len)
-			return (0);
-		if (!type_is_cmd(tokens->data[*i].type)
-			|| !check_cmd(tokens, i))
-			return (0);
-	}
-	return (1);
-}
+int	check_tokens(const t_token *tokens);
+int	check_cmd(const t_token *tokens, size_t *i);
+int	check_word(const t_token *tokens, size_t *i);
+
+#endif

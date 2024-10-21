@@ -6,12 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 09:23:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 23:00:37 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 23:16:06 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_extend.h"
-#include "count_lex.h"
+#include "count_tokens.h"
 
 static int	count_quote(const char *src, size_t *i, size_t *len)
 {
