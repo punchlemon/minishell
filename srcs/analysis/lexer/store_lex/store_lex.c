@@ -6,11 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:56:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 23:14:39 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 00:56:55 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
+#include "t_analysis.h"
+#include "type.h"
 #include "libft_extend.h"
 #include "store_lex.h"
 

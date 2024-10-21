@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_parser.h                                    :+:      :+:    :+:   */
+/*   words.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 16:33:49 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/17 12:58:58 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/21 10:16:17 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/21 10:53:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DELETE_PARSER_H
-# define DELETE_PARSER_H
+#include "create_delete.h"
 
-# include "t_minishell.h"
+static size_t	count_words()
+{
+}
 
-void	delete_subshell(t_subshell *subshell);
-void	delete_normal_cmd(t_normal_cmd *normal_cmd);
-void	delete_cond(t_cond *cond);
-void	delete_conds(t_cond *conds);
+char	*create_word(const char *src, const t_tokens *tokens, size_t *i)
+{
+}
 
-#endif
+char	**create_words(const char *src, const t_tokens *tokens, size_t *i)
+{
+	size_t	words_count;
+
+	words_count = count_words();
+}

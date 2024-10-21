@@ -6,11 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:54:00 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 23:45:13 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:11:50 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
+#include "type.h"
 
 int	type_is_word(int type)
 {

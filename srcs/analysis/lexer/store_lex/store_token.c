@@ -6,11 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:22:00 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 23:13:08 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/21 00:57:43 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
+#include "t_analysis.h"
+#include "type.h"
 #include "libft_extend.h"
 
 void	store_repeat_token(t_tokens *tokens, const char *src, size_t *i,

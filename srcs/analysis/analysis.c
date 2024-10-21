@@ -6,13 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:47:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/17 13:05:50 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:09:56 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "analysis.h"
-#include <stdlib.h>
+#include "ft_printf.h"
 
 void	print_tokens(t_tokens *tokens)
 {
