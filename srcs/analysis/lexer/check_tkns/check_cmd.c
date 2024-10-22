@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:45:29 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:34:57 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/23 01:07:12 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	check_subshell(const t_tkn *tkns, size_t *i)
 
 	if (tkns[++(*i)].type == TAIL)
 		return (0);
-	j = check_tokens(tkns + *i);
+	j = check_tkns(tkns + *i);
 	if (!j)
 		return (0);
 	*i += j;

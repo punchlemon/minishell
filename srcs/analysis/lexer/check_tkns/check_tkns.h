@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:47:53 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:34:38 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/23 01:07:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "t_analysis.h"
 # include "type.h"
 
-int	check_tokens(const t_tkn *tkns);
+int	check_tkns(const t_tkn *tkns);
 int	check_cmd(const t_tkn *tkns, size_t *i);
 int	check_word(const t_tkn *tkns, size_t *i);
 

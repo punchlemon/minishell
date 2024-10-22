@@ -32,8 +32,9 @@ $(addsuffix .c, \
 			) \
 			$(addprefix parser/, \
 				$(addprefix create_delete/, \
+					cmds \
 					conds \
-					pipeline \
+					match_paren \
 				) \
 				parser \
 			) \

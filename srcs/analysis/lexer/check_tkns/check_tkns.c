@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:05:36 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:35:30 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/23 01:06:25 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	check_pipe(const t_tkn *tkns, size_t *i)
 	return (1);
 }
 
-int	check_tokens(const t_tkn *tkns)
+int	check_tkns(const t_tkn *tkns)
 {
 	size_t	i;
 
