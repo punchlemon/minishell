@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 23:48:52 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/23 01:11:50 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@
 // 	while (conds[i].type != TAIL)
 // 	{
 // 		if (conds[i].type == HEAD)
-// 			exe(conds[i].pipeline[0].words, environ, &status);
+// 			exe(conds[i].cmds[0].words, environ, &status);
 // 		else if (conds[i].type == AND_IF)
 // 		{
 // 			if (!status)
-// 				exe(conds[i].pipeline[0].words, environ, &status);
+// 				exe(conds[i].cmds[0].words, environ, &status);
 // 		}
 // 		else
 // 		{
 // 			if (status)
-// 				exe(conds[i].pipeline[0].words, environ, &status);
+// 				exe(conds[i].cmds[0].words, environ, &status);
 // 		}
 // 		i++;
 // 	}
@@ -67,12 +67,13 @@ int	main(int argc, char **argv, char **environ)
 	while (1)
 	{
 		line = readline("\033[32mminishell\033[34m$\033[0m ");
-		if (line == NULL || !ft_strcmp(line, "exit"))
+		if (line == NULL)
 			return (1);
 		if (*line)
 		{
 			// add_history(line);
-			// if (!ft_strcmp(line, "exit"))
+			if (!ft_strcmp(line, "exit"))
+				return (1);
 			// 	cleanup_and_exit(line);
 			conds = analysis(line);
 			(void)conds;
