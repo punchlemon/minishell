@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_tokens.h                                     :+:      :+:    :+:   */
+/*   match_paren.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 12:21:22 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 23:14:20 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/22 23:29:43 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/22 23:33:09 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STORE_TOKENS_H
-# define STORE_TOKENS_H
+#include "create_delete.h"
 
-# include "t_analysis.h"
-# include <stdlib.h>
+size_t	match_paren(const t_tkn *tokens)
+{
+	int		type;
+	size_t	i;
 
-// functions
-void	store_token(t_token *tokens, const char *src, size_t *i, size_t *t_i);
-void	store_word(t_token *tokens, const char *src, size_t *i, size_t *t_i);
-
-#endif
+	i = 1;
+	while (1)
+	{
+		type = tokens[i].type;
+		if (type == LPAREN)
+			i += match_paren(tokens + i);
+		else if (type == RPAREN)
+			break ;
+		i++;
+	}
+	return (i);
+}

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_tokens.h                                     :+:      :+:    :+:   */
+/*   store_tkns.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 16:47:53 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 23:36:40 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 12:21:22 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/22 23:41:13 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECK_TOKENS_H
-# define CHECK_TOKENS_H
+#ifndef STORE_TKNS_H
+# define STORE_TKNS_H
 
 # include "t_analysis.h"
-# include "type.h"
+# include <stdlib.h>
 
-int	check_tokens(const t_token *tokens);
-int	check_cmd(const t_token *tokens, size_t *i);
-int	check_word(const t_token *tokens, size_t *i);
+// functions
+void	store_tkn(t_tkn *tkns, const char *src, size_t *i, size_t *t_i);
+void	store_word(t_tkn *tkns, const char *src, size_t *i, size_t *t_i);
 
 #endif

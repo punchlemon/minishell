@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_tokens.c                                     :+:      :+:    :+:   */
+/*   check_word.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 18:56:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 23:13:39 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 16:45:25 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/22 23:35:48 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "t_analysis.h"
-#include "type.h"
-#include "libft_extend.h"
-#include "store_tokens.h"
+#include "check_tkns.h"
 
 #include "ft_printf.h"
 
-void	store_tokens(const char *src, t_token *tokens)
+int	check_word(const t_tkn *tkns, size_t *i)
 {
-	size_t	i;
-	size_t	t_i;
-
-	t_i = 0;
-	i = 0;
-	while (ft_isspace(src[i]))
-		i++;
-	while (src[i])
+	if (!type_is_word(tkns[(*i)++].type))
+		return (0);
+	while (tkns[*i].type !=TAIL)
 	{
-		if (ft_istoken(src[i]))
-			store_token(tokens, src, &i, &t_i);
+		if (!type_is_word(tkns[*i].type))
+			break ;
+		if (tkns[*i].head - tkns[*i - 1].tail == 1)
+			(*i)++;
 		else
-			store_word(tokens, src, &i, &t_i);
-		if (!src[i])
 			break ;
 	}
-	tokens[i].type = TAIL;
+	return (1);
 }

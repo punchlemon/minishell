@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:15:40 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 22:50:28 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/22 23:32:39 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@
 # include "t_minishell.h"
 # include "type.h"
 
-char		*create_word(const char *src, const t_token *tokens, size_t *i);
-char		**create_words(const char *src, const t_token *tokens, size_t i);
-t_redirect	*create_redirects(const char *src, const t_token *tokens, size_t i);
-t_cmd_unit	*create_pipeline(const char *src, const t_token *tokens,
-				const size_t t_count);
-t_cond		*create_conds(const char *src, const t_token *tokens,
-				const size_t t_count);
-void		delete_words(char **words);
-void		delete_redirects(t_redirect *redirects);
-void		delete_pipeline(t_cmd_unit *pipeline);
-void		delete_conds(t_cond *conds);
+char	*create_word(const char *src, const t_tkn *tkns, size_t *i);
+char	**create_words(const char *src, const t_tkn *tkns, size_t i);
+t_red	*create_reds(const char *src, const t_tkn *tkns, size_t i);
+t_cmd	*create_cmds(const char *src, const t_tkn *tkns, const size_t t_len);
+t_cond	*create_conds(const char *src, const t_tkn *tkns, const size_t t_len);
+void	delete_words(char **words);
+void	delete_reds(t_red *reds);
+void	delete_cmds(t_cmd *cmds);
+void	delete_conds(t_cond *conds);
+size_t	match_paren(const t_tkn *tkns);
 
 #endif

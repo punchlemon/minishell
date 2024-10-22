@@ -12,25 +12,7 @@
 
 #include "create_delete.h"
 
-static size_t	match_paren(const t_token *tokens)
-{
-	int		type;
-	size_t	i;
-
-	i = 1;
-	while (1)
-	{
-		type = tokens[i].type;
-		if (type == LPAREN)
-			i += match_paren(tokens + i);
-		else if (type == RPAREN)
-			break ;
-		i++;
-	}
-	return (i);
-}
-
-static size_t	count_conds(const t_token *tokens, const size_t t_count)
+static size_t	count_conds(const t_tkn *tkns, const size_t t_len)
 {
 	int		type;
 	size_t	t_i;
@@ -38,11 +20,11 @@ static size_t	count_conds(const t_token *tokens, const size_t t_count)
 
 	c_count = 0;
 	t_i = 0;
-	while (t_i < t_count)
+	while (t_i < t_len)
 	{
-		type = tokens[t_i].type;
+		type = tkns[t_i].type;
 		if (type == LPAREN)
-			t_i += match_paren(tokens + t_i);
+			t_i += match_paren(tkns + t_i);
 		else if (type == AND_IF || type == OR_IF)
 			c_count++;
 		t_i++;
@@ -51,49 +33,52 @@ static size_t	count_conds(const t_token *tokens, const size_t t_count)
 	return (c_count);
 }
 
-static void	store_conds(t_cond *conds, const char *src, const t_token *tokens,
-	const size_t t_count)
+static t_cond	*store_conds(t_cond *conds, const char *src,
+	const t_tkn *tkns, const size_t t_len)
 {
 	int		type;
 	size_t	c_i;
 	size_t	t_i;
-	size_t	p_count;
+	size_t	c_len;
 
-	p_count = 0;
+	c_len = 0;
 	c_i = 0;
 	t_i = 0;
 	conds[c_i].type = HEAD;
-	while ((t_i + p_count) < t_count)
+	while ((t_i + c_len) < t_len)
 	{
-		type = tokens[t_i + p_count].type;
+		type = tkns[t_i + c_len].type;
 		if (type == LPAREN)
-			p_count += match_paren(tokens + t_i);
+			c_len += match_paren(tkns + t_i);
 		else if (type == AND_IF || type == OR_IF)
 		{
-			conds[(c_i)++].pipeline = create_pipeline(src, tokens + t_i, p_count);
+			conds[(c_i)++].cmds = create_cmds(src, tkns + t_i, c_len);
 			conds[c_i].type = type;
-			t_i += p_count + 1;
-			p_count = 0;
+			t_i += c_len + 1;
+			c_len = 0;
 		}
 		else
-			p_count++;
+			c_len++;
 	}
-	conds[c_i].pipeline = create_pipeline(src, tokens + t_i, p_count);
+	conds[(c_i)++].cmds = create_cmds(src, tkns + t_i, c_len);
+	conds[c_i].type = TAIL;
+	return (conds);
 }
+// 最初にtypeの代入と最後にcreate_cmdsの代入が入ってしまっているのを修正する
 // create_pipelineのNULLの処理を入れる
+// その後で行数を25行以内にする
 
-t_cond	*create_conds(const char *src, const t_token *tokens,
-	const size_t t_count)
+t_cond	*create_conds(const char *src, const t_tkn *tkns, const size_t t_len)
 {
 	t_cond	*conds;
-	size_t	c_count;
+	size_t	c_len;
 
-	c_count = count_conds(tokens, t_count);
-	conds = malloc(sizeof(t_cond) * (c_count + 1));
+	c_len = count_conds(tkns, t_len);
+	conds = malloc(sizeof(t_cond) * (c_len + 1));
 	if (!conds)
 		return (NULL);
-	store_conds(conds, src, tokens, t_count);
-	conds[c_count].type = TAIL;
+	if (!store_conds(conds, src, tkns, t_len))
+		return (NULL);
 	return (conds);
 }
 
@@ -104,7 +89,7 @@ void	delete_conds(t_cond *conds)
 	i = 0;
 	while (conds[i].type != TAIL)
 	{
-		delete_pipeline(conds[i].pipeline);
+		delete_cmds(conds[i].cmds);
 		i++;
 	}
 	free(conds);

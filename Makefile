@@ -13,19 +13,19 @@ $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
 		$(addprefix analysis/, \
 			$(addprefix lexer/, \
-				$(addprefix check_tokens/, \
+				$(addprefix check_tkns/, \
 					check_cmd \
-					check_tokens \
+					check_tkns \
 					check_word \
 				) \
-				$(addprefix count_tokens/, \
-					count_token \
-					count_tokens \
+				$(addprefix count_tkns/, \
+					count_tkn \
+					count_tkns \
 					count_word \
 				) \
-				$(addprefix store_tokens/, \
-					store_token \
-					store_tokens \
+				$(addprefix store_tkns/, \
+					store_tkn \
+					store_tkns \
 					store_word \
 				) \
 				lexer \

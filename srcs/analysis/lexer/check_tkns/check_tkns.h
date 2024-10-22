@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_token.c                                      :+:      :+:    :+:   */
+/*   check_tkns.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 09:25:58 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/15 22:59:39 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 16:47:53 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/22 23:34:38 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_extend.h"
-#include <stdlib.h>
+#ifndef CHECK_TKNS_H
+# define CHECK_TKNS_H
 
-int	count_token(const char *src, size_t *i, size_t *len)
-{
-	char		c;
+# include "t_analysis.h"
+# include "type.h"
 
-	c = src[(*i)++];
-	if (c != '(' && c != ')')
-	{
-		if (c == src[*i])
-			(*i)++;
-		else
-		{
-			if (c == '&')
-				return (0);
-		}
-	}
-	(*len)++;
-	while (ft_isspace(src[*i]))
-		(*i)++;
-	return (1);
-}
+int	check_tokens(const t_tkn *tkns);
+int	check_cmd(const t_tkn *tkns, size_t *i);
+int	check_word(const t_tkn *tkns, size_t *i);
+
+#endif

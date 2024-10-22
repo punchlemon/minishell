@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analysis.c                                         :+:      :+:    :+:   */
+/*   count_tkn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 17:47:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:44:38 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 09:25:58 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/22 23:38:28 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
-#include "ft_printf.h"
+#include "count_tkns.h"
 
-t_cond	*analysis(char *src)
+int	count_tkn(const char *src, size_t *i, size_t *len)
 {
-	t_tkn	*tkns;
-	t_cond	*conds;
+	char		c;
 
-	tkns = lexer(src);
-	if (!tkns)
-		return (ft_printf("minishell: syntax error\n"), NULL);
-	print_tokens(tkns);
-	conds = parser(src, tkns);
-	print_conds(conds);
-	free(tkns);
-	return (conds);
+	c = src[(*i)++];
+	if (c != '(' && c != ')')
+	{
+		if (c == src[*i])
+			(*i)++;
+		else
+		{
+			if (c == '&')
+				return (0);
+		}
+	}
+	(*len)++;
+	while (ft_isspace(src[*i]))
+		(*i)++;
+	return (1);
 }
-// mallocの失敗とsyntax errorが混同している

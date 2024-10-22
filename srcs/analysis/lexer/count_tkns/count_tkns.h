@@ -1,41 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_tokens.c                                     :+:      :+:    :+:   */
+/*   count_tkns.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 18:02:49 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 23:15:11 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/14 12:11:28 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/22 23:43:12 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef COUNT_TKNS_H
+# define COUNT_TKNS_H
+
 #include "libft_extend.h"
-#include "count_tokens.h"
+# include <stdlib.h>
 
-size_t	count_tokens(const char *src)
-{
-	size_t		i;
-	size_t		len;
+// functions
+int	count_word(const char *src, size_t *i, size_t *len);
+int	count_tkn(const char *src, size_t *i, size_t *len);
 
-	len = 0;
-	i = 0;
-	while (ft_isspace(src[i]))
-		i++;
-	while (src[i])
-	{
-		if (ft_istoken(src[i]))
-		{
-			if (!count_token(src, &i, &len))
-				return (0);
-		}
-		else
-		{
-			if (!count_word(src, &i, &len))
-				return (0);
-		}
-		if (!src[i])
-			break ;
-	}
-	return (len);
-}
+#endif
