@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:13:57 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 00:05:20 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/22 23:07:13 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ static void	print_pipeline(t_cmd_unit *pipeline)
 {
 	size_t	i;
 
-	ft_printf("[pipeline]");
+	ft_printf("  [pipeline]\n");
 	if (!pipeline)
-		return ((void)ft_printf(" NULL\n"));
+		return ((void)ft_printf("    NULL\n"));
 	i = 0;
 	while (pipeline[i].type != TAIL)
 	{
-		ft_printf(" type:");
+		ft_printf("    type:");
 		if (pipeline[i].type == NORMAL)
-			ft_printf("NORMAL\n");
+			ft_printf("    NORMAL\n");
 		else if (pipeline[i].type == SUBSHELL)
-			ft_printf("SUBSHELL\n");
+			ft_printf("    SUBSHELL\n");
 		else
-			return ((void)ft_printf("ELSE!!!!\n"));
+			return ((void)ft_printf("    ELSE!!!!\n"));
 		print_conds(pipeline[i].conds);
 		print_words(pipeline[i].words);
 		print_redirects(pipeline[i].redirects);
@@ -79,19 +79,21 @@ void	print_conds(t_cond *conds)
 {
 	size_t	i;
 
-	ft_printf("[conds]");
+	ft_printf("[conds]\n");
 	if (!conds)
-		return ((void)ft_printf(" NULL\n"));
+		return ((void)ft_printf("NULL\n"));
 	i = 0;
 	while (conds[i].type != TAIL)
 	{
-		ft_printf(" type:");
+		ft_printf("  type:");
 		if (conds[i].type == AND_IF)
-			ft_printf("AND\n");
+			ft_printf("  AND\n");
 		else if (conds[i].type == OR_IF)
-			ft_printf("OR\n");
+			ft_printf("  OR\n");
+		else if (conds[i].type == HEAD)
+			ft_printf("  HEAD\n");
 		else
-			return ((void)ft_printf("ELSE!!!!!\n"));
+			return ((void)ft_printf("  ELSE!!!!!\n"));
 		print_pipeline(conds[i].pipeline);
 		i++;
 	}

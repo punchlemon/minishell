@@ -6,91 +6,95 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:32:31 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 00:10:01 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:58:29by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "create_delete.h"
 
-static size_t	count_conds(const t_token *tokens)
+static size_t	match_paren(const t_token *tokens)
 {
 	int		type;
-	size_t	conds_count;
 	size_t	i;
 
-	i = 0;
-	conds_count = 1;
-	while (tokens[i].type != TAIL)
+	i = 1;
+	while (1)
 	{
 		type = tokens[i].type;
 		if (type == LPAREN)
-		{
-			while (tokens[i].type != RPAREN)
-				i++;
-		}
+			i += match_paren(tokens + i);
 		else if (type == RPAREN)
 			break ;
-		else if (type == AND_IF || type == OR_IF)
-			conds_count++;
 		i++;
 	}
-	return (conds_count);
+	return (i);
 }
-///// 消費するtokenの数と用意するmallocの大きさをそれぞれ同時に数える必要あり
 
-// static t_cond	*store_conds(const char *src, const t_token *tokens, size_t *i,
-// 	t_cond *conds)
-// {
-// 	int		type;
-// 	size_t	conds_i;
+static size_t	count_conds(const t_token *tokens, const size_t t_count)
+{
+	int		type;
+	size_t	t_i;
+	size_t	c_count;
 
-// 	conds_i = 0;
-// 	while (conds[conds_i].type != TAIL)
-// 	{
-// 		type = tokens[*i].type;
-// 		if (type == AND_IF || type == OR_IF)
-// 		{
-// 			conds[conds_i].type = type;
-// 			(*i)++;
-// 		}
-// 		conds[conds_i].pipeline = create_pipeline(src, tokens, i);
-// 		if (!conds[conds_i].pipeline)
-// 		{
-// 			while (conds_i--)
-// 				delete_pipeline(conds[conds_i].pipeline);
-// 			return (free(conds), NULL);
-// 		}
-// 		conds_i++;
-// 	}
-// 	return (conds);
-// }
+	c_count = 0;
+	t_i = 0;
+	while (t_i < t_count)
+	{
+		type = tokens[t_i].type;
+		if (type == LPAREN)
+			t_i += match_paren(tokens + t_i);
+		else if (type == AND_IF || type == OR_IF)
+			c_count++;
+		t_i++;
+	}
+	c_count++;
+	return (c_count);
+}
 
-t_cond	*create_conds(const char *src, const t_token *tokens, size_t *i)
+static void	store_conds(t_cond *conds, const char *src, const t_token *tokens,
+	const size_t t_count)
+{
+	int		type;
+	size_t	c_i;
+	size_t	t_i;
+	size_t	p_count;
+
+	p_count = 0;
+	c_i = 0;
+	t_i = 0;
+	conds[c_i].type = HEAD;
+	while ((t_i + p_count) < t_count)
+	{
+		type = tokens[t_i + p_count].type;
+		if (type == LPAREN)
+			p_count += match_paren(tokens + t_i);
+		else if (type == AND_IF || type == OR_IF)
+		{
+			conds[(c_i)++].pipeline = create_pipeline(src, tokens + t_i, p_count);
+			conds[c_i].type = type;
+			t_i += p_count + 1;
+			p_count = 0;
+		}
+		else
+			p_count++;
+	}
+	conds[c_i].pipeline = create_pipeline(src, tokens + t_i, p_count);
+}
+// create_pipelineのNULLの処理を入れる
+
+t_cond	*create_conds(const char *src, const t_token *tokens,
+	const size_t t_count)
 {
 	t_cond	*conds;
-	size_t	conds_count;
-	size_t	conds_i;
-	size_t	tokens_i;
+	size_t	c_count;
 
-	conds_count = count_conds(tokens);
-	conds = malloc(sizeof(t_cond) * (conds_count + 1));
+	c_count = count_conds(tokens, t_count);
+	conds = malloc(sizeof(t_cond) * (c_count + 1));
 	if (!conds)
 		return (NULL);
-	tokens_i = 0;
-	conds_i = 0;
-	while (conds_i < conds_count)
-	{
-		if (tokens->type == AND_IF
-			|| tokens[tokens_i].type == OR_IF)
-		{
-			conds[conds_i].type = tokens[tokens_i].type;
-			(*i)++;
-		}
-		conds[conds_i++].type = HEAD;
-	}
-	conds[conds_i].type = TAIL;
-	(void)src;
-	return (NULL);
+	store_conds(conds, src, tokens, t_count);
+	conds[c_count].type = TAIL;
+	return (conds);
 }
 
 void	delete_conds(t_cond *conds)

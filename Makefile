@@ -31,6 +31,10 @@ $(addsuffix .c, \
 				lexer \
 			) \
 			$(addprefix parser/, \
+				$(addprefix create_delete/, \
+					conds \
+					pipeline \
+				) \
 				parser \
 			) \
 			analysis \

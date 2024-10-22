@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:45:29 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 23:59:13 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/22 23:09:48 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	check_normal(const t_token *tokens, size_t *i)
 	}
 	return (1);
 }
+////// a(a)のようなコマンドが通過してしまっている
 
 int	check_cmd(const t_token *tokens, size_t *i)
 {
