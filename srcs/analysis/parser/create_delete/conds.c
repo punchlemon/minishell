@@ -91,6 +91,8 @@ t_cond	*create_conds(const char *src, const t_tkn *head, const t_tkn *tail)
 		return (free(conds), NULL);
 	return (conds);
 }
+//// delete_condsをつかって失敗を処理できるようになったら
+/// return (NULL);になるはず
 
 void	delete_conds(t_cond *conds)
 {
@@ -104,3 +106,5 @@ void	delete_conds(t_cond *conds)
 	}
 	free(conds);
 }
+/// このdelete_condsを失敗した時の途中までの削除に使えるようにする
+/// 最後のところの座標がわかってない時はtailの方にNULLを渡してみるとかどう？
