@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:53:34 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/25 23:17:45 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:41:23 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ static size_t	count_reds(const t_tkn *head, const t_tkn *tail)
 		if (type_is_redirect(head[t_i].type))
 		{
 			t_i++;
-			t_i += count_w(head + t_i, tail);
+			t_i += count_word(&head[t_i], tail);
 			r_len++;
 		}
 		else
-			t_i += count_w(head + t_i, tail);
-		if (head + t_i == tail)
+			t_i += count_word(&head[t_i], tail);
+		if (&head[t_i] == tail)
 			return (r_len);
 	}
 }
@@ -49,16 +49,16 @@ static int	store_reds(t_red *reds, const char *src, const t_tkn *head,
 		{
 			reds[r_i].type = head[t_i].type;
 			t_i++;
-			t_len = count_w(head + t_i, tail);
-			reds[r_i].target = create_word(src, head + t_i, head + t_i + t_len);
+			t_len = count_word(&head[t_i], tail);
+			reds[r_i].target = create_word(src, &head[t_i], &head[t_i] + t_len);
 			if (!reds[r_i].target)
 				return (reds[r_i].type = TAIL, delete_reds(reds), 0);
 			t_i += t_len;
 			r_i++;
 		}
 		else
-			t_i += count_w(head + t_i, tail);
-		if (head + t_i == tail)
+			t_i += count_word(&head[t_i], tail);
+		if (&head[t_i] == tail)
 			return (reds[r_i].type = TAIL, 1);
 	}
 }

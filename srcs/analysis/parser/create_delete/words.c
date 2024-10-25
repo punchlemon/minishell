@@ -6,11 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:16:17 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/25 23:17:35 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:56:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "create_delete.h"
+#include "ft_printf.h"
 
 static size_t	count_words(const t_tkn *head, const t_tkn *tail)
 {
@@ -24,14 +25,14 @@ static size_t	count_words(const t_tkn *head, const t_tkn *tail)
 		if (type_is_redirect(head[t_i].type))
 		{
 			t_i++;
-			t_i += count_w(head + t_i, tail);
+			t_i += count_word(&head[t_i], tail);
 		}
 		else
 		{
-			t_i += count_w(head + t_i, tail);
+			t_i += count_word(&head[t_i], tail);
 			w_len++;
 		}
-		if (head + t_i == tail)
+		if (&head[t_i] == tail)
 			return (w_len);
 	}
 }
@@ -50,18 +51,18 @@ static int	store_words(char **words, const char *src, const t_tkn *head,
 		if (type_is_redirect(head[t_i].type))
 		{
 			t_i++;
-			t_i += count_w(head + t_i, tail);
+			t_i += count_word(&head[t_i], tail);
 		}
 		else
 		{
-			t_len = count_w(head + t_i, tail);
-			words[w_i] = create_word(src, head + t_i, head + t_i + t_len);
+			t_len = count_word(&head[t_i], tail);
+			words[w_i] = create_word(src, &head[t_i], &head[t_i + t_len]);
 			if (!words[w_i])
 				return (delete_words(words), 0);
 			t_i += t_len;
 			w_i++;
 		}
-		if (head + t_i == tail)
+		if (&head[t_i] == tail)
 			return (words[w_i] = NULL, 1);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:11:28 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:43:12 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:20:57 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 
 // functions
-int	count_word(const char *src, size_t *i, size_t *len);
+int	count_word_len(const char *src, size_t *i, size_t *len);
 int	count_tkn(const char *src, size_t *i, size_t *len);
 
 #endif

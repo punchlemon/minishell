@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:04:44 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/25 21:11:55 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:49:43 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static size_t	count_cmd(const t_tkn *head, const t_tkn *tail)
 		t_len += match_paren(head) + 1;
 	while (1)
 	{
-		if (head[t_len].type == PIPE || head + t_len == tail)
+		if (head[t_len].type == PIPE || &head[t_len] == tail)
 			break ;
 		t_len++;
 	}
@@ -39,9 +39,9 @@ static size_t	count_cmds(const t_tkn *head, const t_tkn *tail)
 	t_i = 0;
 	while (1)
 	{
-		t_i += count_cmd(head + t_i, tail);
+		t_i += count_cmd(&head[t_i], tail);
 		c_len++;
-		if (head + t_i == tail)
+		if (&head[t_i] == tail)
 			return (c_len);
 	}
 }
@@ -70,22 +70,20 @@ static int	store_cmd(t_cmd *cmd, const char *src, const t_tkn *head,
 static int	store_cmds(t_cmd *cmds, const char *src, const t_tkn *head,
 	const t_tkn *tail)
 {
-	size_t	old_t_i;
-	size_t	new_t_i;
+	size_t	t_i;
+	size_t	t_len;
 	size_t	c_i;
 
 	c_i = 0;
-	old_t_i = 0;
-	new_t_i = 0;
+	t_i = 0;
 	while (1)
 	{
-		old_t_i = new_t_i;
-		new_t_i += count_cmd(head + old_t_i, tail);
-
-		if (!store_cmd(&cmds[c_i], src, head + old_t_i, head + new_t_i))
+		t_len = count_cmd(&head[t_i], tail);
+		if (!store_cmd(&cmds[c_i], src, &head[t_i], &head[t_i + t_len]))
 			return (cmds[c_i].type = TAIL, delete_cmds(cmds), 0);
+		t_i += t_len;
 		c_i++;
-		if (head + new_t_i == tail)
+		if (&head[t_i] == tail)
 			return (cmds[c_i].type = TAIL, 1);
 	}
 }

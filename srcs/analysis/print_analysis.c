@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:13:57 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:45:50 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:30:24 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	print_words(char **words)
 {
 	size_t	i;
 
-	ft_printf("[words]");
+	ft_printf("      [words]");
 	if (!words)
 		return ((void)ft_printf(" NULL\n"));
 	i = 0;
@@ -44,6 +44,7 @@ static void	print_words(char **words)
 		ft_printf(" \"%s\"", words[i]);
 		i++;
 	}
+	ft_printf("\n");
 }
 
 static void	print_redirects(t_red *redirects)

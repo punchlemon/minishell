@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:32:31 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/25 23:13:05 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:46:09 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static size_t	count_cond(const t_tkn *head, const t_tkn *tail)
 	{
 		type = head[t_len].type;
 		if (type == LPAREN)
-			t_len += match_paren(head + t_len);
-		else if (type == AND_IF || type == OR_IF || head + t_len == tail)
+			t_len += match_paren(&head[t_len]);
+		else if (type == AND_IF || type == OR_IF || &head[t_len] == tail)
 			break ;
 		t_len++;
 	}
@@ -42,9 +42,9 @@ static size_t	count_conds(const t_tkn *head, const t_tkn *tail)
 	t_i = 0;
 	while (1)
 	{
-		t_i += count_cond(head + t_i, tail);
+		t_i += count_cond(&head[t_i], tail);
 		c_len++;
-		if (head + t_i == tail)
+		if (&head[t_i] == tail)
 			return (c_len);
 	}
 }
@@ -62,13 +62,13 @@ static int	store_conds(t_cond *conds, const char *src, const t_tkn *head,
 	{
 		if (t_i)
 			conds->type = head[t_i].type;
-		t_len = count_cond(head + t_i, tail);
-		conds[c_i].cmds = create_cmds(src, head + t_i, head + t_i + t_len);
+		t_len = count_cond(&head[t_i], tail);
+		conds[c_i].cmds = create_cmds(src, &head[t_i], &head[t_i + t_len]);
 		if (!conds[c_i].cmds)
 			return (conds[c_i].type = TAIL, delete_conds(conds), 0);
 		t_i += t_len;
 		c_i++;
-		if (head + t_i == tail)
+		if (&head[t_i] == tail)
 			return (conds[c_i].type = TAIL, 1);
 	}
 }

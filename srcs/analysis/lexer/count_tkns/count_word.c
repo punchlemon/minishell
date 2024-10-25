@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 09:23:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:39:15 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:21:32 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	count_quote(const char *src, size_t *i, size_t *len)
 	else if (ft_istoken(c) || !c)
 		return (1);
 	else
-		return (count_word(src, i, len));
+		return (count_word_len(src, i, len));
 }
 
 static int	count_normal_word(const char *src, size_t *i, size_t *len)
@@ -61,7 +61,7 @@ static int	count_normal_word(const char *src, size_t *i, size_t *len)
 	}
 }
 
-int	count_word(const char *src, size_t *i, size_t *len)
+int	count_word_len(const char *src, size_t *i, size_t *len)
 {
 	if (src[*i] == '"' || src[*i] == '\'')
 		return (count_quote(src, i, len));

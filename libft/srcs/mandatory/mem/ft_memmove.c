@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:18:23 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 20:41:10 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:00:40 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	*ft_memmove(void *dst, const void *src, size_t n)
 	char		*d;
 	const char	*s;
 
-	d = (char *)dst;
-	s = (const char *)src;
 	if (dst == NULL && src == NULL)
 		return (NULL);
+	d = (char *)dst;
+	s = (const char *)src;
 	if (s > d)
 	{
 		i = 0;

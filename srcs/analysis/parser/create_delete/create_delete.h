@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:15:40 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/25 23:17:17 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/26 00:44:10 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include "t_minishell.h"
 # include "type.h"
 
-size_t	count_w(const t_tkn *head, const t_tkn *tail);
+# include "ft_printf.h"
+
+size_t	count_word(const t_tkn *head, const t_tkn *tail);
 char	*create_word(const char *src, const t_tkn *head, const t_tkn *tail);
 char	**create_words(const char *src, const t_tkn *head, const t_tkn *tail);
 t_red	*create_reds(const char *src, const t_tkn *head, const t_tkn *tail);
