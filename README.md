@@ -64,13 +64,10 @@ make ; ./minishell
 
 - [ ] parserを実行できるようにする "add parser"
 - [ ] check関数のバグを解消する
+- [ ] print_redsを完成させる
 - [ ] parserのcreate関数は終端をtailではなくlenで管理するべき "fix tail -> len"
-- [ ] create_wordを完成させる
 - [ ] count関数で数えた情報を使ってstore関数では数えなくていいようにしたい
 
 ## 🌟 Done
 
-- [X] count_wordの名前の重複を解決する
-- [X] lex_pipeのバグを修正する" fix lex_pipe"
-- [X] lex_and_orのバグを修正する "fix lex_and_or"
-- [X] check_lex_subshellのバグを修正する "fix check_lex_subshell"
+- [X] create_wordを完成させる
