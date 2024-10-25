@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:04:44 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/23 16:57:108:19 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:19:54 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,23 @@ static size_t	count_cmds(const t_tkn *head, const t_tkn *tail)
 	}
 }
 
-static int	store_cmd(t_cmd *cmd, const char *src, const t_tkn *head, t_tkn *tail)
+static int	store_cmd(t_cmd *cmd, const char *src, const t_tkn *head,
+	const t_tkn *tail)
 {
 	if (head->type == LPAREN)
+	{
 		cmd->type = SUBSHELL;
+		cmd->conds = create_conds(src, head, tail);
+		cmd->words = NULL;
+	}
 	else
+	{
 		cmd->type = NORMAL;
-	cmd->words = create_words(src, head, tail);
-	cmd->conds = create_conds(src, head, tail);
-	cmd->reds = create_redirects(src, head, tail);
-	if (!cmd->conds || !cmd->words || !cmd->reds)
+		cmd->conds = NULL;
+		cmd->words = create_words(src, head, tail);
+	}
+	cmd->reds = create_reds(src, head, tail);
+	if ((!cmd->conds && !cmd->words) || !cmd->reds)
 		return (0);
 	return (1);
 }
@@ -74,10 +81,12 @@ static t_cmd	*store_cmds(t_cmd *cmds, const char *src, const t_tkn *head,
 	{
 		old_t_i = new_t_i;
 		new_t_i += count_cmd(head + old_t_i, tail);
-		if (!store_cmd(&cmds[c_i++], src, head + old_t_i, head + new_t_i))
-			reuturn (NULL);
+
+		if (!store_cmd(&cmds[c_i], src, head + old_t_i, head + new_t_i))
+			return (cmds[c_i].type = TAIL, delete_cmds(cmds), NULL);
+		c_i++;
 		if (head + new_t_i == tail)
-			return (cmds);
+			return (cmds[c_i].type = TAIL, cmds);
 	}
 }
 
@@ -91,22 +100,23 @@ t_cmd	*create_cmds(const char *src, const t_tkn *head, const t_tkn *tail)
 	if (!cmds)
 		return (NULL);
 	if (!store_cmds(cmds, src, head, tail))
-		return (free(cmds), NULL);
+		return (NULL);
 	return (cmds);
 }
 
 void	delete_cmds(t_cmd *cmds)
 {
-	(void)cmds;
-// 	size_t	i;
+	size_t	i;
 
-// 	i = 0;
-// 	while (pipeline[i].type != TAIL)
-// 	{
-// 		delete_conds(pipeline[i].conds);
-// 		delete_words(pipeline[i].words);
-// 		delete_redirects(pipeline[i].redirects);
-// 		i++;
-// 	}
-// 	free(pipeline);
+	i = 0;
+	while (cmds[i].type != TAIL)
+	{
+		if (cmds[i].type == SUBSHELL)
+			delete_conds(cmds[i].conds);
+		else
+			delete_words(cmds[i].words);
+		delete_reds(cmds[i].reds);
+		i++;
+	}
+	free(cmds);
 }

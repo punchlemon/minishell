@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:32:31 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 12:58:29by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:20:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,24 @@ static size_t	count_conds(const t_tkn *head, const t_tkn *tail)
 static t_cond	*store_conds(t_cond *conds, const char *src, const t_tkn *head,
 	const t_tkn *tail)
 {
-	size_t	t_len;
-	size_t	t_i;
+	size_t	old_t_i;
+	size_t	new_t_i;
 	size_t	c_i;
 
 	c_i = 0;
-	t_i = 0;
+	old_t_i = 0;
+	new_t_i = 0;
 	while (1)
 	{
-		if (t_i)
-			conds->type = head[t_i].type;
-		t_len = count_cond(head + t_i, tail);
-		conds[c_i].cmds = create_cmds(src, head + t_i, head + t_len);
+		old_t_i = new_t_i;
+		if (old_t_i)
+			conds->type = head[old_t_i].type;
+		new_t_i += count_cond(head + old_t_i, tail);
+		conds[c_i].cmds = create_cmds(src, head + old_t_i, head + new_t_i);
 		if (!conds[c_i].cmds)
-		{
-			while (c_i--)
-				free(conds[c_i].cmds);
-			return (NULL);
-		}
+			return (conds[c_i].type = TAIL, delete_conds(conds), NULL);
 		c_i++;
-		t_i += t_len;
-		if (head + t_i == tail)
+		if (head + new_t_i == tail)
 			return (conds[c_i].type = TAIL, conds);
 	}
 }
@@ -88,11 +85,9 @@ t_cond	*create_conds(const char *src, const t_tkn *head, const t_tkn *tail)
 		return (NULL);
 	conds->type = HEAD;
 	if (!store_conds(conds, src, head, tail))
-		return (free(conds), NULL);
+		return (NULL);
 	return (conds);
 }
-//// delete_condsをつかって失敗を処理できるようになったら
-/// return (NULL);になるはず
 
 void	delete_conds(t_cond *conds)
 {
@@ -106,5 +101,3 @@ void	delete_conds(t_cond *conds)
 	}
 	free(conds);
 }
-/// このdelete_condsを失敗した時の途中までの削除に使えるようにする
-/// 最後のところの座標がわかってない時はtailの方にNULLを渡してみるとかどう？
