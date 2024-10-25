@@ -36,6 +36,7 @@ $(addsuffix .c, \
 					conds \
 					match_paren \
 					reds \
+					word \
 					words \
 				) \
 				parser \

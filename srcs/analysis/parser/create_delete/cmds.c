@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:04:44 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/25 20:19:54 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/25 21:11:55 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	store_cmd(t_cmd *cmd, const char *src, const t_tkn *head,
 	return (1);
 }
 
-static t_cmd	*store_cmds(t_cmd *cmds, const char *src, const t_tkn *head,
+static int	store_cmds(t_cmd *cmds, const char *src, const t_tkn *head,
 	const t_tkn *tail)
 {
 	size_t	old_t_i;
@@ -83,10 +83,10 @@ static t_cmd	*store_cmds(t_cmd *cmds, const char *src, const t_tkn *head,
 		new_t_i += count_cmd(head + old_t_i, tail);
 
 		if (!store_cmd(&cmds[c_i], src, head + old_t_i, head + new_t_i))
-			return (cmds[c_i].type = TAIL, delete_cmds(cmds), NULL);
+			return (cmds[c_i].type = TAIL, delete_cmds(cmds), 0);
 		c_i++;
 		if (head + new_t_i == tail)
-			return (cmds[c_i].type = TAIL, cmds);
+			return (cmds[c_i].type = TAIL, 1);
 	}
 }
 
