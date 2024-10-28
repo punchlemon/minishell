@@ -62,8 +62,9 @@ make ; ./minishell
 ## 🚀 WIP
 
 - [ ] parserを実行できるようにする "add parser"
-- [ ] check関数のバグを解消する
 - [ ] wordのバグを解消する "fix word"
+- [ ] check関数のバグを解消する
+- [ ] check関数にlenを導入する "add len for check functions"
 
 ## 🌟 Done
 
