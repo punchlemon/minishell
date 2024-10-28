@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/23 01:11:50 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 00:40:06 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char **argv, char **environ)
 	(void)argv;
 	while (1)
 	{
-		line = readline("\033[32mminishell\033[34m$\033[0m ");
+		line = readline("\033[32mminishell\033[31m$\033[0m ");
 		if (line == NULL)
 			return (1);
 		if (*line)

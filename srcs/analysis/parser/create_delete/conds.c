@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:32:31 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/28 21:54:36 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 00:36:04 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static size_t	count_cond(const t_tkn *tkns, const size_t t_len)
 	size_t	t_i;
 
 	t_i = 0;
-	while (t_i < t_len || tkns[t_i].type == AND_IF || tkns[t_i].type == OR_IF)
+	while (t_i < t_len && tkns[t_i].type != AND_IF && tkns[t_i].type != OR_IF)
 	{
 		if (tkns[t_i].type == LPAREN)
 			t_i += match_paren(&tkns[t_i]);
@@ -56,7 +56,7 @@ static int	store_conds(t_cond *conds, const char *src, const t_tkn *tkns,
 	{
 		if (t_i)
 			conds[c_i].type = tkns[t_i++].type;
-		tmp_len = count_cond(&tkns[t_i], t_len);
+		tmp_len = count_cond(&tkns[t_i], t_len - t_i);
 		conds[c_i].cmds = create_cmds(src, &tkns[t_i], tmp_len);
 		if (!conds[c_i].cmds)
 			return (conds[c_i].type = TAIL, delete_conds(conds), 0);

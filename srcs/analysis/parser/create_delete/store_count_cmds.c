@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:31:30 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/28 21:50:10 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 00:15:11 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static size_t	count_cmd(const t_tkn *tkns, const size_t t_len)
 	t_i = 0;
 	if (tkns[t_i].type == LPAREN)
 		t_i += match_paren(tkns) + 1;
-	while (t_i < t_len || tkns[t_i].type != PIPE)
+	while (t_i < t_len && tkns[t_i].type != PIPE)
 		t_i++;
 	return (t_i);
 }

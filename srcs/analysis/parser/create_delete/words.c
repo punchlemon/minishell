@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:16:17 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/28 23:38:41 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 00:39:32 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ size_t	count_word(const t_tkn *tkns, const size_t t_len)
 	}
 	return (t_i);
 }
+// single doubleがあった後にnormalが来ても大丈夫なように修正する
 
 static size_t	count_words(const t_tkn *tkns, const size_t t_len)
 {
