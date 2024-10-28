@@ -6,25 +6,21 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 23:29:43 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:33:09 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:54:58 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "create_delete.h"
 
-size_t	match_paren(const t_tkn *tokens)
+size_t	match_paren(const t_tkn *tkns)
 {
-	int		type;
 	size_t	i;
 
 	i = 1;
-	while (1)
+	while (tkns[i].type != RPAREN)
 	{
-		type = tokens[i].type;
-		if (type == LPAREN)
-			i += match_paren(tokens + i);
-		else if (type == RPAREN)
-			break ;
+		if (tkns[i].type == LPAREN)
+			i += match_paren(&tkns[i]);
 		i++;
 	}
 	return (i);

@@ -6,77 +6,99 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:16:17 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/26 00:56:41 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/28 23:38:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "create_delete.h"
 #include "ft_printf.h"
 
-static size_t	count_words(const t_tkn *head, const t_tkn *tail)
+size_t	count_word(const t_tkn *tkns, const size_t t_len)
+{
+	const t_tkn	*now;
+	size_t		t_i;
+
+	t_i = 1;
+	while (t_i < t_len)
+	{
+		now = &tkns[t_i];
+		if (now->type == SINGLE || now->type == DOUBLE)
+		{
+			if (now->head - tkns[t_i - 1].tail == 1)
+			{
+				t_i++;
+			}
+			else
+				break ;
+		}
+		else
+			break ;
+	}
+	return (t_i);
+}
+
+static size_t	count_words(const t_tkn *tkns, const size_t t_len)
 {
 	size_t	t_i;
 	size_t	w_len;
 
 	w_len = 0;
 	t_i = 0;
-	while (1)
+	while (t_i < t_len)
 	{
-		if (type_is_redirect(head[t_i].type))
+		if (type_is_redirect(tkns[t_i].type))
 		{
 			t_i++;
-			t_i += count_word(&head[t_i], tail);
+			t_i += count_word(&tkns[t_i], t_len);
 		}
 		else
 		{
-			t_i += count_word(&head[t_i], tail);
+			t_i += count_word(&tkns[t_i], t_len);
 			w_len++;
 		}
-		if (&head[t_i] == tail)
-			return (w_len);
 	}
+	return (w_len);
 }
 
-static int	store_words(char **words, const char *src, const t_tkn *head,
-	const t_tkn *tail)
+static int	store_words(char **words, const char *src, const t_tkn *tkns,
+	const size_t t_len)
 {
 	size_t	t_i;
-	size_t	t_len;
+	size_t	tmp_len;
 	size_t	w_i;
 
 	w_i = 0;
 	t_i = 0;
-	while (1)
+	while (t_i < t_len)
 	{
-		if (type_is_redirect(head[t_i].type))
+		if (type_is_redirect(tkns[t_i].type))
 		{
 			t_i++;
-			t_i += count_word(&head[t_i], tail);
+			t_i += count_word(&tkns[t_i], t_len);
 		}
 		else
 		{
-			t_len = count_word(&head[t_i], tail);
-			words[w_i] = create_word(src, &head[t_i], &head[t_i + t_len]);
+			tmp_len = count_word(&tkns[t_i], t_len);
+			words[w_i] = create_word(src, &tkns[t_i], tmp_len);
 			if (!words[w_i])
 				return (delete_words(words), 0);
-			t_i += t_len;
+			t_i += tmp_len;
 			w_i++;
 		}
-		if (&head[t_i] == tail)
-			return (words[w_i] = NULL, 1);
 	}
+	return (words[w_i] = NULL, 1);
 }
 
-char	**create_words(const char *src, const t_tkn *head, const t_tkn *tail)
+char	**create_words(const char *src, const t_tkn *tkns, const size_t t_len)
 {
 	char	**words;
 	size_t	w_len;
 
-	w_len = count_words(head, tail);
+	w_len = count_words(tkns, t_len);
 	words = malloc(sizeof(char *) * (w_len + 1));
 	if (!words)
 		return (NULL);
-	if (!store_words(words, src, head, tail))
+	if (!store_words(words, src, tkns, t_len))
 		return (NULL);
 	return (words);
 }

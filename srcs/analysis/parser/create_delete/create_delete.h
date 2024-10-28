@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:15:40 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/26 00:44:10 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/28 23:48:26 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,21 @@
 
 # include "ft_printf.h"
 
-size_t	count_word(const t_tkn *head, const t_tkn *tail);
-char	*create_word(const char *src, const t_tkn *head, const t_tkn *tail);
-char	**create_words(const char *src, const t_tkn *head, const t_tkn *tail);
-t_red	*create_reds(const char *src, const t_tkn *head, const t_tkn *tail);
-t_cmd	*create_cmds(const char *src, const t_tkn *head, const t_tkn *tail);
-t_cond	*create_conds(const char *src, const t_tkn *head, const t_tkn *tail);
+typedef struct s_sizes
+{
+	size_t	len1;
+	size_t	len2;
+}	t_sizes;
+
+size_t	count_word(const t_tkn *tkns, const size_t t_len);
+char	*create_word(const char *src, const t_tkn *tkns, const size_t t_len);
+char	**create_words(const char *src, const t_tkn *tkns, const size_t t_len);
+t_red	*create_reds(const char *src, const t_tkn *tkns, const size_t t_len);
+int		store_cmds(t_cmd *cmds, const char *src, const t_tkn *tkns,
+			const size_t t_len);
+size_t	count_cmds(const t_tkn *tkns, const size_t t_len);
+t_cmd	*create_cmds(const char *src, const t_tkn *tkns, const size_t t_len);
+t_cond	*create_conds(const char *src, const t_tkn *tkns, const size_t t_len);
 void	delete_words(char **words);
 void	delete_reds(t_red *reds);
 void	delete_cmds(t_cmd *cmds);

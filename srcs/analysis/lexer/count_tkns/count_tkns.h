@@ -6,14 +6,14 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:11:28 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/25 23:20:57 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 00:01:40 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COUNT_TKNS_H
 # define COUNT_TKNS_H
 
-#include "libft_extend.h"
+# include "libft_extend.h"
 # include <stdlib.h>
 
 // functions

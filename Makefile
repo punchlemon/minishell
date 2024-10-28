@@ -36,6 +36,7 @@ $(addsuffix .c, \
 					conds \
 					match_paren \
 					reds \
+					store_count_cmds \
 					word \
 					words \
 				) \

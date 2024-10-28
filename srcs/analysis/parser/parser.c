@@ -6,18 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:43:51 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/23 00:22:24 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/26 01:01:32 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_cond	*parser(const char *src, const t_tkn *tkns)
+t_cond	*parser(const char *src, const t_tkn *tkns, const size_t t_len)
 {
-	size_t	t_count;
-
-	t_count = 0;
-	while (tkns[t_count].type != TAIL)
-		t_count++;
-	return (create_conds(src, tkns, tkns + t_count));
+	return (create_conds(src, tkns, t_len));
 }

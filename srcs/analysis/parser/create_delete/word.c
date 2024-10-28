@@ -6,76 +6,58 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:53:59 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/26 00:09:55 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/28 23:47:06 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "create_delete.h"
 
-size_t	count_word(const t_tkn *head, const t_tkn *tail)
+static size_t	count_word_len(const t_tkn *tkns, const size_t t_len)
 {
-	size_t		w_len;
-	const t_tkn	*now;
-	size_t		t_i;
+	size_t	w_len;
+	size_t	t_i;
 
-	w_len = head->tail - head->head;
+	w_len = tkns->tail - tkns->head;
 	t_i = 1;
-	while (head + t_i == tail)
+	while (t_i < t_len)
 	{
-		now = &head[t_i];
-		if (now->type == SINGLE || now->type == DOUBLE)
-		{
-			if (now->head - head[t_i - 1].tail == 1)
-			{
-				w_len += now->tail - now->head;
-				t_i++;
-			}
-			else
-				break ;
-		}
-		else
-			break ;
+		w_len += tkns[t_i].tail - tkns[t_i].head;
+		t_i++;
 	}
 	return (w_len);
 }
 
-static void	store_word(char *word, const char *src, const t_tkn *head,
-	const t_tkn *tail)
+static void	store_word(char *word, const char *src, const t_tkn *tkns,
+	const size_t t_len)
 {
+	size_t		w_i;
 	const t_tkn	*now;
 	size_t		t_i;
+	size_t		tmp_len;
 
-	ft_memmove(word, src + head->head, head->tail - head->head);
+	w_i = tkns->tail - tkns->head;
+	ft_memmove(word, &src[tkns->head], w_i);
 	t_i = 1;
-	while (head + t_i == tail)
+	while (t_i < t_len)
 	{
-		now = &head[t_i];
-		if (now->type == SINGLE || now->type == DOUBLE)
-		{
-			if (now->head - head[t_i - 1].tail == 1)
-			{
-				ft_memmove(word + t_i, src + now->head, now->tail - now->head);
-				t_i++;
-			}
-			else
-				return ;
-		}
-		else
-			return ;
+		now = &tkns[t_i];
+		tmp_len = now->tail - now->head;
+		ft_memmove(&word[w_i], &src[now->head], tmp_len);
+		w_i += tmp_len;
+		t_i++;
 	}
-	return ;
 }
 
-char	*create_word(const char *src, const t_tkn *head, const t_tkn *tail)
+char	*create_word(const char *src, const t_tkn *tkns, const size_t t_len)
 {
 	char	*word;
 	size_t	w_len;
 
-	w_len = count_word(head, tail);
+	w_len = count_word_len(tkns, t_len);
 	word = malloc(w_len + 1);
 	if (!word)
 		return (NULL);
-	store_word(word, src, head, tail);
+	store_word(word, src, tkns, t_len);
 	return (word);
 }

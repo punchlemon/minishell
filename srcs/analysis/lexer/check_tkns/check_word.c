@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:45:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:35:48 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 00:02:03 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_word(const t_tkn *tkns, size_t *i)
 {
 	if (!type_is_word(tkns[(*i)++].type))
 		return (0);
-	while (tkns[*i].type !=TAIL)
+	while (tkns[*i].type != TAIL)
 	{
 		if (!type_is_word(tkns[*i].type))
 			break ;
