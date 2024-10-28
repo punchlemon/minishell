@@ -43,7 +43,9 @@ $(addsuffix .c, \
 				parser \
 			) \
 			analysis \
-			print_analysis \
+			print_conds \
+			print_indent \
+			print_tkns \
 			type_is \
 		) \
 		$(addprefix execution/, \

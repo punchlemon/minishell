@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analysis.h                                         :+:      :+:    :+:   */
+/*   print_tkns.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 13:02:10 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 00:45:58 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/29 00:45:03 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/29 00:45:20 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANALYSIS_H
-# define ANALYSIS_H
+#include "analysis.h"
+#include "ft_printf.h"
 
-# include "t_minishell.h"
-# include "t_analysis.h"
-# include "type.h"
+void	print_tkns(t_tkn *tkns)
+{
+	size_t	i;
 
-void	print_indent(char *src, size_t level);
-void	print_conds(t_cond *conds, size_t level);
-void	print_tkns(t_tkn *tkns);
-t_tkn	*lexer(const char *src, size_t *tkns_len);
-t_cond	*parser(const char *src, const t_tkn *tkns, const size_t t_len);
-
-#endif
+	i = 0;
+	while (tkns[i].type != TAIL)
+	{
+		ft_printf("i:%u type:%d, head:%u, tail:%u\n",
+			(unsigned int)i,
+			tkns[i].type,
+			(unsigned int)tkns[i].head,
+			(unsigned int)tkns[i].tail);
+		i++;
+	}
+}

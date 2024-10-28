@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analysis.h                                         :+:      :+:    :+:   */
+/*   print_indent.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 13:02:10 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 00:45:58 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/29 00:45:28 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/29 00:45:46 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANALYSIS_H
-# define ANALYSIS_H
+#include "analysis.h"
+#include "ft_printf.h"
 
-# include "t_minishell.h"
-# include "t_analysis.h"
-# include "type.h"
-
-void	print_indent(char *src, size_t level);
-void	print_conds(t_cond *conds, size_t level);
-void	print_tkns(t_tkn *tkns);
-t_tkn	*lexer(const char *src, size_t *tkns_len);
-t_cond	*parser(const char *src, const t_tkn *tkns, const size_t t_len);
-
-#endif
+void	print_indent(char *src, size_t level)
+{
+	while (level--)
+		ft_printf("  ");
+	ft_printf(src);
+}
