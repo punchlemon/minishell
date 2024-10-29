@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:05:36 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 10:42:19 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:01:16 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,3 @@ int	check_conds(const t_tkn *tkns, const size_t t_len)
 	}
 	return (1);
 }
-
-/// lenで終了状態を管理する
-/// check_subshellがcheck_tknsを呼び出した時にはTAILで終了できないため
