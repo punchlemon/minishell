@@ -62,15 +62,10 @@ make ; ./minishell
 ## 🚀 WIP
 
 - [ ] parserを実行できるようにする "add parser"
-- [ ] wordのバグを解消する "fix word"
-- [ ] check関数のバグを解消する
+- [ ] chatGPTにテスト例を作成してもらう "add test"
+- [ ] wordのバグを解消する "fix word" // e"ch"o -> "ech"", "o"
+- [ ] count関数の命名を整える "rename count functions"
+- [ ] check関数のバグを解消する // ls ()
 - [ ] check関数にlenを導入する "add len for check functions"
 
 ## 🌟 Done
-
-- [X] wikiのsyntax diagramを書き換える
-- [X] print_redsを完成させる
-- [X] condsの中身がNULLである原因を調査する
-- [X] count関数で数えた情報を使ってstore関数では数えなくていいようにしたい
-- [X] parserのcreate関数は終端をtailではなくlenで管理するべき "fix tail -> len"
-- [X] create_wordを完成させる

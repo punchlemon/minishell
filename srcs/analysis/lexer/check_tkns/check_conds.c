@@ -1,54 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_tkns.c                                       :+:      :+:    :+:   */
+/*   check_conds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:05:36 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 01:24:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:42:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_tkns.h"
+#include "check_conds.h"
 
-#include "ft_printf.h"
-
-static int	check_pipe(const t_tkn *tkns, size_t *i)
+static int	check_cond(const t_tkn *tkns, const size_t t_len)
 {
-	if (!check_cmd(tkns, i))
+	size_t	t_i;
+	size_t	tmp;
+
+	if (!type_is_cmd(tkns->type))
 		return (0);
-	while (tkns[*i].type != TAIL)
+	tmp = 0;
+	while (tkns[tmp].type != PIPE)
+		tmp++;
+	if (!check_cmd(tkns, t_i))
+		return (0);
+	t_i = tmp;
+	while (t_i < t_len)
 	{
-		if (tkns[*i].type != PIPE)
-			return (1);
-		(*i)++;
-		if (tkns[*i].type == TAIL)
+		if (tkns[t_i++].type != PIPE)
 			return (0);
-		if (!type_is_cmd(tkns[*i].type) || !check_cmd(tkns, i))
+		if (!type_is_cmd(tkns[t_i].type) || !check_cmd(tkns, t_i))
 			return (0);
 	}
 	return (1);
 }
 
-int	check_tkns(const t_tkn *tkns)
+int	check_conds(const t_tkn *tkns, const size_t t_len)
 {
-	size_t	i;
+	size_t	t_i;
+	size_t	tmp;
 
-	i = 0;
-	if (!type_is_cmd(tkns[i].type))
+	tmp = 0;
+	while (!type_is_and_or(tkns[tmp].type) && tmp < t_len)
+		tmp++;
+	if (!check_cond(tkns, tmp))
 		return (0);
-	if (!check_pipe(tkns, &i))
-		return (0);
-	while (tkns[i].type != TAIL)
+	t_i = tmp;
+	while (t_i < t_len - 1)
 	{
-		if (tkns[i].type != AND_IF && tkns[i].type != OR_IF)
-			return (i);
-		i++;
-		if (tkns[i].type == TAIL)
+		if (!type_is_and_or(tkns[t_i++].type))
 			return (0);
-		if (!type_is_cmd(tkns[i].type) || !check_pipe(tkns, &i))
+		tmp = 0;
+		while (!type_is_and_or(tkns[t_i + tmp].type) && (t_i + tmp) < t_len)
+			tmp++;
+		if (!check_cond(tkns, tmp))
 			return (0);
+		t_i += tmp;
 	}
 	return (1);
 }

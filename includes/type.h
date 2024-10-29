@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:04:19 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/21 21:47:27 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:40:15 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ int	type_is_subshell(int type);
 int	type_is_redirect(int type);
 int	type_is_normal(int type);
 int	type_is_cmd(int type);
+int	type_is_and_or(int type);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:52:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/28 23:58:49 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 01:26:04 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_tkn	*lexer(const char *src, size_t *tkns_len)
 		tkns[i++].type = HEAD;
 	tkns[i].type = TAIL;
 	store_tkns(src, tkns);
-	if (!check_tkns(tkns))
+	if (!check_tkns(tkns, *tkns_len))
 		return (free(tkns), NULL);
 	return (tkns);
 }

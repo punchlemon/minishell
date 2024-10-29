@@ -6,13 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:45:29 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/23 01:07:12 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:45:29 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_tkns.h"
-
-#include "ft_printf.h"
+#include "check_conds.h"
 
 static int	check_subshell(const t_tkn *tkns, size_t *i)
 {
