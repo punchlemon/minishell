@@ -6,11 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:45:25 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 00:02:03 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:51:32 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_tkns.h"
+#include "check.h"
 
 #include "ft_printf.h"
 

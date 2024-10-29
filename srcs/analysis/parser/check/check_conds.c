@@ -6,11 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:05:36 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 11:01:16 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:51:28 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_conds.h"
+#include "check.h"
 
 static int	check_cond(const t_tkn *tkns, const size_t t_len)
 {

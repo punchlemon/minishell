@@ -6,11 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:04:44 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/28 21:48:42 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:21:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "create_delete.h"
+#include "create.h"
 
 t_cmd	*create_cmds(const char *src, const t_tkn *tkns, const size_t t_len)
 {

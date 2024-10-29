@@ -6,37 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:16:17 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 00:39:32 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:39:59 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "create_delete.h"
-#include "ft_printf.h"
-
-size_t	count_word(const t_tkn *tkns, const size_t t_len)
-{
-	const t_tkn	*now;
-	size_t		t_i;
-
-	t_i = 1;
-	while (t_i < t_len)
-	{
-		now = &tkns[t_i];
-		if (now->type == SINGLE || now->type == DOUBLE)
-		{
-			if (now->head - tkns[t_i - 1].tail == 1)
-			{
-				t_i++;
-			}
-			else
-				break ;
-		}
-		else
-			break ;
-	}
-	return (t_i);
-}
-// single doubleがあった後にnormalが来ても大丈夫なように修正する
+#include "create.h"
 
 static size_t	count_words(const t_tkn *tkns, const size_t t_len)
 {

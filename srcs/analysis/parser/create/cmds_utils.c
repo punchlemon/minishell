@@ -6,23 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:31:30 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 00:15:11 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:35:49 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "create_delete.h"
-
-static size_t	count_cmd(const t_tkn *tkns, const size_t t_len)
-{
-	size_t	t_i;
-
-	t_i = 0;
-	if (tkns[t_i].type == LPAREN)
-		t_i += match_paren(tkns) + 1;
-	while (t_i < t_len && tkns[t_i].type != PIPE)
-		t_i++;
-	return (t_i);
-}
+#include "check_create.h"
 
 size_t	count_cmds(const t_tkn *tkns, const size_t t_len)
 {
@@ -35,7 +23,7 @@ size_t	count_cmds(const t_tkn *tkns, const size_t t_len)
 	{
 		if (t_i)
 			t_i++;
-		t_i += count_cmd(&tkns[t_i], t_len);
+		t_i += count_tkns_for_cmd(&tkns[t_i], t_len);
 		c_len++;
 	}
 	return (c_len);

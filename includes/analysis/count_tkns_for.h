@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   count_tkns_for.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 18:44:52 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 16:59:38 by retanaka         ###   ########.fr       */
+/*   Created: 2024/10/29 16:26:39 by retanaka          #+#    #+#             */
+/*   Updated: 2024/10/29 16:42:33 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef COUNT_TKNS_FOR_H
+# define COUNT_TKNS_FOR_H
 
 # include "t_analysis.h"
-# include "t_minishell.h"
-# include "type.h"
-# include "check/check.h"
-# include "create/create.h"
+
+size_t	count_tkns_for_cond(const t_tkn *tkns, const size_t t_len);
+size_t	count_tkns_for_cmd(const t_tkn *tkns, const size_t t_len);
 
 #endif

@@ -13,11 +13,6 @@ $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
 		$(addprefix analysis/, \
 			$(addprefix lexer/, \
-				$(addprefix check_tkns/, \
-					check_cmd \
-					check_tkns \
-					check_word \
-				) \
 				$(addprefix count_tkns/, \
 					count_tkn \
 					count_tkns \
@@ -31,12 +26,20 @@ $(addsuffix .c, \
 				lexer \
 			) \
 			$(addprefix parser/, \
-				$(addprefix create_delete/, \
+				$(addprefix check/, \
+					check_cmd \
+					check_tkns \
+					check_word \
+				) \
+				$(addprefix count/, \
+					count_tkns_for \
+					match_paren \
+				) \
+				$(addprefix create/, \
+					cmds_utils \
 					cmds \
 					conds \
-					match_paren \
 					reds \
-					store_count_cmds \
 					word \
 					words \
 				) \
@@ -62,7 +65,7 @@ CC = clang
 NPD_FLAG = --no-print-directory
 
 CFLAGS = -Wall -Werror -Wextra
-IFLAGS = -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/$(INCLUDES_DIR)
+IFLAGS = -I$(INCLUDES_DIR) -I$(INCLUDES_DIR)/analysis -I$(LIBFT_DIR)/$(INCLUDES_DIR)
 LFLAGS = -lreadline -L$(LIBFT_DIR) -lft
 VFLAGS = \
 	--track-origins=yes \

@@ -6,11 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:53:34 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/28 23:56:55 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:55:13 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "create_delete.h"
+#include "create.h"
 
 static size_t	count_reds(const t_tkn *tkns, const size_t t_len)
 {

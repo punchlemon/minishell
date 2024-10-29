@@ -6,25 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:32:31 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 00:36:04 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:32:48 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "create_delete.h"
-
-static size_t	count_cond(const t_tkn *tkns, const size_t t_len)
-{
-	size_t	t_i;
-
-	t_i = 0;
-	while (t_i < t_len && tkns[t_i].type != AND_IF && tkns[t_i].type != OR_IF)
-	{
-		if (tkns[t_i].type == LPAREN)
-			t_i += match_paren(&tkns[t_i]);
-		t_i++;
-	}
-	return (t_i);
-}
+#include "create.h"
 
 static size_t	count_conds(const t_tkn *tkns, const size_t t_len)
 {
@@ -37,7 +23,7 @@ static size_t	count_conds(const t_tkn *tkns, const size_t t_len)
 	{
 		if (t_i)
 			t_i++;
-		t_i += count_cond(&tkns[t_i], t_len);
+		t_i += count_tkns_for_cond(&tkns[t_i], t_len);
 		c_len++;
 	}
 	return (c_len);

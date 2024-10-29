@@ -6,12 +6,12 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:53:59 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/28 23:47:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:55:57 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "create_delete.h"
+#include "create.h"
 
 static size_t	count_word_len(const t_tkn *tkns, const size_t t_len)
 {

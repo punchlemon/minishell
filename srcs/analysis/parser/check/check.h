@@ -6,13 +6,14 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:47:53 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 11:04:14 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:50:47 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHECK_H
 # define CHECK_H
 
+# include "count_tkns_for.h"
 # include "t_analysis.h"
 # include "type.h"
 # include "ft_printf.h"
