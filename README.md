@@ -61,10 +61,10 @@ make ; ./minishell
 
 ## 🚀 WIP
 
-- [ ] テスト例を作成する "add test"
-
 ## 🌟 Done
 
+- [X] テスト例を作成する "add test"
+- [X] a | aをsyntax errorにしない "fix pipe"
 - [X] parserを実行できるようにする "add parser"
 - [X] wordのバグを解消する "fix word" // e"ch"o -> "ech"", "o"
 - [X] count関数の命名を整える "rename count functions"

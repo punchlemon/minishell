@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:31:30 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/30 12:47:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:26:54 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,27 @@ static int	store_normal(t_cmd *cmd, const char *src, const t_tkn *tkns,
 }
 
 int	store_cmds(t_cmd *cmds, const char *src, const t_tkn *tkns,
-	const size_t t_len)
+	const size_t t_end)
 {
 	size_t	t_i;
-	size_t	tmp_len;
+	size_t	tmp;
 	size_t	c_i;
 
 	c_i = 0;
 	t_i = 0;
-	while (t_i < t_len)
+	while (t_i < t_end)
 	{
 		if (t_i)
 			t_i++;
-		tmp_len = count_tkns_for_cmd(&tkns[t_i], t_len);
+		tmp = count_tkns_for_cmd(&tkns[t_i], t_end - t_i);
 		if (tkns->type == LPAREN)
 		{
-			if (!store_subshell(&cmds[c_i], src, &tkns[t_i], tmp_len))
+			if (!store_subshell(&cmds[c_i], src, &tkns[t_i], tmp))
 				return (cmds[c_i].type = TAIL, delete_cmds(cmds), 0);
 		}
-		else if (!store_normal(&cmds[c_i], src, &tkns[t_i], tmp_len))
+		else if (!store_normal(&cmds[c_i], src, &tkns[t_i], tmp))
 			return (cmds[c_i].type = TAIL, delete_cmds(cmds), 0);
-		t_i += tmp_len;
+		t_i += tmp;
 		c_i++;
 	}
 	return (cmds[c_i].type = TAIL, 1);

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:02:10 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 00:45:58 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:17:26 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "t_minishell.h"
 # include "t_analysis.h"
+# include "check/check.h"
 # include "type.h"
 
 void	print_indent(char *src, size_t level);

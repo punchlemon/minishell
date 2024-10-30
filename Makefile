@@ -1,4 +1,4 @@
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re val norm test
 NAME = minishell
 
 LIBFT_DIR = libft
@@ -12,6 +12,10 @@ SRCS = \
 $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
 		$(addprefix analysis/, \
+			$(addprefix check/, \
+				check_cmd \
+				check_conds \
+			) \
 			$(addprefix lexer/, \
 				$(addprefix count_tkns/, \
 					count_tkn \
@@ -26,10 +30,6 @@ $(addsuffix .c, \
 				lexer \
 			) \
 			$(addprefix parser/, \
-				$(addprefix check/, \
-					check_cmd \
-					check_conds \
-				) \
 				$(addprefix count/, \
 					count_tkns_for \
 				) \
@@ -114,3 +114,15 @@ define check_norminette
 		$(call ok, $1": "); \
 	fi
 endef
+
+TEST_DIR = test
+SUCCESS_TXT = success.txt
+FAILURE_TXT = failure.txt
+
+test: re
+	while IFS= read -r line; do \
+		echo "$$line" | ./$(NAME); \
+	done < $(TEST_DIR)/$(SUCCESS_TXT)
+	while IFS= read -r line; do \
+		echo "$$line" | ./$(NAME); \
+	done < $(TEST_DIR)/$(FAILURE_TXT)

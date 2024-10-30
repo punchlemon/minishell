@@ -1,0 +1,9 @@
+a
+a && a
+a | a
+a || a
+a "h"
+a "h"e
+a "h"'e'
+a "h'e'"
+a "h""e"
