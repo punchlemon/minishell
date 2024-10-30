@@ -2,7 +2,8 @@
 
 ## 🌝 Demo
 
-https://github.com/user-attachments/assets/6910f700-2922-48b4-a8e1-99d29b3ccd4d
+https://github.com/user-attachments/assets/675163bd-2ad3-4ee2-9f70-c0f790d67922
+
 
 ## 👀 Overview
 
