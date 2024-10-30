@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:47:53 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 16:50:47 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:49:24 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "type.h"
 # include "ft_printf.h"
 
-int	check_conds(const t_tkn *tkns, const size_t t_len);
-int	check_cmd(const t_tkn *tkns, size_t *i);
-int	check_word(const t_tkn *tkns, size_t *i);
+int	check_word(const t_tkn *tkns, const size_t t_end);
+int	check_cmd(const t_tkn *tkns, const size_t t_end);
+int	check_conds(const t_tkn *tkns, const size_t t_end);
 
 #endif

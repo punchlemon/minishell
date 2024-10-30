@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:47:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 00:19:40 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/30 01:46:06 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ t_cond	*analysis(char *src)
 		return (ft_printf("minishell: syntax error\n"), NULL);
 	print_tkns(tkns);
 	conds = parser(src, tkns, tkns_len);
-	print_conds(conds, 0);
 	free(tkns);
+	if (!conds)
+		return (ft_printf("minishell: syntax error\n"), NULL);
+	print_conds(conds, 0);
 	return (conds);
 }
 // mallocの失敗とsyntax errorが混同している

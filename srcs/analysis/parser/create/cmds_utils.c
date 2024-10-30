@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_count_cmds.c                                 :+:      :+:    :+:   */
+/*   cmds_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:31:30 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 16:35:49 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:47:21 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_create.h"
+#include "create.h"
 
 size_t	count_cmds(const t_tkn *tkns, const size_t t_len)
 {
@@ -35,7 +35,7 @@ static int	store_subshell(t_cmd *cmd, const char *src, const t_tkn *tkns,
 	size_t	tmp_len;
 
 	cmd->type = SUBSHELL;
-	tmp_len = match_paren(tkns);
+	tmp_len = match_paren(tkns, t_len);
 	cmd->conds = create_conds(src, &tkns[1], tmp_len - 1);
 	if (!cmd->conds)
 		return (0);
@@ -73,7 +73,7 @@ int	store_cmds(t_cmd *cmds, const char *src, const t_tkn *tkns,
 	{
 		if (t_i)
 			t_i++;
-		tmp_len = count_cmd(&tkns[t_i], t_len);
+		tmp_len = count_tkns_for_cmd(&tkns[t_i], t_len);
 		if (tkns->type == LPAREN)
 		{
 			if (!store_subshell(&cmds[c_i], src, &tkns[t_i], tmp_len))

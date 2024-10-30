@@ -28,12 +28,10 @@ $(addsuffix .c, \
 			$(addprefix parser/, \
 				$(addprefix check/, \
 					check_cmd \
-					check_tkns \
-					check_word \
+					check_conds \
 				) \
 				$(addprefix count/, \
 					count_tkns_for \
-					match_paren \
 				) \
 				$(addprefix create/, \
 					cmds_utils \

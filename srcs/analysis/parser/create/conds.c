@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:32:31 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 16:32:48 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/30 01:21:40 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	store_conds(t_cond *conds, const char *src, const t_tkn *tkns,
 	const size_t t_len)
 {
 	size_t	t_i;
-	size_t	tmp_len;
+	size_t	t_end;
 	size_t	c_i;
 
 	c_i = 0;
@@ -42,11 +42,11 @@ static int	store_conds(t_cond *conds, const char *src, const t_tkn *tkns,
 	{
 		if (t_i)
 			conds[c_i].type = tkns[t_i++].type;
-		tmp_len = count_cond(&tkns[t_i], t_len - t_i);
-		conds[c_i].cmds = create_cmds(src, &tkns[t_i], tmp_len);
+		t_end = count_tkns_for_cond(&tkns[t_i], t_len - t_i);
+		conds[c_i].cmds = create_cmds(src, &tkns[t_i], t_end);
 		if (!conds[c_i].cmds)
 			return (conds[c_i].type = TAIL, delete_conds(conds), 0);
-		t_i += tmp_len;
+		t_i += t_end;
 		c_i++;
 	}
 	return (conds[c_i].type = TAIL, 1);

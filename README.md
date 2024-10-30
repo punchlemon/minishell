@@ -61,11 +61,12 @@ make ; ./minishell
 
 ## 🚀 WIP
 
-- [ ] parserを実行できるようにする "add parser"
-- [ ] chatGPTにテスト例を作成してもらう "add test"
-- [ ] wordのバグを解消する "fix word" // e"ch"o -> "ech"", "o"
-- [ ] count関数の命名を整える "rename count functions"
-- [ ] check関数のバグを解消する // ls ()
-- [ ] check関数にlenを導入する "add len for check functions"
+- [ ] テスト例を作成する "add test"
 
 ## 🌟 Done
+
+- [X] parserを実行できるようにする "add parser"
+- [X] wordのバグを解消する "fix word" // e"ch"o -> "ech"", "o"
+- [X] count関数の命名を整える "rename count functions"
+- [X] check関数のバグを解消する // ls ()
+- [X] check関数にlenを導入する "add len for check functions"

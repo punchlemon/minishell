@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:15:40 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 16:55:38 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:37:36 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_sizes
 	size_t	len2;
 }	t_sizes;
 
-size_t	count_word(const t_tkn *tkns, const size_t t_len);
 char	*create_word(const char *src, const t_tkn *tkns, const size_t t_len);
 char	**create_words(const char *src, const t_tkn *tkns, const size_t t_len);
 t_red	*create_reds(const char *src, const t_tkn *tkns, const size_t t_len);
@@ -39,6 +38,5 @@ void	delete_words(char **words);
 void	delete_reds(t_red *reds);
 void	delete_cmds(t_cmd *cmds);
 void	delete_conds(t_cond *conds);
-size_t	match_paren(const t_tkn *tkns);
 
 #endif

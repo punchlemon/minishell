@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:22:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:42:02 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/30 01:28:32 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static void	store_quote(t_tkn *tkns, const char *src, size_t *i
 {
 	char	c;
 
-	c = src[(*i)++];
+	c = src[*i];
 	if (c == '\'')
 		tkns[*t_i].type = SINGLE;
 	else
 		tkns[*t_i].type = DOUBLE;
-	tkns[*t_i].head = *i;
+	tkns[*t_i].head = (*i)++;
 	while (src[*i] != c)
 		(*i)++;
 	tkns[(*t_i)++].tail = ++(*i);

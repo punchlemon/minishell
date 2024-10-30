@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:53:59 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 16:55:57 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/30 01:43:18 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ static size_t	count_word_len(const t_tkn *tkns, const size_t t_len)
 	size_t	t_i;
 
 	w_len = tkns->tail - tkns->head;
+	if (tkns->type != NORMAL)
+		w_len -= 2;
 	t_i = 1;
 	while (t_i < t_len)
 	{
 		w_len += tkns[t_i].tail - tkns[t_i].head;
+		if (tkns[t_i].type != NORMAL)
+			w_len -= 2;
 		t_i++;
 	}
 	return (w_len);
@@ -31,21 +35,30 @@ static size_t	count_word_len(const t_tkn *tkns, const size_t t_len)
 static void	store_word(char *word, const char *src, const t_tkn *tkns,
 	const size_t t_len)
 {
-	size_t		w_i;
-	const t_tkn	*now;
-	size_t		t_i;
-	size_t		tmp_len;
+	size_t	w_i;
+	size_t	t_i;
+	size_t	tmp_len;
 
 	w_i = tkns->tail - tkns->head;
-	ft_memmove(word, &src[tkns->head], w_i);
-	t_i = 1;
-	while (t_i < t_len)
+	if (tkns->type != NORMAL)
 	{
-		now = &tkns[t_i];
-		tmp_len = now->tail - now->head;
-		ft_memmove(&word[w_i], &src[now->head], tmp_len);
+		w_i -= 2;
+		ft_memmove(word, &src[tkns->head + 1], w_i);
+	}
+	else
+		ft_memmove(word, &src[tkns->head], w_i);
+	t_i = 0;
+	while (++t_i < t_len)
+	{
+		tmp_len = tkns[t_i].tail - tkns[t_i].head;
+		if (tkns[t_i].type != NORMAL)
+		{
+			tmp_len -= 2;
+			ft_memmove(&word[w_i], &src[tkns[t_i].head + 1], tmp_len);
+		}
+		else
+			ft_memmove(&word[w_i], &src[tkns[t_i].head], tmp_len);
 		w_i += tmp_len;
-		t_i++;
 	}
 }
 

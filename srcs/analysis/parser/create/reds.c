@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:53:34 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 16:55:13 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:39:04 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static size_t	count_reds(const t_tkn *tkns, const size_t t_len)
 		if (type_is_redirect(tkns[t_i].type))
 		{
 			t_i++;
-			t_i += count_word(&tkns[t_i], t_len);
+			t_i += count_tkns_for_word(&tkns[t_i], t_len);
 			r_len++;
 		}
 		else
-			t_i += count_word(&tkns[t_i], t_len);
+			t_i += count_tkns_for_word(&tkns[t_i], t_len);
 	}
 	return (r_len);
 }
@@ -48,7 +48,7 @@ static int	store_reds(t_red *reds, const char *src, const t_tkn *tkns,
 		{
 			reds[r_i].type = tkns[t_i].type;
 			t_i++;
-			tmp_len = count_word(&tkns[t_i], t_len);
+			tmp_len = count_tkns_for_word(&tkns[t_i], t_len);
 			reds[r_i].target = create_word(src, &tkns[t_i], tmp_len);
 			if (!reds[r_i].target)
 				return (reds[r_i].type = TAIL, delete_reds(reds), 0);
@@ -56,7 +56,7 @@ static int	store_reds(t_red *reds, const char *src, const t_tkn *tkns,
 			r_i++;
 		}
 		else
-			t_i += count_word(&tkns[t_i], t_len);
+			t_i += count_tkns_for_word(&tkns[t_i], t_len);
 	}
 	return (reds[r_i].type = TAIL, 1);
 }

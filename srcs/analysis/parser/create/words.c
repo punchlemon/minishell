@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:16:17 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 16:39:59 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:39:42 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static size_t	count_words(const t_tkn *tkns, const size_t t_len)
 		if (type_is_redirect(tkns[t_i].type))
 		{
 			t_i++;
-			t_i += count_word(&tkns[t_i], t_len);
+			t_i += count_tkns_for_word(&tkns[t_i], t_len);
 		}
 		else
 		{
-			t_i += count_word(&tkns[t_i], t_len);
+			t_i += count_tkns_for_word(&tkns[t_i], t_len);
 			w_len++;
 		}
 	}
@@ -49,11 +49,11 @@ static int	store_words(char **words, const char *src, const t_tkn *tkns,
 		if (type_is_redirect(tkns[t_i].type))
 		{
 			t_i++;
-			t_i += count_word(&tkns[t_i], t_len);
+			t_i += count_tkns_for_word(&tkns[t_i], t_len);
 		}
 		else
 		{
-			tmp_len = count_word(&tkns[t_i], t_len);
+			tmp_len = count_tkns_for_word(&tkns[t_i], t_len);
 			words[w_i] = create_word(src, &tkns[t_i], tmp_len);
 			if (!words[w_i])
 				return (delete_words(words), 0);
