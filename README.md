@@ -50,20 +50,20 @@ make ; ./minishell
 
 ## ✒️ Licence
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[- [ ] $（変数）の処理について考える![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 📝 To-Do
-
-- [ ] \*.oだけでなく\*.dも出力できるようにする
-- [ ] ctrl+cでプログラムが終了しないようにする "disable ctrl+c"
+- [ ] $（変数）の処理について考える
 - [ ] ~（チルダ）に対応する
 - [ ] #（コメント）に対応する
 - [ ] *（ワイルドカード）の処理について考える
 - [ ] /の処理について考える
-- [ ] $（変数）の処理について考える
 
 ## 🚀 WIP
 
+- [ ] $（変数）の処理について考える- [ ] \*.oだけでなく\*.dも出力できるようにする
+- [ ] ctrl+cでプログラムが終了しないようにする "disable ctrl+c"
+- [ ] $（変数）の処理について考える
 - [ ] 実行したテストの結果がわかりやすく表示されるようにする
 - [ ] failure testも実行できるようにする
 - [ ] a |をsyntax errorにする
