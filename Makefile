@@ -18,12 +18,9 @@ $(addsuffix .c, \
 			) \
 			$(addprefix lexer/, \
 				$(addprefix count_tkns/, \
-					count_tkn \
 					count_tkns \
-					count_word \
 				) \
 				$(addprefix store_tkns/, \
-					store_tkn \
 					store_tkns \
 				) \
 				lexer \
