@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_tkns.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:11:28 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/30 22:07:42 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/02 21:23:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 
 // functions
 int	count_word_len(const char *src, size_t *i, size_t *len);
-int	count_tkn(const char *src, size_t *i, size_t *len);
+int	count_tkn(const char *src, size_t *len);
 
 #endif

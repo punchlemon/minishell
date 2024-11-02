@@ -25,7 +25,6 @@ $(addsuffix .c, \
 				$(addprefix store_tkns/, \
 					store_tkn \
 					store_tkns \
-					store_word \
 				) \
 				lexer \
 			) \

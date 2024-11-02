@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_token.c                                      :+:      :+:    :+:   */
+/*   store_tkn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:22:00 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:40:12 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/02 21:36:51 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,41 @@
 #include "type.h"
 #include "libft_extend.h"
 
-void	store_repeat_tkn(t_tkn *tkns, const char *src, size_t *i,
-			size_t *t_i)
+void	store_repeat_tkn(t_tkn *tkns, const char *src, size_t *i)
 {
 	char	c;
 
 	c = src[*i];
 	(*i)++;
 	if (c == '&')
-		tkns[*t_i].type = AND_IF;
+		tkns->type = AND_IF;
 	else if (c == '|')
-		tkns[*t_i].type = OR_IF;
+		tkns->type = OR_IF;
 	else if (c == '<')
-		tkns[*t_i].type = DLESS;
+		tkns->type = DLESS;
 	else if (c == '>')
-		tkns[*t_i].type = DGREAT;
+		tkns->type = DGREAT;
 }
 
-void	store_tkn(t_tkn *tkns, const char *src, size_t *i, size_t *t_i)
+void	store_tkn(t_tkn *tkns, const char *src, size_t *i)
 {
 	char	c;
 
 	c = src[(*i)++];
 	if (c == '(')
-		tkns[*t_i].type = LPAREN;
+		tkns->type = LPAREN;
 	else if (c == ')')
-		tkns[*t_i].type = RPAREN;
+		tkns->type = RPAREN;
 	else if (c == src[*i])
-		store_repeat_tkn(tkns, src, i, t_i);
+		store_repeat_tkn(tkns, src, i);
 	else if (c == '|')
-		tkns[*t_i].type = PIPE;
+		tkns->type = PIPE;
 	else if (c == '<')
-		tkns[*t_i].type = LESS;
+		tkns->type = LESS;
 	else if (c == '>')
-		tkns[*t_i].type = GREAT;
-	(*t_i)++;
+		tkns->type = GREAT;
+	tkns->head = 0;
+	tkns->tail = 0;
 	while (ft_isspace(src[*i]))
 		(*i)++;
 }

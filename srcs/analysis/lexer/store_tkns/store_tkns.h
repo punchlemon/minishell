@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:21:22 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/22 23:41:13 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/02 22:01:09 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 
 // functions
-void	store_tkn(t_tkn *tkns, const char *src, size_t *i, size_t *t_i);
-void	store_word(t_tkn *tkns, const char *src, size_t *i, size_t *t_i);
+void	store_tkn(t_tkn *tkns, const char *src, size_t *i);
 
 #endif
