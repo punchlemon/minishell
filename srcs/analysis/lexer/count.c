@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:02:49 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/02 23:23:01 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/02 23:30:59 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ size_t	count_tkns(const char *src)
 
 	t_len = 0;
 	i = 0;
-	while (ft_isspace(src[i]))
-		i++;
 	while (src[i])
 	{
 		if (ft_istoken(src[i]))

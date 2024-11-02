@@ -92,8 +92,6 @@ void	store_tkns(const char *src, t_tkn *tkns)
 
 	t_i = 0;
 	i = 0;
-	while (ft_isspace(src[i]))
-		i++;
 	while (src[i])
 	{
 		if (ft_istoken(src[i]))
@@ -107,5 +105,5 @@ void	store_tkns(const char *src, t_tkn *tkns)
 		while (ft_isspace(src[i]))
 			i++;
 	}
-	tkns[i].type = TAIL;
+	tkns[t_i].type = TAIL;
 }
