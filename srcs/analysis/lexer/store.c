@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "t_analysis.h"
-#include "type.h"
-#include "libft_extend.h"
+#include "lexer.h"
 
 size_t	store_repeat_tkn(t_tkn *tkns, const char *src)
 {

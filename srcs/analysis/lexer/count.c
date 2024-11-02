@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_tkns.c                                       :+:      :+:    :+:   */
+/*   count.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:02:49 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/02 23:07:26 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/02 23:23:01 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft_extend.h"
-# include <stdlib.h>
+# include "lexer.h"
 
 static int	count_tkn(const char *src)
 {

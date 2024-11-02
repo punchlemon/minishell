@@ -17,13 +17,9 @@ $(addsuffix .c, \
 				check_conds \
 			) \
 			$(addprefix lexer/, \
-				$(addprefix count_tkns/, \
-					count_tkns \
-				) \
-				$(addprefix store_tkns/, \
-					store_tkns \
-				) \
+				count \
 				lexer \
+				store \
 			) \
 			$(addprefix parser/, \
 				$(addprefix count/, \

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:35:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 11:03:53 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/02 23:22:44 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "t_analysis.h"
 # include "type.h"
+# include "libft_extend.h"
 # include <stdlib.h>
 
 // functions
