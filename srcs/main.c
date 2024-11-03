@@ -41,16 +41,16 @@ static void	execute(t_cond *conds, char **environ)
 	while (conds[i].type != TAIL)
 	{
 		if (conds[i].type == HEAD)
-			exe(conds[i].cmds[0].words, environ, &status);
+			exe_cmds(conds[i].cmds, environ, &status);
 		else if (conds[i].type == AND_IF)
 		{
 			if (!status)
-				exe(conds[i].cmds[0].words, environ, &status);
+				exe_cmds(conds[i].cmds, environ, &status);
 		}
 		else
 		{
 			if (status)
-				exe(conds[i].cmds[0].words, environ, &status);
+				exe_cmds(conds[i].cmds, environ, &status);
 		}
 		i++;
 	}
@@ -75,6 +75,7 @@ int	main(int argc, char **argv, char **environ)
 			if (!ft_strcmp(line, "exit"))
 				cleanup_and_exit(line);
 			conds = analysis(line);
+			init_conds(conds);
 			if (conds)
 				execute(conds, environ);
 		}

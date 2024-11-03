@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_minishell.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 00:48:25 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/03 13:15:04 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_cmd
 	int				type;
 	char			**words;
 	t_red			*reds;
+	int				pipe_in[2];
+	int				pipe_out[2];
 	struct s_cond	*conds;
 }	t_cmd;
 

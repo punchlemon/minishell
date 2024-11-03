@@ -51,6 +51,9 @@ $(addsuffix .c, \
 		) \
 		$(addprefix execution/, \
 			exe \
+			init \
+			pipe \
+			excute \
 		) \
 		main \
 	) \
