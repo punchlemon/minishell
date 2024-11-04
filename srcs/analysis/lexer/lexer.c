@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:52:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/02 23:30:56 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/05 08:13:14 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ t_tkn	*lexer(const char *src, size_t *t_len)
 		i++;
 	*t_len = count_tkns(&src[i]);
 	if (!*t_len)
-		return (NULL);
+		return (ft_printf("minishell: syntax error\n"), NULL);
 	tkns = malloc(sizeof(t_tkn) * (*t_len + 1));
 	if (!tkns)
-		return (NULL);
+		return (ft_printf("minishell: malloc error\n"), NULL);
 	store_tkns(&src[i], tkns);
 	return (tkns);
 }

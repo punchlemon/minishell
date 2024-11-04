@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_tkns.c                                       :+:      :+:    :+:   */
+/*   store.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:56:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/02 22:15:43by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/05 08:11:06 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static size_t	store_quote(t_tkn *tkns, const char *src)
 	while (src[i] != c)
 		i++;
 	i++;
-		/// if encounter null char, you have to end
 	tkns->tail = &src[i];
 	return (i);
 }

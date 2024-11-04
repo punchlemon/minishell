@@ -18,6 +18,7 @@ $(addsuffix .c, \
 			) \
 			$(addprefix lexer/, \
 				count \
+				is \
 				lexer \
 				store \
 			) \

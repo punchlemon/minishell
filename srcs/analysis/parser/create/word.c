@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:53:59 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/02 23:12:28 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/05 08:04:12 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ char	*create_word(const t_tkn *tkns, const size_t t_len)
 	if (!word)
 		return (NULL);
 	store_word(word, tkns, t_len);
+	word[w_len] = '\0';
 	return (word);
 }

@@ -19,10 +19,6 @@ $(addsuffix .c, \
 				ft_putoct \
 				ft_putptr \
 			) \
-			$(addprefix is/, \
-				ft_isspace \
-				ft_istoken \
-			) \
 			$(addprefix mem/, \
 				free_pp \
 			) \
