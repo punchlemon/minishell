@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/05 08:05:07 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/05 08:15:49 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	cleanup_and_exit(char *line)
 	clear_history();
 	exit (0);
 }
+// rl_clear_historyとclear_historyの違いがわからん
 
 static void	execute(t_cond *conds, char **environ)
 {
