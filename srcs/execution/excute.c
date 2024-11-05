@@ -1,11 +1,17 @@
 #include "minishell.h"
 #include "libft.h"
 
+// void	set_redirect(t_red *reds)
+// {
+// }
+
 void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 {
 	char	*path_cmd;
 
 	prepare_pipe_in_child(cmd);
+	// if (cmd->redirects != NULL) // NULLに初期化されているかは不明
+	// set_redirect(cmd->redirects); // redirectsを最後まで処理しないと
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
 	execve(path_cmd, cmd->words, environ);
 }
