@@ -1,19 +1,56 @@
 #include "minishell.h"
 #include "libft.h"
 
-// void	set_redirect(t_red *reds)
-// {
-// }
+int	do_heredoc(char *delimiter) // have to create
+{
+	return (-1);
+}
+
+void	do_redirect(t_red *red)
+{
+}
+
+void	set_redirects(t_red *reds)
+{
+	size_t	i;
+
+	i = 0;
+	while (reds[i].type != TAIL)
+	{
+		do_redirect(&reds[i]);
+		i++;
+	}
+}
 
 void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 {
 	char	*path_cmd;
 
 	prepare_pipe_in_child(cmd);
-	// if (cmd->redirects != NULL) // NULLに初期化されているかは不明
-	// set_redirect(cmd->redirects); // redirectsを最後まで処理しないと
+	if (cmd->reds != NULL) // NULLに初期化されているかは不明
+		set_redirect(cmd->reds); // redirectsを最後まで処理しないと
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
 	execve(path_cmd, cmd->words, environ);
+}
+
+void	open_all_file_in_cmds(t_red *reds)
+{
+	size_t	i;
+
+	i = 0;
+	while (reds[i].type != NULL)
+	{
+		if (reds[i].type == LESS)
+			reds[i].fd = open(reds[i].target, O_RDONLY);
+		else if (reds[i].type == GREAT)
+			reds[i].fd = open(reds[i].target, \
+					O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		else if (reds[i].type == DLESS)
+			reds[i].fd = do_heredoc(reds[i].target);
+		else if (reds[i].type == DGREAT)
+			reds[i].fd = open(reds[i].target, \
+					O_CREAT | O_WRONLY | O_APPEND, 0644);
+	}
 }
 
 void	exe_cmds(t_cmd *cmds, char **environ, int *status)
@@ -24,6 +61,7 @@ void	exe_cmds(t_cmd *cmds, char **environ, int *status)
 
 	i = 0;
 	splited_path_env = get_env();
+	open_all_file_in_cmds(cmds->reds);
 	while (cmds[i].type != TAIL)
 	{
 		prepare_pipe(&cmds[i]);

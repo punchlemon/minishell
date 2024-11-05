@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/03 13:15:04 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:50:45 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_red
 {
 	int		type;
 	char	*target;
+	int		fd;
 }	t_red;
 
 typedef struct s_cmd
