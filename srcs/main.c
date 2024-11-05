@@ -6,22 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/05 08:15:49 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/05 08:50:06 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "libft_extend.h"
 #include "minishell.h"
-
-// RESET \033[0m
-// RED \033[31m
-// GREEN \033[32m
-// YELLOW \033[33m
-// BLUE \033[34m
-// MAGENTA \033[35m
-// CYAN \033[36m
-// WHITE \033[37m
 
 static void	cleanup_and_exit(char *line)
 {

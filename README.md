@@ -64,11 +64,12 @@ make ; ./minishell
 - [ ] $（変数）の処理について考える- [ ] \*.oだけでなく\*.dも出力できるようにする
 - [ ] ctrl+cでプログラムが終了しないようにする "disable ctrl+c"
 - [ ] $（変数）の処理について考える
-- [ ] 実行したテストの結果がわかりやすく表示されるようにする
-- [ ] failure testも実行できるようにする
+- [ ] echo &&をsyntax errorにする "fix and_if or_if"
 
 ## 🌟 Done
 
+- [X] 実行したテストの結果がわかりやすく表示されるようにする
+- [X] failure testも実行できるようにする
 - [X] a |をsyntax errorにする
 - [X] テスト例を作成する "add test"
 - [X] a | aをsyntax errorにしない "fix pipe"
