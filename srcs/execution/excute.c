@@ -35,7 +35,6 @@ void	exe_cmds(t_cmd *cmds, char **environ, int *status)
 		else
 			prepare_pipe_in_parent(&cmds[i]);
 		waitpid(pid, status, 0);
-		free_two_dimention_array(splited_path_env);
 		if (WIFEXITED(*status))
 			WEXITSTATUS(*status);
 		i++;
