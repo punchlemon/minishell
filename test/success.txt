@@ -1,9 +1,14 @@
+               
+
 echo
+"echo"
+"e"ch'o'
+'e'ch"o"
+"ec"'h'o
+""'ech'o
 echo && echo
-echo | echo
 echo || echo
-echo "h"
-echo "h"e
-echo "h"'e'
-echo "h'e'"
-echo "h""e"
+echo | echo
+(echo)
+((echo))
+echo | (echo)

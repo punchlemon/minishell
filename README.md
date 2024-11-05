@@ -53,17 +53,18 @@ make ; ./minishell
 [- [ ] $（変数）の処理について考える![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 📝 To-Do
-- [ ] ctrl+cでプログラムが終了しないようにする "disable ctrl+c"
-- [ ] $（変数）の処理について考える
+- [ ] Ctrl+\で何もしない "fix Ctrl+\"
+- [ ] Ctrl+Dでminishellが終了する "fix Ctrl+D"
+- [ ] Ctrl+Cでminishellが終了しないようにする "fix Ctrl+C"
 - [ ] ~（チルダ）に対応する
 - [ ] #（コメント）に対応する
 - [ ] *（ワイルドカード）の処理について考える
 - [ ] /の処理について考える
-- [ ] envを引数に追加する
 
 ## 🚀 WIP
-- [ ] $（変数）の処理について考える
+- [ ] wordを処理する関数を別で設定して実行側で随時処理できるようにする
 - [ ] \*.oだけでなく\*.dも出力できるようにする
 
 ## 🌟 Done
+- [X] spaceのみを入力された場合に syntax error にしない "fix space"
 - [X] echo && や echo || を syntax error にする "fix and_if or_if"
