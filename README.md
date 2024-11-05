@@ -64,6 +64,6 @@ make ; ./minishell
 ## 🚀 WIP
 - [ ] $（変数）の処理について考える
 - [ ] \*.oだけでなく\*.dも出力できるようにする
-- [ ] echo && や echo || を syntax error にする "fix and_if or_if"
 
 ## 🌟 Done
+- [X] echo && や echo || を syntax error にする "fix and_if or_if"
