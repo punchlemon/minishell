@@ -41,25 +41,39 @@ void	open_all_file_in_cmds(t_red *reds)
 	size_t	i;
 
 	i = 0;
-	while (reds[i].type != TAIL)
-	{
+	// while (reds[i].type != TAIL)
+	// {
 		if (reds[i].type == LESS)
+		{
 			reds[i].file_fd = open(reds[i].target, O_RDONLY);
+			reds[i].std_target_fd = 0;
+		}
 		else if (reds[i].type == GREAT)
+		{
 			reds[i].file_fd = open(reds[i].target, \
 					O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			reds[i].std_target_fd = 1;
+		}
 		else if (reds[i].type == DLESS)
+		{
 			reds[i].file_fd = do_heredoc(reds[i].target);
+			reds[i].std_target_fd = 0;
+		}
 		else if (reds[i].type == DGREAT)
+		{
 			reds[i].file_fd = open(reds[i].target, \
 					O_CREAT | O_WRONLY | O_APPEND, 0644);
-	}
+			reds[i].std_target_fd = 1;
+		}
+	// }
 }
 
 void	exe_cmds(t_cmd *cmds, char **environ, int *status)
 {
 	size_t	i;
 	pid_t	pid;
+	// int		tmp_in;
+	// int		tmp_out;
 	char	**splited_path_env;
 
 	i = 0;
@@ -67,6 +81,8 @@ void	exe_cmds(t_cmd *cmds, char **environ, int *status)
 	open_all_file_in_cmds(cmds->reds);
 	while (cmds[i].type != TAIL)
 	{
+		// tmp_in = dup(0); // test
+		// tmp_out = dup(1); // test
 		prepare_pipe(&cmds[i]);
 		pid = fork();
 		if (pid < 0)
@@ -76,6 +92,10 @@ void	exe_cmds(t_cmd *cmds, char **environ, int *status)
 		else
 			prepare_pipe_in_parent(&cmds[i]);
 		waitpid(pid, status, 0);
+		// dup2(tmp_in, 0);
+		// dup2(tmp_out, 1);
+		// close(tmp_in);
+		// close(tmp_out);
 		if (WIFEXITED(*status))
 			WEXITSTATUS(*status);
 		i++;
