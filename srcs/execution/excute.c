@@ -30,8 +30,8 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 	char	*path_cmd;
 
 	prepare_pipe_in_child(cmd);
-	if (cmd->reds != NULL) // NULLに初期化されているかは不明
-		set_redirects(cmd->reds); // redirectsを最後まで処理しないと
+	if (cmd->reds != NULL)
+		set_redirects(cmd->reds);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
 	execve(path_cmd, cmd->words, environ);
 }
