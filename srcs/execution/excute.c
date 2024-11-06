@@ -3,11 +3,14 @@
 
 int	do_heredoc(char *delimiter) // have to create
 {
+	(void)delimiter;
 	return (-1);
 }
 
 void	do_redirect(t_red *red)
 {
+	dup2(red->file_fd, red->std_target_fd);
+	close(red->file_fd);
 }
 
 void	set_redirects(t_red *reds)
@@ -28,7 +31,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 
 	prepare_pipe_in_child(cmd);
 	if (cmd->reds != NULL) // NULLに初期化されているかは不明
-		set_redirect(cmd->reds); // redirectsを最後まで処理しないと
+		set_redirects(cmd->reds); // redirectsを最後まで処理しないと
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
 	execve(path_cmd, cmd->words, environ);
 }
@@ -38,17 +41,17 @@ void	open_all_file_in_cmds(t_red *reds)
 	size_t	i;
 
 	i = 0;
-	while (reds[i].type != NULL)
+	while (reds[i].type != TAIL)
 	{
 		if (reds[i].type == LESS)
-			reds[i].fd = open(reds[i].target, O_RDONLY);
+			reds[i].file_fd = open(reds[i].target, O_RDONLY);
 		else if (reds[i].type == GREAT)
-			reds[i].fd = open(reds[i].target, \
+			reds[i].file_fd = open(reds[i].target, \
 					O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (reds[i].type == DLESS)
-			reds[i].fd = do_heredoc(reds[i].target);
+			reds[i].file_fd = do_heredoc(reds[i].target);
 		else if (reds[i].type == DGREAT)
-			reds[i].fd = open(reds[i].target, \
+			reds[i].file_fd = open(reds[i].target, \
 					O_CREAT | O_WRONLY | O_APPEND, 0644);
 	}
 }

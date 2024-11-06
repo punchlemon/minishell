@@ -27,7 +27,7 @@ static void	cleanup_and_exit(char *line)
 {
 	if (line)
 		free(line);
-	rl_clear_history();
+	// rl_clear_history();
 	clear_history();
 	exit (0);
 }
