@@ -6,64 +6,48 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:56:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/05 08:11:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:00:56y retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-size_t	store_repeat_tkn(t_tkn *tkns, const char *src)
-{
-	char	c;
-
-	c = src[0];
-	if (c == '&')
-		tkns->type = AND_IF;
-	else if (c == '|')
-		tkns->type = OR_IF;
-	else if (c == '<')
-		tkns->type = DLESS;
-	else if (c == '>')
-		tkns->type = DGREAT;
-	return (2);
-}
-
 size_t	store_tkn(t_tkn *tkns, const char *src)
 {
-	char	c;
-
-	c = src[0];
 	tkns->head = NULL;
 	tkns->tail = NULL;
-	if (c == '(')
-		tkns->type = LPAREN;
-	else if (c == ')')
-		tkns->type = RPAREN;
-	else if (c == src[1])
-		return (store_repeat_tkn(tkns, &src[1]));
-	else if (c == '|')
+	if (src[0] == src[1])
+	{
+		if (src[0] == '&')
+			tkns->type = AND_IF;
+		else if (src[0] == '|')
+			tkns->type = OR_IF;
+		else if (src[0] == '<')
+			tkns->type = DLESS;
+		else if (src[0] == '>')
+			tkns->type = DGREAT;
+		return (2);
+	}
+	else if (src[0] == '|')
 		tkns->type = PIPE;
-	else if (c == '<')
+	else if (src[0] == '<')
 		tkns->type = LESS;
-	else if (c == '>')
+	else if (src[0] == '>')
 		tkns->type = GREAT;
 	return (1);
 }
 
 static size_t	store_quote(t_tkn *tkns, const char *src)
 {
-	char	c;
 	size_t	i;
 
-	i = 0;
-	c = src[i];
-	if (c == '\'')
+	if (src[0] == '\'')
 		tkns->type = SINGLE;
 	else
 		tkns->type = DOUBLE;
-	tkns->head = &src[i];
-	i++;
-	while (src[i] != c)
+	tkns->head = src;
+	i = 1;
+	while (src[i] != src[0])
 		i++;
 	i++;
 	tkns->tail = &src[i];
@@ -77,7 +61,7 @@ static size_t	store_normal_word(t_tkn *tkns, const char *src)
 	i = 0;
 	tkns->type = NORMAL;
 	tkns->head = &src[i];
-	while (ft_isnormal_word(src[i]))
+	while (ft_isnormal(src[i]))
 		i++;
 	tkns->tail = &src[i];
 	return (i);

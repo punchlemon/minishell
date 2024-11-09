@@ -21,34 +21,16 @@ SRCS = \
 $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
 		$(addprefix analysis/, \
-			$(addprefix check/, \
-				check_cmd \
-				check_conds \
-			) \
 			$(addprefix lexer/, \
 				count \
 				is \
 				lexer \
 				store \
 			) \
-			$(addprefix parser/, \
-				$(addprefix count/, \
-					count_tkns_for \
-				) \
-				$(addprefix create/, \
-					cmds_utils \
-					cmds \
-					conds \
-					reds \
-					word \
-					words \
-				) \
-				parser \
-			) \
+			parser \
 			analysis \
-			print_conds \
-			print_indent \
-			print_tkns \
+			checker \
+			print \
 			type_is \
 		) \
 		$(addprefix execution/, \
@@ -73,6 +55,8 @@ VFLAGS = \
 	--show-leak-kinds=all \
 	--suppressions=readline.supp \
 	--gen-suppressions=all \
+	--trace-childlen=yes \
+	--track-fds=yes \
 
 all: $(NAME)
 
@@ -95,6 +79,11 @@ fclean: clean
 	@$(RM) $(NAME) $(VALGRIND_LOG)
 
 re: fclean all
+
+de:
+	@clear
+	@make $(NPD_FLAG) re
+	@./$(NAME)
 
 VALGRIND_LOG = valgrind.log
 

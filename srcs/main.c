@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/05 08:50:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/09 13:56:13 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,30 @@ static void	cleanup_and_exit(char *line)
 }
 // rl_clear_historyとclear_historyの違いがわからん
 
-static void	execute(t_cond *conds, char **environ)
-{
-	size_t	i;
-	int		status;
+// static void	execute(t_cond *conds, char **environ)
+// {
+// 	size_t	i;
+// 	int		status;
 
-	i = 0;
-	while (conds[i].type != TAIL)
-	{
-		if (conds[i].type == HEAD)
-			exe(conds[i].cmds[0].words, environ, &status);
-		else if (conds[i].type == AND_IF)
-		{
-			if (!status)
-				exe(conds[i].cmds[0].words, environ, &status);
-		}
-		else
-		{
-			if (status)
-				exe(conds[i].cmds[0].words, environ, &status);
-		}
-		i++;
-	}
-	delete_conds(conds);
-}
+// 	i = 0;
+// 	while (conds[i].type != TAIL)
+// 	{
+// 		if (conds[i].type == HEAD)
+// 			exe(conds[i].cmds[0].words, environ, &status);
+// 		else if (conds[i].type == AND_IF)
+// 		{
+// 			if (!status)
+// 				exe(conds[i].cmds[0].words, environ, &status);
+// 		}
+// 		else
+// 		{
+// 			if (status)
+// 				exe(conds[i].cmds[0].words, environ, &status);
+// 		}
+// 		i++;
+// 	}
+// 	delete_conds(conds);
+// }
 
 int	main(int argc, char **argv, char **environ)
 {
@@ -56,6 +56,7 @@ int	main(int argc, char **argv, char **environ)
 
 	(void)argc;
 	(void)argv;
+	(void)environ;
 	while (1)
 	{
 		line = readline("\033[32mminishell\033[33m$\033[0m ");
@@ -67,8 +68,8 @@ int	main(int argc, char **argv, char **environ)
 			if (!ft_strcmp(line, "exit"))
 				cleanup_and_exit(line);
 			conds = analysis(line);
-			if (conds)
-				execute(conds, environ);
+			// if (conds)
+			// 	execute(conds, environ);
 		}
 		free(line);
 	}
