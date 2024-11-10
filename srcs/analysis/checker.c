@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:05:36 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/09 14:11:24 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/10 09:06:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,26 @@ int	check_cmd(const t_tkn *tkns, size_t	*t_i)
 	return (check_word(tkns, t_i));
 }
 
-static int	check_cond(const t_tkn *tkns, size_t *t_i)
+static int	check_cmds(const t_tkn *tkns, size_t *t_i)
 {
+	if (!type_is_cmd(tkns[*t_i].type))
+		return (0);
 	while (type_is_cmd(tkns[*t_i].type))
 		if (!check_cmd(tkns, t_i))
 			return (0);
+	return (1);
+}
+
+static int	check_cond(const t_tkn *tkns, size_t *t_i)
+{
+	if (!check_cmds(tkns, t_i))
+		return (0);
 	while (!type_is_and_or(tkns[*t_i].type) && tkns[*t_i].type != TAIL)
 	{
 		if (tkns[(*t_i)++].type != PIPE)
 			return (0);
-		while (type_is_cmd(tkns[*t_i].type))
-			if (!check_cmd(tkns, t_i))
-				return (0);
+		if (!check_cmds(tkns, t_i))
+			return (0);
 	}
 	return (1);
 }
