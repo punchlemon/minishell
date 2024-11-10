@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:47:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/09 14:45:00 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/10 09:19:55 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_cond	*analysis(char *src)
 	tkns = lexer(src);
 	if (!tkns)
 		return (NULL);
-	print_tkns(tkns, 0);
+	print_tkns(tkns);
 	if (!checker(tkns))
 		return (ft_printf("minishell: syntax error\n"), NULL);
 	// conds = parser(tkns);

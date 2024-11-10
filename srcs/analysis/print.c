@@ -13,80 +13,83 @@
 #include "analysis.h"
 #include "ft_printf.h"
 
-void	print_indent(char *src, size_t level)
+static void	print_word(const char *head, const char *tail)
 {
-	while (level--)
-		ft_printf("  ");
-	ft_printf(src);
-}
-
-static void	print_word(const char *head, const char *tail, size_t level)
-{
-	print_indent("", level);
 	if (!head)
-		return ((void)print_indent("NULL\n", level + 1));
-	print_indent("", level + 1);
+		return ((void)ft_printf("NULL\n"));
 	write(1, head, tail - head);
 	ft_printf("\n");
 }
 
-void	print_tkns(t_tkn *tkns, size_t level)
+void	print_tkns(t_tkn *tkns)
 {
 	size_t	i;
 
-	print_indent("[tkns]\n", level);
 	if (!tkns)
-		return ((void)print_indent("NULL\n", level + 1));
+		return ((void)ft_printf("NULL\n"));
 	i = 0;
+	ft_printf("===================\n");
+	ft_printf("[type]\t| [content]\n");
+	ft_printf("========|==========\n");
 	while (tkns[i].type != TAIL)
 	{
-		print_indent("type:", level + 1);
-		if (tkns[i].type == NORMAL)
-			ft_printf(" normal\n");
-		else if (tkns[i].type == SINGLE)
-			ft_printf(" '\n");
-		else if (tkns[i].type == DOUBLE)
-			ft_printf(" \"\n");
-		else if (tkns[i].type == LESS)
-			ft_printf(" <\n");
-		else if (tkns[i].type == GREAT)
-			ft_printf(" >\n");
-		else if (tkns[i].type == DLESS)
-			ft_printf(" <<\n");
-		else if (tkns[i].type == DGREAT)
-			ft_printf(" >>\n");
-		else if (tkns[i].type == AND_IF)
-			ft_printf(" &&\n");
-		else if (tkns[i].type == OR_IF)
-			ft_printf(" ||\n");
-		print_word(tkns[i].head, tkns[i].tail, level + 1);
+		if (type_is_cmd(tkns[i].type))
+		{
+			if (tkns[i].type == NORMAL)
+				ft_printf(" normal");
+			else if (tkns[i].type == SINGLE)
+				ft_printf(" '");
+			else if (tkns[i].type == DOUBLE)
+				ft_printf(" \"");
+			else if (tkns[i].type == LESS)
+				ft_printf(" <");
+			else if (tkns[i].type == GREAT)
+				ft_printf(" >");
+			else if (tkns[i].type == DLESS)
+				ft_printf(" <<");
+			else if (tkns[i].type == DGREAT)
+				ft_printf(" >>");
+			ft_printf("\t|  ");
+			print_word(tkns[i].head, tkns[i].tail);
+		}
+		else
+		{
+			if (tkns[i].type == AND_IF)
+				ft_printf(" &&");
+			else if (tkns[i].type == OR_IF)
+				ft_printf(" ||");
+			else if (tkns[i].type == PIPE)
+				ft_printf(" |");
+			ft_printf("\t|\n");
+		}
 		i++;
 	}
+	ft_printf("===================\n");
 }
 
-void	print_cmds(t_tkn **cmds, size_t level)
+void	print_cmds(t_tkn **cmds)
 {
 	size_t	i;
 
 	i = 0;
 	while (cmds[i])
 	{
-		print_tkns(cmds[i], level + 1);
+		print_tkns(cmds[i]);
 		i++;
 	}
 }
 
-void	print_conds(t_cond *conds, size_t level)
+void	print_conds(t_cond *conds)
 {
 	size_t	i;
 
-	print_indent("[conds]\n", level);
+	ft_printf("[conds]\n");
 	if (!conds)
-		return ((void)print_indent("NULL\n", level + 1));
+		return ((void)ft_printf("NULL\n"));
 	i = 0;
 	while (conds[i].type != TAIL)
 	{
-		print_indent("type:", level + 1);
+		ft_printf("type:");
 		if (conds[i].type == AND_IF)
 			ft_printf(" &&\n");
 		else if (conds[i].type == OR_IF)
@@ -95,7 +98,7 @@ void	print_conds(t_cond *conds, size_t level)
 			ft_printf(" head\n");
 		else
 			return ((void)ft_printf(" else!!!!!\n"));
-		print_cmds(conds[i].cmds, level + 1);
+		print_cmds(conds[i].cmds);
 		i++;
 	}
 }
