@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:45:29 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/30 12:49:42 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/05 08:19:33 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ static int	check_subshell(const t_tkn *tkns, const size_t t_end)
 	if (!check_conds(&tkns[1], tmp - 1))
 		return (0);
 	t_i = tmp;
-	while (t_i < (t_end - 1))
+	while (t_i < t_end)
 	{
 		if (!type_is_redirect(tkns[t_i++].type))
+			return (0);
+		if (t_i >= t_end)
 			return (0);
 		tmp += count_tkns_for_word(&tkns[t_i], t_end - t_i);
 		if (!check_word(&tkns[t_i], tmp))

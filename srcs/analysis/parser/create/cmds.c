@@ -6,13 +6,13 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:04:44 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/30 16:25:39 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/02 23:16:24 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "create.h"
 
-t_cmd	*create_cmds(const char *src, const t_tkn *tkns, const size_t t_end)
+t_cmd	*create_cmds(const t_tkn *tkns, const size_t t_end)
 {
 	t_cmd	*cmds;
 	size_t	c_len;
@@ -21,7 +21,7 @@ t_cmd	*create_cmds(const char *src, const t_tkn *tkns, const size_t t_end)
 	cmds = malloc(sizeof(t_cmd) * (c_len + 1));
 	if (!cmds)
 		return (NULL);
-	if (!store_cmds(cmds, src, tkns, t_end))
+	if (!store_cmds(cmds, tkns, t_end))
 		return (NULL);
 	return (cmds);
 }

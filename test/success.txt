@@ -1,9 +1,14 @@
-a
-a && a
-a | a
-a || a
-a "h"
-a "h"e
-a "h"'e'
-a "h'e'"
-a "h""e"
+               
+
+echo
+"echo"
+"e"ch'o'
+'e'ch"o"
+"ec"'h'o
+""'ech'o
+echo && echo
+echo || echo
+echo | echo
+(echo)
+((echo))
+echo | (echo)

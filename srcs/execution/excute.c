@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "ft_printf.h"
 #include "libft.h"
 
 int	do_heredoc(char *delimiter) // have to create
@@ -21,6 +22,7 @@ void	set_redirects(t_red *reds)
 	i = 0;
 	while (reds[i].type != TAIL)
 	{
+		// printf("%zu\n", i);
 		do_redirect(&reds[i]);
 		i++;
 	}
@@ -30,9 +32,13 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 {
 	char	*path_cmd;
 
+	ft_printf("%p\n", cmd->reds);
+	write(1, "in\n", 3);
 	prepare_pipe_in_child(cmd);
 	if (cmd->reds != NULL)
+	{
 		set_redirects(cmd->reds);
+	}
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
 	execve(path_cmd, cmd->words, environ);
 }
@@ -93,7 +99,9 @@ void	exe_cmds(t_cmd *cmds, char **environ, int *status)
 		if (pid < 0)
 			exit(1); // error fork
 		if (pid == 0)
+		{
 			excute_cmd(&cmds[i], splited_path_env, environ);
+		}
 		else
 			prepare_pipe_in_parent(&cmds[i]);
 		waitpid(pid, status, 0);

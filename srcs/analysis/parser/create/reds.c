@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 10:53:34 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/29 17:39:04 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/02 23:16:46 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ static size_t	count_reds(const t_tkn *tkns, const size_t t_len)
 	return (r_len);
 }
 
-static int	store_reds(t_red *reds, const char *src, const t_tkn *tkns,
-	const size_t t_len)
+static int	store_reds(t_red *reds, const t_tkn *tkns, const size_t t_len)
 {
 	size_t	t_i;
 	size_t	tmp_len;
@@ -49,7 +48,7 @@ static int	store_reds(t_red *reds, const char *src, const t_tkn *tkns,
 			reds[r_i].type = tkns[t_i].type;
 			t_i++;
 			tmp_len = count_tkns_for_word(&tkns[t_i], t_len);
-			reds[r_i].target = create_word(src, &tkns[t_i], tmp_len);
+			reds[r_i].target = create_word(&tkns[t_i], tmp_len);
 			if (!reds[r_i].target)
 				return (reds[r_i].type = TAIL, delete_reds(reds), 0);
 			t_i += tmp_len;
@@ -61,7 +60,7 @@ static int	store_reds(t_red *reds, const char *src, const t_tkn *tkns,
 	return (reds[r_i].type = TAIL, 1);
 }
 
-t_red	*create_reds(const char *src, const t_tkn *tkns, const size_t t_len)
+t_red	*create_reds(const t_tkn *tkns, const size_t t_len)
 {
 	t_red	*reds;
 	size_t	r_len;
@@ -70,7 +69,7 @@ t_red	*create_reds(const char *src, const t_tkn *tkns, const size_t t_len)
 	reds = malloc(sizeof(t_red) * (r_len + 1));
 	if (!reds)
 		return (NULL);
-	if (!store_reds(reds, src, tkns, t_len))
+	if (!store_reds(reds, tkns, t_len))
 		return (NULL);
 	return (reds);
 }

@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:53:59 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/30 01:43:18 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/05 08:04:12 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ static size_t	count_word_len(const t_tkn *tkns, const size_t t_len)
 	return (w_len);
 }
 
-static void	store_word(char *word, const char *src, const t_tkn *tkns,
-	const size_t t_len)
+static void	store_word(char *word, const t_tkn *tkns, const size_t t_len)
 {
 	size_t	w_i;
 	size_t	t_i;
@@ -43,10 +42,10 @@ static void	store_word(char *word, const char *src, const t_tkn *tkns,
 	if (tkns->type != NORMAL)
 	{
 		w_i -= 2;
-		ft_memmove(word, &src[tkns->head + 1], w_i);
+		ft_memmove(word, &tkns->head[1], w_i);
 	}
 	else
-		ft_memmove(word, &src[tkns->head], w_i);
+		ft_memmove(word, tkns->head, w_i);
 	t_i = 0;
 	while (++t_i < t_len)
 	{
@@ -54,15 +53,15 @@ static void	store_word(char *word, const char *src, const t_tkn *tkns,
 		if (tkns[t_i].type != NORMAL)
 		{
 			tmp_len -= 2;
-			ft_memmove(&word[w_i], &src[tkns[t_i].head + 1], tmp_len);
+			ft_memmove(&word[w_i], &tkns[t_i].head[1], tmp_len);
 		}
 		else
-			ft_memmove(&word[w_i], &src[tkns[t_i].head], tmp_len);
+			ft_memmove(&word[w_i], tkns[t_i].head, tmp_len);
 		w_i += tmp_len;
 	}
 }
 
-char	*create_word(const char *src, const t_tkn *tkns, const size_t t_len)
+char	*create_word(const t_tkn *tkns, const size_t t_len)
 {
 	char	*word;
 	size_t	w_len;
@@ -71,6 +70,7 @@ char	*create_word(const char *src, const t_tkn *tkns, const size_t t_len)
 	word = malloc(w_len + 1);
 	if (!word)
 		return (NULL);
-	store_word(word, src, tkns, t_len);
+	store_word(word, tkns, t_len);
+	word[w_len] = '\0';
 	return (word);
 }

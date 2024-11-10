@@ -8,6 +8,15 @@ INCLUDES_DIR = includes
 SRCS_DIR = srcs
 OUT_DIR = out
 
+RESET = \033[0m
+RED = \033[31m
+GREEN = \033[32m
+YELLOW = \033[33m
+BLUE = \033[34m
+MAGENTA = \033[35m
+CYAN = \033[36m
+WHITE = \033[37m
+
 SRCS = \
 $(addsuffix .c, \
 	$(addprefix $(SRCS_DIR)/, \
@@ -17,17 +26,10 @@ $(addsuffix .c, \
 				check_conds \
 			) \
 			$(addprefix lexer/, \
-				$(addprefix count_tkns/, \
-					count_tkn \
-					count_tkns \
-					count_word \
-				) \
-				$(addprefix store_tkns/, \
-					store_tkn \
-					store_tkns \
-					store_word \
-				) \
+				count \
+				is \
 				lexer \
+				store \
 			) \
 			$(addprefix parser/, \
 				$(addprefix count/, \
@@ -123,9 +125,24 @@ SUCCESS_TXT = success.txt
 FAILURE_TXT = failure.txt
 
 test: re
-	while IFS= read -r line; do \
-		echo "$$line" | ./$(NAME); \
+	@echo "[$(YELLOW)success test$(RESET)]"
+	@while IFS= read -r line; do \
+		echo ====================; \
+		if (echo "$$line"; echo exit) | ./$(NAME) | grep -Eq "minishell: syntax error|minishell: malloc error"; then \
+			echo "$$line"; echo "$(RED)KO!!!!!!$(RESET)"; \
+		else \
+			echo "$$line"; echo "$(GREEN)OK$(RESET)"; \
+		fi; \
 	done < $(TEST_DIR)/$(SUCCESS_TXT)
-	while IFS= read -r line; do \
-		echo "$$line" | ./$(NAME); \
+	@echo ====================;
+	@echo ; echo ; echo ;
+	@echo "[$(YELLOW)failure test$(RESET)]"
+	@while IFS= read -r line; do \
+		echo ====================; \
+		if (echo "$$line"; echo exit) | ./$(NAME) | grep -Eq "minishell: syntax error|minishell: malloc error"; then \
+			echo "$$line"; echo "$(GREEN)OK$(RESET)"; \
+		else \
+			echo "$$line"; echo "$(RED)KO!!!!!!$(RESET)"; \
+		fi; \
 	done < $(TEST_DIR)/$(FAILURE_TXT)
+	@echo ====================;
