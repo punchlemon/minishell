@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/10 12:43:40 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/10 18:30:16 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,17 @@ void		init_conds(t_cond *conds);
 void		prepare_pipe(t_cmd *cmd);
 void		prepare_pipe_in_child(t_cmd *cmd);
 void		prepare_pipe_in_parent(t_cmd *cmd);
+
+// redirect
+int			get_heredoc(char *delimiter);
+void		do_redirect(t_red *red);
+void		set_redirects(t_red *reds);
+void		open_all_file_in_cmds(t_red *reds);
+
+// itoa // for test
+char	*reverse(char *temp);
+void	minus(int *sign, int *n);
+char	*check1_zero_intmin(int n);
+char	*ft_itoa(int n);
 
 #endif
