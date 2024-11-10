@@ -22,7 +22,6 @@ void	set_redirects(t_red *reds)
 	i = 0;
 	while (reds[i].type != TAIL)
 	{
-		// printf("%zu\n", i);
 		do_redirect(&reds[i]);
 		i++;
 	}
@@ -32,8 +31,6 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 {
 	char	*path_cmd;
 
-	ft_printf("%p\n", cmd->reds);
-	write(1, "in\n", 3);
 	prepare_pipe_in_child(cmd);
 	if (cmd->reds != NULL)
 	{
@@ -48,12 +45,8 @@ void	open_all_file_in_cmds(t_red *reds)
 	size_t	i;
 
 	i = 0;
-	// if (i == 0 && reds[i].type == TAIL)
-	// {
-	// 	write(2, "no redirect in this command\n", 28);
-	// }
-	// while (reds[i].type != TAIL)
-	// {
+	while (reds[i].type != TAIL)
+	{
 		if (reds[i].type == LESS)
 		{
 			reds[i].file_fd = open(reds[i].target, O_RDONLY);
@@ -76,7 +69,8 @@ void	open_all_file_in_cmds(t_red *reds)
 					O_CREAT | O_WRONLY | O_APPEND, 0644);
 			reds[i].std_target_fd = 1;
 		}
-	// }
+		i++;
+	}
 }
 
 void	exe_cmds(t_cmd *cmds, char **environ, int *status)
@@ -89,7 +83,12 @@ void	exe_cmds(t_cmd *cmds, char **environ, int *status)
 
 	i = 0;
 	splited_path_env = get_env();
-	open_all_file_in_cmds(cmds->reds);
+	while (cmds[i].type != TAIL)
+	{
+		open_all_file_in_cmds(cmds[i].reds);
+		i++;
+	}
+	i = 0;
 	while (cmds[i].type != TAIL)
 	{
 		tmp_in = dup(0); // test
