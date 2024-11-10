@@ -55,7 +55,7 @@ VFLAGS = \
 	--show-leak-kinds=all \
 	--suppressions=readline.supp \
 	--gen-suppressions=all \
-	--trace-childlen=yes \
+	--trace-children=yes \
 	--track-fds=yes \
 
 all: $(NAME)

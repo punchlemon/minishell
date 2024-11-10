@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/08 19:45:49 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:21:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,15 @@ typedef struct s_tkn
 	const char	*tail;
 }	t_tkn;
 
+typedef struct s_cmd
+{
+	t_tkn	*tkns;
+}	t_cmd;
+
 typedef struct s_cond
 {
 	int		type;
-	t_tkn	**cmds;
+	t_cmd	*cmds;
 }	t_cond;
 
 int	type_is_word(int type);

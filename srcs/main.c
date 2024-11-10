@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/09 13:56:13 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/10 13:12:55 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int argc, char **argv, char **environ)
 			if (!ft_strcmp(line, "exit"))
 				cleanup_and_exit(line);
 			conds = analysis(line);
+			delete_conds(conds);
 			// if (conds)
 			// 	execute(conds, environ);
 		}
