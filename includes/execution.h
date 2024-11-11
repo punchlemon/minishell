@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/11 17:40:43 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/11 23:07:33 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,17 @@
 # include <readline/history.h>
 # include <fcntl.h>
 
-// execution
-void		exe(char **srcs, char **environ, int *status);
+// exe
+// void		exe(char **srcs, char **environ, int *status);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strjoin(char *s1, char *s2);
+char		**get_env(void);
+char		*search_binary_file(char *cmd_without_op);
+char		*search_excutable_file(char *file);
+char		*join_path(char *env, char *cmd);
+char		*search_cmd(char *cmd_without_op, char **splited_path_envp);
 char		*get_path_cmd(char *cmd, char **splited_path_envp);
 void		free_two_dimention_array(char **strs);
-char		**get_env(void);
 
 // excute
 void		excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ);

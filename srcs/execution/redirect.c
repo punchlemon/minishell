@@ -67,6 +67,8 @@ int	get_heredoc(char *delimiter)
 
 void	do_redirect(t_red *red)
 {
+	// if (red->file_fd < 0)
+	// 	exit(1);
 	if (dup2(red->file_fd, red->std_target_fd) < 0)
 		exit(1); // error dup2
 	close(red->file_fd);
