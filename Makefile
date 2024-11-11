@@ -57,6 +57,7 @@ $(addsuffix .c, \
 			pipe \
 			excute \
 			redirect \
+			error \
 			ft_itoa \
 		) \
 		main \

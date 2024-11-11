@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/10 18:30:16 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:21:50 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ int			get_heredoc(char *delimiter);
 void		do_redirect(t_red *red);
 void		set_redirects(t_red *reds);
 void		open_all_file_in_cmds(t_red *reds);
+
+// error
+int		operation_error(char *str);
 
 // itoa // for test
 char	*reverse(char *temp);
