@@ -39,7 +39,11 @@ void	exe_cmds(t_cmd *cmds, char **environ, int *status)
 			break ;
 		pid = fork();
 		if (pid < 0)
-			exit(1); // error fork
+		{
+			// exit(1); // error fork
+			operation_error("fork");
+			break ;
+		}
 		if (pid == 0)
 		{
 			excute_cmd(&cmds[i], splited_path_env, environ);
