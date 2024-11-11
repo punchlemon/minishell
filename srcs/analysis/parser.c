@@ -55,9 +55,10 @@ static int	store_cmds(t_cmd *cmd, const t_tkn *src_tkns, size_t *s_i)
 	c_i = 0;
 	while (c_i < c_len)
 	{
-		cmd->tkns[c_i].type = src_tkns[*s_i + c_i].type;
-		cmd->tkns[c_i].head = src_tkns[*s_i + c_i].head;
-		cmd->tkns[c_i].tail = src_tkns[*s_i + c_i].tail;
+		cmd->tkns[c_i].type = src_tkns[*s_i].type;
+		cmd->tkns[c_i].head = src_tkns[*s_i].head;
+		cmd->tkns[c_i].tail = src_tkns[*s_i].tail;
+		(*s_i)++;
 		c_i++;
 	}
 	return (1);
