@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	prepare_pipe(t_cmd *cmd)
+int	prepare_pipe(t_cmd *cmd)
 {
 	t_cmd	*next_cmd;
 
@@ -8,10 +8,11 @@ void	prepare_pipe(t_cmd *cmd)
 	if (next_cmd->type != TAIL)
 	{
 		if (pipe(cmd->pipe_out) < 0)
-			exit(1); // error pipe
+			return (operation_error("pipe")); // returned 1
 		next_cmd->pipe_in[0] = cmd->pipe_out[0];
 		next_cmd->pipe_in[1] = cmd->pipe_out[1];
 	}
+	return (0);
 }
 
 void	prepare_pipe_in_child(t_cmd *cmd)

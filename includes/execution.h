@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/11 17:21:50 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:40:43 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		exe_cmds(t_cmd *cmds, char **environ, int *status);
 void		init_conds(t_cond *conds);
 
 // pipe
-void		prepare_pipe(t_cmd *cmd);
+int 		prepare_pipe(t_cmd *cmd);
 void		prepare_pipe_in_child(t_cmd *cmd);
 void		prepare_pipe_in_parent(t_cmd *cmd);
 

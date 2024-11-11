@@ -35,7 +35,8 @@ void	exe_cmds(t_cmd *cmds, char **environ, int *status)
 	{
 		tmp_in = dup(0); // test
 		tmp_out = dup(1); // test
-		prepare_pipe(&cmds[i]);
+		if (prepare_pipe(&cmds[i]))
+			break ;
 		pid = fork();
 		if (pid < 0)
 			exit(1); // error fork
