@@ -6,11 +6,11 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:43:51 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/10 12:10:54by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:24:36 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "analysis.h"
+#include "analysis.h"
 
 void	delete_cmds(t_cmd_a *cmds)
 {
