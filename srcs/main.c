@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/11 21:30:20 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:03:57 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,50 +18,36 @@ static void	cleanup_and_exit(char *line)
 {
 	if (line)
 		free(line);
-	rl_clear_history();
+	// rl_clear_history();
 	clear_history();
 	exit (0);
 }
 // rl_clear_historyとclear_historyの違いがわからん
 
-// static t_red	*expand_reds(t_cmd_a *cmds)
-// {
-// 	return (NULL);
-// }
+static void	execute(t_cond *conds, char **environ)
+{
+	size_t	i;
+	int		status;
 
-// static char	*expand_words(t_cmd_a *cmds)
-// {
-// 	return (NULL);
-// }
-
-// static void	execute(t_cond *conds, char **environ)
-// {
-// 	size_t	i;
-// 	int		status;
-// 	char	*words;
-// 	t_red	*reds;
-
-// 	i = 0;
-// 	while (conds[i].type != TAIL)
-// 	{
-// 		words = expand_words(conds[i].cmds);
-// 		reds = expand_reds(conds[i].cmds);
-// 		if (conds[i].type == HEAD)
-// 			exe(words, environ, &status);
-// 		else if (conds[i].type == AND_IF)
-// 		{
-// 			if (!status)
-// 				exe(words, environ, &status);
-// 		}
-// 		else
-// 		{
-// 			if (status)
-// 				exe(words, environ, &status);
-// 		}
-// 		i++;
-// 	}
-// 	delete_conds(conds);
-// }
+	i = 0;
+	while (conds[i].type != TAIL)
+	{
+		if (conds[i].type == HEAD)
+			exe_cmds(conds[i].cmds, environ, &status);
+		else if (conds[i].type == AND_IF)
+		{
+			if (!status)
+				exe_cmds(conds[i].cmds, environ, &status);
+		}
+		else
+		{
+			if (status)
+				exe_cmds(conds[i].cmds, environ, &status);
+		}
+		i++;
+	}
+	delete_conds(conds);
+}
 
 int	main(int argc, char **argv, char **environ)
 {
@@ -82,9 +68,8 @@ int	main(int argc, char **argv, char **environ)
 			if (!ft_strcmp(line, "exit"))
 				cleanup_and_exit(line);
 			conds = analysis(line);
-			delete_conds(conds);
-			// if (conds)
-			// 	execute(conds, environ);
+			if (conds)
+				execute(conds, environ);
 		}
 		free(line);
 	}

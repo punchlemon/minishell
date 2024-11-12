@@ -35,6 +35,12 @@ $(addsuffix .c, \
 		) \
 		$(addprefix execution/, \
 			exe \
+			init \
+			pipe \
+			excute \
+			redirect \
+			error \
+			ft_itoa \
 		) \
 		main \
 	) \

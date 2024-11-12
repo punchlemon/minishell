@@ -19,6 +19,10 @@ $(addsuffix .c, \
 				ft_putoct \
 				ft_putptr \
 			) \
+			$(addprefix get_next_line/, \
+				get_next_line \
+				get_next_line_utils \
+			) \
 			$(addprefix mem/, \
 				free_pp \
 			) \

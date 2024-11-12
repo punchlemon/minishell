@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/11 21:23:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:01:36 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ typedef struct s_cmd_a
 {
 	t_tkn	*tkns;
 }	t_cmd_a;
+
+typedef struct s_cmd
+{
+	int				type;
+	char			**words;
+	int				pipe_in[2];
+	int				pipe_out[2];
+	struct s_cond	*conds;
+}	t_cmd;
 
 typedef struct s_cond
 {
