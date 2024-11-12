@@ -28,9 +28,9 @@ void	print_tkns(t_tkn *tkns)
 	if (!tkns)
 		return ((void)ft_printf("NULL\n"));
 	i = 0;
-	ft_printf("===================\n");
-	ft_printf("[type]\t| [content]\n");
-	ft_printf("========|==========\n");
+	ft_printf("====================\n");
+	ft_printf("=type=\t| =content=\n");
+	ft_printf("========|===========\n");
 	while (tkns[i].type != TAIL)
 	{
 		if (type_is_cmd(tkns[i].type))
@@ -65,7 +65,7 @@ void	print_tkns(t_tkn *tkns)
 		}
 		i++;
 	}
-	ft_printf("===================\n\n");
+	ft_printf("====================\n\n");
 }
 
 void	print_tkns_easy(t_tkn *tkns)
@@ -75,32 +75,36 @@ void	print_tkns_easy(t_tkn *tkns)
 	i = 0;
 	while (tkns[i].type != TAIL)
 	{
-		if (type_is_word(tkns[i].type))
-		{
+		if (i)
 			ft_printf(" ");
+		if (type_is_word(tkns[i].type))
 			print_word(tkns[i].head, tkns[i].tail);
-		}
 		else if (tkns[i].type == LESS)
-			ft_printf(" <");
+			ft_printf("<");
 		else if (tkns[i].type == GREAT)
-			ft_printf(" >");
+			ft_printf(">");
 		else if (tkns[i].type == DLESS)
-			ft_printf(" <<");
+			ft_printf("<<");
 		else if (tkns[i].type == DGREAT)
-			ft_printf(" >>");
+			ft_printf(">>");
 		i++;
 	}
 }
 
-void	print_cmds(t_cmd *cmds)
+void	print_cmds(t_cmd_a *cmds)
 {
 	size_t	i;
 
 	i = 0;
+	ft_printf(" ");
 	while (cmds[i].tkns)
 	{
+		if (i)
+			ft_printf(", ");
+		ft_printf("[");
 		print_tkns_easy(cmds[i].tkns);
 		i++;
+		ft_printf("]");
 	}
 	ft_printf("\n");
 }
@@ -112,9 +116,9 @@ void	print_conds(t_cond *conds)
 	ft_printf("[conds]\n");
 	if (!conds)
 		return ((void)ft_printf("NULL\n"));
-	ft_printf("===================\n");
-	ft_printf("[type]\t| [content]\n");
-	ft_printf("========|==========\n");
+	ft_printf("====================\n");
+	ft_printf(" =type=\t| =content=\n");
+	ft_printf("========|===========\n");
 	i = 0;
 	while (conds[i].type != TAIL)
 	{
@@ -129,5 +133,5 @@ void	print_conds(t_cond *conds)
 		print_cmds(conds[i].cmds);
 		i++;
 	}
-	ft_printf("===================\n\n");
+	ft_printf("====================\n\n");
 }

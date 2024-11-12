@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/10 13:12:55 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:30:20 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,39 @@ static void	cleanup_and_exit(char *line)
 }
 // rl_clear_historyとclear_historyの違いがわからん
 
+// static t_red	*expand_reds(t_cmd_a *cmds)
+// {
+// 	return (NULL);
+// }
+
+// static char	*expand_words(t_cmd_a *cmds)
+// {
+// 	return (NULL);
+// }
+
 // static void	execute(t_cond *conds, char **environ)
 // {
 // 	size_t	i;
 // 	int		status;
+// 	char	*words;
+// 	t_red	*reds;
 
 // 	i = 0;
 // 	while (conds[i].type != TAIL)
 // 	{
+// 		words = expand_words(conds[i].cmds);
+// 		reds = expand_reds(conds[i].cmds);
 // 		if (conds[i].type == HEAD)
-// 			exe(conds[i].cmds[0].words, environ, &status);
+// 			exe(words, environ, &status);
 // 		else if (conds[i].type == AND_IF)
 // 		{
 // 			if (!status)
-// 				exe(conds[i].cmds[0].words, environ, &status);
+// 				exe(words, environ, &status);
 // 		}
 // 		else
 // 		{
 // 			if (status)
-// 				exe(conds[i].cmds[0].words, environ, &status);
+// 				exe(words, environ, &status);
 // 		}
 // 		i++;
 // 	}

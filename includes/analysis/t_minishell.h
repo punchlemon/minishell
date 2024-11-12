@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/10 14:21:19 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:23:21 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@
 
 # include <stdlib.h>
 
+typedef struct s_red
+{
+	int		type;
+	char	*target;
+	int		file_fd;
+	int		std_target_fd;
+}	t_red;
+
 typedef struct s_tkn
 {
 	int			type;
@@ -35,15 +43,15 @@ typedef struct s_tkn
 	const char	*tail;
 }	t_tkn;
 
-typedef struct s_cmd
+typedef struct s_cmd_a
 {
 	t_tkn	*tkns;
-}	t_cmd;
+}	t_cmd_a;
 
 typedef struct s_cond
 {
 	int		type;
-	t_cmd	*cmds;
+	t_cmd_a	*cmds;
 }	t_cond;
 
 int	type_is_word(int type);

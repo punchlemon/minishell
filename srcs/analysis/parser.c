@@ -12,7 +12,7 @@
 
 # include "analysis.h"
 
-void	delete_cmds(t_cmd *cmds)
+void	delete_cmds(t_cmd_a *cmds)
 {
 	size_t	i;
 
@@ -38,7 +38,7 @@ void	delete_conds(t_cond *conds)
 	free(conds);
 }
 
-static int	store_cmds(t_cmd *cmd, const t_tkn *src_tkns, size_t *s_i)
+static int	store_cmds(t_cmd_a *cmd, const t_tkn *src_tkns, size_t *s_i)
 {
 	size_t	c_len;
 	size_t	c_i;
