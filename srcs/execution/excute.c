@@ -2,8 +2,18 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-void	delete_cmd(t_cmd *cmd)
+void	delete_cmds(t_cmd *cmds)
 {
+	size_t	i;
+
+	i = 0;
+	while (cmds[i].type != TAIL)
+	{
+		free(cmds[i].words);
+		free(cmds[i].reds);
+		i++;
+	}
+	free(cmds);
 }
 
 void	count_word(t_tkn *tkns, size_t *i)
@@ -68,7 +78,6 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 		set_redirects(cmd->reds);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
 	execve(path_cmd, cmd->words, environ);
-	// delete_cmd(cmd);
 	write(2, "Error : execve\n", strlen("Error : execve\n"));
 	exit(1);
 }
@@ -92,7 +101,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 	i = 0;
 	while (cmd_a_s[i].tkns)
 		i++;
-	cmds = malloc(sizeof(t_cmd) * (2));
+	cmds = malloc(sizeof(t_cmd) * (i + 1));
 	cmds[i].type = TAIL;
 	while (i--)
 	{
@@ -133,8 +142,8 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 		if (WIFEXITED(*status))
 			WEXITSTATUS(*status);
 		i++;
-		delete_cmd(&cmds[i]);
 	}
+	delete_cmds(cmds);
 	free_two_dimention_array(splited_path_env);
 	return (1);
 }
