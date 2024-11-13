@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   excute.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hnakayam <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/11/13 14:17:04 by hnakayam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "ft_printf.h"
 #include "libft.h"
@@ -37,6 +49,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 
 	prepare_pipe_in_child(cmd);
 	// file open
+	file_open(cmd);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
