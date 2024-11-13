@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/13 14:17:04 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:41:38 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 
 	prepare_pipe_in_child(cmd);
 	// file open
-	file_open(cmd);
+	open_file(cmd->reds);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
 	execve(path_cmd, cmd->words, environ);
-	// delete_cmd(cmd);
+	delete_cmd(cmd);
 	write(2, "Error : execve\n", strlen("Error : execve\n"));
 	exit(1);
 }
@@ -119,7 +119,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 		if (WIFEXITED(*status))
 			WEXITSTATUS(*status);
 		i++;
-		delete_cmd(&cmds[i]);
+		// delete_cmd(&cmds[i]);
 	}
 	free_two_dimention_array(splited_path_env);
 	return (1);

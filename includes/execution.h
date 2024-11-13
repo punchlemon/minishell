@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/13 13:08:01 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:39:18 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void		prepare_pipe_in_parent(t_cmd *cmd);
 int			get_heredoc(char *delimiter);
 void		do_redirect(t_red *red);
 void		set_redirects(t_red *reds);
-void		open_all_file_in_cmds(t_red *reds);
+void		open_file(t_red *reds);
+// void		open_all_file_in_cmds(t_red *reds);
 
 // error
 int		operation_error(char *str);
