@@ -102,6 +102,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 		if (WIFEXITED(*status))
 			WEXITSTATUS(*status);
 		i++;
+		delete_cmd(&cmds[i]);
 	}
 	free_two_dimention_array(splited_path_env);
 	return (1);
