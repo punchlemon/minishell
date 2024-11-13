@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/13 13:11:00 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:57:55 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ static void	cleanup_and_exit(char *line)
 {
 	if (line)
 		free(line);
-	// rl_clear_history();
 	clear_history();
 	exit (0);
 }
-// rl_clear_historyとclear_historyの違いがわからん
 
 static void	execute(t_cond *conds, char **environ)
 {
