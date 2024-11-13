@@ -2,6 +2,10 @@
 #include "ft_printf.h"
 #include "libft.h"
 
+void	delete_cmd(t_cmd *cmd)
+{
+}
+
 t_cmd	*expand_cmd(t_cmd *cmd, t_cmd_a *cmd_a)
 {
 	// size_t	cmd_len;
