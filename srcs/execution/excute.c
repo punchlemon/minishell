@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/13 15:01:37 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:10:17 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 	i = 0;
 	while (cmd_a_s[i].tkns)
 		i++;
-	cmds = malloc(sizeof(t_cmd) * (2));
+	cmds = malloc(sizeof(t_cmd) * (2)); // sizeof(t_cmd) * i
 	cmds[i].type = TAIL;
 	while (i--)
 	{
