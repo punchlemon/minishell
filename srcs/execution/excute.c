@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/13 14:43:45 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:01:37 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ t_cmd	*expand_cmd(t_cmd *cmd, t_cmd_a *cmd_a)
 	// if (!cmd->reds)
 	// 	return (free(cmd->words), NULL);
 	(void)cmd_a;
-	cmd->words = malloc(sizeof(char *) * 3);
-	cmd->words[2] = NULL;
-	cmd->words[1] = "hello";
-	cmd->words[0] = "echo";
-	cmd->reds = malloc(sizeof(t_red) * 1);
-	cmd->reds[0].type = TAIL;
-	// cmd->reds[0].type = LESS;
-	// cmd->reds[0].target = "test_file";
+	cmd->words = malloc(sizeof(char *) * 2);
+	cmd->words[1] = NULL;
+	// cmd->words[1] = "hello";
+	cmd->words[0] = "cat";
+	cmd->reds = malloc(sizeof(t_red) * 2);
+	cmd->reds[1].type = TAIL;
+	cmd->reds[0].type = LESS;
+	cmd->reds[0].target = "infile";
 	return (cmd);
 }
 
@@ -85,8 +85,8 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 		cmds[i].type = HEAD;
 		cmds[i].pipe_in[0] = 0;
 		cmds[i].pipe_in[1] = -1;
-		cmds[i].pipe_in[0] = -1;
-		cmds[i].pipe_in[1] = 1;
+		cmds[i].pipe_out[0] = -1;
+		cmds[i].pipe_out[1] = 1;
 	}
 
 	i = 0;
