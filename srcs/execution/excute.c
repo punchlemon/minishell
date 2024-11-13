@@ -32,6 +32,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 	char	*path_cmd;
 
 	prepare_pipe_in_child(cmd);
+	// file open
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
