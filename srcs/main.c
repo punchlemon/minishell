@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/12 17:03:57 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:11:00 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ static void	execute(t_cond *conds, char **environ)
 	while (conds[i].type != TAIL)
 	{
 		if (conds[i].type == HEAD)
+		{
 			exe_cmds(conds[i].cmds, environ, &status);
+		}
 		else if (conds[i].type == AND_IF)
 		{
 			if (!status)
@@ -56,7 +58,6 @@ int	main(int argc, char **argv, char **environ)
 
 	(void)argc;
 	(void)argv;
-	(void)environ;
 	while (1)
 	{
 		line = readline("\033[32mminishell\033[33m$\033[0m ");

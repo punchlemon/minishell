@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/12 17:01:36 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:49:16 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ typedef struct s_red
 	int		std_target_fd;
 }	t_red;
 
+typedef struct s_cmd
+{
+	int		type;
+	char	**words;
+	t_red	*reds;
+	int		pipe_in[2];
+	int		pipe_out[2];
+}	t_cmd;
+
 typedef struct s_tkn
 {
 	int			type;
@@ -47,15 +56,6 @@ typedef struct s_cmd_a
 {
 	t_tkn	*tkns;
 }	t_cmd_a;
-
-typedef struct s_cmd
-{
-	int				type;
-	char			**words;
-	int				pipe_in[2];
-	int				pipe_out[2];
-	struct s_cond	*conds;
-}	t_cmd;
 
 typedef struct s_cond
 {

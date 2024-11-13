@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/11 23:07:33 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:08:01 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 # include <readline/history.h>
 # include <fcntl.h>
 
+typedef struct s_num
+{
+	int	pipe_in[2];
+	int	pipe_out[2];
+}	t_num;
+
 // exe
 // void		exe(char **srcs, char **environ, int *status);
 char		*ft_strchr(const char *s, int c);
@@ -45,10 +51,10 @@ void		free_two_dimention_array(char **strs);
 
 // excute
 void		excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ);
-void		exe_cmds(t_cmd *cmds, char **environ, int *status);
+int		exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status);
 
 // init
-void		init_conds(t_cond *conds);
+// void		init_conds(t_cond *conds);
 
 // pipe
 int 		prepare_pipe(t_cmd *cmd);

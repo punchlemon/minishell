@@ -64,8 +64,8 @@ make ; ./minishell
 ## 🚀 WIP
 - [ ] \*.oだけでなく\*.dも出力できるようにする
 - [ ] wordを処理する関数を別で設定して実行側で随時処理できるようにする
-- [ ] wordの処理をparserから除外する
 
 ## 🌟 Done
+- [X] wordの処理をparserから除外する
 - [X] spaceのみを入力された場合に syntax error にしない "fix space"
 - [X] echo && や echo || を syntax error にする "fix and_if or_if"

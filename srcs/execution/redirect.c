@@ -86,35 +86,35 @@ void	set_redirects(t_red *reds)
 	}
 }
 
-void	open_all_file_in_cmds(t_red *reds)
-{
-	size_t	i;
+// void	open_all_file_in_cmds(t_red *reds)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (reds[i].type != TAIL)
-	{
-		if (reds[i].type == LESS)
-		{
-			reds[i].file_fd = open(reds[i].target, O_RDONLY);
-			reds[i].std_target_fd = 0;
-		}
-		else if (reds[i].type == GREAT)
-		{
-			reds[i].file_fd = open(reds[i].target, \
-					O_CREAT | O_RDWR | O_TRUNC, 0644);
-			reds[i].std_target_fd = 1;
-		}
-		else if (reds[i].type == DLESS)
-		{
-			reds[i].file_fd = get_heredoc(reds[i].target);
-			reds[i].std_target_fd = 0;
-		}
-		else if (reds[i].type == DGREAT)
-		{
-			reds[i].file_fd = open(reds[i].target, \
-					O_CREAT | O_WRONLY | O_APPEND, 0644);
-			reds[i].std_target_fd = 1;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (reds[i].type != TAIL)
+// 	{
+// 		if (reds[i].type == LESS)
+// 		{
+// 			reds[i].file_fd = open(reds[i].target, O_RDONLY);
+// 			reds[i].std_target_fd = 0;
+// 		}
+// 		else if (reds[i].type == GREAT)
+// 		{
+// 			reds[i].file_fd = open(reds[i].target, \
+// 					O_CREAT | O_RDWR | O_TRUNC, 0644);
+// 			reds[i].std_target_fd = 1;
+// 		}
+// 		else if (reds[i].type == DLESS)
+// 		{
+// 			reds[i].file_fd = get_heredoc(reds[i].target);
+// 			reds[i].std_target_fd = 0;
+// 		}
+// 		else if (reds[i].type == DGREAT)
+// 		{
+// 			reds[i].file_fd = open(reds[i].target, \
+// 					O_CREAT | O_WRONLY | O_APPEND, 0644);
+// 			reds[i].std_target_fd = 1;
+// 		}
+// 		i++;
+// 	}
+// }
