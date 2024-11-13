@@ -94,10 +94,10 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 		else
 			prepare_pipe_in_parent(&cmds[i]);
 		waitpid(pid, status, 0);
-		dup2(tmp_in, 0);
-		dup2(tmp_out, 1);
-		close(tmp_in);
-		close(tmp_out);
+		dup2(tmp_in, 0); // test
+		dup2(tmp_out, 1); // test
+		close(tmp_in); // test
+		close(tmp_out); // test
 		if (WIFEXITED(*status))
 			WEXITSTATUS(*status);
 		i++;
