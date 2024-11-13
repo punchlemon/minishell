@@ -2,6 +2,10 @@
 #include "ft_printf.h"
 #include "libft.h"
 
+void	delete_cmd(t_cmd *cmd)
+{
+}
+
 t_cmd	*expand_cmd(t_cmd *cmd, t_cmd_a *cmd_a)
 {
 	// size_t	cmd_len;
@@ -32,6 +36,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 	char	*path_cmd;
 
 	prepare_pipe_in_child(cmd);
+	// file open
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
@@ -101,6 +106,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 		if (WIFEXITED(*status))
 			WEXITSTATUS(*status);
 		i++;
+		delete_cmd(&cmds[i]);
 	}
 	free_two_dimention_array(splited_path_env);
 	return (1);
