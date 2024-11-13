@@ -1,0 +1,120 @@
+cd command
+	どこに移動するかを絶対パスで取得
+		引数がなければ、$HOMEがターゲットパス
+		引数が'/'で始まっていたら、それがターゲットパス
+		引数が'/'で始まっていなかったら、cwdからターゲットを作る
+			'/' or '\0' まで引数を見る
+				".." -> cwdを一つ削る
+				"."以外 -> cwdにjoinする
+				"." -> do nothing
+			'\0'が来たら終了
+	ターゲットパスが有効か
+		ターゲットパスはディレクトリか
+	chdir関数を使ってそこに移動
+		chdir(target_path) < 0 -> error
+	環境変数OLDPWD, NEWPWDを変更
+		pwdある
+			y: oldpwd->value = cwd
+			n: oldpwd->value = NULL
+		oldpwdある
+			y: free(value), env->value = strdup(save)
+			n: make a node, key = "OLDPWD", value = save
+
+echo command // かなりガチで作った
+	-nオプションがあるのか
+		args[0][0] == '-' && args[0][1 ~ n] == 'n'
+		args[n][0] == '-' && args[n][1 ~ n] == 'n'
+	argsを出力
+		args[n] == NULLまで
+	nオプションがあれば改行なし、なければ改行あり
+
+env command ( with no options or arguments )
+	env_name = valueのフォーマットで環境変数をすべて出力
+
+exit command : 引数の数、引数が数字、引数があるか
+	引数があるか
+		y: 引数(args[0])が数字か: "' ' ..."  -->  "'+' | '-'"  -->  "$num ..."  -->  "' ' ..."
+			y: 引数が一つ
+				y: LONG_MAX, LONG_MIN に収まる
+					y: exit (num % 256)
+					n: numeric argument required -> exit (2)
+				n: if (last_exit_code != 0)
+					y: exit (last_exit_code)
+					n: exit (1)
+			n: 引数が一つ
+				y: numeric argument required -> exit (2)
+				n: numeric argument required -> exit (2)
+		n: exit (last_exit_code)
+
+引数 NUM のタブは認められるのか？
+
+export command
+	引数なし // 詳しく調べてない
+		declare -x 変数名 = 値 のフォーマットで環境変数を出力
+	引数を変数名(key)と値(value)に分ける
+		args[n]に '=' が含まれているか
+			y -> key = substr(0 ~ strchr('='));
+				value = strchr('=') + 1;
+				value == NULL -> Error
+			n -> key = strdup(line);
+				value = NULL;
+			key == NULL -> Error
+	値をセットする
+		envリストにkeyが存在するか
+			y -> valueを変える
+			n -> 新しいノードを作る -> リストに加える *1
+				*valueがNULLの場合も考える
+
+ *1 変数名："'alpha || under' -> 'alpha || num || under' ..."
+
+"export 変数名" のみの時の挙動を確かめる
+	変数名のみが登録されるのか？
+list関数の再利用
+
+pwd command
+	getcwd関数を使ってcwdを取得
+		cwd == NULL -> Error
+			(errnoの値を参照)
+	cwdを出力
+
+unset command
+	環境変数リストから args[n] を探す
+		同じ名前の変数があればリストからargs[n]を消す
+		なければそのまま終了
+
+リスト
+	引数として渡された line から key, value に分ける
+	引数として渡された env, key, value をもとにノードを作りそれを env に加える
+	引数として渡された key, value をもとにノードを作る
+	作ったノードを env の末尾に加える
+
+
+・issue
+unset _ (last node) , export : SEGV // ok
+
+・things to do
+exportした変数はenvで出力れているか？ // ok
+conditional jump, or move depends on uninitialised value(s) // ok
+fix; export cant chage value // ok
+export; change valueのときにリークしてそう // ok
+create a func (func_name(env, key, value)) which make a new node and connect it to env // ok
+cd (to a directory which doesnt exist); error message // ok
+rename the func "malloc_error" -> "malloc_error_exit" // ok
+rename the func "search_env" -> "search_env_return_its_value" // ok
+return status // doing // cd ok
+error handling (mainly cd, echo, env, pwd)
+環境変数のノードはすべてmallocされているのか // ok
+各コマンドのleakチェック
+libc -> libft
+
+・edge case
+export key+=value はやりません
+case
+	mkdir test1
+	cd test1
+	mkdir test2
+	cd test2
+	pwd
+		~/test1/test2
+	rm -rf ../../test1
+	cd ..
