@@ -6,28 +6,55 @@ void	delete_cmd(t_cmd *cmd)
 {
 }
 
-t_cmd	*expand_cmd(t_cmd *cmd, t_cmd_a *cmd_a)
+void	count_word(t_tkn *tkns, size_t *i)
 {
-	// size_t	cmd_len;
-	// size_t	red_len;
+	(*i)++; // この関数を呼び出すときは確定でtype_is_wordsじゃないといけない
+	while (tkns[*i].type != TAIL && !type_is_red(tkns[*i].type))
+	{
+		if ((tkns[*i].head - tkns[*i - 1].tail) != 1)
+			return ;
+		*i++;
+	}
+}
 
-	// cmd_len = count_cmd(cmd_a);
-	// red_len = count_red(cmd_a);
-	// cmd->words = malloc(sizeof(char *) * (cmd_len + 1));
-	// if (!cmd->words)
-	// 	return (NULL);
-	// cmd->reds = malloc(sizeof(t_red) * (red_len + 1));
-	// if (!cmd->reds)
-	// 	return (free(cmd->words), NULL);
-	(void)cmd_a;
-	cmd->words = malloc(sizeof(char *) * 3);
-	cmd->words[2] = NULL;
-	cmd->words[1] = "hello";
-	cmd->words[0] = "echo";
-	cmd->reds = malloc(sizeof(t_red) * 1);
-	cmd->reds[0].type = TAIL;
-	// cmd->reds[0].type = LESS;
-	// cmd->reds[0].target = "test_file";
+void	count_cmd(size_t *cmd_len, size_t *red_len, t_tkn *tkns)
+{
+	size_t	i;
+
+	*cmd_len = 0;
+	*red_len = 0;
+	i = 0;
+	while (tkns[i].type != TAIL)
+	{
+		if (type_is_red(tkns[i].type))
+		{
+			(*red_len)++;
+			i++;
+		}
+		else
+			(*cmd_len)++;
+		count_word(tkns, &i);
+	}
+	return (i);
+}
+
+void	store_cmd(t_cmd *cmd, t_tkn *tkns)
+{
+}
+
+t_cmd	*expand_cmd(t_cmd *cmd, t_tkn *tkns)
+{
+	size_t	cmd_len;
+	size_t	red_len;
+
+	count_cmd(&cmd_len, &red_len, tkns);
+	cmd->words = malloc(sizeof(char *) * (cmd_len + 1));
+	if (!cmd->words)
+		return (NULL);
+	cmd->reds = malloc(sizeof(t_red) * (red_len + 1));
+	if (!cmd->reds)
+		return (free(cmd->words), NULL);
+	store_cmd(cmd, tkns);
 	return (cmd);
 }
 
@@ -92,7 +119,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 		}
 		if (pid == 0)
 		{
-			if (!expand_cmd(&cmds[i], &cmd_a_s[i])) // ここでmallocしてる
+			if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns))
 				return (0);
 			excute_cmd(&cmds[i], splited_path_env, environ);
 		}
