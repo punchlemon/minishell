@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/13 14:41:38 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:43:45 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-void	delete_cmd(t_cmd *cmd)
-{
-}
+// void	delete_cmd(t_cmd *cmd)
+// {
+// }
 
 t_cmd	*expand_cmd(t_cmd *cmd, t_cmd_a *cmd_a)
 {
@@ -54,7 +54,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 		set_redirects(cmd->reds);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
 	execve(path_cmd, cmd->words, environ);
-	delete_cmd(cmd);
+	// delete_cmd(cmd);
 	write(2, "Error : execve\n", strlen("Error : execve\n"));
 	exit(1);
 }
