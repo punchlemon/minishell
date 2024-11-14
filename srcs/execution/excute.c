@@ -23,9 +23,7 @@ size_t	count_word(t_tkn *tkns)
 	i = 1; // この関数を呼び出すときは確定でtype_is_wordsじゃないといけない
 	while (tkns[i].type != TAIL && !type_is_red(tkns[i].type))
 	{
-		ft_printf("%p\n", tkns[i].head);
-		ft_printf("%p\n", tkns[i].tail);
-		if ((tkns[i].head - tkns[i - 1].tail) != 1)
+		if (tkns[i].head - tkns[i - 1].tail)
 			return (i);
 		i++;
 	}

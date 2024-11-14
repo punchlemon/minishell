@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:13:57 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/12 16:23:55 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:23:42 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_tkns(t_tkn *tkns)
 				ft_printf(" >>");
 			ft_printf("\t|  ");
 			print_word(tkns[i].head, tkns[i].tail);
-			ft_printf("\n");
+			ft_printf("$\n");
 		}
 		else
 		{
