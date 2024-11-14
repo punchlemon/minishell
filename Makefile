@@ -93,7 +93,9 @@ de:
 
 VALGRIND_LOG = valgrind.log
 
-val: re
+val:
+	@clear
+	@make $(NPD_FLAG) re
 	@valgrind $(VFLAGS) ./$(NAME) 2> $(VALGRIND_LOG)
 
 norm:

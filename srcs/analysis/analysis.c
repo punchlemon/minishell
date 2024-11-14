@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analysis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:47:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/12 17:06:02 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:51:14 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ t_cond	*analysis(char *src)
 	tkns = lexer(src);
 	if (!tkns)
 		return (NULL);
-	print_tkns(tkns);
+	// print_tkns(tkns);
 	if (!checker(tkns))
 		return (ft_printf("minishell: syntax error\n"), NULL);
 	conds = parser(tkns);
 	free(tkns);
 	if (!conds)
 		return (ft_printf("minishell: malloc error\n"), NULL);
-	print_conds(conds);
+	// print_conds(conds);
 	return (conds);
 }
