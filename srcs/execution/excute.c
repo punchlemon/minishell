@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/14 14:46:30 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:01:23 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,9 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 			operation_error("fork");
 			break ;
 		}
-		if (pid == 0)
+		else if (pid == 0 && is_builtin(&cmds[i]))
+			exit(execute_builtin(cmds[i].words[0], &(cmds[i].words[1])));
+		else if (pid == 0)
 		{
 			if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns))
 				return (0);

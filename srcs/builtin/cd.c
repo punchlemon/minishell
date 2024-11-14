@@ -1,6 +1,5 @@
 #include "list.h"
-#include "cd.h"
-#include "export.h"
+#include "builtin.h"
 
 char	*search_env_return_its_value(t_env *env, char *key)
 {

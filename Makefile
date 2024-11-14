@@ -42,6 +42,19 @@ $(addsuffix .c, \
 			error \
 			ft_itoa \
 		) \
+		$(addprefix builtin/, \
+			cd_utils \
+			cd \
+			echo \
+			env \
+			exit \
+			export_utils \
+			export \
+			list_utils \
+			list \
+			pwd \
+			unset \
+		) \
 		main \
 	) \
 ) \

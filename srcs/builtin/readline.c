@@ -7,53 +7,35 @@
 #include "unset.h"
 #include "export.h"
 
-void	free_two_dimensional_array(char **strs)
-{
-	int	i;
+// void	free_two_dimensional_array(char **strs)
+// {
+// 	int	i;
 
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
-}
+// 	i = 0;
+// 	while (strs[i])
+// 	{
+// 		free(strs[i]);
+// 		i++;
+// 	}
+// 	free(strs);
+// }
 
-void	excute_command(t_env **env, char *cmd, char **args)
+int	excute_builtin(t_env **env, char *cmd, char **args)
 {
 	if (strcmp(cmd, "cd") == 0)
-	{
-		// write(1, "excute cd command\n", 19);
-		builtin_cd(env, args);
-		// print_list(env);
-	}
+		return (builtin_cd(env, args));
 	else if (strcmp(cmd, "pwd") == 0)
-	{
-		// write(1, "excute cd command\n", 19);
-		builtin_pwd();
-		// print_list(env);
-	}
+		return (builtin_pwd());
 	else if (strcmp(cmd, "echo") == 0)
-	{
-		builtin_echo(args);
-	}
+		return (builtin_echo(args));
 	if (strcmp(cmd, "env") == 0)
-	{
-		builtin_env(env, args);
-	}
+		return (builtin_env(env, args));
 	else if (strcmp(cmd, "exit") == 0)
-	{
-		builtin_exit(*env, args);
-	}
+		return (builtin_exit(*env, args));
 	else if (strcmp(cmd, "export") == 0)
-	{
-		builtin_export(env, args);
-	}
+		return (builtin_export(env, args));
 	else if (strcmp(cmd, "unset") == 0)
-	{
-		builtin_unset(env, args);
-	}
+		return (builtin_unset(env, args));
 }
 
 // int	main(int argc, char **argv, char **environ)

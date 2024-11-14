@@ -1,4 +1,5 @@
 #include "list.h"
+#include "builtin.h"
 #include <ctype.h>
 
 int	g_last_exit_code; // 仮

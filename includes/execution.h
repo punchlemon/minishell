@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/13 14:39:18 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:57:44 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		free_two_dimention_array(char **strs);
 
 // excute
 void		excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ);
-int		exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status);
+int			exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status);
 
 // init
 // void		init_conds(t_cond *conds);
