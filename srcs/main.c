@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/13 13:57:55 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:28:21 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "libft_extend.h"
 #include "minishell.h"
+#include "sig.h"
 
 static void	cleanup_and_exit(char *line)
 {
@@ -58,14 +59,22 @@ int	main(int argc, char **argv, char **environ)
 	(void)argv;
 	while (1)
 	{
+		set_idle_handler();
 		line = readline("\033[32mminishell\033[33m$\033[0m ");
 		if (line == NULL)
-			return (1);
+		{
+			ft_putendl_fd("exit", STDERR_FILENO);
+			exit (1);
+		}
 		if (*line)
 		{
-			add_history(line);
 			if (!ft_strcmp(line, "exit"))
+			{
+				ft_putendl_fd("exit", STDERR_FILENO);
 				cleanup_and_exit(line);
+			}
+			add_history(line);
+			set_exec_handler(false);
 			conds = analysis(line);
 			if (conds)
 				execute(conds, environ);

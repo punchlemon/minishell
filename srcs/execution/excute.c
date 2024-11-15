@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/14 14:46:30 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:53:21 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "sig.h"
 #include "ft_printf.h"
 #include "libft.h"
 
@@ -156,6 +157,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 {
 	char	*path_cmd;
 
+	set_exec_child_handler();
 	prepare_pipe_in_child(cmd);
 	// file open
 	open_file(cmd->reds);
@@ -220,6 +222,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 		}
 		else
 			prepare_pipe_in_parent(&cmds[i]);
+		set_exec_handler(true);
 		waitpid(pid, status, 0);
 		dup2(tmp_in, 0); // test
 		dup2(tmp_out, 1); // test

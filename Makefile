@@ -42,6 +42,10 @@ $(addsuffix .c, \
 			error \
 			ft_itoa \
 		) \
+		$(addprefix signal/, \
+			signal_handler \
+			signal \
+		) \
 		main \
 	) \
 ) \

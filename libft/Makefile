@@ -32,6 +32,10 @@ $(addsuffix .c, \
 			) \
 		) \
 		$(addprefix mandatory/, \
+			$(addprefix put/, \
+				ft_putchar_fd \
+				ft_putendl_fd \
+			) \
 			$(addprefix mem/, \
 				ft_bzero \
 				ft_calloc \
