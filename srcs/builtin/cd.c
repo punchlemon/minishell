@@ -1,4 +1,4 @@
-#include "list.h"
+#include "minishell.h"
 #include "builtin.h"
 
 char	*search_env_return_its_value(t_env *env, char *key)
@@ -45,7 +45,7 @@ char	**join_target_str(char **target, char *single)
 	free(tmp);
 	if (target == NULL)
 		return (NULL);
-		tmp = *target;
+	tmp = *target;
 	*target = ft_strjoin(*target, single);
 	free(tmp);
 	if (target == NULL)
@@ -53,7 +53,7 @@ char	**join_target_str(char **target, char *single)
 	return (target);
 }
 
-char	**back_single(char **target, char *single)
+char	**back_single(char **target)
 {
 	char	*tmp;
 
@@ -82,7 +82,7 @@ char	*search_abspath_from_relpath(char *relpath)
 			return (NULL);
 		if (strcmp(single, "..") == 0)
 		{
-			if (back_single(&target, single) == NULL)
+			if (back_single(&target) == NULL)
 				return (NULL);
 		}
 		else if (strcmp(single, ".") != 0)

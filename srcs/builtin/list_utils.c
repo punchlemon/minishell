@@ -1,4 +1,5 @@
-#include "list.h"
+#include "minishell.h"
+// #include "env_list.h"
 
 void	set_env(t_env *env, char *key, char *value)
 {

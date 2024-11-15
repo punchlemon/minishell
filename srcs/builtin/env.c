@@ -1,3 +1,4 @@
+#include "minishell.h"
 #include "builtin.h"
 
 int	builtin_env(t_env **env, char **args)

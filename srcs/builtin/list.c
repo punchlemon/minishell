@@ -1,6 +1,6 @@
-#include "list.h"
-#include "cd.h"
-#include "export.h"
+// #include "env_list.h"
+#include "minishell.h"
+#include "builtin.h"
 
 t_env	*search_end(t_env *top)
 {

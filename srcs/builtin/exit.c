@@ -1,4 +1,4 @@
-#include "list.h"
+#include "minishell.h"
 #include "builtin.h"
 #include <ctype.h>
 
@@ -86,6 +86,7 @@ void	is_numeric(int argc, char **args)
 
 void	is_not_numeric(int argc, char **args)
 {
+	(void)argc;
 	printf("exit\n");
 	printf("bash: exit: %s: numeric argument required\n", args[0]);
 	exit(2);

@@ -1,15 +1,17 @@
+#include "minishell.h"
 #include "builtin.h"
+#include <ctype.h>
 
 int	is_alpha_under(char c)
 {
-	if (ft_isalpha(c) || c == '_')
+	if (isalpha(c) || c == '_')
 		return (1);
 	return (0);
 }
 
 int	is_alpha_num_under(char c)
 {
-	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
+	if (isalpha(c) || isdigit(c) || c == '_')
 		return (1);
 	return (0);
 }

@@ -1,3 +1,4 @@
+#include "minishell.h"
 #include "builtin.h"
 
 t_env	*search_same_key(t_env *env, char *key)
