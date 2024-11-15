@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/15 17:23:36 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:44:25 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,35 +168,35 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 	exit(1);
 }
 
-int	excute_builtin_cmd(t_env **env, char *cmd, char **args)
-{
-	if (strcmp(cmd, "cd") == 0)
-		return (builtin_cd(env, args));
-	else if (strcmp(cmd, "pwd") == 0)
-		return (builtin_pwd());
-	else if (strcmp(cmd, "echo") == 0)
-		return (builtin_echo(args));
-	if (strcmp(cmd, "env") == 0)
-		return (builtin_env(env, args));
-	else if (strcmp(cmd, "exit") == 0)
-		return (builtin_exit(*env, args));
-	else if (strcmp(cmd, "export") == 0)
-		return (builtin_export(env, args));
-	else if (strcmp(cmd, "unset") == 0)
-		return (builtin_unset(env, args));
-	else
-		return (1);
-}
+// int	excute_builtin_cmd(t_env **env, char *cmd, char **args)
+// {
+// 	if (strcmp(cmd, "cd") == 0)
+// 		return (builtin_cd(env, args));
+// 	else if (strcmp(cmd, "pwd") == 0)
+// 		return (builtin_pwd());
+// 	else if (strcmp(cmd, "echo") == 0)
+// 		return (builtin_echo(args));
+// 	if (strcmp(cmd, "env") == 0)
+// 		return (builtin_env(env, args));
+// 	else if (strcmp(cmd, "exit") == 0)
+// 		return (builtin_exit(*env, args));
+// 	else if (strcmp(cmd, "export") == 0)
+// 		return (builtin_export(env, args));
+// 	else if (strcmp(cmd, "unset") == 0)
+// 		return (builtin_unset(env, args));
+// 	else
+// 		return (1);
+// }
 
-int	is_builtin(char *cmd)
-{
-	if (strcmp(cmd, "cd") == 0 || strcmp(cmd, "echo") == 0 || \
-		strcmp(cmd, "env") == 0 || strcmp(cmd, "exit") == 0 || \
-		strcmp(cmd, "export") == 0 || strcmp(cmd, "pwd") == 0 || \
-		strcmp(cmd, "unset") == 0)
-		return (1);
-	return (0);
-}
+// int	is_builtin(char *cmd)
+// {
+// 	if (strcmp(cmd, "cd") == 0 || strcmp(cmd, "echo") == 0 || \
+// 		strcmp(cmd, "env") == 0 || strcmp(cmd, "exit") == 0 || \
+// 		strcmp(cmd, "export") == 0 || strcmp(cmd, "pwd") == 0 || \
+// 		strcmp(cmd, "unset") == 0)
+// 		return (1);
+// 	return (0);
+// }
 
 int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 {
@@ -242,8 +242,8 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 			operation_error("fork");
 			break ;
 		}
-		else if (pid == 0 && is_builtin(cmds[i].words[0]))
-			exit(execute_builtin_cmd(cmds[i].words[0], &(cmds[i].words[1])));
+		// else if (pid == 0 && is_builtin(cmds[i].words[0]))
+		// 	exit(execute_builtin_cmd(cmds[i].words[0], &(cmds[i].words[1])));
 		else if (pid == 0)
 		{
 			if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns))

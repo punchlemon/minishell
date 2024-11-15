@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/15 17:24:52 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:56:59 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct s_num
 
 // exe
 // void		exe(char **srcs, char **environ, int *status);
-char		*ft_strchr(const char *s, int c);
-char		*ft_strjoin(char *s1, char *s2);
+// char		*ft_strchr(const char *s, int c);
+// char		*ft_strjoin(char *s1, char *s2);
 char		**get_env(void);
 char		*search_binary_file(char *cmd_without_op);
 char		*search_excutable_file(char *file);
@@ -52,8 +52,8 @@ void		free_two_dimention_array(char **strs);
 // excute
 void		excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ);
 int			exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status);
-int			excute_builtin_cmd(t_env **env, char *cmd, char **args);
-int			is_builtin(char *cmd);
+// int			excute_builtin_cmd(t_env **env, char *cmd, char **args);
+// int			is_builtin(char *cmd);
 
 // init
 // void		init_conds(t_cond *conds);

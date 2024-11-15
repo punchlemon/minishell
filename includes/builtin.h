@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 12:58:34 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/14 13:06:26 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:31:16 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int		builtin_cd(t_env **env, char **args);
 char	*search_abspath_from_relpath(char *relpath);
 char	*ft_getcwd(void);
 char	*search_env_return_its_value(t_env *env, char *key);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+// char	*ft_strjoin(char const *s1, char const *s2);
+// char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**join_target_str(char **target, char *single);
-char	**back_single(char **target, char *single);
+char	**back_single(char **target);
 char	*make_target_path(t_env **env, char **args, int *status);
 t_env	*ft_getenv(t_env *env, char *key);
 t_env	*create_node(char *key, char *value);

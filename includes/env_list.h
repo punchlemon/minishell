@@ -6,12 +6,12 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 13:21:57 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/14 15:01:57 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:55:49 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIST_H
-# define LIST_H
+#ifndef ENV_LIST_H
+# define ENV_LIST_H
 
 # include <stdio.h>
 # include <stdlib.h>
