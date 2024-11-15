@@ -20,23 +20,23 @@
 // 	free(strs);
 // }
 
-int	excute_builtin(t_env **env, char *cmd, char **args)
-{
-	if (strcmp(cmd, "cd") == 0)
-		return (builtin_cd(env, args));
-	else if (strcmp(cmd, "pwd") == 0)
-		return (builtin_pwd());
-	else if (strcmp(cmd, "echo") == 0)
-		return (builtin_echo(args));
-	if (strcmp(cmd, "env") == 0)
-		return (builtin_env(env, args));
-	else if (strcmp(cmd, "exit") == 0)
-		return (builtin_exit(*env, args));
-	else if (strcmp(cmd, "export") == 0)
-		return (builtin_export(env, args));
-	else if (strcmp(cmd, "unset") == 0)
-		return (builtin_unset(env, args));
-}
+// int	excute_builtin_cmd(t_env **env, char *cmd, char **args)
+// {
+// 	if (strcmp(cmd, "cd") == 0)
+// 		return (builtin_cd(env, args));
+// 	else if (strcmp(cmd, "pwd") == 0)
+// 		return (builtin_pwd());
+// 	else if (strcmp(cmd, "echo") == 0)
+// 		return (builtin_echo(args));
+// 	if (strcmp(cmd, "env") == 0)
+// 		return (builtin_env(env, args));
+// 	else if (strcmp(cmd, "exit") == 0)
+// 		return (builtin_exit(*env, args));
+// 	else if (strcmp(cmd, "export") == 0)
+// 		return (builtin_export(env, args));
+// 	else if (strcmp(cmd, "unset") == 0)
+// 		return (builtin_unset(env, args));
+// }
 
 // int	main(int argc, char **argv, char **environ)
 // {
