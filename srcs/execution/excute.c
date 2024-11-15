@@ -6,13 +6,14 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/15 19:44:25 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/15 21:41:58by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "ft_printf.h"
 #include "libft.h"
+#include "builtin.h"
 
 void	delete_cmd_exe(t_cmd *cmd)
 {
@@ -152,9 +153,66 @@ t_cmd	*expand_cmd(t_cmd *cmd, t_tkn *tkns)
 	return (cmd);
 }
 
-void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
+size_t	count_env_len(t_env *env)
+{
+	size_t	len;
+
+	len = 0;
+	while (env != NULL)
+	{
+		env = env->next;
+		len++;
+	}
+	return (len);
+}
+
+char	**env_to_environ(t_env *env)
+{
+	char	**strs;
+	char	*tmp;
+	size_t	i;
+
+	strs = (char **)malloc(sizeof(char *) * (count_env_len(env) + 1));
+	if (strs == NULL)
+		return (NULL);
+	i = 0;
+	while (env != NULL && env->value != NULL)
+	{
+		strs[i] = ft_strjoin(env->key, "=");
+		if (strs[i] == NULL)
+			return (free_two_dimention_array(strs), NULL);
+		tmp = strs[i];
+		strs[i] = ft_strjoin(strs[i], env->value);
+		if (strs[i] == NULL)
+			return (free_two_dimention_array(strs), NULL);
+		free(tmp);
+		env = env->next;
+		i++;
+	}
+	strs[i] = NULL;
+	return (strs);
+}
+
+void	print_2d_arr(char **environ) // to test
+{
+	size_t	i;
+
+	i = 0;
+	if (environ == NULL)
+	{
+		write(2, "environ == NULL", strlen("environ == NULL"));
+		return ;
+	}
+	while (environ[i] != NULL)
+	{
+		write(2, environ[i], strlen(environ[i]));
+	}
+}
+
+void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 {
 	char	*path_cmd;
+	char	**environ;
 
 	prepare_pipe_in_child(cmd);
 	// file open
@@ -162,43 +220,50 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, char **environ)
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
+	environ = env_to_environ(*env);
+	// print_2d_arr(environ);
+	if (environ == NULL)
+		exit(1);
 	execve(path_cmd, cmd->words, environ);
 	write(2, "Error : execve\n", strlen("Error : execve\n"));
 	delete_cmd_exe(cmd);
 	exit(1);
 }
 
-// int	excute_builtin_cmd(t_env **env, char *cmd, char **args)
-// {
-// 	if (strcmp(cmd, "cd") == 0)
-// 		return (builtin_cd(env, args));
-// 	else if (strcmp(cmd, "pwd") == 0)
-// 		return (builtin_pwd());
-// 	else if (strcmp(cmd, "echo") == 0)
-// 		return (builtin_echo(args));
-// 	if (strcmp(cmd, "env") == 0)
-// 		return (builtin_env(env, args));
-// 	else if (strcmp(cmd, "exit") == 0)
-// 		return (builtin_exit(*env, args));
-// 	else if (strcmp(cmd, "export") == 0)
-// 		return (builtin_export(env, args));
-// 	else if (strcmp(cmd, "unset") == 0)
-// 		return (builtin_unset(env, args));
-// 	else
-// 		return (1);
-// }
+int	execute_builtin_cmd(t_env **env, char *cmd, char **args)
+{
+	if (strcmp(cmd, "cd") == 0)
+		return (builtin_cd(env, args)); // リダイレクトとかあったときは大丈夫そ？
+	else if (strcmp(cmd, "pwd") == 0)
+		return (builtin_pwd());
+	else if (strcmp(cmd, "echo") == 0)
+		return (builtin_echo(args));
+	if (strcmp(cmd, "env") == 0)
+		return (builtin_env(env, args));
+	else if (strcmp(cmd, "exit") == 0)
+		return (builtin_exit(*env, args));
+	else if (strcmp(cmd, "export") == 0)
+		return (builtin_export(env, args));
+	else if (strcmp(cmd, "unset") == 0)
+		return (builtin_unset(env, args));
+	else
+		return (1);
+}
 
-// int	is_builtin(char *cmd)
-// {
-// 	if (strcmp(cmd, "cd") == 0 || strcmp(cmd, "echo") == 0 || \
-// 		strcmp(cmd, "env") == 0 || strcmp(cmd, "exit") == 0 || \
-// 		strcmp(cmd, "export") == 0 || strcmp(cmd, "pwd") == 0 || \
-// 		strcmp(cmd, "unset") == 0)
-// 		return (1);
-// 	return (0);
-// }
+int	is_builtin(char *cmd)
+{
+	if (strcmp(cmd, "cd") == 0 || strcmp(cmd, "echo") == 0 || \
+		strcmp(cmd, "env") == 0 || strcmp(cmd, "exit") == 0 || \
+		strcmp(cmd, "export") == 0 || strcmp(cmd, "pwd") == 0 || \
+		strcmp(cmd, "unset") == 0)
+	{
+		// write(2, "is builtin command\n", strlen("is builtin command\n"));
+		return (1);
+	}
+	return (0);
+}
 
-int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
+int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 {
 	size_t	i;
 	pid_t	pid;
@@ -242,13 +307,13 @@ int	exe_cmds(t_cmd_a *cmd_a_s, char **environ, int *status)
 			operation_error("fork");
 			break ;
 		}
-		// else if (pid == 0 && is_builtin(cmds[i].words[0]))
-		// 	exit(execute_builtin_cmd(cmds[i].words[0], &(cmds[i].words[1])));
+		else if (pid == 0 && is_builtin(cmds[i].words[0])) // words is Uninitialised !!!!
+			exit(execute_builtin_cmd(&env, cmds[i].words[0], &(cmds[i].words[1])));
 		else if (pid == 0)
 		{
 			if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns))
 				return (0);
-			excute_cmd(&cmds[i], splited_path_env, environ);
+			excute_cmd(&cmds[i], splited_path_env, &env);
 		}
 		else
 			prepare_pipe_in_parent(&cmds[i]);

@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/13 13:57:55 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/15 22:29:09 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	cleanup_and_exit(char *line)
 	exit (0);
 }
 
-static void	execute(t_cond *conds, char **environ)
+static void	execute(t_cond *conds, t_env *env)
 {
 	size_t	i;
 	int		status;
@@ -32,17 +32,17 @@ static void	execute(t_cond *conds, char **environ)
 	{
 		if (conds[i].type == HEAD)
 		{
-			exe_cmds(conds[i].cmds, environ, &status);
+			exe_cmds(conds[i].cmds, env, &status);
 		}
 		else if (conds[i].type == AND_IF)
 		{
 			if (!status)
-				exe_cmds(conds[i].cmds, environ, &status);
+				exe_cmds(conds[i].cmds, env, &status);
 		}
 		else
 		{
 			if (status)
-				exe_cmds(conds[i].cmds, environ, &status);
+				exe_cmds(conds[i].cmds, env, &status);
 		}
 		i++;
 	}
@@ -53,7 +53,9 @@ int	main(int argc, char **argv, char **environ)
 {
 	char	*line;
 	t_cond	*conds;
+	t_env	*env;
 
+	env = make_env_list(environ);
 	(void)argc;
 	(void)argv;
 	while (1)
@@ -68,7 +70,7 @@ int	main(int argc, char **argv, char **environ)
 				cleanup_and_exit(line);
 			conds = analysis(line);
 			if (conds)
-				execute(conds, environ);
+				execute(conds, env);
 		}
 		free(line);
 	}
