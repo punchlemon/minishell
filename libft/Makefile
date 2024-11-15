@@ -44,6 +44,8 @@ $(addsuffix .c, \
 				ft_strjoin \
 				ft_strlen \
 				ft_strncmp \
+				ft_substr \
+				ft_strdup \
 			) \
 		) \
 	) \

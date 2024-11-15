@@ -43,7 +43,6 @@ $(addsuffix .c, \
 			ft_itoa \
 		) \
 		$(addprefix builtin/, \
-			cd_utils \
 			cd \
 			echo \
 			env \
