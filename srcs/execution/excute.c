@@ -219,6 +219,8 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 	open_file(cmd->reds);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
+	if (cmd->words[0] == NULL) // redirectのみのときは終了
+		exit(0);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
 	environ = env_to_environ(*env);
 	// print_2d_arr(environ);
@@ -263,6 +265,8 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int is_child)
 
 int	is_builtin(char *cmd)
 {
+	if (cmd == NULL)
+		return (0);
 	if (strcmp(cmd, "cd") == 0 || strcmp(cmd, "echo") == 0 || \
 		strcmp(cmd, "env") == 0 || strcmp(cmd, "exit") == 0 || \
 		strcmp(cmd, "export") == 0 || strcmp(cmd, "pwd") == 0 || \
