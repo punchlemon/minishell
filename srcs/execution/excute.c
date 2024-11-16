@@ -200,7 +200,7 @@ void	print_2d_arr(char **environ) // to test
 	i = 0;
 	if (environ == NULL)
 	{
-		write(2, "environ == NULL", strlen("environ == NULL"));
+		write(2, "environ == NULL\n", strlen("environ == NULL\n"));
 		return ;
 	}
 	while (environ[i] != NULL)
@@ -230,23 +230,34 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 	exit(1);
 }
 
-int	execute_builtin_cmd(t_env **env, char *cmd, char **args)
+int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int is_child)
 {
-	if (strcmp(cmd, "cd") == 0)
+	char	*simple_cmd;
+	char	**args;
+	// pipe_child
+	if (is_child)
+	{
+		prepare_pipe_in_child(cmd);
+	}
+	// redirect
+	set_redirects(cmd->reds);
+	simple_cmd = cmd->words[0];
+	args = &cmd->words[1];
+	if (strcmp(simple_cmd, "cd") == 0)
 		return (builtin_cd(env, args)); // リダイレクトとかあったときは大丈夫そ？
-	else if (strcmp(cmd, "pwd") == 0)
+	else if (strcmp(simple_cmd, "pwd") == 0)
 		return (builtin_pwd());
-	else if (strcmp(cmd, "echo") == 0)
+	else if (strcmp(simple_cmd, "echo") == 0)
 		return (builtin_echo(args));
-	if (strcmp(cmd, "env") == 0)
+	if (strcmp(simple_cmd, "env") == 0)
 		return (builtin_env(env, args));
-	else if (strcmp(cmd, "exit") == 0)
+	else if (strcmp(simple_cmd, "exit") == 0)
 		return (builtin_exit(*env, args));
-	else if (strcmp(cmd, "export") == 0)
+	else if (strcmp(simple_cmd, "export") == 0)
 		return (builtin_export(env, args));
-	else if (strcmp(cmd, "unset") == 0)
+	else if (strcmp(simple_cmd, "unset") == 0)
 		return (builtin_unset(env, args));
-	else
+	else // fatal_error
 		return (1);
 }
 
@@ -257,7 +268,6 @@ int	is_builtin(char *cmd)
 		strcmp(cmd, "export") == 0 || strcmp(cmd, "pwd") == 0 || \
 		strcmp(cmd, "unset") == 0)
 	{
-		// write(2, "is builtin command\n", strlen("is builtin command\n"));
 		return (1);
 	}
 	return (0);
@@ -267,8 +277,8 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 {
 	size_t	i;
 	pid_t	pid;
-	int		tmp_in;
-	int		tmp_out;
+	int		tmp_in; // test
+	int		tmp_out; // test
 	char	**splited_path_env;
 	t_cmd	*cmds; // 配列
 
@@ -300,24 +310,30 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 		tmp_out = dup(1); // test
 		if (prepare_pipe(&cmds[i]))
 			break ;
-		pid = fork();
-		if (pid < 0)
-		{
-			// exit(1); // error fork
-			operation_error("fork");
-			break ;
-		}
-		else if (pid == 0 && is_builtin(cmds[i].words[0])) // words is Uninitialised !!!!
-			exit(execute_builtin_cmd(&env, cmds[i].words[0], &(cmds[i].words[1])));
-		else if (pid == 0)
-		{
-			if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns))
-				return (0);
-			excute_cmd(&cmds[i], splited_path_env, &env);
-		}
+		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns))
+			return (0);
+		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL) // pipelineの中で一番最初かつ最後のコマンドがbuiltin commandの時
+			execute_builtin_cmd(&env, &cmds[i], 0);
 		else
-			prepare_pipe_in_parent(&cmds[i]);
-		waitpid(pid, status, 0);
+		{
+			pid = fork();
+			if (pid < 0)
+			{
+				operation_error("fork");
+				break ;
+			}
+			else if (pid == 0 && is_builtin(cmds[i].words[0]))
+				exit(execute_builtin_cmd(&env, &cmds[i], 1));
+			else if (pid == 0)
+			{
+				// if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns))
+				// 	return (0);
+				excute_cmd(&cmds[i], splited_path_env, &env);
+			}
+			else
+				prepare_pipe_in_parent(&cmds[i]);
+			waitpid(pid, status, 0);
+		}
 		dup2(tmp_in, 0); // test
 		dup2(tmp_out, 1); // test
 		close(tmp_in); // test

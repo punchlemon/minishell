@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/15 22:29:09 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:39:44 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "libft_extend.h"
 #include "minishell.h"
 
-static void	cleanup_and_exit(char *line)
-{
-	if (line)
-		free(line);
-	clear_history();
-	exit (0);
-}
+// static void	cleanup_and_exit(char *line)
+// {
+// 	if (line)
+// 		free(line);
+// 	clear_history();
+// 	exit (0);
+// }
 
 static void	execute(t_cond *conds, t_env *env)
 {
@@ -66,8 +66,8 @@ int	main(int argc, char **argv, char **environ)
 		if (*line)
 		{
 			add_history(line);
-			if (!ft_strcmp(line, "exit"))
-				cleanup_and_exit(line);
+			// if (!ft_strcmp(line, "exit"))
+			// 	cleanup_and_exit(line);
 			conds = analysis(line);
 			if (conds)
 				execute(conds, env);
