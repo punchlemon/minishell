@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:38:58 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/15 19:31:53 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:20:58 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,5 @@ void	set_exec_child_handler(void)
 	sig.sa_flags = 0;
 	sig.sa_handler = SIG_DFL;
 	sigaction(SIGINT, &sig, NULL);
-	sig.sa_handler = SIG_DFL;
 	sigaction(SIGQUIT, &sig, NULL);
 }
