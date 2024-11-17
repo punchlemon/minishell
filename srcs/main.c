@@ -3,24 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/16 12:39:44 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:07:21 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "libft_extend.h"
 #include "minishell.h"
-
-// static void	cleanup_and_exit(char *line)
-// {
-// 	if (line)
-// 		free(line);
-// 	clear_history();
-// 	exit (0);
-// }
+#include "sig.h"
 
 static void	execute(t_cond *conds, t_env *env)
 {
@@ -60,14 +53,17 @@ int	main(int argc, char **argv, char **environ)
 	(void)argv;
 	while (1)
 	{
+		set_idle_handler();
 		line = readline("\033[32mminishell\033[33m$\033[0m ");
 		if (line == NULL)
-			return (1);
+		{
+			ft_putendl_fd("exit", STDERR_FILENO);
+			exit (1);
+		}
 		if (*line)
 		{
 			add_history(line);
-			// if (!ft_strcmp(line, "exit"))
-			// 	cleanup_and_exit(line);
+			set_exec_handler(false);
 			conds = analysis(line);
 			if (conds)
 				execute(conds, env);
