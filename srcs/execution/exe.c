@@ -6,25 +6,12 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/15 19:07:09 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 13:26:02 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
-
-// void	delete_pp(char **src)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (src[i])
-// 	{
-// 		free(src[i]);
-// 		i++;
-// 	}
-// 	free(src);
-// }
 
 char	**get_env(void)
 {
@@ -130,9 +117,6 @@ char	*get_path_cmd(char *cmd, char **splited_path_envp)
 
 	if (search_excutable_file(cmd))
 		return (cmd);
-	// cmd_without_op = ft_strndup(cmd);
-	// if (cmd == NULL)
-	// 	exit(1);
 	path_cmd = search_cmd(cmd, splited_path_envp);
 	if (path_cmd == NULL)
 	{
@@ -143,14 +127,6 @@ char	*get_path_cmd(char *cmd, char **splited_path_envp)
 	// free(cmd);
 	return (path_cmd);
 }
-
-// void	exec_child(char **srcs, char **splited_path_envp, char **environ)
-// {
-// 	char	*path_cmd;
-
-// 	path_cmd = get_path_cmd(srcs[0], splited_path_envp);
-// 	execve(path_cmd, srcs, environ);
-// }
 
 void	free_two_dimention_array(char **strs)
 {
@@ -164,22 +140,3 @@ void	free_two_dimention_array(char **strs)
 	}
 	free(strs);
 }
-
-// void	exe(char **srcs, char **environ, int *status)
-// {
-// 	char	**splited_path_envp;
-// 	pid_t	child;
-
-// 	splited_path_envp = get_env();
-// 	if (splited_path_envp == NULL)
-// 		exit(1);
-// 	child = fork();
-// 	if (child == -1)
-// 		exit(1);
-// 	else if (child == 0)
-// 		exec_child(srcs, splited_path_envp, environ);
-// 	waitpid(child, status, 0);
-// 	free_two_dimention_array(splited_path_envp);
-// 	if (WIFEXITED(*status))
-// 		WEXITSTATUS(*status);
-// }

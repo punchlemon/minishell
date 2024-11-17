@@ -193,29 +193,12 @@ char	**env_to_environ(t_env *env)
 	return (strs);
 }
 
-void	print_2d_arr(char **environ) // to test
-{
-	size_t	i;
-
-	i = 0;
-	if (environ == NULL)
-	{
-		write(2, "environ == NULL\n", strlen("environ == NULL\n"));
-		return ;
-	}
-	while (environ[i] != NULL)
-	{
-		write(2, environ[i], strlen(environ[i]));
-	}
-}
-
 void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 {
 	char	*path_cmd;
 	char	**environ;
 
 	prepare_pipe_in_child(cmd);
-	// file open
 	open_file(cmd->reds);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
@@ -223,7 +206,6 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 		exit(0);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
 	environ = env_to_environ(*env);
-	// print_2d_arr(environ);
 	if (environ == NULL)
 		exit(1);
 	execve(path_cmd, cmd->words, environ);
@@ -234,30 +216,28 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 
 int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int is_child)
 {
-	char	*simple_cmd;
+	char	*command_name;
 	char	**args;
-	// pipe_child
 	if (is_child)
 	{
 		prepare_pipe_in_child(cmd);
 	}
-	// redirect
 	set_redirects(cmd->reds);
-	simple_cmd = cmd->words[0];
+	command_name = cmd->words[0];
 	args = &cmd->words[1];
-	if (strcmp(simple_cmd, "cd") == 0)
-		return (builtin_cd(env, args)); // リダイレクトとかあったときは大丈夫そ？
-	else if (strcmp(simple_cmd, "pwd") == 0)
+	if (strcmp(command_name, "cd") == 0)
+		return (builtin_cd(env, args));
+	else if (strcmp(command_name, "pwd") == 0)
 		return (builtin_pwd());
-	else if (strcmp(simple_cmd, "echo") == 0)
+	else if (strcmp(command_name, "echo") == 0)
 		return (builtin_echo(args));
-	if (strcmp(simple_cmd, "env") == 0)
+	if (strcmp(command_name, "env") == 0)
 		return (builtin_env(env, args));
-	else if (strcmp(simple_cmd, "exit") == 0)
+	else if (strcmp(command_name, "exit") == 0)
 		return (builtin_exit(*env, args));
-	else if (strcmp(simple_cmd, "export") == 0)
+	else if (strcmp(command_name, "export") == 0)
 		return (builtin_export(env, args));
-	else if (strcmp(simple_cmd, "unset") == 0)
+	else if (strcmp(command_name, "unset") == 0)
 		return (builtin_unset(env, args));
 	else // fatal_error
 		return (1);
@@ -288,11 +268,6 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 
 	i = 0;
 	splited_path_env = get_env();
-	// while (cmd_a_s[i].tkns != NULL)
-	// {
-	// 	open_all_file_in_cmds(cmd_a_s[i].reds); // この関数は何をしている？
-	// 	i++;
-	// }
 	i = 0;
 	while (cmd_a_s[i].tkns)
 		i++;
