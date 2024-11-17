@@ -6,28 +6,21 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/17 19:27:37 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:02:34 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+#include "builtin.h"
 
-char	**get_env(void)
+char	**get_env(t_env *env)
 {
 	char	*path_env;
 
-	path_env = getenv("PATH");
-	// if (path_env == NULL)
-	// {
-	// 	write(2, "PATH doesnt exist\n", strlen("PATH doesnt exist\n"));
-	// 	return (NULL);
-	// }
-	// else
-	// {
-	// 	write(2, "PATH exist\n", strlen("PATH exist\n"));
-	// }
-		// exit(1);
+	path_env = search_env_return_its_value(env, "PATH");
+	if (path_env == NULL)
+		return (NULL);
 	return (ft_split(path_env, ':'));
 }
 
@@ -141,10 +134,13 @@ void	free_two_dimention_array(char **strs)
 	int	i;
 
 	i = 0;
-	while (strs[i])
+	if (strs != NULL)
 	{
-		free(strs[i]);
-		i++;
+		while (strs[i])
+		{
+			free(strs[i]);
+			i++;
+		}
+		free(strs);
 	}
-	free(strs);
 }

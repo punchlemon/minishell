@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/15 22:50:52 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 19:36:58 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_num
 // void		exe(char **srcs, char **environ, int *status);
 // char		*ft_strchr(const char *s, int c);
 // char		*ft_strjoin(char *s1, char *s2);
-char		**get_env(void);
+char		**get_env(t_env *env);
 char		*search_binary_file(char *cmd_without_op);
 char		*search_excutable_file(char *file);
 char		*join_path(char *env, char *cmd);
