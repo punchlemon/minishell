@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/17 20:03:06 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:04:25 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,11 +306,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 			else if (pid == 0 && is_builtin(cmds[i].words[0]))
 				exit(execute_builtin_cmd(&env, &cmds[i], 1));
 			else if (pid == 0)
-			{
-				// if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns))
-				// 	return (0);
 				excute_cmd(&cmds[i], splited_path_env, &env);
-			}
 			else
 				prepare_pipe_in_parent(&cmds[i]);
 			waitpid(pid, status, 0);
