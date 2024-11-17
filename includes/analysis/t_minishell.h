@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_minishell.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/14 13:21:36 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 16:58:19 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define GREAT 9
 # define DLESS 10
 # define DGREAT 11
+# define DOLLAR 12
 
 # include <stdlib.h>
 
