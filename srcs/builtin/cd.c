@@ -3,11 +3,13 @@
 
 char	*search_env_return_its_value(t_env *env, char *key)
 {
-	while (strcmp(env->key, key) != 0 && env->next != NULL)
+	while (env->next != NULL)
+	{
+		if (strcmp(env->key, key) == 0)
+			return(env->value);
 		env = env->next;
-	if (strcmp(env->key, key) != 0 && env->next == NULL)
-		return (NULL);
-	return (env->value);
+	}
+	return (NULL);
 }
 
 t_env	*ft_getenv(t_env *env, char *key)

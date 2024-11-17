@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/17 13:26:02 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 19:27:37 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,16 @@ char	**get_env(void)
 	char	*path_env;
 
 	path_env = getenv("PATH");
-	if (path_env == NULL)
-		exit(1);
+	// if (path_env == NULL)
+	// {
+	// 	write(2, "PATH doesnt exist\n", strlen("PATH doesnt exist\n"));
+	// 	return (NULL);
+	// }
+	// else
+	// {
+	// 	write(2, "PATH exist\n", strlen("PATH exist\n"));
+	// }
+		// exit(1);
 	return (ft_split(path_env, ':'));
 }
 

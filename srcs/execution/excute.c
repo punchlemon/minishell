@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/17 15:12:34 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/17 19:15:39 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 	i = 0;
 	while (cmds[i].type != TAIL)
 	{
+		// splited_path_env = get_env();
 		tmp_in = dup(0); // test
 		tmp_out = dup(1); // test
 		if (prepare_pipe(&cmds[i]))
@@ -320,6 +321,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 		dup2(tmp_out, 1); // test
 		close(tmp_in); // test
 		close(tmp_out); // test
+		// free_two_dimention_array(splited_path_env);
 		if (WIFEXITED(*status))
 			WEXITSTATUS(*status);
 		i++;
