@@ -42,10 +42,8 @@ int	check_overflow(char *str)
 {
 	long	num;
 	long	prev;
-	size_t	i;
 
 	num = 0;
-	i = 0;
 	while (*str == ' ')
 		str++;
 	if (*str == '+' || *str == '-')
