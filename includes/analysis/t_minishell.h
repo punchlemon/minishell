@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/14 13:21:36 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 22:19:37 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_cmd
 	int		type;
 	char	**words;
 	t_red	*reds;
+	pid_t	pid;
 	int		pipe_in[2];
 	int		pipe_out[2];
 }	t_cmd;

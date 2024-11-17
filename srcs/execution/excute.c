@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/17 22:11:31 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 22:26:40 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-int	destruct_forks(pid_t *pids, size_t len)
+int	destruct_forks(t_cmd *cmds, size_t len)
 {
 	pid_t	pid;
 	size_t	i;
@@ -269,14 +269,14 @@ int	destruct_forks(pid_t *pids, size_t len)
 	i = 0;
 	while (i < len)
 	{
-		pid = pids[i];
+		pid = cmds[i].pid;
 		waitpid(pid, &status, 0);
 		// if (WIFSIGNALED(status))
 		if (WIFEXITED(status))
 			return_status = WEXITSTATUS(status);
 		i++;
 	}
-	free(pids);
+	free(cmds);
 	return (return_status);
 }
 
@@ -284,7 +284,6 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env)
 {
 	size_t	i;
 	pid_t	pid;
-	pid_t	*pids;
 	int		tmp_in; // test
 	int		tmp_out; // test
 	char	**splited_path_env;
@@ -295,7 +294,6 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env)
 	i = 0;
 	while (cmd_a_s[i].tkns)
 		i++;
-	pids = malloc(sizeof(pid) * i);
 	cmds = malloc(sizeof(t_cmd) * (i + 1));
 	cmds[i].type = TAIL;
 	while (i--)
@@ -332,7 +330,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env)
 				excute_cmd(&cmds[i], splited_path_env, &env);
 			else
 				prepare_pipe_in_parent(&cmds[i]);
-			pids[i] = pid;
+			cmds->pid = pid;
 			set_exec_handler(true);
 		}
 		dup2(tmp_in, 0); // test
@@ -341,7 +339,6 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env)
 		close(tmp_out); // test
 		i++;
 	}
-	free(cmds);
 	free_two_dimention_array(splited_path_env);
-	return (destruct_forks(pids, i));
+	return (destruct_forks(cmds, i));
 }
