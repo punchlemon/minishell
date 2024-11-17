@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/17 21:57:07 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 22:11:31 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,7 @@ int	destruct_forks(pid_t *pids, size_t len)
 			return_status = WEXITSTATUS(status);
 		i++;
 	}
+	free(pids);
 	return (return_status);
 }
 
