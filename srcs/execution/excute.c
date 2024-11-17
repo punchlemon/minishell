@@ -266,8 +266,8 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 	char	**splited_path_env;
 	t_cmd	*cmds; // 配列
 
-	i = 0;
 	splited_path_env = get_env();
+	// init cmds
 	i = 0;
 	while (cmd_a_s[i].tkns)
 		i++;
