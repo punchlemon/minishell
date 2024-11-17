@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/17 15:07:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/17 21:53:00 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ static void	execute(t_cond *conds, t_env *env)
 	{
 		if (conds[i].type == HEAD)
 		{
-			exe_cmds(conds[i].cmds, env, &status);
+			status = exe_cmds(conds[i].cmds, env);
 		}
 		else if (conds[i].type == AND_IF)
 		{
 			if (!status)
-				exe_cmds(conds[i].cmds, env, &status);
+				status = exe_cmds(conds[i].cmds, env);
 		}
 		else
 		{
 			if (status)
-				exe_cmds(conds[i].cmds, env, &status);
+				status = exe_cmds(conds[i].cmds, env);
 		}
 		i++;
 	}

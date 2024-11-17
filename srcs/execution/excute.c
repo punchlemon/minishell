@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/17 20:04:25 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 21:57:07 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,20 +259,42 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
+int	destruct_forks(pid_t *pids, size_t len)
+{
+	pid_t	pid;
+	size_t	i;
+	int		status;
+	int		return_status;
+
+	i = 0;
+	while (i < len)
+	{
+		pid = pids[i];
+		waitpid(pid, &status, 0);
+		// if (WIFSIGNALED(status))
+		if (WIFEXITED(status))
+			return_status = WEXITSTATUS(status);
+		i++;
+	}
+	return (return_status);
+}
+
+int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env)
 {
 	size_t	i;
 	pid_t	pid;
+	pid_t	*pids;
 	int		tmp_in; // test
 	int		tmp_out; // test
 	char	**splited_path_env;
-	t_cmd	*cmds; // 配列
+	t_cmd	*cmds;
 
 	splited_path_env = get_env(env);
 	// init cmds
 	i = 0;
 	while (cmd_a_s[i].tkns)
 		i++;
+	pids = malloc(sizeof(pid) * i);
 	cmds = malloc(sizeof(t_cmd) * (i + 1));
 	cmds[i].type = TAIL;
 	while (i--)
@@ -293,7 +315,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 			break ;
 		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns))
 			return (0);
-		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL) // pipelineの中で一番最初かつ最後のコマンドがbuiltin commandの時
+		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL)
 			execute_builtin_cmd(&env, &cmds[i], 0);
 		else
 		{
@@ -309,18 +331,16 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 				excute_cmd(&cmds[i], splited_path_env, &env);
 			else
 				prepare_pipe_in_parent(&cmds[i]);
-			waitpid(pid, status, 0);
+			pids[i] = pid;
 			set_exec_handler(true);
 		}
 		dup2(tmp_in, 0); // test
 		dup2(tmp_out, 1); // test
 		close(tmp_in); // test
 		close(tmp_out); // test
-		if (WIFEXITED(*status))
-			WEXITSTATUS(*status);
 		i++;
 	}
 	free(cmds);
 	free_two_dimention_array(splited_path_env);
-	return (1);
+	return (destruct_forks(pids, i));
 }
