@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/17 22:26:40 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/17 22:38:40 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,29 @@ int	destruct_forks(t_cmd *cmds, size_t len)
 	return (return_status);
 }
 
+t_cmd	*init_cmds(t_cmd_a *cmd_a_s)
+{
+	t_cmd	*cmds;
+	size_t	len;
+
+	len = 0;
+	while (cmd_a_s[len].tkns)
+		len++;
+	cmds = malloc(sizeof(t_cmd) * (len + 1));
+	if (cmds == NULL)
+		return (NULL);
+	cmds[len].type = TAIL;
+	while (len--)
+	{
+		cmds[len].type = NORMAL;
+		cmds[len].pipe_in[0] = 0;
+		cmds[len].pipe_in[1] = -1;
+		cmds[len].pipe_out[0] = -1;
+		cmds[len].pipe_out[1] = 1;
+	}
+	return (cmds);
+}
+
 int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env)
 {
 	size_t	i;
@@ -290,21 +313,9 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env)
 	t_cmd	*cmds;
 
 	splited_path_env = get_env(env);
-	// init cmds
-	i = 0;
-	while (cmd_a_s[i].tkns)
-		i++;
-	cmds = malloc(sizeof(t_cmd) * (i + 1));
-	cmds[i].type = TAIL;
-	while (i--)
-	{
-		cmds[i].type = HEAD;
-		cmds[i].pipe_in[0] = 0;
-		cmds[i].pipe_in[1] = -1;
-		cmds[i].pipe_out[0] = -1;
-		cmds[i].pipe_out[1] = 1;
-	}
-
+	cmds = init_cmds(cmd_a_s);
+	if (cmds == NULL)
+		return (1); // free
 	i = 0;
 	while (cmds[i].type != TAIL)
 	{
