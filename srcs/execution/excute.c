@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/18 17:51:28 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/18 18:18:59 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,7 +370,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 	exit(1);
 }
 
-int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int is_child)
+int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 {
 	char	*command_name;
 	char	**args;
@@ -390,7 +390,7 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int is_child)
 	if (strcmp(command_name, "env") == 0)
 		return (builtin_env(env, args));
 	else if (strcmp(command_name, "exit") == 0)
-		return (builtin_exit(*env, args));
+		return (builtin_exit(*env, args, status));
 	else if (strcmp(command_name, "export") == 0)
 		return (builtin_export(env, args));
 	else if (strcmp(command_name, "unset") == 0)
@@ -481,7 +481,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 			return (0);
 		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL)
 		{
-			*status = execute_builtin_cmd(&env, &cmds[i], 0);
+			*status = execute_builtin_cmd(&env, &cmds[i], *status, 0);
 			free_two_dimention_array(splited_path_env);
 			free(cmds);
 			return (*status); // unnecessary ?
@@ -493,7 +493,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 			break ;
 		}
 		else if (cmds->pid == 0 && is_builtin(cmds[i].words[0]))
-			exit(execute_builtin_cmd(&env, &cmds[i], 1));
+			exit(execute_builtin_cmd(&env, &cmds[i], *status, 1));
 		else if (cmds->pid == 0)
 			excute_cmd(&cmds[i], splited_path_env, &env);
 		else

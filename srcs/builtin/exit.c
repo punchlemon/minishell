@@ -90,18 +90,16 @@ void	is_not_numeric(int argc, char **args)
 	exit(2);
 }
 
-int	builtin_exit(t_env *env, char **args)
+int	builtin_exit(t_env *env, char **args, int status)
 {
 	int	argc;
 
-	g_last_exit_code = 0; // 仮
-	// g_last_exit_code = 43; // 仮
 	argc = count_args(args);
 	free_list(env); // add
 	if (argc == 0)
 	{
 		printf("exit\n");
-		exit(g_last_exit_code);
+		exit(status);
 	}
 	else
 	{

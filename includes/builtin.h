@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 12:58:34 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/15 19:31:16 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/18 18:06:04 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	is_not_numeric(int argc, char **args);
 int		check_overflow(char *str);
 int		is_num(char *str);
 int		count_args(char **args);
-int		builtin_exit(t_env *env, char **args);
+int		builtin_exit(t_env *env, char **args, int status);
 
 // export command
 void	swap_env(t_env *crr, t_env *next);
