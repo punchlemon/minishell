@@ -56,14 +56,13 @@ make ; ./minishell
 - [ ] heredocのシグナルハンドル "handle signal in heredoc"
 - [ ] heredocの環境変数展開 "expand variable in heredoc"
 - [ ] exit codeを管理する "add exit code"
+- [ ] echo $HOMEでセグフォを起こさないようにする "fix echo $HOME"
+- [ ] echo $?で"0"が出力されるようにする "fix echo $?"
 
 ## 🚀 WIP
 - [ ] \*.oだけでなく\*.dも出力できるようにする
 - [ ] 変数展開できるようにする "enable expand valuable"
 
 ## 🌟 Done
+- [X] expandのmallocをfreeする "free malloc of expand"
 - [X] wordを処理する関数を別で設定して実行側で随時処理できるようにする
-- [X] Ctrl+\で子プロを殺す "fix Ctrl+\ in child proccess"
-- [X] Ctrl+\で何もしない "fix Ctrl+\"
-- [X] Ctrl+Dでminishellが終了する "fix Ctrl+D"
-- [X] Ctrl+Cでminishellが終了しないようにする "fix Ctrl+C"

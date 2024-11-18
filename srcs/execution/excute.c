@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/18 14:30:47 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:24:42 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,7 +326,6 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 		exit(1);
 	execve(path_cmd, cmd->words, environ);
 	write(2, "Error : execve\n", strlen("Error : execve\n"));
-	delete_cmd_exe(cmd);
 	exit(1);
 }
 
@@ -462,6 +461,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 		dup2(tmp_out, 1); // test
 		close(tmp_in); // test
 		close(tmp_out); // test
+		delete_cmd_exe(&cmds[i]);
 		i++;
 	}
 	free_two_dimention_array(splited_path_env);
