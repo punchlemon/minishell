@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/17 15:07:21 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:54:38 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	execute(t_cond *conds, t_env *env)
 	int		status;
 
 	i = 0;
+	status = 0;
 	while (conds[i].type != TAIL)
 	{
 		if (conds[i].type == HEAD)
