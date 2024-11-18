@@ -53,8 +53,10 @@ make ; ./minishell
 [- [ ] $（変数）の処理について考える![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 📝 To-Do
+- [ ] normを解決する "norm"
 - [ ] heredocのシグナルハンドル "handle signal in heredoc"
 - [ ] heredocの環境変数展開 "expand variable in heredoc"
+- [ ] \に対応する。たとえば"\"" "support \"
 - [ ] exit codeを管理する "add exit code"
 
 ## 🚀 WIP
@@ -62,8 +64,9 @@ make ; ./minishell
 - [ ] 変数展開できるようにする "enable expand valuable"
 
 ## 🌟 Done
+- [X] echo "$HOME"
+- [X] echo '$HOME'
+- [X] echo $HOMEでセグフォを起こさないようにする "fix echo $HOME"
+- [X] echo $?で"0"が出力されるようにする "fix echo $?"
+- [X] expandのmallocをfreeする "free malloc of expand"
 - [X] wordを処理する関数を別で設定して実行側で随時処理できるようにする
-- [X] Ctrl+\で子プロを殺す "fix Ctrl+\ in child proccess"
-- [X] Ctrl+\で何もしない "fix Ctrl+\"
-- [X] Ctrl+Dでminishellが終了する "fix Ctrl+D"
-- [X] Ctrl+Cでminishellが終了しないようにする "fix Ctrl+C"
