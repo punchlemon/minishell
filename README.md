@@ -58,12 +58,14 @@ make ; ./minishell
 - [ ] heredocの環境変数展開 "expand variable in heredoc"
 - [ ] \に対応する。たとえば"\"" "support \"
 - [ ] exit codeを管理する "add exit code"
+- [ ] ccat を実行したときの return status を 127 にする
+- [ ] export key+=value
 
 ## 🚀 WIP
 - [ ] \*.oだけでなく\*.dも出力できるようにする
-- [ ] 変数展開できるようにする "enable expand valuable"
 
 ## 🌟 Done
+- [X] 変数展開できるようにする "enable expand valuable"
 - [X] echo "$HOME"
 - [X] echo '$HOME'
 - [X] echo $HOMEでセグフォを起こさないようにする "fix echo $HOME"
