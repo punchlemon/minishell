@@ -3,122 +3,101 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:34:11 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 18:27:05 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:22:37 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-static void	ft_count_words(size_t *word_count, const char *src, char c)
+static char	*nobu_strcpy(char *ans, char const *s, int start, int len)
 {
-	size_t	i;
+	int	i;
 
-	*word_count = 0;
 	i = 0;
-	while (src[i])
+	while (i < len)
 	{
-		while (src[i] && src[i] == c)
-			i++;
-		if (src[i])
-			(*word_count)++;
-		while (src[i] && src[i] != c)
-			i++;
+		ans[i] = s[start + i];
+		i++;
 	}
+	ans[i] = '\0';
+	return (ans);
 }
 
-static void	ft_count_word_lengths(size_t *word_lengths, const char *src, char c)
+static void	all_free(char **ans, int i)
 {
-	size_t	i;
-	size_t	j;
-	size_t	word_length;
-
-	word_length = 0;
-	j = 0;
-	i = 0;
-	while (src[i])
+	while (i > 0)
 	{
-		while (src[i] && src[i] == c)
-			i++;
-		while (src[i] && src[i] != c)
+		i--;
+		free(ans[i]);
+	}
+	free(ans);
+}
+
+static int	count_words(char const *s, char c)
+{
+	int	count;
+	int	flag;
+	int	i;
+
+	count = 0;
+	flag = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (flag == 0 && s[i] != c)
 		{
-			word_length++;
-			i++;
+			count++;
+			flag = 1;
 		}
-		word_lengths[j] = word_length;
-		j++;
-	}
-}
-
-static char	**allocate_word_memory(size_t *word_lengths, char **pp
-	, size_t word_count)
-{
-	size_t	i;
-
-	pp[word_count] = NULL;
-	i = 0;
-	while (i < word_count)
-	{
-		pp[i] = malloc(sizeof(char) * (word_lengths[i] + 1));
-		if (!pp[i])
+		else if (flag == 1 && s[i] == c)
 		{
-			while (i--)
-			{
-				free(pp[i]);
-				pp[i] = NULL;
-			}
-			free(pp);
-			pp = NULL;
-			break ;
+			flag = 0;
 		}
 		i++;
 	}
-	while (word_count--)
-		word_lengths[word_count] = 0;
-	return (free(word_lengths), pp);
+	return (count);
 }
 
-static void	ft_store_words(char **pp, const char *src, char c)
+static char	**rest_of_split(char const *s, char c, char **ans, int count)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
+	int	i;
+	int	start;
+	int	len;
 
-	j = 0;
+	start = 0;
 	i = 0;
-	while (src[i])
+	while (i < count)
 	{
-		k = 0;
-		while (src[i] && src[i] == c)
-			i++;
-		while (src[i] && src[i] != c)
+		while (s[start] == c)
+			start++;
+		len = 0;
+		while (s[start + len] != c && s[start + len])
+			len++;
+		ans[i] = (char *)malloc(sizeof(char) * (len + 1));
+		if (ans[i] == NULL)
 		{
-			pp[j][k] = src[i];
-			i++;
-			k++;
+			all_free(ans, i);
+			return (NULL);
 		}
-		j++;
+		nobu_strcpy(ans[i], s, start, len);
+		i++;
+		start += len;
 	}
+	ans[i] = NULL;
+	return (ans);
 }
 
-char	**ft_split(const char *src, char c)
+char	**ft_split(char const *s, char c)
 {
-	char	**pp;
-	size_t	word_count;
-	size_t	*word_lengths;
+	char	**ans;
+	int		count;
 
-	ft_count_words(&word_count, src, c);
-	word_lengths = malloc(sizeof(size_t) * (word_count));
-	if (!word_lengths)
+	count = count_words(s, c);
+	ans = (char **)malloc(sizeof(char *) * (count + 1));
+	if (ans == NULL)
 		return (NULL);
-	ft_count_word_lengths(word_lengths, src, c);
-	pp = malloc(sizeof(char *) * (word_count + 1));
-	if (!pp)
-		return (free(word_lengths), NULL);
-	if (!allocate_word_memory(word_lengths, pp, word_count))
-		return (NULL);
-	ft_store_words(pp, src, c);
-	return (pp);
+	return (rest_of_split(s, c, ans, count));
 }
