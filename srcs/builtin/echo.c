@@ -6,6 +6,8 @@ int	check_option(char *arg)
 	int	i;
 
 	i = 0;
+	if (arg == NULL)
+		return (0);
 	if (arg[i] != '-')
 		return (0);
 	i++;
@@ -23,9 +25,9 @@ int	check_option(char *arg)
 
 int	builtin_echo(char **args)
 {
-	int	option;
-	int	first;
-	int	i;
+	int		option;
+	int		first;
+	size_t	i;
 
 	option = 0;
 	i = 0;

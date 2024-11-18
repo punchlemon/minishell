@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/18 14:30:47 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:24:46 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -440,7 +440,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns, env, *status))
 			return (0);
 		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL)
-			execute_builtin_cmd(&env, &cmds[i], 0);
+			return (execute_builtin_cmd(&env, &cmds[i], 0));
 		else
 		{
 			pid = fork();
