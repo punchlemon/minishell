@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/18 16:31:57 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/18 17:44:53 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ size_t	charactors_len(const char *src)
 {
 	size_t	len;
 
-	len = 1;
+	len = 2;
 	while (ft_is_charactor(src[len]))
 		len++;
 	return (len);
@@ -81,13 +81,13 @@ size_t	charactors_len(const char *src)
 
 size_t	check_valiable(const char *src)
 {
-	if (*src != '$')
-		return (0);
-	if (src[1] != '_' && !ft_isalpha(src[1]) && src[1] != '?')
+	if (src[0] != '$')
 		return (0);
 	if (src[1] == '?')
 		return (2);
-	return (charactors_len(src));
+	if (src[1] == '_' || ft_isalpha(src[1]))
+		return (charactors_len(src));
+	return (0);
 }
 
 char	*get_value(const char *src, t_env *env, char *st)
@@ -102,7 +102,7 @@ char	*get_value(const char *src, t_env *env, char *st)
 		return (NULL);
 	if (src[1] == '?')
 		return (st);
-	len = check_valiable(src);
+	len = check_valiable(src) - 1;
 	key = malloc(sizeof(char) * (len + 1));
 	if (!key)
 		exit(1);
@@ -120,10 +120,28 @@ void	count_word_in_a_tkn(t_tkn *tkn, size_t *word_len, t_env *env, char *st)
 	char	*tmp;
 
 	*word_len += tkn->tail - tkn->head;
-	if (tkn->type == NORMAL || tkn->type == DOUBLE)
+	if (tkn->type == DOUBLE)
+	{
+		i = 1;
+		while (&tkn->head[i + 1] < tkn->tail)
+		{
+			sub = check_valiable(&tkn->head[i]);
+			if (sub)
+			{
+				tmp = get_value(&tkn->head[i], env, st);
+				if (tmp)
+					*word_len += ft_strlen(tmp);
+				*word_len -= sub;
+				i += sub;
+			}
+			else
+				i++;
+		}
+	}
+	else if (tkn->type == NORMAL || tkn->type == DOUBLE)
 	{
 		i = 0;
-		while (&tkn->head[i] - tkn->tail)
+		while (&tkn->head[i] < tkn->tail)
 		{
 			sub = check_valiable(&tkn->head[i]);
 			if (sub)
@@ -166,14 +184,31 @@ void	store_word_in_a_tkn(char *dst, t_tkn *tkn, t_env *env, char *st)
 	size_t	d_i;
 	char	*tmp;
 
-	i = 0;
 	d_i = 0;
-	if (tkn->type == NORMAL || tkn->type == DOUBLE)
+	if (tkn->type == DOUBLE)
 	{
+		i = 1;
+		while (&tkn->head[i + 1] < tkn->tail)
+		{
+			sub = check_valiable(&tkn->head[i]);
+			if (sub)
+			{
+				tmp = get_value(&tkn->head[i], env, st);
+				i += sub;
+				if (!tmp)
+					continue ;
+				ft_memmove(&dst[d_i], tmp, ft_strlen(tmp));
+				d_i += ft_strlen(tmp);
+			}
+			else
+				dst[d_i++] = tkn->head[i++];
+		}
+	}
+	else if (tkn->type == NORMAL)
+	{
+		i = 0;
 		while (&tkn->head[i] < tkn->tail)
 		{
-			if (tkn->type == DOUBLE && &tkn->head[i + 1] < tkn->tail)
-				return ;
 			sub = check_valiable(&tkn->head[i]);
 			if (sub)
 			{
@@ -189,7 +224,7 @@ void	store_word_in_a_tkn(char *dst, t_tkn *tkn, t_env *env, char *st)
 		}
 	}
 	else
-		ft_memmove(dst, &(tkn->head[1]), tkn->tail - tkn->head - 1);
+		ft_memmove(dst, &(tkn->head[1]), tkn->tail - tkn->head - 2);
 }
 
 void	store_word(char *dst, t_tkn *tkns, t_env *env, char *st)

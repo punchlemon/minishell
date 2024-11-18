@@ -59,12 +59,12 @@ make ; ./minishell
 - [ ] exit codeを管理する "add exit code"
 
 ## 🚀 WIP
-- [ ] echo "$HOME"
-- [ ] echo '$HOME'
 - [ ] \*.oだけでなく\*.dも出力できるようにする
 - [ ] 変数展開できるようにする "enable expand valuable"
 
 ## 🌟 Done
+- [X] echo "$HOME"
+- [X] echo '$HOME'
 - [X] echo $HOMEでセグフォを起こさないようにする "fix echo $HOME"
 - [X] echo $?で"0"が出力されるようにする "fix echo $?"
 - [X] expandのmallocをfreeする "free malloc of expand"
