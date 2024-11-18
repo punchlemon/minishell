@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/17 22:38:40 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:30:47 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	delete_cmd_exe(t_cmd *cmd)
 	free(cmd->reds);
 }
 
-size_t	count_word(t_tkn *tkns)
+size_t	count_tkns_for_word(t_tkn *tkns)
 {
 	size_t	i;
 
@@ -60,54 +60,167 @@ void	count_cmd(size_t *words_len, size_t *reds_len, t_tkn *tkns)
 		}
 		else
 			(*words_len)++;
-		t_i += count_word(&tkns[t_i]);
+		t_i += count_tkns_for_word(&tkns[t_i]);
 	}
 }
 
-int	store_word(char **pp, t_tkn *tkns, size_t tmp)
+int	ft_is_charactor(char c)
 {
-	size_t		p_i;
-	size_t		t_i;
-	size_t		word_len;
-	const char	*start;
+	return (c == '_' || ft_isalpha(c) || ft_isdigit(c));
+}
+
+size_t	charactors_len(const char *src)
+{
+	size_t	len;
+
+	len = 1;
+	while (ft_is_charactor(src[len]))
+		len++;
+	return (len);
+}
+
+size_t	check_valiable(const char *src)
+{
+	if (*src != '$')
+		return (0);
+	if (src[1] != '_' && !ft_isalpha(src[1]) && src[1] != '?')
+		return (0);
+	if (src[1] == '?')
+		return (2);
+	return (charactors_len(src));
+}
+
+char	*get_value(const char *src, t_env *env, char *st)
+{
+	char	*key;
+	size_t	len;
+	char	*value;
+
+	if (*src != '$')
+		return (NULL);
+	if (src[1] != '_' && !ft_isalpha(src[1]) && src[1] != '?')
+		return (NULL);
+	if (src[1] == '?')
+		return (st);
+	len = charactors_len(src);
+	key = malloc(sizeof(char) * (len + 1));
+	if (!key)
+		exit(1);
+	key[len] = '\0';
+	value = search_env_return_its_value(env, key);
+	free(key);
+	return (value);
+}
+
+void	count_word_in_a_tkn(t_tkn *tkns, size_t *word_len, t_env *env, char *st)
+{
+	size_t	i;
+	size_t	sub;
+	char	*tmp;
+
+	*word_len += tkns->tail - tkns->head;
+	if (tkns->type == NORMAL || tkns->type == DOUBLE)
+	{
+		i = 0;
+		while (tkns->head[i])
+		{
+			if (check_valiable(&tkns->head[i]))
+			{
+				tmp = get_value(&tkns->head[i], env, st);
+				if (tmp)
+					*word_len += ft_strlen(tmp);
+				sub = charactors_len(&tkns->head[i]);
+				*word_len -= sub;
+				i += sub;
+			}
+			else
+				i++;
+		}
+	}
+	if (tkns->type == SINGLE || tkns->type == DOUBLE)
+		*word_len -= 2;
+}
+
+size_t	count_word(t_tkn *tkns, t_env *env, char *st)
+{
+	size_t	t_i;
+	size_t	word_len;
+	size_t	tmp;
 
 	word_len = 0;
 	t_i = 0;
+	tmp = count_tkns_for_word(tkns);
 	while (t_i < tmp)
 	{
-		word_len += tkns[t_i].tail - tkns[t_i].head;
-		if (tkns[t_i].type == SINGLE || tkns[t_i].type == DOUBLE)
-			word_len -= 2;
+		count_word_in_a_tkn(&tkns[t_i], &word_len, env, st);
 		t_i++;
 	}
+	return (word_len);
+}
+
+void	store_word_in_a_tkn(char *dst, t_tkn *tkns, t_env *env, char *st)
+{
+	size_t	i;
+	size_t	d_i;
+	char	*tmp;
+
+	i = 0;
+	d_i = 0;
+	if (tkns->type == NORMAL || tkns->type == DOUBLE)
+	{
+		while (&tkns->head[i] < tkns->tail)
+		{
+			if (check_valiable(&tkns->head[i]))
+			{
+				tmp = get_value(&tkns->head[i], env, st);
+				if (tmp)
+					ft_memmove(&dst[d_i], tmp, ft_strlen(tmp));
+				i += charactors_len(&tkns->head[i]);
+				d_i += ft_strlen(tmp);
+			}
+			else
+				dst[d_i++] = tkns->head[i++];
+		}
+	}
+	else
+		ft_memmove(dst, &(tkns->head[1]), tkns->tail - tkns->head - 1);
+}
+
+void	store_word(char *dst, t_tkn *tkns, t_env *env, char *st)
+{
+	size_t	d_i;
+	size_t	t_i;
+	size_t	tmp;
+
+	t_i = 0;
+	d_i = 0;
+	tmp = count_tkns_for_word(tkns);
+	while (t_i < tmp)
+	{
+		store_word_in_a_tkn(&dst[d_i], &tkns[t_i], env, st);
+		count_word_in_a_tkn(&tkns[t_i], &d_i, env, st);
+		t_i++;
+	}
+}
+
+int	create_word(char **pp, t_tkn *tkns, t_env *env, char *st)
+{
+	size_t	word_len;
+
+	word_len = count_word(tkns, env, st);
 	*pp = malloc(sizeof(char) * (word_len + 1));
 	if (!(*pp))
 		return (0);
 	(*pp)[word_len] = '\0';
-	t_i = 0;
-	p_i = 0;
-	while (t_i < tmp)
-	{
-		start = tkns[t_i].head;
-		word_len = tkns[t_i].tail - tkns[t_i].head;
-		if (tkns[t_i].type == SINGLE || tkns[t_i].type == DOUBLE)
-		{
-			start += 1;
-			word_len -= 2;
-		}
-		ft_memmove(&(*pp)[p_i], start, word_len);
-		p_i += word_len;
-		t_i++;
-	}
+	store_word(*pp, tkns, env, st);
 	return (1);
 }
 
-int	store_cmd(t_cmd *cmd, t_tkn *tkns)
+int	store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st)
 {
 	size_t	t_i;
 	size_t	w_i;
 	size_t	r_i;
-	size_t	tmp;
 
 	t_i = 0;
 	w_i = 0;
@@ -116,42 +229,43 @@ int	store_cmd(t_cmd *cmd, t_tkn *tkns)
 	{
 		if (type_is_red(tkns[t_i].type))
 		{
-			cmd->reds[r_i].type = tkns[t_i].type;
-			t_i++;
-			tmp = count_word(&tkns[t_i]);
-			if (!store_word(&(cmd->reds[r_i].target), &tkns[t_i], tmp))
+			cmd->reds[r_i].type = tkns[t_i++].type;
+			if (!create_word(&(cmd->reds[r_i].target), &tkns[t_i], env, st))
 				return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
 			r_i++;
 		}
 		else
 		{
-			tmp = count_word(&tkns[t_i]);
-			if (!store_word(&(cmd->words[w_i]), &tkns[t_i], tmp))
+			if (!create_word(&(cmd->words[w_i]), &tkns[t_i], env, st))
 				return (delete_cmd_exe(cmd), 0);
 			w_i++;
 		}
-		t_i += tmp;
+		t_i += count_tkns_for_word(&tkns[t_i]);
 	}
 	return (1);
 }
 
-t_cmd	*expand_cmd(t_cmd *cmd, t_tkn *tkns)
+t_cmd	*expand_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, int status)
 {
 	size_t	words_len;
 	size_t	reds_len;
+	char	*st;
 
+	st = ft_itoa(status);
+	if (!st)
+		return (NULL);
 	count_cmd(&words_len, &reds_len, tkns);
 	cmd->words = malloc(sizeof(char *) * (words_len + 1));
 	if (!cmd->words)
-		return (NULL);
+		return (free(st), NULL);
 	cmd->words[words_len] = NULL;
 	cmd->reds = malloc(sizeof(t_red) * (reds_len + 1));
 	if (!cmd->reds)
-		return (free(cmd->words), NULL);
+		return (free(st), free(cmd->words), NULL);
 	cmd->reds[reds_len].type = TAIL;
-	if (!store_cmd(cmd, tkns))
-		return (NULL);
-	return (cmd);
+	if (!store_cmd(cmd, tkns, env, st))
+		return (free(st), NULL);
+	return (free(st), cmd);
 }
 
 size_t	count_env_len(t_env *env)
@@ -303,7 +417,7 @@ t_cmd	*init_cmds(t_cmd_a *cmd_a_s)
 	return (cmds);
 }
 
-int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env)
+int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 {
 	size_t	i;
 	pid_t	pid;
@@ -323,7 +437,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env)
 		tmp_out = dup(1); // test
 		if (prepare_pipe(&cmds[i]))
 			break ;
-		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns))
+		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns, env, *status))
 			return (0);
 		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL)
 			execute_builtin_cmd(&env, &cmds[i], 0);

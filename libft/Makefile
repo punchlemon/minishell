@@ -32,6 +32,10 @@ $(addsuffix .c, \
 			) \
 		) \
 		$(addprefix mandatory/, \
+			$(addprefix is/, \
+				ft_isalpha \
+				ft_isdigit \
+			) \
 			$(addprefix put/, \
 				ft_putchar_fd \
 				ft_putendl_fd \

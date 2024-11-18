@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/17 21:52:43 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:32:02 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		free_two_dimention_array(char **strs);
 
 // excute
 void		excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env);
-int			exe_cmds(t_cmd_a *cmd_a_s, t_env *env);
+int			exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status);
 int			excute_builtin_cmd(t_env **env, char *cmd, char **args);
 int			is_builtin(char *cmd);
 

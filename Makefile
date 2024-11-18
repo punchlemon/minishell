@@ -74,11 +74,14 @@ LFLAGS = -lreadline -L$(LIBFT_DIR) -lft
 VFLAGS = \
 	--track-origins=yes \
 	--leak-check=full \
-	--show-leak-kinds=all \
+	# --show-leak-kinds=all
+	--show-leak-kinds=definite,indirect \
 	--suppressions=readline.supp \
 	--gen-suppressions=all \
 	--trace-children=yes \
 	--track-fds=yes \
+
+# --track-origins=yes --leak-check=full --show-leak-kinds=all --suppressions=readline.supp --gen-suppressions=all --trace-children=yes --track-fds=yes
 
 all: $(NAME)
 

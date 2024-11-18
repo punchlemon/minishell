@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:17:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/17 15:12:53 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/17 19:20:24 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include <unistd.h>
 
 // functions
+// is
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+
 // mem
 void	ft_bzero(void *dst, size_t n);
 void	*ft_calloc(size_t n);
