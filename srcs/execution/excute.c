@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/18 15:24:42 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:31:57 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,34 +102,35 @@ char	*get_value(const char *src, t_env *env, char *st)
 		return (NULL);
 	if (src[1] == '?')
 		return (st);
-	len = charactors_len(src);
+	len = check_valiable(src);
 	key = malloc(sizeof(char) * (len + 1));
 	if (!key)
 		exit(1);
 	key[len] = '\0';
+	ft_memmove(key, &src[1], len);
 	value = search_env_return_its_value(env, key);
 	free(key);
 	return (value);
 }
 
-void	count_word_in_a_tkn(t_tkn *tkns, size_t *word_len, t_env *env, char *st)
+void	count_word_in_a_tkn(t_tkn *tkn, size_t *word_len, t_env *env, char *st)
 {
 	size_t	i;
 	size_t	sub;
 	char	*tmp;
 
-	*word_len += tkns->tail - tkns->head;
-	if (tkns->type == NORMAL || tkns->type == DOUBLE)
+	*word_len += tkn->tail - tkn->head;
+	if (tkn->type == NORMAL || tkn->type == DOUBLE)
 	{
 		i = 0;
-		while (tkns->head[i])
+		while (&tkn->head[i] - tkn->tail)
 		{
-			if (check_valiable(&tkns->head[i]))
+			sub = check_valiable(&tkn->head[i]);
+			if (sub)
 			{
-				tmp = get_value(&tkns->head[i], env, st);
+				tmp = get_value(&tkn->head[i], env, st);
 				if (tmp)
 					*word_len += ft_strlen(tmp);
-				sub = charactors_len(&tkns->head[i]);
 				*word_len -= sub;
 				i += sub;
 			}
@@ -137,7 +138,7 @@ void	count_word_in_a_tkn(t_tkn *tkns, size_t *word_len, t_env *env, char *st)
 				i++;
 		}
 	}
-	if (tkns->type == SINGLE || tkns->type == DOUBLE)
+	if (tkn->type == SINGLE || tkn->type == DOUBLE)
 		*word_len -= 2;
 }
 
@@ -158,32 +159,37 @@ size_t	count_word(t_tkn *tkns, t_env *env, char *st)
 	return (word_len);
 }
 
-void	store_word_in_a_tkn(char *dst, t_tkn *tkns, t_env *env, char *st)
+void	store_word_in_a_tkn(char *dst, t_tkn *tkn, t_env *env, char *st)
 {
 	size_t	i;
+	size_t	sub;
 	size_t	d_i;
 	char	*tmp;
 
 	i = 0;
 	d_i = 0;
-	if (tkns->type == NORMAL || tkns->type == DOUBLE)
+	if (tkn->type == NORMAL || tkn->type == DOUBLE)
 	{
-		while (&tkns->head[i] < tkns->tail)
+		while (&tkn->head[i] < tkn->tail)
 		{
-			if (check_valiable(&tkns->head[i]))
+			if (tkn->type == DOUBLE && &tkn->head[i + 1] < tkn->tail)
+				return ;
+			sub = check_valiable(&tkn->head[i]);
+			if (sub)
 			{
-				tmp = get_value(&tkns->head[i], env, st);
-				if (tmp)
-					ft_memmove(&dst[d_i], tmp, ft_strlen(tmp));
-				i += charactors_len(&tkns->head[i]);
+				tmp = get_value(&tkn->head[i], env, st);
+				i += sub;
+				if (!tmp)
+					continue ;
+				ft_memmove(&dst[d_i], tmp, ft_strlen(tmp));
 				d_i += ft_strlen(tmp);
 			}
 			else
-				dst[d_i++] = tkns->head[i++];
+				dst[d_i++] = tkn->head[i++];
 		}
 	}
 	else
-		ft_memmove(dst, &(tkns->head[1]), tkns->tail - tkns->head - 1);
+		ft_memmove(dst, &(tkn->head[1]), tkn->tail - tkn->head - 1);
 }
 
 void	store_word(char *dst, t_tkn *tkns, t_env *env, char *st)
