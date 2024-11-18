@@ -56,6 +56,7 @@ make ; ./minishell
 - [ ] normを解決する "norm"
 - [ ] heredocのシグナルハンドル "handle signal in heredoc"
 - [ ] heredocの環境変数展開 "expand variable in heredoc"
+- [ ] \に対応する。たとえば"\"" "support \"
 - [ ] exit codeを管理する "add exit code"
 
 ## 🚀 WIP
