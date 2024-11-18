@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:11 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/13 14:17:15 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:54:22 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	prepare_pipe_in_child(t_cmd *cmd)
 		if (cmd->pipe_out[1] != 1)
 			close(cmd->pipe_out[1]);
 	}
-	close(cmd->pipe_out[0]);
+	if (cmd->pipe_out[0] != -1)
+		close(cmd->pipe_out[0]);
 }
 
 void	prepare_pipe_in_parent(t_cmd *cmd)
