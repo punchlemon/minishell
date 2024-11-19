@@ -6,13 +6,14 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:16:40 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/19 17:15:55 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:23:10 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "get_next_line.h"
 #include "ft_printf.h"
+#include "ft_printf_stderr.h"
 #include "libft.h"
 
 // int	get_heredoc(char *delimiter) // have to create
@@ -135,7 +136,7 @@ void	open_file(t_red *reds) // t_env *env
 		}
 		if (reds[i].file_fd < 0)
 		{
-			printf("bash: %s: %s\n", reds[i].target, strerror(errno));
+			ft_printf_stderr("bash: %s: %s\n", reds[i].target, strerror(errno));
 			while (i--)
 				close(reds[i].file_fd);
 			exit(1);
