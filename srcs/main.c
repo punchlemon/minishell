@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/18 15:54:41 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:59:51 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ int	main(int argc, char **argv, char **environ)
 		set_idle_handler();
 		line = readline("\033[32mminishell\033[33m$\033[0m ");
 		if (line == NULL)
-		{
-			ft_putendl_fd("exit", STDERR_FILENO);
 			exit (1);
-		}
 		if (*line)
 		{
 			add_history(line);

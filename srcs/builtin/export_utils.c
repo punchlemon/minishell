@@ -21,9 +21,6 @@ int	is_valid_key(char *key)
 	if (!is_alpha_under(*key))
 		return (0);
 	key++;
-	if (!is_alpha_num_under(*key) && *key != '\0')
-		return (0);
-	key++;
 	while (*key)
 	{
 		if (!is_alpha_num_under(*key))

@@ -76,8 +76,10 @@ void	split_into_key_value(char **line, char **key, char **value, int *flag)
 	}
 }
 
-void	change_value(t_env *env, char *key, char *value)
+void	change_value(t_env *env, char *key, char *value, int flag)
 {
+	char	*tmp;
+
 	while (env)
 	{
 		if (strcmp(env->key, key) == 0)
@@ -85,8 +87,18 @@ void	change_value(t_env *env, char *key, char *value)
 		env = env->next;
 	}
 	free(key);
-	free(env->value);
-	env->value = value;
+	if (flag)
+	{
+		tmp = ft_strjoin(env->value, value);
+		free(env->value);
+		free(value);
+		env->value = tmp;
+	}
+	else
+	{
+		free(env->value);
+		env->value = value;
+	}
 }
 
 t_env	*_make_new_node(char *key, char *value)
@@ -145,7 +157,7 @@ int	export_env(t_env **env, char *line)
 
 	split_into_key_value(&line, &key, &value, &flag);
 	if (search_key_from_env(*env, key))
-		change_value(*env, key, value);
+		change_value(*env, key, value, flag);
 	else
 	{
 		if (set_key_value(env, key, value))

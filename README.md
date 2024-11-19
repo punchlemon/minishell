@@ -59,12 +59,12 @@ make ; ./minishell
 - [ ] \に対応する。たとえば"\"" "support \"
 - [ ] exit codeを管理する "add exit code"
 - [ ] ccat を実行したときの return status を 127 にする
-- [ ] export key+=value
 
 ## 🚀 WIP
 - [ ] \*.oだけでなく\*.dも出力できるようにする
 
 ## 🌟 Done
+- [X] export key+=value
 - [X] 変数展開できるようにする "enable expand valuable"
 - [X] echo "$HOME"
 - [X] echo '$HOME'

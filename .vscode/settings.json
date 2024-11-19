@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "libft.h": "c",
+        "minishell.h": "c",
+        "env_list.h": "c",
+        "execution.h": "c",
+        "ft_printf.h": "c",
+        "t_minishell.h": "c",
+        "analysis.h": "c",
+        "unistd.h": "c",
+        "stdio.h": "c"
+    }
+}

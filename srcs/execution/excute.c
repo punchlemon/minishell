@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/18 18:18:59 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 13:26:37 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -483,6 +483,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 		{
 			*status = execute_builtin_cmd(&env, &cmds[i], *status, 0);
 			free_two_dimention_array(splited_path_env);
+			delete_cmd_exe(cmds);
 			free(cmds);
 			return (*status); // unnecessary ?
 		}
