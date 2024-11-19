@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:16:40 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/13 14:37:28 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:51:27 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 // 	return (fd);
 // }
 
-void	read_heredoc(char *delimiter, int *pipe_fd)
+void	read_heredoc(char *delimiter, int *pipe_fd) // env, is_quoted
 {
 	char	*line;
 
@@ -57,13 +57,15 @@ void	read_heredoc(char *delimiter, int *pipe_fd)
 			free(line);
 			break ;
 		}
+		// if (is_quoted)
+		// 	line = expand();
 		write(pipe_fd[1], line, strlen(line));
 		write(pipe_fd[1], "\n", 1);
 		free(line);
 	}
 }
 
-int	get_heredoc(char *delimiter)
+int	get_heredoc(char *delimiter) // env, is_quoted
 {
 	int	pipe_fds[2];
 
@@ -72,7 +74,7 @@ int	get_heredoc(char *delimiter)
 		write(2, "Error : pipe\n", strlen("Error : pipe\n"));
 		exit(1);
 	}
-	read_heredoc(delimiter, pipe_fds);
+	read_heredoc(delimiter, pipe_fds); // env, is_quoted
 	close(pipe_fds[1]);
 	return (pipe_fds[0]);
 }
@@ -98,7 +100,7 @@ void	set_redirects(t_red *reds)
 	}
 }
 
-void	open_file(t_red *reds)
+void	open_file(t_red *reds) // t_env *env
 {
 	size_t	i;
 
@@ -118,7 +120,7 @@ void	open_file(t_red *reds)
 		}
 		else if (reds[i].type == DLESS)
 		{
-			reds[i].file_fd = get_heredoc(reds[i].target);
+			reds[i].file_fd = get_heredoc(reds[i].target); // env, is_quoted
 			reds[i].std_target_fd = 0;
 		}
 		else if (reds[i].type == DGREAT)
