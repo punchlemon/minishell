@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/19 14:58:29 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:00:32 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ int	main(int argc, char **argv, char **environ)
 		free(line);
 	}
 	ft_putendl_fd("exit", STDERR_FILENO);
+	exit(status);
 }

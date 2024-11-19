@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/19 14:50:08 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 14:59:52 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,7 +431,6 @@ int	destruct_forks(t_cmd *cmds, size_t len)
 		i++;
 	}
 	// free(cmds);
-	ft_printf("return status = %d\n", return_status);
 	return (return_status);
 }
 
@@ -510,7 +509,6 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 		i++;
 	}
 	*status = destruct_forks(cmds, i);
-	ft_printf("*status = %d\n", *status);
 	free_two_dimention_array(splited_path_env);
 	free(cmds);
 	return (*status); // unnecessary ?
