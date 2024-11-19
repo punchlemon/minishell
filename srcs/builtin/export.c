@@ -52,26 +52,27 @@ void	print_env(t_env *env)
 	}
 }
 
-void	split_into_key_value(char **line, char **key, char **key_end, char **value)
+void	split_into_key_value(char **line, char **key, char **value, int *flag)
 {
-	*key_end = strchr(*line, '=');
-	if (*key_end == NULL)
+	char	*key_end;
+
+	key_end = strchr(*line, '=');
+	*flag = 0;
+	if (key_end == NULL)
 	{
 		*key = ft_strdup(*line);
 		if (*key == NULL)
-		{
 			malloc_error_exit();
-		}
 		*value = NULL;
 	}
 	else
 	{
-		*key = ft_substr(*line, 0, (size_t)(*key_end - *line));
-		*value = ft_strdup(*key_end + 1);
+		if (*(key_end - 1) == '+')
+			*flag = 1;
+		*key = ft_substr(*line, 0, (size_t)((key_end - *flag) - *line));
+		*value = ft_strdup(key_end + 1);
 		if (*key == NULL || *value == NULL)
-		{
 			malloc_error_exit();
-		}
 	}
 }
 
@@ -139,10 +140,10 @@ int	search_key_from_env(t_env *env, char *key)
 int	export_env(t_env **env, char *line)
 {
 	char	*key;
-	char	*key_end;
 	char	*value;
+	int		flag;
 
-	split_into_key_value(&line, &key, &key_end, &value);
+	split_into_key_value(&line, &key, &value, &flag);
 	if (search_key_from_env(*env, key))
 		change_value(*env, key, value);
 	else

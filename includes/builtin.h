@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 12:58:34 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/18 18:06:04 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:08:07 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		builtin_exit(t_env *env, char **args, int status);
 void	swap_env(t_env *crr, t_env *next);
 t_env	*sort_env(t_env *top);
 void	print_env(t_env *env);
-void	split_into_key_value(char **line, char **key, char **key_end, char **value);
+void	split_into_key_value(char **line, char **key,  char **value, int *flag);
 void	change_value(t_env *env, char *key, char *value);
 t_env	*_make_new_node(char *key, char *value);
 int		set_key_value(t_env **env, char *key, char *value);
