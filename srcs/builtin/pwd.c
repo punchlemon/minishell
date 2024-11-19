@@ -11,7 +11,7 @@ int	builtin_pwd(void)
 		write(1, "Error\n", 6);
 		return (1);
 	}
-	printf("%s\n", cwd);
+	ft_printf("%s\n", cwd);
 	free(cwd);
 	return (0);
 }

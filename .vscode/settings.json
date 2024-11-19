@@ -8,6 +8,9 @@
         "t_minishell.h": "c",
         "analysis.h": "c",
         "unistd.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "ft_printf_stderr.h": "c",
+        "builtin.h": "c",
+        "stdarg.h": "c"
     }
 }

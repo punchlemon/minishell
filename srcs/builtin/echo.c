@@ -42,12 +42,12 @@ int	builtin_echo(char **args)
 		if (first)
 			first = 0;
 		else
-			printf(" ");
-		printf("%s", args[i]);
+			ft_printf(" ");
+		ft_printf("%s", args[i]);
 		i++;
 	}
 	if (!option)
-		printf("\n");
+		ft_printf("\n");
 	return (0);
 }
 

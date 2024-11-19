@@ -13,7 +13,7 @@ int	builtin_env(t_env **env, char **args)
 	}
 	while (top)
 	{
-		printf("%s=%s\n", top->key, top->value);
+		ft_printf("%s=%s\n", top->key, top->value);
 		top = top->next;
 	}
 	return (0);

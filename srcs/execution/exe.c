@@ -6,13 +6,14 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/17 20:02:34 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:45:00 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 #include "builtin.h"
+#include "ft_printf_stderr.h"
 
 char	**get_env(t_env *env)
 {
@@ -34,12 +35,12 @@ char	*search_excutable_file(char *file)
 			{
 				return (file);
 			}
-			printf("bash: %s: %s\n", file, strerror(errno));
+			ft_printf_stderr("bash: %s: %s\n", file, strerror(errno));
 			exit(126);
 		}
 		else
 		{
-			printf("bash: %s: %s\n", file, strerror(errno));
+			ft_printf_stderr("bash: %s: %s\n", file, strerror(errno));
 			exit(127);
 		}
 	}
@@ -59,11 +60,11 @@ char	*search_binary_file(char *cmd_without_op)
 				operation_error("malloc");
 			return (binary_file);
 		}
-		printf("bash: %s: %s\n", cmd_without_op, strerror(errno));
+		ft_printf_stderr("bash: %s: %s\n", cmd_without_op, strerror(errno));
 		free(cmd_without_op); // can be double free ?
 		exit(126); // anything to free ?
 	}
-	printf("bash: %s: No such file of directory\n", cmd_without_op);
+	ft_printf_stderr("bash: %s: No such file of directory\n", cmd_without_op);
 	free(cmd_without_op); // can be double free ?
 	exit(127);
 	return (NULL);
@@ -101,7 +102,7 @@ char	*search_cmd(char *cmd_without_op, char **splited_path_envp)
 			{
 				return (path_cmd);
 			}
-			printf("bash: %s: %s\n", path_cmd, strerror(errno));
+			ft_printf_stderr("bash: %s: %s\n", path_cmd, strerror(errno));
 			free(cmd_without_op); // can be double free ?
 			free(path_cmd);
 			exit(126);
@@ -121,7 +122,7 @@ char	*get_path_cmd(char *cmd, char **splited_path_envp)
 	path_cmd = search_cmd(cmd, splited_path_envp);
 	if (path_cmd == NULL)
 	{
-		printf("%s: command not found\n", cmd);
+		ft_printf_stderr("%s: command not found\n", cmd);
 		free(cmd); // can be double free ?
 		exit(127);
 	}

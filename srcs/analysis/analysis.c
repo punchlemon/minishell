@@ -6,11 +6,12 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 17:47:09 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/14 14:51:14 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:17:43 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "analysis.h"
+#include "ft_printf_stderr.h"
 
 t_cond	*analysis(char *src)
 {
@@ -22,11 +23,11 @@ t_cond	*analysis(char *src)
 		return (NULL);
 	// print_tkns(tkns);
 	if (!checker(tkns))
-		return (ft_printf("minishell: syntax error\n"), NULL);
+		return (ft_printf_stderr("bash: syntax error\n"), NULL);
 	conds = parser(tkns);
 	free(tkns);
 	if (!conds)
-		return (ft_printf("minishell: malloc error\n"), NULL);
+		return (ft_printf_stderr("bash: malloc error\n"), NULL);
 	// print_conds(conds);
 	return (conds);
 }

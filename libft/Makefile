@@ -19,6 +19,12 @@ $(addsuffix .c, \
 				ft_putoct \
 				ft_putptr \
 			) \
+			$(addprefix ft_printf_stderr/, \
+				ft_printf_utils \
+				format_put_letter \
+				format_put_num \
+				ft_printf_stderr \
+			) \
 			$(addprefix get_next_line/, \
 				get_next_line \
 				get_next_line_utils \

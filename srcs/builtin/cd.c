@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "builtin.h"
+#include "ft_printf_stderr.h"
 
 char	*search_env_return_its_value(t_env *env, char *key)
 {
@@ -195,20 +196,12 @@ void	change_directory(char *path, char **args, int *status)
 	if (chdir(path) < 0)
 	{
 		if (errno == ENOENT)
-		{
-			printf("bash: cd: %s : No such file or directory\n", args[0]);
-			// return status is 1
-		}
+			ft_printf_stderr("bash: cd: %s : No such file or directory\n",
+				args[0]);
 		else if (errno == EACCES)
-		{
-			printf("bash: cd: %s : Perimission denied\n", args[0]);
-			// return status is 1
-		}
+			ft_printf_stderr("bash: cd: %s : Perimission denied\n", args[0]);
 		else if (errno == ENOTDIR)
-		{
-			printf("bash: cd: %s : Not a directory\n", args[0]);
-			// return status is 1
-		}
+			ft_printf_stderr("bash: cd: %s : Not a directory\n", args[0]);
 		*status = 1;
 	}
 	return ;
@@ -218,7 +211,14 @@ int	builtin_cd(t_env **env, char **args)
 {
 	char	*path;
 	int		status;
+	int		argc;
 
+	argc = count_args(args);
+	if (argc > 1)
+	{
+		ft_printf_stderr("bash: cd: too many arguments\n");
+		return (1);
+	}
 	path = make_target_path(env, args, &status);
 	if (path == NULL)
 		return (status);

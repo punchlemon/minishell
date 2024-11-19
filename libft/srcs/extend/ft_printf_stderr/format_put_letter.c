@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   format_put_letter.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 17:52:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/19 17:56:21 by hnakayam         ###   ########.fr       */
+/*   Created: 2024/06/12 12:51:12 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/11/19 15:59:07 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
 #include "ft_printf_stderr.h"
 
-t_tkn	*lexer(const char *src)
+ssize_t	printf_c(char c, int **crr_len)
 {
-	t_tkn	*tkns;
-	size_t	i;
-	size_t	t_len;
+	(**crr_len)++;
+	return (write(2, &c, 1));
+}
 
-	i = 0;
-	while (ft_isspace(src[i]))
-		i++;
-	if (!src[i])
-		return (NULL);
-	t_len = count_t_len(&src[i]);
-	if (!t_len)
-		return (ft_printf_stderr("minishell: syntax error\n"), NULL);
-	tkns = malloc(sizeof(t_tkn) * (t_len + 1));
-	if (!tkns)
-		return (ft_printf_stderr("minishell: malloc error\n"), NULL);
-	store_tkns(&src[i], tkns);
-	return (tkns);
+ssize_t	printf_s(char *str, int **crr_len)
+{
+	size_t	len_str;
+
+	if (!str)
+	{
+		**crr_len += 6;
+		return (write(2, "(null)", 6));
+	}
+	len_str = ft_strlen(str);
+	**crr_len += (int)len_str;
+	return (write(2, str, len_str));
+}
+
+ssize_t	printf_percent(int **crr_len)
+{
+	(**crr_len)++;
+	return (write(2, "%", 1));
 }

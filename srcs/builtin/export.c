@@ -45,9 +45,9 @@ void	print_env(t_env *env)
 	sorted_env = sort_env(env);
 	while (sorted_env != NULL)
 	{
-		printf("declare -x ");
+		ft_printf("declare -x ");
 		// value == NULL の時の処理を追加しないと
-		printf("%s=\"%s\"\n", sorted_env->key, sorted_env->value);
+		ft_printf("%s=\"%s\"\n", sorted_env->key, sorted_env->value);
 		sorted_env = sorted_env->next;
 	}
 }

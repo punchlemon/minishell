@@ -17,19 +17,6 @@ void	set_env(t_env *env, char *key, char *value)
 	}
 }
 
-void	print_list(t_env *top)
-{
-	t_env	*print;
-
-	print = top;
-	while (print != NULL)
-	{
-		printf("%s = %s\n", print->key, print->value);
-		// printf("%s\n", print->key);
-		print = print->next;
-	}
-}
-
 void	free_list(t_env *top)
 {
 	t_env	*tmp;

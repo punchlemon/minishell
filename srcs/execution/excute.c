@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/19 14:59:52 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:28:24 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,8 @@ int	store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st)
 		if (type_is_red(tkns[t_i].type))
 		{
 			cmd->reds[r_i].type = tkns[t_i++].type;
+			cmd->reds[r_i].file_fd = -1;
+			cmd->reds[r_i].std_target_fd = -1;
 			if (!create_word(&(cmd->reds[r_i].target), &tkns[t_i], env, st))
 				return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
 			r_i++;

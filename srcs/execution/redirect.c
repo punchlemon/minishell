@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:16:40 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/19 11:51:27 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:15:55 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,13 @@ void	do_redirect(t_red *red)
 {
 	// if (red->file_fd < 0)
 	// 	exit(1);
-	if (dup2(red->file_fd, red->std_target_fd) < 0)
-		exit(1); // error dup2
-	close(red->file_fd);
+	if (red->file_fd != -1 && red->std_target_fd != -1)
+	{
+		if (dup2(red->file_fd, red->std_target_fd) < 0)
+			exit(1); // error dup2
+	}
+	if (red->file_fd != -1)
+		close(red->file_fd);
 }
 
 void	set_redirects(t_red *reds)
@@ -131,9 +135,9 @@ void	open_file(t_red *reds) // t_env *env
 		}
 		if (reds[i].file_fd < 0)
 		{
+			printf("bash: %s: %s\n", reds[i].target, strerror(errno));
 			while (i--)
 				close(reds[i].file_fd);
-			printf("bash: %s: %s\n", reds[i].target, strerror(errno));
 			exit(1);
 		}
 		i++;
