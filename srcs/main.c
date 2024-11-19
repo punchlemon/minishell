@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/19 14:55:35 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/19 14:58:29 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,26 @@
 #include "minishell.h"
 #include "sig.h"
 
-static void	execute(t_cond *conds, t_env *env)
+static void	execute(t_cond *conds, t_env *env, int *status)
 {
 	size_t	i;
-	int		status;
 
 	i = 0;
-	status = 0;
 	while (conds[i].type != TAIL)
 	{
 		if (conds[i].type == HEAD)
 		{
-			status = exe_cmds(conds[i].cmds, env, &status);
+			*status = exe_cmds(conds[i].cmds, env, status);
 		}
 		else if (conds[i].type == AND_IF)
 		{
-			if (!status)
-				status = exe_cmds(conds[i].cmds, env, &status);
+			if (!(*status))
+				*status = exe_cmds(conds[i].cmds, env, status);
 		}
 		else
 		{
 			if (status)
-				status = exe_cmds(conds[i].cmds, env, &status);
+				*status = exe_cmds(conds[i].cmds, env, status);
 		}
 		i++;
 	}
@@ -48,6 +46,7 @@ int	main(int argc, char **argv, char **environ)
 	char	*line;
 	t_cond	*conds;
 	t_env	*env;
+	int		status;
 
 	env = make_env_list(environ);
 	(void)argc;
@@ -64,7 +63,7 @@ int	main(int argc, char **argv, char **environ)
 			set_exec_handler(false);
 			conds = analysis(line);
 			if (conds)
-				execute(conds, env);
+				execute(conds, env, &status);
 		}
 		free(line);
 	}
