@@ -108,7 +108,7 @@ error handling (mainly cd, echo, env, pwd)
 libc -> libft
 
 ・edge case
-export key+=value はやりません
+export key+=value はやりません // ok
 case
 	mkdir test1
 	cd test1
@@ -118,8 +118,11 @@ case
 		~/test1/test2
 	rm -rf ../../test1
 	cd ..
-case
+case // ok
 	make re
 	./minishell
 	unset SHELL
 	echo $? -> SEGV
+case // ok
+	env | grep GHOST
+	-> exit status should be 1

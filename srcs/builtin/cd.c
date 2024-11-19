@@ -7,7 +7,7 @@ char	*search_env_return_its_value(t_env *env, char *key)
 	while (env != NULL)
 	{
 		if (strcmp(env->key, key) == 0)
-			return(env->value);
+			return (env->value);
 		env = env->next;
 	}
 	return (NULL);

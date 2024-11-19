@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/19 15:28:36 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:49:37 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "minishell.h"
 #include "sig.h"
 
-static void	execute(t_cond *conds, t_env *env, int *status)
+static void	execute(t_cond *conds, t_env **env, int *status)
 {
 	size_t	i;
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **environ)
 			set_exec_handler(false);
 			conds = analysis(line);
 			if (conds)
-				execute(conds, env, &status);
+				execute(conds, &env, &status);
 		}
 		free(line);
 	}

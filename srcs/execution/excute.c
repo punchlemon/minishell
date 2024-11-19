@@ -6,13 +6,14 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/19 15:28:24 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:53:11 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "sig.h"
 #include "ft_printf.h"
+#include "ft_printf_stderr.h"
 #include "libft.h"
 #include "builtin.h"
 
@@ -376,6 +377,7 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 {
 	char	*command_name;
 	char	**args;
+
 	if (is_child)
 	{
 		prepare_pipe_in_child(cmd);
@@ -425,7 +427,6 @@ int	destruct_forks(t_cmd *cmds, size_t len)
 	status = 0;
 	while (i < len)
 	{
-		(void)cmds;
 		waitpid(cmds[i].pid, &status, 0);
 		// if (WIFSIGNALED(status))
 		if (WIFEXITED(status))
@@ -460,7 +461,7 @@ t_cmd	*init_cmds(t_cmd_a *cmd_a_s)
 	return (cmds);
 }
 
-int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
+int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 {
 	size_t	i;
 	int		tmp_in; // test
@@ -468,7 +469,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 	char	**splited_path_env;
 	t_cmd	*cmds;
 
-	splited_path_env = get_env(env);
+	splited_path_env = get_env(*env);
 	cmds = init_cmds(cmd_a_s);
 	if (cmds == NULL)
 		return (1); // free
@@ -479,26 +480,26 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env *env, int *status)
 		tmp_out = dup(1); // test
 		if (prepare_pipe(&cmds[i]))
 			break ;
-		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns, env, *status))
+		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns, *env, *status))
 			return (0);
 		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL)
 		{
-			*status = execute_builtin_cmd(&env, &cmds[i], *status, 0);
+			*status = execute_builtin_cmd(env, &cmds[i], *status, 0);
 			free_two_dimention_array(splited_path_env);
 			delete_cmd_exe(cmds);
 			free(cmds);
 			return (*status); // unnecessary ?
 		}
-		cmds->pid = fork();
-		if (cmds->pid < 0)
+		cmds[i].pid = fork();
+		if (cmds[i].pid < 0)
 		{
 			operation_error("fork");
 			break ;
 		}
-		else if (cmds->pid == 0 && is_builtin(cmds[i].words[0]))
-			exit(execute_builtin_cmd(&env, &cmds[i], *status, 1));
-		else if (cmds->pid == 0)
-			excute_cmd(&cmds[i], splited_path_env, &env);
+		else if (cmds[i].pid == 0 && is_builtin(cmds[i].words[0]))
+			exit(execute_builtin_cmd(env, &cmds[i], *status, 1));
+		else if (cmds[i].pid == 0)
+			excute_cmd(&cmds[i], splited_path_env, env);
 		else
 			prepare_pipe_in_parent(&cmds[i]);
 		set_exec_handler(true);
