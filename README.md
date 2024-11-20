@@ -62,8 +62,6 @@ make ; ./minishell
 - [ ] g_signalが機能してるのか要調査
 - [ ] cat ; Ctrl + C
 - [ ] cat ; Ctrl + \
-- [ ] export aaa ; export
-- [ ] export aaa ; env | grep aaa
 
 ## 🚀 WIP
 - [ ] \*.oだけでなく\*.dも出力できるようにする
@@ -78,3 +76,5 @@ make ; ./minishell
 - [X] expandのmallocをfreeする "free malloc of expand"
 - [X] wordを処理する関数を別で設定して実行側で随時処理できるようにする
 - [X] g_last_codeをなくす
+- [X] export aaa ; export
+- [X] export aaa ; env | grep aaa
