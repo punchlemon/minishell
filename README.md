@@ -57,8 +57,6 @@ make ; ./minishell
 - [ ] heredocのシグナルハンドル "handle signal in heredoc"
 - [ ] heredocの環境変数展開 "expand variable in heredoc"
 - [ ] \に対応する。たとえば"\"" "support \"
-- [ ] exit codeを管理する "add exit code"
-- [ ] ccat を実行したときの return status を 127 にする
 - [ ] g_signalが機能してるのか要調査
 - [ ] cat ; Ctrl + C
 - [ ] cat ; Ctrl + \
@@ -78,3 +76,5 @@ make ; ./minishell
 - [X] g_last_codeをなくす
 - [X] export aaa ; export
 - [X] export aaa ; env | grep aaa
+- [X] exit codeを管理する "add exit code"
+- [X] ccat を実行したときの return status を 127 にする
