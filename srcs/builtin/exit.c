@@ -3,8 +3,6 @@
 #include <ctype.h>
 #include "ft_printf_stderr.h"
 
-int	g_last_exit_code; // 仮
-
 int	count_args(char **args)
 {
 	int	count;
@@ -60,14 +58,14 @@ int	check_overflow(char *str)
 	return (0);
 }
 
-void	is_numeric(int argc, char **args)
+void	is_numeric(int argc, char **args, int status)
 {
 	ft_printf_stderr("exit\n");
 	if (argc != 1)
 	{
 		ft_printf_stderr("bash: exit: too many arguments\n");
-		if (g_last_exit_code)
-			exit(g_last_exit_code);
+		if (status)
+			exit(status);
 		else
 			exit(1);
 	}
@@ -105,7 +103,7 @@ int	builtin_exit(t_env *env, char **args, int status)
 	else
 	{
 		if (is_num(args[0]))
-			is_numeric(argc, args);
+			is_numeric(argc, args, status);
 		else
 			is_not_numeric(argc, args);
 	}

@@ -59,7 +59,6 @@ make ; ./minishell
 - [ ] \に対応する。たとえば"\"" "support \"
 - [ ] exit codeを管理する "add exit code"
 - [ ] ccat を実行したときの return status を 127 にする
-- [ ] g_last_codeをなくす
 - [ ] g_signalが機能してるのか要調査
 - [ ] cat ; Ctrl + C
 - [ ] cat ; Ctrl + \
@@ -78,3 +77,4 @@ make ; ./minishell
 - [X] echo $?で"0"が出力されるようにする "fix echo $?"
 - [X] expandのmallocをfreeする "free malloc of expand"
 - [X] wordを処理する関数を別で設定して実行側で随時処理できるようにする
+- [X] g_last_codeをなくす
