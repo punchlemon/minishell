@@ -2,3 +2,4 @@
 *.a
 *.log
 minishell
+minishell_tester

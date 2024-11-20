@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/19 20:53:11 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:04:32 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,7 +382,9 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 	{
 		prepare_pipe_in_child(cmd);
 	}
-	set_redirects(cmd->reds);
+	open_file(cmd->reds);
+	if (cmd->reds != NULL)
+		set_redirects(cmd->reds);
 	command_name = cmd->words[0];
 	args = &cmd->words[1];
 	if (strcmp(command_name, "cd") == 0)
