@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/20 14:20:12 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:48:36 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,6 +365,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 	if (cmd->words[0] == NULL) // redirectのみのときは終了
 		exit(0);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
+	// check_is_file
 	environ = env_to_environ(*env);
 	if (environ == NULL)
 		exit(1);

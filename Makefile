@@ -65,7 +65,6 @@ $(addsuffix .c, \
 OBJS = $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
 DEPS = $(addprefix $(OUT_DIR)/, $(SRCS:.c=.d))
 
-CC = clang
 NPD_FLAG = --no-print-directory
 
 CFLAGS = -Wall -Werror -Wextra
