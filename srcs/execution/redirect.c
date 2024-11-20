@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:16:40 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/19 18:23:10 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:49:23 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	set_redirects(t_red *reds)
 	}
 }
 
-void	open_file(t_red *reds) // t_env *env
+int	open_file(t_red *reds, int is_child) // t_env *env
 {
 	size_t	i;
 
@@ -139,10 +139,14 @@ void	open_file(t_red *reds) // t_env *env
 			ft_printf_stderr("bash: %s: %s\n", reds[i].target, strerror(errno));
 			while (i--)
 				close(reds[i].file_fd);
-			exit(1);
+			if (is_child)
+				exit(1); // return するのもありかも
+			else
+				return (0);
 		}
 		i++;
 	}
+	return (1);
 }
 
 // void	open_all_file_in_cmds(t_red *reds)

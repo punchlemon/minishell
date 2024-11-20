@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/20 13:04:32 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:20:12 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,7 +359,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 
 	set_exec_child_handler();
 	prepare_pipe_in_child(cmd);
-	open_file(cmd->reds);
+	open_file(cmd->reds, 1);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	if (cmd->words[0] == NULL) // redirectのみのときは終了
@@ -382,7 +382,8 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 	{
 		prepare_pipe_in_child(cmd);
 	}
-	open_file(cmd->reds);
+	if (!open_file(cmd->reds, is_child))
+		return (1); // 1 ではない気がする
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	command_name = cmd->words[0];
@@ -490,6 +491,10 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 			free_two_dimention_array(splited_path_env);
 			delete_cmd_exe(cmds);
 			free(cmds);
+			dup2(tmp_in, 0);
+			dup2(tmp_out, 1);
+			close(tmp_in);
+			close(tmp_out);
 			return (*status); // unnecessary ?
 		}
 		cmds[i].pid = fork();
@@ -506,10 +511,10 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 			prepare_pipe_in_parent(&cmds[i]);
 		set_exec_handler(true);
 
-		dup2(tmp_in, 0); // test
-		dup2(tmp_out, 1); // test
-		close(tmp_in); // test
-		close(tmp_out); // test
+		dup2(tmp_in, 0);
+		dup2(tmp_out, 1);
+		close(tmp_in);
+		close(tmp_out);
 		delete_cmd_exe(&cmds[i]);
 		i++;
 	}
