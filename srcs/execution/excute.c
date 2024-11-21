@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/20 16:48:36 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:45:42 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,6 +352,24 @@ char	**env_to_environ(t_env *env)
 	return (strs);
 }
 
+void	check_is_file(char *path_cmd, char *cmd)
+{
+	struct stat		st;
+
+	// ft_printf_stderr("path_cmd = %s\n", path_cmd); // test
+	// ft_printf_stderr("cmd = %s\n", cmd); // test
+	if (stat(path_cmd, &st) < 0)
+	{
+		perror("stat");
+		exit(1);
+	}
+	if (st.st_mode & S_IFDIR && !(st.st_mode & S_IFREG))
+	{
+		ft_printf_stderr("bash: %s: Is a directory\n", cmd);
+		exit(126);
+	}
+}
+
 void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 {
 	char	*path_cmd;
@@ -366,6 +384,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
 		exit(0);
 	path_cmd = get_path_cmd(cmd->words[0], splited_path_env);
 	// check_is_file
+	check_is_file(path_cmd, cmd->words[0]);
 	environ = env_to_environ(*env);
 	if (environ == NULL)
 		exit(1);
