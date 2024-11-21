@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/21 17:24:44 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:31:41 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,7 +420,7 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 	if (strcmp(command_name, "env") == 0)
 		return (builtin_env(env, args));
 	else if (strcmp(command_name, "exit") == 0)
-		return (builtin_exit(*env, args, status));
+		return (builtin_exit(*env, args, status, is_child));
 	else if (strcmp(command_name, "export") == 0)
 		return (builtin_export(env, args));
 	else if (strcmp(command_name, "unset") == 0)

@@ -58,9 +58,10 @@ int	check_overflow(char *str)
 	return (0);
 }
 
-void	is_numeric(int argc, char **args, int status)
+void	is_numeric(int argc, char **args, int status, int is_child)
 {
-	ft_printf_stderr("exit\n");
+	if (is_child == 0)
+		ft_printf_stderr("exit\n");
 	if (argc != 1)
 	{
 		ft_printf_stderr("bash: exit: too many arguments\n");
@@ -81,31 +82,33 @@ void	is_numeric(int argc, char **args, int status)
 	}
 }
 
-void	is_not_numeric(int argc, char **args)
+void	is_not_numeric(int argc, char **args, int is_child)
 {
 	(void)argc;
-	ft_printf_stderr("exit\n");
+	if (is_child == 0)
+		ft_printf_stderr("exit\n");
 	ft_printf_stderr("bash: exit: %s: numeric argument required\n", args[0]);
 	exit(2);
 }
 
-int	builtin_exit(t_env *env, char **args, int status)
+int	builtin_exit(t_env *env, char **args, int status, int is_child)
 {
 	int	argc;
 
 	argc = count_args(args);
-	free_list(env); // add
+	free_list(env); // add // ここ大丈夫？
 	if (argc == 0)
 	{
-		ft_printf_stderr("exit\n");
+		if (is_child == 0)
+			ft_printf_stderr("exit\n");
 		exit(status);
 	}
 	else
 	{
 		if (is_num(args[0]))
-			is_numeric(argc, args, status);
+			is_numeric(argc, args, status, is_child);
 		else
-			is_not_numeric(argc, args);
+			is_not_numeric(argc, args, is_child);
 	}
 	return (1);
 }
