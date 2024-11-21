@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/20 16:48:36 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:13:06 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -507,10 +507,12 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 		else if (cmds[i].pid == 0 && is_builtin(cmds[i].words[0]))
 			exit(execute_builtin_cmd(env, &cmds[i], *status, 1));
 		else if (cmds[i].pid == 0)
+		{
 			excute_cmd(&cmds[i], splited_path_env, env);
+			set_exec_handler(true);
+		}
 		else
 			prepare_pipe_in_parent(&cmds[i]);
-		set_exec_handler(true);
 
 		dup2(tmp_in, 0);
 		dup2(tmp_out, 1);
