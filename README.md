@@ -60,6 +60,7 @@ make ; ./minishell
 - [ ] g_signalが機能してるのか要調査
 - [ ] cat ; Ctrl + C
 - [ ] cat ; Ctrl + \
+- [ ] $EMPTY echo hi
 
 ## 🚀 WIP
 - [ ] \*.oだけでなく\*.dも出力できるようにする
