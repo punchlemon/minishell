@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/19 19:50:16 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/21 13:14:06 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**get_env(t_env *env)
 
 char	*search_excutable_file(char *file)
 {
-	if (ft_strchr(file, '.') || ft_strchr(file, '/'))
+	if (strncmp(file, "./", 2) == 0 || strncmp(file, "/", 1) == 0)
 	{
 		if (!access(file, F_OK))
 		{

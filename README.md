@@ -57,12 +57,12 @@ make ; ./minishell
 - [ ] heredocのシグナルハンドル "handle signal in heredoc"
 - [ ] heredocの環境変数展開 "expand variable in heredoc"
 - [ ] \に対応する。たとえば"\"" "support \"
-- [ ] exit codeを管理する "add exit code"
-- [ ] ccat を実行したときの return status を 127 にする
-- [ ] g_last_codeをなくす
 - [ ] g_signalが機能してるのか要調査
 - [ ] cat ; Ctrl + C
 - [ ] cat ; Ctrl + \
+- [ ] $EMPTY echo hi
+- [ ] cat ; シグナル; echo $?
+- [ ] シグナル; echo $?
 
 ## 🚀 WIP
 - [ ] \*.oだけでなく\*.dも出力できるようにする
@@ -76,3 +76,8 @@ make ; ./minishell
 - [X] echo $?で"0"が出力されるようにする "fix echo $?"
 - [X] expandのmallocをfreeする "free malloc of expand"
 - [X] wordを処理する関数を別で設定して実行側で随時処理できるようにする
+- [X] g_last_codeをなくす
+- [X] export aaa ; export
+- [X] export aaa ; env | grep aaa
+- [X] exit codeを管理する "add exit code"
+- [X] ccat を実行したときの return status を 127 にする

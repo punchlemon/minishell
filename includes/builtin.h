@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 12:58:34 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/19 12:20:35 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/20 22:13:32 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		builtin_echo(char **args);
 int		builtin_env(t_env **env, char **args);
 
 // exit command
-void	is_numeric(int argc, char **args);
+void	is_numeric(int argc, char **args, int status);
 void	is_not_numeric(int argc, char **args);
 int		check_overflow(char *str);
 int		is_num(char *str);
