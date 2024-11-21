@@ -117,6 +117,9 @@ case // ok
 case // ok
 	env | grep GHOST
 	-> exit status should be 1
+case	
+	exit a | exit 1
+		出力がbashと違う
 case
 	mkdir test1
 	cd test1
