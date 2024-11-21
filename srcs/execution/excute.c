@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/21 15:59:44 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:24:44 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,8 +356,11 @@ void	check_is_file(char *path_cmd, char *cmd)
 {
 	struct stat		st;
 
-	// if (strcmp(cmd, "") == 0)
-	// 	exit(0);
+	if (strcmp(cmd, "") == 0)
+	{
+		ft_printf_stderr("Command '' not found\n");
+		exit(127);
+	}
 	if (stat(path_cmd, &st) < 0)
 	{
 		perror("stat");
