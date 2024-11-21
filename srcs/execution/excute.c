@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/21 12:45:42 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:46:45 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,6 +358,8 @@ void	check_is_file(char *path_cmd, char *cmd)
 
 	// ft_printf_stderr("path_cmd = %s\n", path_cmd); // test
 	// ft_printf_stderr("cmd = %s\n", cmd); // test
+	if (strcmp(cmd, "") == 0)
+		exit(0);
 	if (stat(path_cmd, &st) < 0)
 	{
 		perror("stat");
