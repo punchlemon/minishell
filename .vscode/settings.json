@@ -11,6 +11,7 @@
         "stdio.h": "c",
         "ft_printf_stderr.h": "c",
         "builtin.h": "c",
-        "stdarg.h": "c"
+        "stdarg.h": "c",
+        "sig.h": "c"
     }
 }
