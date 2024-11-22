@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/21 15:59:44 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/22 20:52:55by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,66 @@ int	create_word(char **pp, t_tkn *tkns, t_env *env, char *st)
 	return (1);
 }
 
+size_t	count_heredoc(t_tkn *tkns, size_t t_len)
+{
+	size_t	t_i;
+	size_t	tmp;
+	size_t	len;
+
+	len = 0;
+	t_i = 0;
+	while (t_i < t_len)
+	{
+		tmp = tkns[t_i].tail - tkns[t_i].head;
+		if (tkns[t_i].type == DOUBLE || tkns[t_i].type == SINGLE)
+			tmp -= 2;
+		len += tmp;
+		t_i++;
+	}
+	return (len);
+}
+
+size_t	store_heredoc(t_red *red, t_tkn *tkns, size_t t_len)
+{
+	size_t	t_i;
+	size_t	tmp;
+	size_t	len;
+
+	len = 0;
+	t_i = 0;
+	while (t_i < t_len)
+	{
+		tmp = tkns[t_i].tail - tkns[t_i].head;
+		if (tkns[t_i].type == DOUBLE || tkns[t_i].type == SINGLE)
+		{
+			tmp -= 2;
+			red->type = NO_EX_DLESS;
+			ft_memmove(&((red->target)[len]), &(tkns[t_i].head[1]), tmp);
+		}
+		else
+			ft_memmove(&((red->target)[len]), tkns[t_i].head, tmp);
+		len += tmp;
+		t_i++;
+	}
+	return (len);
+}
+
+int	create_heredoc(t_red *red, t_tkn *tkns)
+{
+	size_t	len;
+	size_t	t_len;
+
+	len = 0;
+	t_len = count_tkns_for_word(tkns);
+	len = count_heredoc(tkns, t_len);
+	red->target = malloc(sizeof(char) * (len + 1));
+	if (!(red->target))
+		return (0);
+	store_heredoc(red, tkns, t_len);
+	(red->target)[len] = '\0';
+	return (1);
+}
+
 int	store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st)
 {
 	size_t	t_i;
@@ -274,7 +334,12 @@ int	store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st)
 			cmd->reds[r_i].type = tkns[t_i++].type;
 			cmd->reds[r_i].file_fd = -1;
 			cmd->reds[r_i].std_target_fd = -1;
-			if (!create_word(&(cmd->reds[r_i].target), &tkns[t_i], env, st))
+			if (cmd->reds[r_i].type == DLESS)
+			{
+				if (!create_heredoc(&(cmd->reds[r_i]), &tkns[t_i]))
+					return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
+			}
+			else if (!create_word(&(cmd->reds[r_i].target), &tkns[t_i], env, st))
 				return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
 			r_i++;
 		}

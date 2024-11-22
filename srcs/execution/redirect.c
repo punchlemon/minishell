@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:16:40 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/20 13:49:23 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/22 23:40:17 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@
 // 	return (fd);
 // }
 
-void	read_heredoc(char *delimiter, int *pipe_fd) // env, is_quoted
+
+
+void	read_heredoc(char *delimiter, int *pipe_fd, int type) // env, is_quoted
 {
 	char	*line;
 
@@ -58,24 +60,30 @@ void	read_heredoc(char *delimiter, int *pipe_fd) // env, is_quoted
 			free(line);
 			break ;
 		}
+		if (type == DLESS)
+		{
+			ft_putendl_fd("expanded", pipe_fd[1]); // should expanded
+		}
+		else if (type == NO_EX_DLESS)
+		{
+			ft_putendl_fd(line, pipe_fd[1]);
+		}
 		// if (is_quoted)
 		// 	line = expand();
-		write(pipe_fd[1], line, strlen(line));
-		write(pipe_fd[1], "\n", 1);
 		free(line);
 	}
 }
 
-int	get_heredoc(char *delimiter) // env, is_quoted
+int	get_heredoc(char *delimiter, int type) // env, is_quoted
 {
-	int	pipe_fds[2];
+	int		pipe_fds[2];
 
 	if (pipe(pipe_fds) < 0)
 	{
 		write(2, "Error : pipe\n", strlen("Error : pipe\n"));
 		exit(1);
 	}
-	read_heredoc(delimiter, pipe_fds); // env, is_quoted
+	read_heredoc(delimiter, pipe_fds, type); // env, is_quoted
 	close(pipe_fds[1]);
 	return (pipe_fds[0]);
 }
@@ -123,9 +131,9 @@ int	open_file(t_red *reds, int is_child) // t_env *env
 					O_CREAT | O_RDWR | O_TRUNC, 0644);
 			reds[i].std_target_fd = 1;
 		}
-		else if (reds[i].type == DLESS)
+		else if (reds[i].type == DLESS || reds[i].type == NO_EX_DLESS)
 		{
-			reds[i].file_fd = get_heredoc(reds[i].target); // env, is_quoted
+			reds[i].file_fd = get_heredoc(reds[i].target, reds[i].type); // env, is_quoted
 			reds[i].std_target_fd = 0;
 		}
 		else if (reds[i].type == DGREAT)

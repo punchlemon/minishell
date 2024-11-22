@@ -60,7 +60,6 @@ make ; ./minishell
 - [ ] g_signalが機能してるのか要調査
 - [ ] cat ; Ctrl + C
 - [ ] cat ; Ctrl + \
-- [ ] $EMPTY echo hi
 - [ ] cat ; シグナル; echo $?
 - [ ] シグナル; echo $?
 
@@ -68,6 +67,7 @@ make ; ./minishell
 - [ ] \*.oだけでなく\*.dも出力できるようにする
 
 ## 🌟 Done
+- [X] $EMPTY echo hi
 - [X] export key+=value
 - [X] 変数展開できるようにする "enable expand valuable"
 - [X] echo "$HOME"
