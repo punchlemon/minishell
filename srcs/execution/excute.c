@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/21 17:06:32 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/22 14:58:30 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ int	is_env_variable(const char *head, const char *tail)
 	len = tail - head;
 	if (*head != '$' || len < 2)
 		return (0);
-	if (head[1] != '_' && ft_isalpha(head[1]))
+	if (head[1] != '_' && !ft_isalpha(head[1]))
 		return (0);
 	i = 1;
 	while (i < len)
@@ -291,28 +291,30 @@ int	store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st)
 	{
 		if (type_is_red(tkns[t_i].type))
 		{
-			cmd->reds[r_i].type = tkns[t_i++].type;
 			cmd->reds[r_i].file_fd = -1;
 			cmd->reds[r_i].std_target_fd = -1;
-			if (is_env_variable(tkns[t_i].head, tkns[t_i].tail))
-				cmd->reds[r_i].target = NULL;
-			else if (!create_word(&(cmd->reds[r_i].target), &tkns[t_i], env, st))
-				return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
-			r_i++;
+			cmd->reds[r_i].type = tkns[t_i++].type;
+			if (!is_env_variable(tkns[t_i].head, tkns[t_i].tail) || get_value(tkns[t_i].head, env, st))
+			{
+				if (!create_word(&(cmd->reds[r_i].target), &tkns[t_i], env, st))
+					return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
+				r_i++;
+			}
 		}
 		else
 		{
-			if (is_env_variable(tkns[t_i].head, tkns[t_i].tail))
-				w_i--;
-			else if (!create_word(&(cmd->words[w_i]), &tkns[t_i], env, st))
-				return (delete_cmd_exe(cmd), 0);
-			w_i++;
+			if (!is_env_variable(tkns[t_i].head, tkns[t_i].tail) || get_value(tkns[t_i].head, env, st))
+			{
+				if (!create_word(&(cmd->words[w_i]), &tkns[t_i], env, st))
+					return (delete_cmd_exe(cmd), 0);
+				w_i++;
+			}
 		}
 		t_i += count_tkns_for_word(&tkns[t_i]);
 	}
-	return (1);
 	cmd->words[w_i] = NULL;
 	cmd->reds[r_i].type = TAIL;
+	return (1);
 }
 
 t_cmd	*expand_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, int status)
