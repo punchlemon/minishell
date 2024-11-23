@@ -64,20 +64,3 @@ make ; ./minishell
 ## 🚀 WIP
 
 ## 🌟 Done
-- [X] heredocの環境変数展開 "expand variable in heredoc"
-- [X] cat ; Ctrl + C
-- [X] cat ; Ctrl + \
-- [X] $EMPTY echo hi
-- [X] export key+=value
-- [X] 変数展開できるようにする "enable expand valuable"
-- [X] echo "$HOME"
-- [X] echo '$HOME'
-- [X] echo $HOMEでセグフォを起こさないようにする "fix echo $HOME"
-- [X] echo $?で"0"が出力されるようにする "fix echo $?"
-- [X] expandのmallocをfreeする "free malloc of expand"
-- [X] wordを処理する関数を別で設定して実行側で随時処理できるようにする
-- [X] g_last_codeをなくす
-- [X] export aaa ; export
-- [X] export aaa ; env | grep aaa
-- [X] exit codeを管理する "add exit code"
-- [X] ccat を実行したときの return status を 127 にする
