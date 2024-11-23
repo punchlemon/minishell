@@ -131,3 +131,5 @@ case
 	cd ..
 case	
 	cd ../../../../../../../../../
+	exit
+	"cause conditional jump"
