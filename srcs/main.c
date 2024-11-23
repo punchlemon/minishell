@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/23 18:37:10 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/23 21:42:01 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "libft_extend.h"
 #include "minishell.h"
+#include "ft_printf_stderr.h"
 #include "sig.h"
 
 static void	execute(t_cond *conds, t_env **env, int *status)
@@ -57,7 +58,10 @@ int	main(int argc, char **argv, char **environ)
 		set_idle_handler();
 		line = readline("\033[32mminishell\033[33m$\033[0m ");
 		if (line == NULL)
+		{
+			ft_printf_stderr("exit\n");
 			exit(status);
+		}
 		if (*line)
 		{
 			add_history(line);
