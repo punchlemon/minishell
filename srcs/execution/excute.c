@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/23 19:36:55 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/23 21:25:13 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -568,7 +568,11 @@ int	destruct_forks(t_cmd *cmds, size_t len)
 	{
 		waitpid(cmds[i].pid, &status, 0);
 		if (WIFSIGNALED(status))
+		{
 			return_status = WTERMSIG(status) + 128;
+			if (return_status == 130)
+				ft_printf_stderr("\n");
+		}
 		if (WIFEXITED(status))
 			return_status = WEXITSTATUS(status);
 		i++;
@@ -646,10 +650,8 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 		{
 			excute_cmd(&cmds[i], splited_path_env, env, *status);
 		}
-		else
-			prepare_pipe_in_parent(&cmds[i]);
-
 		set_exec_handler(true);
+		prepare_pipe_in_parent(&cmds[i]);
 		dup2(tmp_in, 0);
 		dup2(tmp_out, 1);
 		close(tmp_in);
