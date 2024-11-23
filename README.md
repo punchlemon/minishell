@@ -2,7 +2,7 @@
 
 ## 🌝 Demo
 
-https://github.com/user-attachments/assets/675163bd-2ad3-4ee2-9f70-c0f790d67922
+[Screencast from 2024年11月23日 19時09分07秒.webm](https://github.com/user-attachments/assets/afd365fd-bcd0-4c0b-83a7-473dfc4c2d03)
 
 
 ## 👀 Overview
