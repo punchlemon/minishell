@@ -50,7 +50,7 @@ make ; ./minishell
 
 ## ✒️ Licence
 
-[- [ ] $（変数）の処理について考える![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 📝 To-Do
 - [ ] \*.oだけでなく\*.dも出力できるようにする
