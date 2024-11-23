@@ -51,16 +51,3 @@ make ; ./minishell
 ## ✒️ Licence
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-## 📝 To-Do
-- [ ] \*.oだけでなく\*.dも出力できるようにする
-- [ ] normを解決する "norm"
-- [ ] heredocのシグナルハンドル "handle signal in heredoc"
-- [ ] \に対応する。たとえば"\"" "support \"
-- [ ] g_signalが機能してるのか要調査
-- [ ] cat ; シグナル; echo $?
-- [ ] シグナル; echo $?
-
-## 🚀 WIP
-
-## 🌟 Done
