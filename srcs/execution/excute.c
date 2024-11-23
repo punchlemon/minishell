@@ -435,14 +435,21 @@ void	check_is_file(char *path_cmd, char *cmd)
 	}
 }
 
-void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
+void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env, int status)
 {
 	char	*path_cmd;
 	char	**environ;
+	char	*st;
 
 	set_exec_child_handler();
 	prepare_pipe_in_child(cmd);
-	open_file(cmd->reds, 1);
+
+	st = ft_itoa(status);
+	if (!st)
+		exit(1);
+	if (!open_file(cmd->reds, 1, *env, st))
+		exit(1);
+	free(st);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	if (cmd->words[0] == NULL) // redirectのみのときは終了
@@ -462,13 +469,18 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 {
 	char	*command_name;
 	char	**args;
+	char	*st;
 
 	if (is_child)
 	{
 		prepare_pipe_in_child(cmd);
 	}
-	if (!open_file(cmd->reds, is_child))
+	st = ft_itoa(status);
+	if (!st)
+		return (1);
+	if (!open_file(cmd->reds, is_child, *env, st))
 		return (1); // 1 ではない気がする
+	free(st);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	command_name = cmd->words[0];
@@ -593,7 +605,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 			exit(execute_builtin_cmd(env, &cmds[i], *status, 1));
 		else if (cmds[i].pid == 0)
 		{
-			excute_cmd(&cmds[i], splited_path_env, env);
+			excute_cmd(&cmds[i], splited_path_env, env, *status);
 			set_exec_handler(true);
 		}
 		else
