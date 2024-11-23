@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/21 12:10:06 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/23 17:53:05 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char		*get_path_cmd(char *cmd, char **splited_path_envp);
 void		free_two_dimention_array(char **strs);
 
 // excute
-void		excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env);
+void		excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env, int status);
 int			exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status);
 int			execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child);
 int			is_builtin(char *cmd);
@@ -68,7 +68,7 @@ void		prepare_pipe_in_parent(t_cmd *cmd);
 int			get_heredoc(char *delimiter);
 void		do_redirect(t_red *red);
 void		set_redirects(t_red *reds);
-int			open_file(t_red *reds, int is_child);
+int			open_file(t_red *reds, int is_child, t_env *env, char *st);
 // void		open_all_file_in_cmds(t_red *reds);
 
 // error
@@ -79,5 +79,9 @@ char		*reverse(char *temp);
 void		minus(int *sign, int *n);
 char		*check1_zero_intmin(int n);
 char		*ft_itoa(int n);
+
+// expand
+size_t	check_valiable(const char *src);
+char	*get_value(const char *src, t_env *env, char *st);
 
 #endif

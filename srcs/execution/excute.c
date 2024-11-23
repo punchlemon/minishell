@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/22 15:37:41 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/23 18:51:57 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,6 +278,66 @@ int	is_env_variable(const char *head, const char *tail)
 	return (1);
 }
 
+size_t	count_heredoc(t_tkn *tkns, size_t t_len)
+{
+	size_t	t_i;
+	size_t	tmp;
+	size_t	len;
+
+	len = 0;
+	t_i = 0;
+	while (t_i < t_len)
+	{
+		tmp = tkns[t_i].tail - tkns[t_i].head;
+		if (tkns[t_i].type == DOUBLE || tkns[t_i].type == SINGLE)
+			tmp -= 2;
+		len += tmp;
+		t_i++;
+	}
+	return (len);
+}
+
+size_t	store_heredoc(t_red *red, t_tkn *tkns, size_t t_len)
+{
+	size_t	t_i;
+	size_t	tmp;
+	size_t	len;
+
+	len = 0;
+	t_i = 0;
+	while (t_i < t_len)
+	{
+		tmp = tkns[t_i].tail - tkns[t_i].head;
+		if (tkns[t_i].type == DOUBLE || tkns[t_i].type == SINGLE)
+		{
+			tmp -= 2;
+			red->type = NO_EX_DLESS;
+			ft_memmove(&((red->target)[len]), &(tkns[t_i].head[1]), tmp);
+		}
+		else
+			ft_memmove(&((red->target)[len]), tkns[t_i].head, tmp);
+		len += tmp;
+		t_i++;
+	}
+	return (len);
+}
+
+int	create_heredoc(t_red *red, t_tkn *tkns)
+{
+	size_t	len;
+	size_t	t_len;
+
+	len = 0;
+	t_len = count_tkns_for_word(tkns);
+	len = count_heredoc(tkns, t_len);
+	red->target = malloc(sizeof(char) * (len + 1));
+	if (!(red->target))
+		return (0);
+	store_heredoc(red, tkns, t_len);
+	(red->target)[len] = '\0';
+	return (1);
+}
+
 int	store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st)
 {
 	size_t	t_i;
@@ -295,21 +355,25 @@ int	store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st)
 			cmd->reds[r_i].std_target_fd = -1;
 			cmd->reds[r_i].type = tkns[t_i++].type;
 			cmd->reds[r_i].is_ambiguous = 0;
-			if (is_env_variable(tkns[t_i].head, tkns[t_i].tail) && !get_value(tkns[t_i].head, env, st))
+			if (cmd->reds[r_i].type == DLESS)
+			{
+				if (!create_heredoc(&(cmd->reds[r_i]), &tkns[t_i]))
+					return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
+			}
+			else if (!create_word(&(cmd->reds[r_i].target), &tkns[t_i], env, st))
+				return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
+			else if (is_env_variable(tkns[t_i].head, tkns[t_i].tail) && !get_value(tkns[t_i].head, env, st))
 			{
 				cmd->reds[r_i].target = malloc(sizeof(char) * (tkns[t_i].tail - tkns[t_i].head + 1));
 				if (!cmd->reds[r_i].target)
 					return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
 				cmd->reds[r_i].target[tkns[t_i].tail - tkns[t_i].head] = '\0';
 				ft_memmove(cmd->reds[r_i].target, tkns[t_i].head, tkns[t_i].tail - tkns[t_i].head);
-				cmd->reds[r_i++].is_ambiguous = 1;
+				cmd->reds[r_i].is_ambiguous = 1;
 			}
-			else
-			{
-				if (!create_word(&(cmd->reds[r_i].target), &tkns[t_i], env, st))
+			else if (!create_word(&(cmd->reds[r_i].target), &tkns[t_i], env, st))
 					return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
-				r_i++;
-			}
+			r_i++;
 		}
 		else
 		{
@@ -406,14 +470,21 @@ void	check_is_file(char *path_cmd, char *cmd)
 	}
 }
 
-void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env)
+void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env, int status)
 {
 	char	*path_cmd;
 	char	**environ;
+	char	*st;
 
 	set_exec_child_handler();
 	prepare_pipe_in_child(cmd);
-	open_file(cmd->reds, 1);
+
+	st = ft_itoa(status);
+	if (!st)
+		exit(1);
+	if (!open_file(cmd->reds, 1, *env, st))
+		exit(1);
+	free(st);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	if (cmd->words[0] == NULL) // redirectのみのときは終了
@@ -433,13 +504,18 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 {
 	char	*command_name;
 	char	**args;
+	char	*st;
 
 	if (is_child)
 	{
 		prepare_pipe_in_child(cmd);
 	}
-	if (!open_file(cmd->reds, is_child))
+	st = ft_itoa(status);
+	if (!st)
+		return (1);
+	if (!open_file(cmd->reds, is_child, *env, st))
 		return (1); // 1 ではない気がする
+	free(st);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	command_name = cmd->words[0];
@@ -564,7 +640,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 			exit(execute_builtin_cmd(env, &cmds[i], *status, 1));
 		else if (cmds[i].pid == 0)
 		{
-			excute_cmd(&cmds[i], splited_path_env, env);
+			excute_cmd(&cmds[i], splited_path_env, env, *status);
 			set_exec_handler(true);
 		}
 		else
