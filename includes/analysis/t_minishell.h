@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/22 20:55:42 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/23 18:52:24 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_red
 	char	*target;
 	int		file_fd;
 	int		std_target_fd;
+	int		is_ambiguous;
 }	t_red;
 
 typedef struct s_cmd

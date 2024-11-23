@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:16:40 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/23 18:33:12 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/23 18:47:00 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,16 @@ int	open_file(t_red *reds, int is_child, t_env *env, char *st)
 	i = 0;
 	while (reds[i].type != TAIL)
 	{
+		if (reds[i].is_ambiguous)
+		{
+			ft_printf_stderr("bash: %s: ambiguous redirect\n", reds[i].target);
+			while (i--)
+				close(reds[i].file_fd);
+			if (is_child)
+				exit(1); // return するのもありかも
+			else
+				return (0);
+		}
 		if (reds[i].type == LESS)
 		{
 			reds[i].file_fd = open(reds[i].target, O_RDONLY);
