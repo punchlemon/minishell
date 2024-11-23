@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:55:48 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/18 14:28:38 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/23 18:52:24 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@
 # define LESS 8
 # define GREAT 9
 # define DLESS 10
-# define DGREAT 11
-# define DOLLAR 12
+# define NO_EX_DLESS 11
+# define DGREAT 12
+# define DOLLAR 13
 
 # include <stdlib.h>
 
@@ -35,6 +36,7 @@ typedef struct s_red
 	char	*target;
 	int		file_fd;
 	int		std_target_fd;
+	int		is_ambiguous;
 }	t_red;
 
 typedef struct s_cmd

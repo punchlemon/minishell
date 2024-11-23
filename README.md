@@ -2,7 +2,7 @@
 
 ## 🌝 Demo
 
-https://github.com/user-attachments/assets/675163bd-2ad3-4ee2-9f70-c0f790d67922
+[Screencast from 2024年11月23日 19時09分07秒.webm](https://github.com/user-attachments/assets/afd365fd-bcd0-4c0b-83a7-473dfc4c2d03)
 
 
 ## 👀 Overview
@@ -50,34 +50,4 @@ make ; ./minishell
 
 ## ✒️ Licence
 
-[- [ ] $（変数）の処理について考える![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-## 📝 To-Do
-- [ ] normを解決する "norm"
-- [ ] heredocのシグナルハンドル "handle signal in heredoc"
-- [ ] heredocの環境変数展開 "expand variable in heredoc"
-- [ ] \に対応する。たとえば"\"" "support \"
-- [ ] g_signalが機能してるのか要調査
-- [ ] cat ; Ctrl + C
-- [ ] cat ; Ctrl + \
-- [ ] $EMPTY echo hi
-- [ ] cat ; シグナル; echo $?
-- [ ] シグナル; echo $?
-
-## 🚀 WIP
-- [ ] \*.oだけでなく\*.dも出力できるようにする
-
-## 🌟 Done
-- [X] export key+=value
-- [X] 変数展開できるようにする "enable expand valuable"
-- [X] echo "$HOME"
-- [X] echo '$HOME'
-- [X] echo $HOMEでセグフォを起こさないようにする "fix echo $HOME"
-- [X] echo $?で"0"が出力されるようにする "fix echo $?"
-- [X] expandのmallocをfreeする "free malloc of expand"
-- [X] wordを処理する関数を別で設定して実行側で随時処理できるようにする
-- [X] g_last_codeをなくす
-- [X] export aaa ; export
-- [X] export aaa ; env | grep aaa
-- [X] exit codeを管理する "add exit code"
-- [X] ccat を実行したときの return status を 127 にする
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
