@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/23 18:51:57 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/23 19:36:55 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -456,8 +456,11 @@ void	check_is_file(char *path_cmd, char *cmd)
 {
 	struct stat		st;
 
-	// if (strcmp(cmd, "") == 0)
-	// 	exit(0);
+	if (strcmp(cmd, "") == 0)
+	{
+		ft_printf_stderr("Command '' not found\n");
+		exit(127);
+	}
 	if (stat(path_cmd, &st) < 0)
 	{
 		perror("stat");
@@ -529,7 +532,7 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 	if (strcmp(command_name, "env") == 0)
 		return (builtin_env(env, args));
 	else if (strcmp(command_name, "exit") == 0)
-		return (builtin_exit(*env, args, status));
+		return (builtin_exit(*env, args, status, is_child));
 	else if (strcmp(command_name, "export") == 0)
 		return (builtin_export(env, args));
 	else if (strcmp(command_name, "unset") == 0)
@@ -564,7 +567,8 @@ int	destruct_forks(t_cmd *cmds, size_t len)
 	while (i < len)
 	{
 		waitpid(cmds[i].pid, &status, 0);
-		// if (WIFSIGNALED(status))
+		if (WIFSIGNALED(status))
+			return_status = WTERMSIG(status) + 128;
 		if (WIFEXITED(status))
 			return_status = WEXITSTATUS(status);
 		i++;
@@ -641,11 +645,11 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 		else if (cmds[i].pid == 0)
 		{
 			excute_cmd(&cmds[i], splited_path_env, env, *status);
-			set_exec_handler(true);
 		}
 		else
 			prepare_pipe_in_parent(&cmds[i]);
 
+		set_exec_handler(true);
 		dup2(tmp_in, 0);
 		dup2(tmp_out, 1);
 		close(tmp_in);

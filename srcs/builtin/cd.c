@@ -58,13 +58,23 @@ char	**join_target_str(char **target, char *single)
 
 char	**back_single(char **target)
 {
+	size_t	len;
 	char	*tmp;
 
 	tmp = *target;
-	*target = strndup(*target, strrchr(*target, '/') - *target);
-	free(tmp);
-	if (target == NULL)
-		return (NULL);
+	len = strrchr(*target, '/') - *target;
+	if (len != 0)
+	{
+		*target = strndup(*target, len); // test
+		free(tmp);
+		if (target == NULL)
+			return (NULL);
+	}
+	else
+	{
+		free(tmp);
+		*target = strdup("/");
+	}
 	return (target);
 }
 
@@ -213,6 +223,7 @@ int	builtin_cd(t_env **env, char **args)
 	int		status;
 	int		argc;
 
+	status = 0;
 	argc = count_args(args);
 	if (argc > 1)
 	{

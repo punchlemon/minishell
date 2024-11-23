@@ -117,7 +117,7 @@ case // ok
 case // ok
 	env | grep GHOST
 	-> exit status should be 1
-case	
+case // ok
 	exit a | exit 1
 		出力がbashと違う
 case
@@ -131,3 +131,5 @@ case
 	cd ..
 case	
 	cd ../../../../../../../../../
+	exit
+	"cause conditional jump"

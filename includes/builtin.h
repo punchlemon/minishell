@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 12:58:34 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/20 22:13:32 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:38:08 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,18 @@ int		builtin_echo(char **args);
 int		builtin_env(t_env **env, char **args);
 
 // exit command
-void	is_numeric(int argc, char **args, int status);
-void	is_not_numeric(int argc, char **args);
+void	is_numeric(int argc, char **args, int status, int is_child);
+void	is_not_numeric(int argc, char **arg, int is_childs);
 int		check_overflow(char *str);
 int		is_num(char *str);
 int		count_args(char **args);
-int		builtin_exit(t_env *env, char **args, int status);
+int		builtin_exit(t_env *env, char **args, int status, int is_child);
 
 // export command
 void	swap_env(t_env *crr, t_env *next);
 t_env	*sort_env(t_env *top);
 void	print_env(t_env *env);
-void	split_into_key_value(char **line, char **key,  char **value, int *flag);
+void	split_into_key_value(char **line, char **key, char **value, int *flag);
 void	change_value(t_env *env, char *key, char *value, int flag);
 t_env	*_make_new_node(char *key, char *value);
 int		set_key_value(t_env **env, char *key, char *value);
