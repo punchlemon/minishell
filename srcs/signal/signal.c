@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:38:58 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/21 15:40:00 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/23 19:22:00 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void	set_exec_handler(bool wait_child)
 
 	sigemptyset(&sig.sa_mask);
 	sig.sa_flags = 0;
+	sig.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &sig, NULL);
 	if (wait_child == false)
 		sig.sa_handler = exec_handler;
-	sigaction(SIGQUIT, &sig, NULL);
 	sigaction(SIGINT, &sig, NULL);
 }
 
