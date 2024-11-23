@@ -223,6 +223,7 @@ int	builtin_cd(t_env **env, char **args)
 	int		status;
 	int		argc;
 
+	status = 0;
 	argc = count_args(args);
 	if (argc > 1)
 	{
