@@ -53,20 +53,20 @@ make ; ./minishell
 [- [ ] $（変数）の処理について考える![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 📝 To-Do
+- [ ] \*.oだけでなく\*.dも出力できるようにする
 - [ ] normを解決する "norm"
 - [ ] heredocのシグナルハンドル "handle signal in heredoc"
-- [ ] heredocの環境変数展開 "expand variable in heredoc"
 - [ ] \に対応する。たとえば"\"" "support \"
 - [ ] g_signalが機能してるのか要調査
-- [ ] cat ; Ctrl + C
-- [ ] cat ; Ctrl + \
 - [ ] cat ; シグナル; echo $?
 - [ ] シグナル; echo $?
 
 ## 🚀 WIP
-- [ ] \*.oだけでなく\*.dも出力できるようにする
 
 ## 🌟 Done
+- [X] heredocの環境変数展開 "expand variable in heredoc"
+- [X] cat ; Ctrl + C
+- [X] cat ; Ctrl + \
 - [X] $EMPTY echo hi
 - [X] export key+=value
 - [X] 変数展開できるようにする "enable expand valuable"
