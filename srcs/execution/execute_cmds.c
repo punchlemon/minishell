@@ -1,0 +1,135 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_cmds.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/24 18:35:03 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/11/24 19:06:02 by hnakayam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+#include "sig.h"
+#include "ft_printf.h"
+#include "ft_printf_stderr.h"
+#include "libft.h"
+#include "builtin.h"
+
+int	is_builtin(char *cmd)
+{
+	if (cmd == NULL)
+		return (0);
+	if (strcmp(cmd, "cd") == 0 || strcmp(cmd, "echo") == 0 || \
+		strcmp(cmd, "env") == 0 || strcmp(cmd, "exit") == 0 || \
+		strcmp(cmd, "export") == 0 || strcmp(cmd, "pwd") == 0 || \
+		strcmp(cmd, "unset") == 0)
+	{
+		return (1);
+	}
+	return (0);
+}
+
+int	destruct_forks(t_cmd *cmds, size_t len)
+{
+	size_t	i;
+	int		status;
+	int		return_status;
+
+	i = 0;
+	status = 0;
+	return_status = 0;
+	while (i < len)
+	{
+		waitpid(cmds[i].pid, &status, 0);
+		if (WIFSIGNALED(status))
+		{
+			return_status = WTERMSIG(status) + 128;
+			if (return_status == 130)
+				ft_printf_stderr("\n");
+		}
+		if (WIFEXITED(status))
+			return_status = WEXITSTATUS(status);
+		i++;
+	}
+	return (return_status);
+}
+
+t_cmd	*init_cmds(t_cmd_a *cmd_a_s)
+{
+	t_cmd	*cmds;
+	size_t	len;
+
+	len = 0;
+	while (cmd_a_s[len].tkns)
+		len++;
+	cmds = ft_xcalloc(sizeof(t_cmd) * (len + 1));
+	cmds[len].type = TAIL;
+	while (len--)
+	{
+		cmds[len].type = NORMAL;
+		cmds[len].pipe_in[0] = 0;
+		cmds[len].pipe_in[1] = -1;
+		cmds[len].pipe_out[0] = -1;
+		cmds[len].pipe_out[1] = 1;
+		cmds[len].pid = 0;
+	}
+	return (cmds);
+}
+
+int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
+{
+	size_t	i;
+	int		tmp_in; // test
+	int		tmp_out; // test
+	char	**splited_path_env;
+	t_cmd	*cmds;
+
+	splited_path_env = get_splited_path_env(*env);
+	cmds = init_cmds(cmd_a_s);
+	i = 0;
+	while (cmds[i].type != TAIL)
+	{
+		tmp_in = dup(0); // test
+		tmp_out = dup(1); // test
+		if (prepare_pipe(&cmds[i]))
+			break ;
+		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns, *env, *status))
+			return (0);
+		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL)
+		{
+			*status = execute_builtin_cmd(env, &cmds[i], *status, 0);
+			free_two_dimensional_array(splited_path_env);
+			delete_cmd_exe(cmds);
+			free(cmds);
+			dup2(tmp_in, 0);
+			dup2(tmp_out, 1);
+			close(tmp_in);
+			close(tmp_out);
+			return (*status); // unnecessary ?
+		}
+		cmds[i].pid = fork();
+		if (cmds[i].pid < 0)
+		{
+			ft_printf_stderr("Error: %s: %s\n", "fork", strerror(errno));
+			break ;
+		}
+		else if (cmds[i].pid == 0 && is_builtin(cmds[i].words[0]))
+			exit(execute_builtin_cmd(env, &cmds[i], *status, 1));
+		else if (cmds[i].pid == 0)
+			excute_cmd(&cmds[i], splited_path_env, env, *status);
+		set_exec_handler(true);
+		prepare_pipe_in_parent(&cmds[i]);
+		dup2(tmp_in, 0);
+		dup2(tmp_out, 1);
+		close(tmp_in);
+		close(tmp_out);
+		delete_cmd_exe(&cmds[i]);
+		i++;
+	}
+	*status = destruct_forks(cmds, i);
+	free_two_dimensional_array(splited_path_env);
+	free(cmds);
+	return (*status); // unnecessary ?
+}

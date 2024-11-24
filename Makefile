@@ -36,11 +36,15 @@ $(addsuffix .c, \
 		$(addprefix execution/, \
 			pipe \
 			excute \
+			execute_cmd \
+			execute_cmds \
+			execute_utils \
 			redirect \
 			heredoc \
 			heredoc_utils \
 			get_path_cmd \
 			get_path_cmd_utils \
+			open_file \
 			ft_itoa \
 		) \
 		$(addprefix signal/, \
