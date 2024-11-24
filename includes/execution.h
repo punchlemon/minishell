@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/23 17:53:05 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:22:59 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,6 @@ void		do_redirect(t_red *red);
 void		set_redirects(t_red *reds);
 int			open_file(t_red *reds, int is_child, t_env *env, char *st);
 // void		open_all_file_in_cmds(t_red *reds);
-
-// error
-int			operation_error(char *str);
 
 // itoa // for test
 char		*reverse(char *temp);

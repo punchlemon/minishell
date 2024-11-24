@@ -64,7 +64,7 @@ void	is_numeric(int argc, char **args, int status, int is_child)
 		ft_printf_stderr("exit\n");
 	if (argc != 1)
 	{
-		ft_printf_stderr("bash: exit: too many arguments\n");
+		ft_printf_stderr("minishell: exit: too many arguments\n");
 		if (status)
 			exit(status);
 		else
@@ -74,7 +74,7 @@ void	is_numeric(int argc, char **args, int status, int is_child)
 	{
 		if (check_overflow(args[0]))
 		{
-			ft_printf_stderr("bash: exit: %s: numeric argument required\n", args[0]);
+			ft_printf_stderr("minishell: exit: %s: numeric argument required\n", args[0]);
 			exit(2);
 		}
 		else
@@ -87,7 +87,7 @@ void	is_not_numeric(int argc, char **args, int is_child)
 	(void)argc;
 	if (is_child == 0)
 		ft_printf_stderr("exit\n");
-	ft_printf_stderr("bash: exit: %s: numeric argument required\n", args[0]);
+	ft_printf_stderr("minishell: exit: %s: numeric argument required\n", args[0]);
 	exit(2);
 }
 

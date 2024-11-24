@@ -33,8 +33,13 @@ char	*ft_getcwd(void)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 	{
-		write(2, "Error: getcwd\n", 14);
-		exit(1);
+		if (errno == ENOENT || errno == ENOTDIR || errno == EACCES)
+		{
+			ft_printf_stderr("cd: cannot get current working directory\n");
+			return (NULL);
+		}
+		ft_printf_stderr("Error: getcwd\n");
+		return (NULL);
 	}
 	return (cwd);
 }
@@ -85,7 +90,7 @@ char	*search_abspath_from_relpath(char *relpath)
 	size_t	i;
 
 	target = ft_getcwd();
-	while (*relpath != '\0')
+	while (*relpath != '\0' && target != NULL)
 	{
 		i = 0;
 		while (relpath[i] != '/' && relpath[i] != '\0')
@@ -121,7 +126,7 @@ char	*make_target_path(t_env **env, char **args, int *status)
 		home_value = search_env_return_its_value(*env, "HOME");
 		if (home_value == NULL)
 		{
-			write(2, "bash: cd: HOME not set\n", 23);
+			ft_printf_stderr("minishell: cd: HOME not set\n");
 			*status = 1;
 			return (NULL);
 		}
@@ -131,8 +136,6 @@ char	*make_target_path(t_env **env, char **args, int *status)
 		target_path = strdup(args[0]);
 	else
 		target_path = search_abspath_from_relpath(args[0]);
-	if (target_path == NULL)
-		malloc_error_exit();
 	return (target_path);
 }
 
@@ -206,12 +209,12 @@ void	change_directory(char *path, char **args, int *status)
 	if (chdir(path) < 0)
 	{
 		if (errno == ENOENT)
-			ft_printf_stderr("bash: cd: %s : No such file or directory\n",
+			ft_printf_stderr("minishell: cd: %s : No such file or directory\n",
 				args[0]);
 		else if (errno == EACCES)
-			ft_printf_stderr("bash: cd: %s : Perimission denied\n", args[0]);
+			ft_printf_stderr("minishell: cd: %s : Perimission denied\n", args[0]);
 		else if (errno == ENOTDIR)
-			ft_printf_stderr("bash: cd: %s : Not a directory\n", args[0]);
+			ft_printf_stderr("minishell: cd: %s : Not a directory\n", args[0]);
 		*status = 1;
 	}
 	return ;
@@ -227,7 +230,7 @@ int	builtin_cd(t_env **env, char **args)
 	argc = count_args(args);
 	if (argc > 1)
 	{
-		ft_printf_stderr("bash: cd: too many arguments\n");
+		ft_printf_stderr("minishell: cd: too many arguments\n");
 		return (1);
 	}
 	path = make_target_path(env, args, &status);

@@ -6,11 +6,12 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:11 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/18 16:54:22 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:23:47 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "ft_printf_stderr.h"
 
 int	prepare_pipe(t_cmd *cmd)
 {
@@ -20,7 +21,10 @@ int	prepare_pipe(t_cmd *cmd)
 	if (next_cmd->type != TAIL)
 	{
 		if (pipe(cmd->pipe_out) < 0)
-			return (operation_error("pipe")); // returned 1
+		{
+			ft_printf_stderr("Error: %s: %s\n", "pipe", strerror(errno));
+			return (1);
+		}
 		next_cmd->pipe_in[0] = cmd->pipe_out[0];
 		next_cmd->pipe_in[1] = cmd->pipe_out[1];
 	}

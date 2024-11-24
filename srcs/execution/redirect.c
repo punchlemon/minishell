@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:16:40 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/23 18:47:00 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:07:35 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,6 @@
 #include "ft_printf.h"
 #include "ft_printf_stderr.h"
 #include "libft.h"
-
-// int	get_heredoc(char *delimiter) // have to create
-// {
-// 	int		fd;
-// 	int		stdin_tmp;
-// 	char	*line;
-
-// 	fd = open(".heredoc.tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-// 	stdin_tmp = dup(0);
-// 	line = "";
-// 	while (1)
-// 	{
-// 		write(1, "heredoc > ", 10);
-// 		line = get_next_line(stdin_tmp);
-// 		if (line == NULL)
-// 			break ;
-// 		if (strlen(delimiter) + 1 == ft_strlen(line) \
-// 				&& !strncmp(line, delimiter, strlen(delimiter)))
-// 		{
-// 			close(stdin_tmp);
-// 			break ;
-// 		}
-// 		else
-// 			write(fd, line, strlen(line));
-// 		free(line);
-// 	}
-// 	return (fd);
-// }
 
 void	count_expand_heredoc(size_t *word_len, const char *line, t_env *env, char *st)
 {
@@ -157,7 +129,7 @@ int	get_heredoc(char *delimiter)
 
 	if (pipe(pipe_fds) < 0)
 	{
-		write(2, "Error : pipe\n", strlen("Error : pipe\n"));
+		ft_printf_stderr("Error : pipe\n");
 		exit(1);
 	}
 	read_heredoc(delimiter, pipe_fds);
@@ -171,7 +143,7 @@ int	get_heredoc_expand(char *delimiter, t_env *env, char *st)
 
 	if (pipe(pipe_fds) < 0)
 	{
-		write(2, "Error : pipe\n", strlen("Error : pipe\n"));
+		ft_printf_stderr("Error : pipe\n");
 		exit(1);
 	}
 	read_heredoc_expand(delimiter, pipe_fds, env, st);
@@ -213,7 +185,7 @@ int	open_file(t_red *reds, int is_child, t_env *env, char *st)
 	{
 		if (reds[i].is_ambiguous)
 		{
-			ft_printf_stderr("bash: %s: ambiguous redirect\n", reds[i].target);
+			ft_printf_stderr("minishell: %s: ambiguous redirect\n", reds[i].target);
 			while (i--)
 				close(reds[i].file_fd);
 			if (is_child)
@@ -250,7 +222,7 @@ int	open_file(t_red *reds, int is_child, t_env *env, char *st)
 		}
 		if (reds[i].file_fd < 0)
 		{
-			ft_printf_stderr("bash: %s: %s\n", reds[i].target, strerror(errno));
+			ft_printf_stderr("minishell: %s: %s\n", reds[i].target, strerror(errno));
 			while (i--)
 				close(reds[i].file_fd);
 			if (is_child)

@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/21 13:14:06 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:20:44 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ char	*search_excutable_file(char *file)
 			{
 				return (file);
 			}
-			ft_printf_stderr("bash: %s: %s\n", file, strerror(errno));
+			ft_printf_stderr("minishell: %s: %s\n", file, strerror(errno));
 			exit(126);
 		}
 		else
 		{
-			ft_printf_stderr("bash: %s: %s\n", file, strerror(errno));
+			ft_printf_stderr("minishell: %s: %s\n", file, strerror(errno));
 			exit(127);
 		}
 	}
@@ -57,14 +57,14 @@ char	*search_binary_file(char *cmd_without_op)
 		{
 			binary_file = strdup(cmd_without_op);
 			if (binary_file == NULL)
-				operation_error("malloc");
+				ft_printf_stderr("Error: %s: %s\n", "malloc", strerror(errno));
 			return (binary_file);
 		}
-		ft_printf_stderr("bash: %s: %s\n", cmd_without_op, strerror(errno));
+		ft_printf_stderr("minishell: %s: %s\n", cmd_without_op, strerror(errno));
 		free(cmd_without_op); // can be double free ?
 		exit(126); // anything to free ?
 	}
-	ft_printf_stderr("bash: %s: No such file of directory\n", cmd_without_op);
+	ft_printf_stderr("minishell: %s: No such file of directory\n", cmd_without_op);
 	free(cmd_without_op); // can be double free ?
 	exit(127);
 	return (NULL);
@@ -102,7 +102,7 @@ char	*search_cmd(char *cmd_without_op, char **splited_path_envp)
 			{
 				return (path_cmd);
 			}
-			ft_printf_stderr("bash: %s: %s\n", path_cmd, strerror(errno));
+			ft_printf_stderr("minishell: %s: %s\n", path_cmd, strerror(errno));
 			free(cmd_without_op); // can be double free ?
 			free(path_cmd);
 			exit(126);
