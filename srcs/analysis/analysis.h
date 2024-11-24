@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analysis.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:02:10 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/10 15:00:03 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:13:59 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "t_minishell.h"
 # include "ft_printf.h"
+# include "libft_extend.h"
 
 void	print_word(const char *head, const char *tail);
 void	print_tkns(t_tkn *tkns);

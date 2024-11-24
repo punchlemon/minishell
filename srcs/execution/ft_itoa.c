@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 05:19:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/10 18:31:36 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:10:29 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*reverse(char *temp)
 	int		len;
 
 	len = (int)ft_strlen((const char *)temp);
-	ans = (char *)malloc(sizeof(char) * (len + 1));
+	ans = (char *)ft_xcalloc(sizeof(char) * (len + 1));
 	if (ans == NULL)
 		return (NULL);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:16:40 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 14:07:35 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:10:33 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*expand_heredoc(const char *line, t_env *env, char *st)
 	size_t	len;
 	
 	count_expand_heredoc(&len, line, env, st);
-	expanded = malloc(sizeof(char) * (len + 1));
+	expanded = ft_xcalloc(sizeof(char) * (len + 1));
 	if (!expanded)
 		exit(1);
 	expanded[len] = '\0';

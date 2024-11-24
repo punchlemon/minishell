@@ -107,7 +107,7 @@ t_env	*_make_new_node(char *key, char *value)
 {
 	t_env	*new;
 
-	new = calloc(1, sizeof(t_env));
+	new = ft_xcalloc(sizeof(t_env));
 	if (new == NULL)
 		return (NULL);
 	new->key = key;
