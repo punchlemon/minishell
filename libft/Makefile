@@ -31,6 +31,7 @@ $(addsuffix .c, \
 			) \
 			$(addprefix mem/, \
 				free_pp \
+				ft_xcalloc \
 			) \
 			$(addprefix str/, \
 				ft_split_func \

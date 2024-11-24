@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 14:20:18 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:10:10 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,7 @@ char	*get_value(const char *src, t_env *env, char *st)
 	if (src[1] == '?')
 		return (st);
 	len = check_valiable(src) - 1;
-	key = malloc(sizeof(char) * (len + 1));
-	if (!key)
-		exit(1);
+	key = ft_xcalloc(sizeof(char) * (len + 1));
 	key[len] = '\0';
 	ft_memmove(key, &src[1], len);
 	value = search_env_return_its_value(env, key);
@@ -250,7 +248,7 @@ int	create_word(char **pp, t_tkn *tkns, t_env *env, char *st)
 	size_t	word_len;
 
 	word_len = count_word(tkns, env, st);
-	*pp = malloc(sizeof(char) * (word_len + 1));
+	*pp = ft_xcalloc(sizeof(char) * (word_len + 1));
 	if (!(*pp))
 		return (0);
 	(*pp)[word_len] = '\0';
@@ -330,7 +328,7 @@ int	create_heredoc(t_red *red, t_tkn *tkns)
 	len = 0;
 	t_len = count_tkns_for_word(tkns);
 	len = count_heredoc(tkns, t_len);
-	red->target = malloc(sizeof(char) * (len + 1));
+	red->target = ft_xcalloc(sizeof(char) * (len + 1));
 	if (!(red->target))
 		return (0);
 	store_heredoc(red, tkns, t_len);
@@ -364,7 +362,7 @@ int	store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st)
 				return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
 			else if (is_env_variable(tkns[t_i].head, tkns[t_i].tail) && !get_value(tkns[t_i].head, env, st))
 			{
-				cmd->reds[r_i].target = malloc(sizeof(char) * (tkns[t_i].tail - tkns[t_i].head + 1));
+				cmd->reds[r_i].target = ft_xcalloc(sizeof(char) * (tkns[t_i].tail - tkns[t_i].head + 1));
 				if (!cmd->reds[r_i].target)
 					return (cmd->reds[r_i].type = TAIL, delete_cmd_exe(cmd), 0);
 				cmd->reds[r_i].target[tkns[t_i].tail - tkns[t_i].head] = '\0';
@@ -401,10 +399,10 @@ t_cmd	*expand_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, int status)
 	if (!st)
 		return (NULL);
 	count_cmd(&words_len, &reds_len, tkns);
-	cmd->words = malloc(sizeof(char *) * (words_len + 1));
+	cmd->words = ft_xcalloc(sizeof(char *) * (words_len + 1));
 	if (!cmd->words)
 		return (free(st), NULL);
-	cmd->reds = malloc(sizeof(t_red) * (reds_len + 1));
+	cmd->reds = ft_xcalloc(sizeof(t_red) * (reds_len + 1));
 	if (!cmd->reds)
 		return (free(st), free(cmd->words), NULL);
 	if (!store_cmd(cmd, tkns, env, st))
@@ -431,7 +429,7 @@ char	**env_to_environ(t_env *env)
 	char	*tmp;
 	size_t	i;
 
-	strs = (char **)malloc(sizeof(char *) * (count_env_len(env) + 1));
+	strs = (char **)ft_xcalloc(sizeof(char *) * (count_env_len(env) + 1));
 	if (strs == NULL)
 		return (NULL);
 	i = 0;
@@ -589,7 +587,7 @@ t_cmd	*init_cmds(t_cmd_a *cmd_a_s)
 	len = 0;
 	while (cmd_a_s[len].tkns)
 		len++;
-	cmds = malloc(sizeof(t_cmd) * (len + 1));
+	cmds = ft_xcalloc(sizeof(t_cmd) * (len + 1));
 	if (cmds == NULL)
 		return (NULL);
 	cmds[len].type = TAIL;

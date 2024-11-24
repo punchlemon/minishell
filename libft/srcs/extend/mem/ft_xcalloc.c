@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   ft_xcalloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 17:52:37 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/24 15:08:28 by hnakayam         ###   ########.fr       */
+/*   Created: 2024/11/24 14:58:43 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/11/24 15:05:53 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "ft_printf_stderr.h"
+#include <stdlib.h>
 
-t_tkn	*lexer(const char *src)
+void	*ft_xcalloc(size_t n)
 {
-	t_tkn	*tkns;
-	size_t	i;
-	size_t	t_len;
+	char	*res;
 
-	i = 0;
-	while (ft_isspace(src[i]))
-		i++;
-	if (!src[i])
-		return (NULL);
-	t_len = count_t_len(&src[i]);
-	if (!t_len)
-		return (ft_printf_stderr("minishell: syntax error\n"), NULL);
-	tkns = ft_xcalloc(sizeof(t_tkn) * (t_len + 1));
-	store_tkns(&src[i], tkns);
-	return (tkns);
+	res = malloc(n);
+	if (res == NULL)
+		exit(1);
+	while (n--)
+		res[n] = 0;
+	return ((void *)res);
 }

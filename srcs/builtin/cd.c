@@ -143,7 +143,7 @@ t_env	*create_node(char *key, char *value) // list.c
 {
 	t_env	*env;
 
-	env = calloc(1, sizeof(t_env));
+	env = ft_xcalloc(sizeof(t_env));
 	if (env == NULL)
 		malloc_error_exit();
 	env->key = key;

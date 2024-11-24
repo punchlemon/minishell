@@ -31,7 +31,7 @@ t_env	*make_new_node(char *line)
 	char	*key;
 	char	*value;
 
-	node = calloc(1, sizeof(t_env));
+	node = ft_xcalloc(sizeof(t_env));
 	if (node == NULL)
 		malloc_error_exit();
 	if (strchr(line, '='))
