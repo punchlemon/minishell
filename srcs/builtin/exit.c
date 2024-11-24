@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/24 16:23:11 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/11/24 16:28:15 by hnakayam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "builtin.h"
 #include <ctype.h>
@@ -15,28 +27,6 @@ int	count_args(char **args)
 	return (count);
 }
 
-int	is_num(char *str)
-{
-	while (*str == ' ')
-		str++;
-	if (*str == '+' || *str == '-')
-		str++;
-	// if (!('0' <= *str && *str <= '9'))
-	if (!isdigit(*str))
-		return (0);
-	str++;
-	// while ('0' <= *str && *str <= '9')
-	while (isdigit(*str))
-		str++;
-	while (*str)
-	{
-		if (*str != ' ')
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
 int	check_overflow(char *str)
 {
 	long	num;
@@ -47,7 +37,7 @@ int	check_overflow(char *str)
 		str++;
 	if (*str == '+' || *str == '-')
 		str++;
-	while (isdigit(*str)) // isdigit -> ft_isdigit
+	while (isdigit(*str))
 	{
 		prev = num;
 		num = num * 10 + (*str - '0');
@@ -74,11 +64,12 @@ void	is_numeric(int argc, char **args, int status, int is_child)
 	{
 		if (check_overflow(args[0]))
 		{
-			ft_printf_stderr("minishell: exit: %s: numeric argument required\n", args[0]);
+			ft_printf_stderr("minishell: exit: %s: numeric argument required\n",
+				args[0]);
 			exit(2);
 		}
 		else
-			exit(atol(args[0]) % 256); // atol -> ft_atol
+			exit(atol(args[0]) % 256);
 	}
 }
 
@@ -87,7 +78,8 @@ void	is_not_numeric(int argc, char **args, int is_child)
 	(void)argc;
 	if (is_child == 0)
 		ft_printf_stderr("exit\n");
-	ft_printf_stderr("minishell: exit: %s: numeric argument required\n", args[0]);
+	ft_printf_stderr("minishell: exit: %s: numeric argument required\n",
+		args[0]);
 	exit(2);
 }
 
@@ -96,7 +88,7 @@ int	builtin_exit(t_env *env, char **args, int status, int is_child)
 	int	argc;
 
 	argc = count_args(args);
-	free_list(env); // add // ここ大丈夫？
+	free_list(env);
 	if (argc == 0)
 	{
 		if (is_child == 0)

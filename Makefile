@@ -47,11 +47,15 @@ $(addsuffix .c, \
 		) \
 		$(addprefix builtin/, \
 			cd \
+			cd_utils_1 \
+			cd_utils_2 \
 			echo \
 			env \
 			exit \
-			export_utils \
+			exit_utils \
 			export \
+			export_utils_1 \
+			export_utils_2 \
 			list_utils \
 			list \
 			pwd \

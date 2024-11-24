@@ -1,43 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 16:22:44 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 16:22:48 by hnakayam         ###   ########.fr       */
+/*   Created: 2024/11/24 16:27:38 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/11/24 16:28:17 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtin.h"
+#include <ctype.h>
+#include "ft_printf_stderr.h"
 
-void	set_env(t_env *env, char *key, char *value)
+int	is_num(char *str)
 {
-	while (env != NULL)
+	while (*str == ' ')
+		str++;
+	if (*str == '+' || *str == '-')
+		str++;
+	if (!isdigit(*str))
+		return (0);
+	str++;
+	while (isdigit(*str))
+		str++;
+	while (*str)
 	{
-		if (strcmp(env->key, key) == 0)
-		{
-			if (env->value == NULL)
-				return ;
-			free(env->value);
-			env->value = strdup(value);
-			return ;
-		}
-		env = env->next;
+		if (*str != ' ')
+			return (0);
+		str++;
 	}
-}
-
-void	free_list(t_env *top)
-{
-	t_env	*tmp;
-
-	while (top != NULL)
-	{
-		free(top->key);
-		free(top->value);
-		tmp = top->next;
-		free(top);
-		top = tmp;
-	}
+	return (1);
 }

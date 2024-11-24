@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/24 14:22:59 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:21:06 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ typedef struct s_num
 }	t_num;
 
 // exe
-// void		exe(char **srcs, char **environ, int *status);
-// char		*ft_strchr(const char *s, int c);
-// char		*ft_strjoin(char *s1, char *s2);
 char		**get_env(t_env *env);
 char		*search_binary_file(char *cmd_without_op);
 char		*search_excutable_file(char *file);
@@ -51,9 +48,11 @@ char		*get_path_cmd(char *cmd, char **splited_path_envp);
 void		free_two_dimention_array(char **strs);
 
 // excute
-void		excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env, int status);
+void		excute_cmd(t_cmd *cmd, char **splited_path_env,
+				t_env **env, int status);
 int			exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status);
-int			execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child);
+int			execute_builtin_cmd(t_env **env, t_cmd *cmd, int status,
+				int is_child);
 int			is_builtin(char *cmd);
 
 // init
@@ -78,7 +77,7 @@ char		*check1_zero_intmin(int n);
 char		*ft_itoa(int n);
 
 // expand
-size_t	check_valiable(const char *src);
-char	*get_value(const char *src, t_env *env, char *st);
+size_t		check_valiable(const char *src);
+char		*get_value(const char *src, t_env *env, char *st);
 
 #endif

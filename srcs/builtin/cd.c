@@ -1,145 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/24 15:27:46 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/11/24 15:40:43 by hnakayam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "builtin.h"
 #include "ft_printf_stderr.h"
 
-char	*search_env_return_its_value(t_env *env, char *key)
-{
-	while (env != NULL)
-	{
-		if (strcmp(env->key, key) == 0)
-			return (env->value);
-		env = env->next;
-	}
-	return (NULL);
-}
-
-t_env	*ft_getenv(t_env *env, char *key)
-{
-	if (key == NULL)
-		return (NULL);
-	while (env != NULL)
-	{
-		if (strcmp(env->key, key) != 0)
-			return (env);
-		env = env->next;
-	}
-	return (NULL);
-}
-
-char	*ft_getcwd(void)
-{
-	char	*cwd;
-
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
-	{
-		if (errno == ENOENT || errno == ENOTDIR || errno == EACCES)
-		{
-			ft_printf_stderr("cd: cannot get current working directory\n");
-			return (NULL);
-		}
-		ft_printf_stderr("Error: getcwd\n");
-		return (NULL);
-	}
-	return (cwd);
-}
-
-char	**join_target_str(char **target, char *single)
-{
-	char	*tmp;
-
-	tmp = *target;
-	*target = ft_strjoin(*target, "/");
-	free(tmp);
-	if (target == NULL)
-		return (NULL);
-	tmp = *target;
-	*target = ft_strjoin(*target, single);
-	free(tmp);
-	if (target == NULL)
-		return (NULL);
-	return (target);
-}
-
-char	**back_single(char **target)
-{
-	size_t	len;
-	char	*tmp;
-
-	tmp = *target;
-	len = strrchr(*target, '/') - *target;
-	if (len != 0)
-	{
-		*target = strndup(*target, len); // test
-		free(tmp);
-		if (target == NULL)
-			return (NULL);
-	}
-	else
-	{
-		free(tmp);
-		*target = strdup("/");
-	}
-	return (target);
-}
-
-char	*search_abspath_from_relpath(char *relpath)
-{
-	char	*target;
-	char	*single;
-	size_t	i;
-
-	target = ft_getcwd();
-	while (*relpath != '\0' && target != NULL)
-	{
-		i = 0;
-		while (relpath[i] != '/' && relpath[i] != '\0')
-			i++;
-		single = ft_substr(relpath, 0, i);
-		if (single == NULL)
-			return (NULL);
-		if (strcmp(single, "..") == 0)
-		{
-			if (back_single(&target) == NULL)
-				return (NULL);
-		}
-		else if (strcmp(single, ".") != 0)
-		{
-			if (join_target_str(&target, single) == NULL)
-				return (NULL);
-		}
-		free(single);
-		if (relpath[i] == '\0')
-			break ;
-		relpath += i + 1;
-	}
-	return (target);
-}
-
-char	*make_target_path(t_env **env, char **args, int *status)
-{
-	char	*target_path;
-	char	*home_value;
-
-	if (args[0] == NULL)
-	{
-		home_value = search_env_return_its_value(*env, "HOME");
-		if (home_value == NULL)
-		{
-			ft_printf_stderr("minishell: cd: HOME not set\n");
-			*status = 1;
-			return (NULL);
-		}
-		target_path = strdup(home_value);
-	}
-	else if (args[0][0] == '/')
-		target_path = strdup(args[0]);
-	else
-		target_path = search_abspath_from_relpath(args[0]);
-	return (target_path);
-}
-
-t_env	*create_node(char *key, char *value) // list.c
+t_env	*create_node(char *key, char *value)
 {
 	t_env	*env;
 
@@ -151,7 +26,7 @@ t_env	*create_node(char *key, char *value) // list.c
 	return (env);
 }
 
-void	add_node_to_env(t_env **env, char *key, char *value) // list.c
+void	add_node_to_env(t_env **env, char *key, char *value)
 {
 	t_env	*new;
 	t_env	*last;
@@ -212,7 +87,8 @@ void	change_directory(char *path, char **args, int *status)
 			ft_printf_stderr("minishell: cd: %s : No such file or directory\n",
 				args[0]);
 		else if (errno == EACCES)
-			ft_printf_stderr("minishell: cd: %s : Perimission denied\n", args[0]);
+			ft_printf_stderr("minishell: cd: %s : Perimission denied\n",
+				args[0]);
 		else if (errno == ENOTDIR)
 			ft_printf_stderr("minishell: cd: %s : Not a directory\n", args[0]);
 		*status = 1;
@@ -241,7 +117,3 @@ int	builtin_cd(t_env **env, char **args)
 	change_env_old_new(env);
 	return (status);
 }
-
-// issue
-
-// search_env_return_its_value
