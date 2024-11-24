@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:53:24 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 18:57:22 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 21:50:41 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@
 int	is_ambiguous_dir(t_red *reds, int i, int is_child)
 {
 	ft_printf_stderr("minishell: %s: ambiguous redirect\n", reds[i].target);
+	while (i--)
+		close(reds[i].file_fd);
+	if (is_child)
+		exit(1);
+	else
+		return (0);
+}
+
+int	cause_error_open_file(t_red *reds, size_t i, int is_child)
+{
+	ft_printf_stderr("minishell: %s: %s\n", reds[i].target,
+		strerror(errno));
 	while (i--)
 		close(reds[i].file_fd);
 	if (is_child)
@@ -57,41 +69,24 @@ void	open_file(t_red *reds, size_t i, t_env *env, char *st)
 	}
 }
 
-int	cause_error_open_file(t_red *reds, size_t i, int is_child)
-{
-	ft_printf_stderr("minishell: %s: %s\n", reds[i].target,
-		strerror(errno));
-	while (i--)
-		close(reds[i].file_fd);
-	if (is_child)
-		exit(1);
-	else
-		return (0);
-}
-
-int	open_all_file(t_red *reds, int is_child, t_env *env, char *st)
+int	open_all_file(t_red *reds, int is_child, t_env *env, int status)
 {
 	size_t	i;
+	char	*str_status;
 
+	str_status = ft_itoa(status);
+	if (str_status == NULL)
+		exit(1);
 	i = 0;
 	while (reds[i].type != TAIL)
 	{
 		if (reds[i].is_ambiguous)
 			return (is_ambiguous_dir(reds, i, is_child));
-		open_file(reds, i, env, st);
+		open_file(reds, i, env, str_status);
 		if (reds[i].file_fd < 0)
-		{
 			return (cause_error_open_file(reds, i, is_child));
-			// ft_printf_stderr("minishell: %s: %s\n", reds[i].target,
-			// 	strerror(errno));
-			// while (i--)
-			// 	close(reds[i].file_fd);
-			// if (is_child)
-			// 	exit(1);
-			// else
-			// 	return (0);
-		}
 		i++;
 	}
+	free(str_status);
 	return (1);
 }
