@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 15:10:10 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:01:45 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -437,11 +437,11 @@ char	**env_to_environ(t_env *env)
 	{
 		strs[i] = ft_strjoin(env->key, "=");
 		if (strs[i] == NULL)
-			return (free_two_dimention_array(strs), NULL);
+			return (free_two_dimensional_array(strs), NULL);
 		tmp = strs[i];
 		strs[i] = ft_strjoin(strs[i], env->value);
 		if (strs[i] == NULL)
-			return (free_two_dimention_array(strs), NULL);
+			return (free_two_dimensional_array(strs), NULL);
 		free(tmp);
 		env = env->next;
 		i++;
@@ -483,7 +483,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env, int status)
 	st = ft_itoa(status);
 	if (!st)
 		exit(1);
-	if (!open_file(cmd->reds, 1, *env, st))
+	if (!open_all_file(cmd->reds, 1, *env, st))
 		exit(1);
 	free(st);
 	if (cmd->reds != NULL)
@@ -514,7 +514,7 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 	st = ft_itoa(status);
 	if (!st)
 		return (1);
-	if (!open_file(cmd->reds, is_child, *env, st))
+	if (!open_all_file(cmd->reds, is_child, *env, st))
 		return (1); // 1 ではない気がする
 	free(st);
 	if (cmd->reds != NULL)
@@ -527,7 +527,7 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 		return (builtin_pwd());
 	else if (strcmp(command_name, "echo") == 0)
 		return (builtin_echo(args));
-	if (strcmp(command_name, "env") == 0)
+	else if (strcmp(command_name, "env") == 0)
 		return (builtin_env(env, args));
 	else if (strcmp(command_name, "exit") == 0)
 		return (builtin_exit(*env, args, status, is_child));
@@ -611,7 +611,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 	char	**splited_path_env;
 	t_cmd	*cmds;
 
-	splited_path_env = get_env(*env);
+	splited_path_env = get_splited_path_env(*env);
 	cmds = init_cmds(cmd_a_s);
 	if (cmds == NULL)
 		return (1); // free
@@ -627,7 +627,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL)
 		{
 			*status = execute_builtin_cmd(env, &cmds[i], *status, 0);
-			free_two_dimention_array(splited_path_env);
+			free_two_dimensional_array(splited_path_env);
 			delete_cmd_exe(cmds);
 			free(cmds);
 			dup2(tmp_in, 0);
@@ -658,7 +658,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 		i++;
 	}
 	*status = destruct_forks(cmds, i);
-	free_two_dimention_array(splited_path_env);
+	free_two_dimensional_array(splited_path_env);
 	free(cmds);
 	return (*status); // unnecessary ?
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/24 15:21:06 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 17:35:35 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ typedef struct s_num
 }	t_num;
 
 // exe
-char		**get_env(t_env *env);
+char		**get_splited_path_env(t_env *env);
 char		*search_binary_file(char *cmd_without_op);
 char		*search_excutable_file(char *file);
 char		*join_path(char *env, char *cmd);
 char		*search_cmd(char *cmd_without_op, char **splited_path_envp);
 char		*get_path_cmd(char *cmd, char **splited_path_envp);
-void		free_two_dimention_array(char **strs);
+void		free_two_dimensional_array(char **strs);
 
 // excute
 void		excute_cmd(t_cmd *cmd, char **splited_path_env,
@@ -63,12 +63,23 @@ int			prepare_pipe(t_cmd *cmd);
 void		prepare_pipe_in_child(t_cmd *cmd);
 void		prepare_pipe_in_parent(t_cmd *cmd);
 
+// heredoc
+int			get_heredoc(char *delimiter);
+int			get_heredoc_expand(char *delimiter, t_env *env, char *st);
+void		count_expand_heredoc(size_t *word_len, const char *line, t_env *env,
+				char *st);
+void		store_expand_heredoc(char **expanded, const char *line, t_env *env,
+				char *st);
+void		read_heredoc(char *delimiter, int *pipe_fd);
+void		read_heredoc_expand(char *delimiter, int *pipe_fd, t_env *env,
+				char *st);
+char		*expand_heredoc(const char *line, t_env *env, char *st);
+
 // redirect
 int			get_heredoc(char *delimiter);
 void		do_redirect(t_red *red);
 void		set_redirects(t_red *reds);
-int			open_file(t_red *reds, int is_child, t_env *env, char *st);
-// void		open_all_file_in_cmds(t_red *reds);
+int			open_all_file(t_red *reds, int is_child, t_env *env, char *st);
 
 // itoa // for test
 char		*reverse(char *temp);

@@ -35,10 +35,11 @@ $(addsuffix .c, \
 		) \
 		$(addprefix execution/, \
 			exe \
-			init \
 			pipe \
 			excute \
 			redirect \
+			heredoc \
+			heredoc_utils \
 			ft_itoa \
 		) \
 		$(addprefix signal/, \

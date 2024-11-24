@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe.c                                              :+:      :+:    :+:   */
+/*   get_path_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 16:37:47 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/24 14:20:44 by hnakayam         ###   ########.fr       */
+/*   Created: 2024/11/24 17:47:31 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/11/24 17:47:32 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 #include "minishell.h"
 #include "builtin.h"
 #include "ft_printf_stderr.h"
-
-char	**get_env(t_env *env)
-{
-	char	*path_env;
-
-	path_env = search_env_return_its_value(env, "PATH");
-	if (path_env == NULL)
-		return (NULL);
-	return (ft_split(path_env, ':'));
-}
 
 char	*search_excutable_file(char *file)
 {
@@ -47,44 +37,6 @@ char	*search_excutable_file(char *file)
 	return (NULL);
 }
 
-char	*search_binary_file(char *cmd_without_op)
-{
-	char	*binary_file;
-
-	if (!access(cmd_without_op, F_OK))
-	{
-		if (!access(cmd_without_op, X_OK))
-		{
-			binary_file = strdup(cmd_without_op);
-			if (binary_file == NULL)
-				ft_printf_stderr("Error: %s: %s\n", "malloc", strerror(errno));
-			return (binary_file);
-		}
-		ft_printf_stderr("minishell: %s: %s\n", cmd_without_op, strerror(errno));
-		free(cmd_without_op); // can be double free ?
-		exit(126); // anything to free ?
-	}
-	ft_printf_stderr("minishell: %s: No such file of directory\n", cmd_without_op);
-	free(cmd_without_op); // can be double free ?
-	exit(127);
-	return (NULL);
-}
-
-char	*join_path(char *env, char *cmd)
-{
-	char	*tmp;
-	char	*res;
-
-	tmp = ft_strjoin(env, "/");
-	if (tmp == NULL)
-		exit(1);
-	res = ft_strjoin(tmp, cmd);
-	free(tmp);
-	if (res == NULL)
-		exit(1);
-	return (res);
-}
-
 char	*search_cmd(char *cmd_without_op, char **splited_path_envp)
 {
 	char	*path_cmd;
@@ -103,7 +55,7 @@ char	*search_cmd(char *cmd_without_op, char **splited_path_envp)
 				return (path_cmd);
 			}
 			ft_printf_stderr("minishell: %s: %s\n", path_cmd, strerror(errno));
-			free(cmd_without_op); // can be double free ?
+			free(cmd_without_op);
 			free(path_cmd);
 			exit(126);
 		}
@@ -123,25 +75,8 @@ char	*get_path_cmd(char *cmd, char **splited_path_envp)
 	if (path_cmd == NULL)
 	{
 		ft_printf_stderr("%s: command not found\n", cmd);
-		free(cmd); // can be double free ?
+		free(cmd);
 		exit(127);
 	}
-	// free(cmd);
 	return (path_cmd);
-}
-
-void	free_two_dimention_array(char **strs)
-{
-	int	i;
-
-	i = 0;
-	if (strs != NULL)
-	{
-		while (strs[i])
-		{
-			free(strs[i]);
-			i++;
-		}
-		free(strs);
-	}
 }
