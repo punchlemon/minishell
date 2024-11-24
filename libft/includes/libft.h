@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:17:04 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/19 13:11:09 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:25:50 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include "ft_printf.h"
+# include "ft_printf_stderr.h"
 # include <unistd.h>
 
 // functions

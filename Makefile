@@ -39,7 +39,6 @@ $(addsuffix .c, \
 			pipe \
 			excute \
 			redirect \
-			error \
 			ft_itoa \
 		) \
 		$(addprefix signal/, \

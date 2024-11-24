@@ -8,7 +8,7 @@ int	builtin_env(t_env **env, char **args)
 	top = *env;
 	if (args[0] != NULL)
 	{
-		write(2, "Syntax Error\n", 13);
+		ft_printf_stderr("Syntax Error\n");
 		return (1);
 	}
 	while (top)

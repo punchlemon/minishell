@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/23 21:25:13 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:20:18 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -468,7 +468,7 @@ void	check_is_file(char *path_cmd, char *cmd)
 	}
 	if (st.st_mode & S_IFDIR && !(st.st_mode & S_IFREG))
 	{
-		ft_printf_stderr("bash: %s: Is a directory\n", cmd);
+		ft_printf_stderr("minishell: %s: Is a directory\n", cmd);
 		exit(126);
 	}
 }
@@ -499,7 +499,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env, int status)
 	if (environ == NULL)
 		exit(1);
 	execve(path_cmd, cmd->words, environ);
-	write(2, "Error : execve\n", strlen("Error : execve\n"));
+	ft_printf_stderr("Error : execve\n");
 	exit(1);
 }
 
@@ -641,7 +641,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 		cmds[i].pid = fork();
 		if (cmds[i].pid < 0)
 		{
-			operation_error("fork");
+			ft_printf_stderr("Error: %s: %s\n", "fork", strerror(errno));
 			break ;
 		}
 		else if (cmds[i].pid == 0 && is_builtin(cmds[i].words[0]))

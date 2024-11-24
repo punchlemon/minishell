@@ -122,7 +122,7 @@ int	set_key_value(t_env **env, char *key, char *value)
 
 	if (!is_valid_key(key))
 	{
-		write(2, "Invalid key\n", 12);
+		ft_printf_stderr("minishell: export: %s: not a valid identifier\n");
 		return (1);
 	}
 	new = _make_new_node(key, value);

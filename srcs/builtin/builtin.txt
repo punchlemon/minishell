@@ -119,7 +119,7 @@ case // ok
 	-> exit status should be 1
 case // ok
 	exit a | exit 1
-		出力がbashと違う
+		出力がminishellと違う
 case
 	mkdir test1
 	cd test1
