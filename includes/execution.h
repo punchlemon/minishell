@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/24 17:35:35 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:08:11 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_num
 	int	pipe_out[2];
 }	t_num;
 
-// exe
+// get_path_cmd
 char		**get_splited_path_env(t_env *env);
 char		*search_binary_file(char *cmd_without_op);
 char		*search_excutable_file(char *file);
@@ -54,9 +54,6 @@ int			exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status);
 int			execute_builtin_cmd(t_env **env, t_cmd *cmd, int status,
 				int is_child);
 int			is_builtin(char *cmd);
-
-// init
-// void		init_conds(t_cond *conds);
 
 // pipe
 int			prepare_pipe(t_cmd *cmd);
@@ -76,9 +73,10 @@ void		read_heredoc_expand(char *delimiter, int *pipe_fd, t_env *env,
 char		*expand_heredoc(const char *line, t_env *env, char *st);
 
 // redirect
-int			get_heredoc(char *delimiter);
 void		do_redirect(t_red *red);
 void		set_redirects(t_red *reds);
+int			is_ambiguous_dir(t_red *reds, int i, int is_child);
+void		open_file(t_red *reds, size_t i, t_env *env, char *st);
 int			open_all_file(t_red *reds, int is_child, t_env *env, char *st);
 
 // itoa // for test

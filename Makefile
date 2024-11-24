@@ -34,12 +34,13 @@ $(addsuffix .c, \
 			type_is \
 		) \
 		$(addprefix execution/, \
-			exe \
 			pipe \
 			excute \
 			redirect \
 			heredoc \
 			heredoc_utils \
+			get_path_cmd \
+			get_path_cmd_utils \
 			ft_itoa \
 		) \
 		$(addprefix signal/, \

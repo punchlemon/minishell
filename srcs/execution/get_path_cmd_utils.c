@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 17:42:27 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 17:45:13 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:11:15 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "builtin.h"
 #include "ft_printf_stderr.h"
 
-void	free_two_dimention_array(char **strs)
+void	free_two_dimensional_array(char **strs)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ void	free_two_dimention_array(char **strs)
 	}
 }
 
-char	**get_env(t_env *env)
+char	**get_splited_path_env(t_env *env)
 {
 	char	*path_env;
 
