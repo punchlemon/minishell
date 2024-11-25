@@ -133,6 +133,7 @@ val:
 	@valgrind $(VFLAGS) ./$(NAME) 2> $(VALGRIND_LOG)
 
 norm:
+	@$(call check_norminette, $(LIBFT_DIR))
 	@$(call check_norminette, $(SRCS_DIR))
 	@$(call check_norminette, $(INCLUDES_DIR))
 

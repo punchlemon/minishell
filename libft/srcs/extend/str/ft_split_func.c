@@ -6,13 +6,14 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:59:38 by retanaka          #+#    #+#             */
-/*   Updated: 2024/10/09 18:31:26 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:58:17 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-static void	ft_count_words(size_t *word_count, const char *src, int (*f)(const char c))
+static void	ft_count_words(size_t *word_count, const char *src,
+	int (*f)(const char c))
 {
 	size_t	i;
 
@@ -29,7 +30,8 @@ static void	ft_count_words(size_t *word_count, const char *src, int (*f)(const c
 	}
 }
 
-static void	ft_count_word_lengths(size_t *word_lengths, const char *src, int (*f)(const char c))
+static void	ft_count_word_lengths(size_t *word_lengths, const char *src,
+	int (*f)(const char c))
 {
 	size_t	i;
 	size_t	j;
