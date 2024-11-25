@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/25 15:11:52 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/25 19:45:20 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,39 @@
 #include "ft_printf_stderr.h"
 #include "sig.h"
 
-static void	execute(t_cond *conds, t_env **env, int *status)
+volatile sig_atomic_t	g_signal;
+
+static void	execute(char *line, t_env **env, int *status)
 {
+	t_cond	*conds;
 	size_t	i;
 
-	i = 0;
-	while (conds[i].type != TAIL)
+	add_history(line);
+	set_exec_handler(false);
+	conds = analysis(line);
+	if (conds)
 	{
-		if (conds[i].type == HEAD)
+		if (g_signal == SIGINT)
+			*status = 130;
+		i = 0;
+		while (conds[i].type != TAIL)
 		{
-			*status = exe_cmds(conds[i].cmds, env, status);
-		}
-		else if (conds[i].type == AND_IF)
-		{
-			if (!(*status))
+			if (conds[i].type == HEAD)
 				*status = exe_cmds(conds[i].cmds, env, status);
-		}
-		else
-		{
-			if (status)
+			else if (conds[i].type == AND_IF && !(*status))
 				*status = exe_cmds(conds[i].cmds, env, status);
+			else if (*status)
+				*status = exe_cmds(conds[i].cmds, env, status);
+			i++;
 		}
-		i++;
+		delete_conds(conds);
 	}
-	delete_conds(conds);
+	g_signal = 0;
 }
 
 int	main(int argc, char **argv, char **environ)
 {
 	char	*line;
-	t_cond	*conds;
 	t_env	*env;
 	int		status;
 
@@ -60,13 +63,7 @@ int	main(int argc, char **argv, char **environ)
 		if (line == NULL)
 			return (ft_printf_stderr("exit\n"), exit(status), 0);
 		if (*line)
-		{
-			add_history(line);
-			set_exec_handler(false);
-			conds = analysis(line);
-			if (conds)
-				execute(conds, &env, &status);
-		}
+			execute(line, &env, &status);
 		free(line);
 	}
 }
