@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:27:46 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 15:40:43 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:44:35 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	add_node_to_env(t_env **env, char *key, char *value)
 
 	if (value == NULL)
 	{
-		new = create_node(strdup(key), NULL);
+		new = create_node(ft_strdup(key), NULL);
 		if (new->key == NULL)
 			malloc_error_exit();
 	}
 	else
 	{
-		new = create_node(strdup(key), strdup(value));
+		new = create_node(ft_strdup(key), ft_strdup(value));
 		if (new->key == NULL || new->value == NULL)
 			malloc_error_exit();
 	}
@@ -65,7 +65,7 @@ void	change_env_old_new(t_env **env)
 		save = NULL;
 	else
 	{
-		save = strdup(path);
+		save = ft_strdup(path);
 		if (save == NULL)
 			malloc_error_exit();
 	}
