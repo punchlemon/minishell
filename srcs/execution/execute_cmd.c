@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:14 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 21:51:43 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:04:20 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,23 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env, int status)
 	execve(path_cmd, cmd->words, environ);
 	ft_printf_stderr("Error : execve\n");
 	exit(1);
+}
+
+int	execute_builtin_in_parent(t_cmd *cmds, t_env **env, int *status, char **splited_path_env)
+{
+	int	tmp_in;
+	int	tmp_out;
+	tmp_in = dup(0);
+	tmp_out = dup(1);
+	*status = execute_builtin_cmd(env, &cmds[0], *status, 0);
+	free_two_dimensional_array(splited_path_env);
+	delete_cmd_exe(cmds);
+	free(cmds);
+	dup2(tmp_in, 0);
+	dup2(tmp_out, 1);
+	close(tmp_in);
+	close(tmp_out);
+	return (*status);
 }
 
 int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
