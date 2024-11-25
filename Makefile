@@ -36,6 +36,9 @@ $(addsuffix .c, \
 		) \
 		$(addprefix execution/, \
 			count_cmd \
+			store_cmd \
+			count_word \
+			store_word \
 			create_heredoc \
 			get_value \
 			expand_cmd \
