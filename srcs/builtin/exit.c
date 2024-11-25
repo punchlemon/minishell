@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:23:11 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 16:50:44 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:38:07 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	is_numeric(int argc, char **args, int status, int is_child)
 			exit(2);
 		}
 		else
-			exit(atol(args[0]) % 256);
+			exit(ft_atoi(args[0]) % 256);
 	}
 }
 

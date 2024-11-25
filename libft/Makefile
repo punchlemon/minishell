@@ -56,11 +56,13 @@ $(addsuffix .c, \
 			$(addprefix str/, \
 				ft_split \
 				ft_strchr \
+				ft_strrchr \
 				ft_strjoin \
 				ft_strlen \
 				ft_strncmp \
 				ft_substr \
 				ft_strdup \
+				ft_atoi \
 			) \
 		) \
 	) \

@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:27:19 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 16:45:03 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:47:27 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ t_env	*make_new_node(char *line)
 	node = ft_xcalloc(sizeof(t_env));
 	if (node == NULL)
 		malloc_error_exit();
-	if (strchr(line, '='))
+	if (ft_strchr(line, '='))
 	{
-		key = strndup(line, ((size_t)(strchr(line, '=')) - (size_t)line));
+		key = ft_substr(line, 0, (ft_strchr(line, '=') - line));
 		node->key = key;
-		value = ft_strdup(strchr(line, '=') + 1);
+		value = ft_strdup(ft_strchr(line, '=') + 1);
 		if (value == NULL)
 			malloc_error_exit();
 		node->value = value;

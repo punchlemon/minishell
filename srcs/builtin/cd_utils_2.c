@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:30:54 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 16:44:06 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:49:38 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ char	**back_single(char **target)
 	char	*tmp;
 
 	tmp = *target;
-	len = strrchr(*target, '/') - *target;
+	len = ft_strrchr(*target, '/') - *target;
 	if (len != 0)
 	{
-		*target = strndup(*target, len);
+		*target = ft_substr(*target, 0, len);
 		free(tmp);
 		if (target == NULL)
 			return (NULL);

@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:23:05 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 16:41:19 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:01:46 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	split_into_key_value(char **line, char **key, char **value, int *flag)
 {
 	char	*key_end;
 
-	key_end = strchr(*line, '=');
+	key_end = ft_strchr(*line, '=');
 	*flag = 0;
 	if (key_end == NULL)
 	{
