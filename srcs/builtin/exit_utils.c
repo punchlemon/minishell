@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:27:38 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 16:28:17 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:50:23 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	is_num(char *str)
 		str++;
 	if (*str == '+' || *str == '-')
 		str++;
-	if (!isdigit(*str))
+	if (!ft_isdigit(*str))
 		return (0);
 	str++;
-	while (isdigit(*str))
+	while (ft_isdigit(*str))
 		str++;
 	while (*str)
 	{

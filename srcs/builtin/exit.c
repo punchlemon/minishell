@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:23:11 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 16:28:15 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:50:44 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_overflow(char *str)
 		str++;
 	if (*str == '+' || *str == '-')
 		str++;
-	while (isdigit(*str))
+	while (ft_isdigit(*str))
 	{
 		prev = num;
 		num = num * 10 + (*str - '0');
