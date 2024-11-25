@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 14:04:06 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:47:41 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,29 +95,30 @@ int	_execute_cmd(t_cmd *cmd, t_env **env, int status, char **splited_path_env)
 	return (1);
 }
 
-int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
+int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *st_p)
 {
 	size_t	i;
-	char	**splited_path_env;
+	char	**s_path_env;
 	t_cmd	*cmds;
 
-	splited_path_env = get_splited_path_env(*env);
+	s_path_env = get_splited_path_env(*env);
 	cmds = init_cmds(cmd_a_s);
 	i = 0;
 	while (cmds[i].type != TAIL)
 	{
 		if (prepare_pipe(&cmds[i]))
 			break ;
-		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns, *env, *status))
+		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns, *env, *st_p))
 			return (0);
 		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL)
-			return (execute_builtin_in_parent(cmds, env, status, splited_path_env));
-		if (!_execute_cmd(&cmds[i], env, *status, splited_path_env))
+			return (execute_builtin_in_parent(cmds, env, st_p, s_path_env));
+		if (!_execute_cmd(&cmds[i], env, *st_p, s_path_env))
 			break ;
 		i++;
 	}
-	*status = destruct_forks(cmds, i);
-	free_two_dimensional_array(splited_path_env);
+	*st_p = destruct_forks(cmds, i);
+	free_two_dimensional_array(s_path_env);
+	delete_cmd_exe(cmds);
 	free(cmds);
-	return (*status);
+	return (*st_p);
 }

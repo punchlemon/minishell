@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 12:58:34 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 16:19:47 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:43:32 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "minishell.h"
 
 # include "errno.h"
+
+int		execute_builtin_in_parent(t_cmd *cmds, t_env **env, int *status,
+			char **splited_path_env);
 
 // cd command
 int		builtin_cd(t_env **env, char **args);

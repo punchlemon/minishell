@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path_cmd_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 17:42:27 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 18:11:15 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:44:06 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char	*search_binary_file(char *cmd_without_op)
 				ft_printf_stderr("Error: %s: %s\n", "malloc", strerror(errno));
 			return (binary_file);
 		}
-		ft_printf_stderr("minishell: %s: %s\n", cmd_without_op, strerror(errno));
+		ft_printf_stderr("minishell: %s: %s\n", cmd_without_op,
+			strerror(errno));
 		free(cmd_without_op);
 		exit(126);
 	}

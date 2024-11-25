@@ -31,11 +31,15 @@ $(addsuffix .c, \
 			analysis \
 			checker \
 			print \
+			print_tkns \
 			type_is \
 		) \
 		$(addprefix execution/, \
+			count_cmd \
+			create_heredoc \
+			get_value \
+			expand_cmd \
 			pipe \
-			excute \
 			execute_cmd \
 			execute_cmds \
 			execute_utils \
