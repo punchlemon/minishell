@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
+/*   export_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:22:57 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 16:22:58 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:52:31 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 
 int	is_alpha_under(char c)
 {
-	if (isalpha(c) || c == '_')
+	if (ft_isalpha(c) || c == '_')
 		return (1);
 	return (0);
 }
 
 int	is_alpha_num_under(char c)
 {
-	if (isalpha(c) || isdigit(c) || c == '_')
+	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
 		return (1);
 	return (0);
 }

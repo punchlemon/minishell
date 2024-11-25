@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:22:44 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 16:22:48 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:44:50 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	set_env(t_env *env, char *key, char *value)
 {
 	while (env != NULL)
 	{
-		if (strcmp(env->key, key) == 0)
+		if (ft_strcmp(env->key, key) == 0)
 		{
 			if (env->value == NULL)
 				return ;
 			free(env->value);
-			env->value = strdup(value);
+			env->value = ft_strdup(value);
 			return ;
 		}
 		env = env->next;

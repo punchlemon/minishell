@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:30:54 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 16:22:17 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:44:06 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**back_single(char **target)
 	else
 	{
 		free(tmp);
-		*target = strdup("/");
+		*target = ft_strdup("/");
 	}
 	return (target);
 }
@@ -43,12 +43,12 @@ int	search_abspath_from_relpath_2(char *relpath, char **target, size_t i)
 	single = ft_substr(relpath, 0, i);
 	if (single == NULL)
 		return (0);
-	if (strcmp(single, "..") == 0)
+	if (ft_strcmp(single, "..") == 0)
 	{
 		if (back_single(target) == NULL)
 			return (0);
 	}
-	else if (strcmp(single, ".") != 0)
+	else if (ft_strcmp(single, ".") != 0)
 	{
 		if (join_target_str(target, single) == NULL)
 			return (0);
@@ -91,10 +91,10 @@ char	*make_target_path(t_env **env, char **args, int *status)
 			*status = 1;
 			return (NULL);
 		}
-		target_path = strdup(home_value);
+		target_path = ft_strdup(home_value);
 	}
 	else if (args[0][0] == '/')
-		target_path = strdup(args[0]);
+		target_path = ft_strdup(args[0]);
 	else
 		target_path = search_abspath_from_relpath(args[0]);
 	ft_printf_stderr("target path = %s\n", target_path);

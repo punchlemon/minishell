@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:14 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 15:15:03 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:40:14 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_is_file(char *path_cmd, char *cmd)
 {
 	struct stat		st;
 
-	if (strcmp(cmd, "") == 0)
+	if (ft_strcmp(cmd, "") == 0)
 	{
 		ft_printf_stderr("Command '' not found\n");
 		exit(127);
@@ -91,19 +91,19 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	command_name = cmd->words[0];
-	if (strcmp(command_name, "cd") == 0)
+	if (ft_strcmp(command_name, "cd") == 0)
 		return (builtin_cd(env, &cmd->words[1]));
-	else if (strcmp(command_name, "pwd") == 0)
+	else if (ft_strcmp(command_name, "pwd") == 0)
 		return (builtin_pwd());
-	else if (strcmp(command_name, "echo") == 0)
+	else if (ft_strcmp(command_name, "echo") == 0)
 		return (builtin_echo(&cmd->words[1]));
-	else if (strcmp(command_name, "env") == 0)
+	else if (ft_strcmp(command_name, "env") == 0)
 		return (builtin_env(env, &cmd->words[1]));
-	else if (strcmp(command_name, "exit") == 0)
+	else if (ft_strcmp(command_name, "exit") == 0)
 		return (builtin_exit(*env, &cmd->words[1], status, is_child));
-	else if (strcmp(command_name, "export") == 0)
+	else if (ft_strcmp(command_name, "export") == 0)
 		return (builtin_export(env, &cmd->words[1]));
-	else if (strcmp(command_name, "unset") == 0)
+	else if (ft_strcmp(command_name, "unset") == 0)
 		return (builtin_unset(env, &cmd->words[1]));
 	return (1);
 }

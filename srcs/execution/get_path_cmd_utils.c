@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path_cmd_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 17:42:27 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 14:44:06 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:45:10 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*search_binary_file(char *cmd_without_op)
 	{
 		if (!access(cmd_without_op, X_OK))
 		{
-			binary_file = strdup(cmd_without_op);
+			binary_file = ft_strdup(cmd_without_op);
 			if (binary_file == NULL)
 				ft_printf_stderr("Error: %s: %s\n", "malloc", strerror(errno));
 			return (binary_file);

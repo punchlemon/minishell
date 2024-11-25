@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:23:05 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 16:33:49 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:41:19 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	change_value(t_env *env, char *key, char *value, int flag)
 
 	while (env)
 	{
-		if (strcmp(env->key, key) == 0)
+		if (ft_strcmp(env->key, key) == 0)
 			break ;
 		env = env->next;
 	}
