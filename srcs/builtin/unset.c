@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/24 15:26:24 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/11/25 16:41:46 by hnakayam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "builtin.h"
 
@@ -5,7 +17,7 @@ t_env	*search_same_key(t_env *env, char *key)
 {
 	while (env)
 	{
-		if (!strcmp(env->key, key))
+		if (!ft_strcmp(env->key, key))
 			return (env);
 		env = env->next;
 	}

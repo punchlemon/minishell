@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/23 21:42:01 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:11:52 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ int	main(int argc, char **argv, char **environ)
 		set_idle_handler();
 		line = readline("\033[32mminishell\033[33m$\033[0m ");
 		if (line == NULL)
-		{
-			ft_printf_stderr("exit\n");
-			exit(status);
-		}
+			return (ft_printf_stderr("exit\n"), exit(status), 0);
 		if (*line)
 		{
 			add_history(line);

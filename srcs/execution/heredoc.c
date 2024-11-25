@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 14:16:40 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 18:54:09 by hnakayam         ###   ########.fr       */
+/*   Created: 2024/11/24 16:45:01 by hnakayam          #+#    #+#             */
+/*   Updated: 2024/11/24 17:19:14 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,30 @@
 #include "ft_printf_stderr.h"
 #include "libft.h"
 
-void	do_redirect(t_red *red)
+int	get_heredoc(char *delimiter)
 {
-	if (red->file_fd != -1 && red->std_target_fd != -1)
+	int		pipe_fds[2];
+
+	if (pipe(pipe_fds) < 0)
 	{
-		if (dup2(red->file_fd, red->std_target_fd) < 0)
-		{
-			ft_printf_stderr("Error : dup2\n");
-			exit(1);
-		}
+		ft_printf_stderr("Error : pipe\n");
+		exit(1);
 	}
-	if (red->file_fd != -1)
-		close(red->file_fd);
+	read_heredoc(delimiter, pipe_fds);
+	close(pipe_fds[1]);
+	return (pipe_fds[0]);
 }
 
-void	set_redirects(t_red *reds)
+int	get_heredoc_expand(char *delimiter, t_env *env, char *st)
 {
-	size_t	i;
+	int		pipe_fds[2];
 
-	i = 0;
-	while (reds[i].type != TAIL)
+	if (pipe(pipe_fds) < 0)
 	{
-		do_redirect(&reds[i]);
-		i++;
+		ft_printf_stderr("Error : pipe\n");
+		exit(1);
 	}
+	read_heredoc_expand(delimiter, pipe_fds, env, st);
+	close(pipe_fds[1]);
+	return (pipe_fds[0]);
 }

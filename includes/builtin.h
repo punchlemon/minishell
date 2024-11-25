@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 12:58:34 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/21 17:38:08 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:43:32 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@
 
 # include "errno.h"
 
+int		execute_builtin_in_parent(t_cmd *cmds, t_env **env, int *status,
+			char **splited_path_env);
+
 // cd command
 int		builtin_cd(t_env **env, char **args);
 char	*search_abspath_from_relpath(char *relpath);
+int		search_abspath_from_relpath_2(char *relpath, char **target, size_t i);
 char	*ft_getcwd(void);
 char	*search_env_return_its_value(t_env *env, char *key);
-// char	*ft_strjoin(char const *s1, char const *s2);
-// char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**join_target_str(char **target, char *single);
 char	**back_single(char **target);
 char	*make_target_path(t_env **env, char **args, int *status);

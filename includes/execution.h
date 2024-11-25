@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/24 14:22:59 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/24 21:51:00 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,38 +38,77 @@ typedef struct s_num
 	int	pipe_out[2];
 }	t_num;
 
-// exe
-// void		exe(char **srcs, char **environ, int *status);
-// char		*ft_strchr(const char *s, int c);
-// char		*ft_strjoin(char *s1, char *s2);
-char		**get_env(t_env *env);
+// get_path_cmd
+char		**get_splited_path_env(t_env *env);
 char		*search_binary_file(char *cmd_without_op);
 char		*search_excutable_file(char *file);
 char		*join_path(char *env, char *cmd);
 char		*search_cmd(char *cmd_without_op, char **splited_path_envp);
 char		*get_path_cmd(char *cmd, char **splited_path_envp);
-void		free_two_dimention_array(char **strs);
+void		free_two_dimensional_array(char **strs);
 
-// excute
-void		excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env, int status);
-int			exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status);
-int			execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child);
+// execute_cmds
 int			is_builtin(char *cmd);
+int			destruct_forks(t_cmd *cmds, size_t len);
+t_cmd		*init_cmds(t_cmd_a *cmd_a_s);
+int			exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status);
 
-// init
-// void		init_conds(t_cond *conds);
+// execute_cmds
+int			execute_builtin_cmd(t_env **env, t_cmd *cmd, int status,
+				int is_child);
+void		excute_cmd(t_cmd *cmd, char **splited_path_env,
+				t_env **env, int status);
+void		check_is_file(char *path_cmd, char *cmd);
+
+// expand
+void		delete_cmd_exe(t_cmd *cmd);
+size_t		count_tkns_for_word(t_tkn *tkns);
+void		count_cmd(size_t *words_len, size_t *reds_len, t_tkn *tkns);
+int			ft_is_charactor(char c);
+size_t		charactors_len(const char *src);
+size_t		check_valiable(const char *src);
+char		*get_value(const char *src, t_env *env, char *st);
+void		count_word_in_a_tkn(t_tkn *tkn, size_t *word_len, t_env *env,
+				char *st);
+size_t		count_word(t_tkn *tkns, t_env *env, char *st);
+void		store_word_in_a_tkn(char *dst, t_tkn *tkn, t_env *env, char *st);
+void		store_word(char *dst, t_tkn *tkns, t_env *env, char *st);
+int			create_word(char **pp, t_tkn *tkns, t_env *env, char *st);
+int			is_env_variable(const char *head, const char *tail);
+size_t		count_heredoc(t_tkn *tkns, size_t t_len);
+size_t		store_heredoc(t_red *red, t_tkn *tkns, size_t t_len);
+int			create_heredoc(t_red *red, t_tkn *tkns);
+int			store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st);
+t_cmd		*expand_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, int status);
+
+// execute_utils
+size_t		count_env_len(t_env *env);
+char		**env_to_environ(t_env *env);
 
 // pipe
 int			prepare_pipe(t_cmd *cmd);
 void		prepare_pipe_in_child(t_cmd *cmd);
 void		prepare_pipe_in_parent(t_cmd *cmd);
 
-// redirect
+// heredoc
 int			get_heredoc(char *delimiter);
+int			get_heredoc_expand(char *delimiter, t_env *env, char *st);
+void		count_expand_heredoc(size_t *word_len, const char *line, t_env *env,
+				char *st);
+void		store_expand_heredoc(char **expanded, const char *line, t_env *env,
+				char *st);
+void		read_heredoc(char *delimiter, int *pipe_fd);
+void		read_heredoc_expand(char *delimiter, int *pipe_fd, t_env *env,
+				char *st);
+char		*expand_heredoc(const char *line, t_env *env, char *st);
+
+// redirect
 void		do_redirect(t_red *red);
 void		set_redirects(t_red *reds);
-int			open_file(t_red *reds, int is_child, t_env *env, char *st);
-// void		open_all_file_in_cmds(t_red *reds);
+int			is_ambiguous_dir(t_red *reds, int i, int is_child);
+int			cause_error_open_file(t_red *reds, size_t i, int is_child);
+void		open_file(t_red *reds, size_t i, t_env *env, char *st);
+int			open_all_file(t_red *reds, int is_child, t_env *env, int status);
 
 // itoa // for test
 char		*reverse(char *temp);
@@ -78,7 +117,7 @@ char		*check1_zero_intmin(int n);
 char		*ft_itoa(int n);
 
 // expand
-size_t	check_valiable(const char *src);
-char	*get_value(const char *src, t_env *env, char *st);
+size_t		check_valiable(const char *src);
+char		*get_value(const char *src, t_env *env, char *st);
 
 #endif

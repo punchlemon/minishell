@@ -31,14 +31,27 @@ $(addsuffix .c, \
 			analysis \
 			checker \
 			print \
+			print_tkns \
 			type_is \
 		) \
 		$(addprefix execution/, \
-			exe \
-			init \
+			count_cmd \
+			store_cmd \
+			count_word \
+			store_word \
+			create_heredoc \
+			get_value \
+			expand_cmd \
 			pipe \
-			excute \
+			execute_cmd \
+			execute_cmds \
+			execute_utils \
 			redirect \
+			heredoc \
+			heredoc_utils \
+			get_path_cmd \
+			get_path_cmd_utils \
+			open_file \
 			ft_itoa \
 		) \
 		$(addprefix signal/, \
@@ -47,11 +60,15 @@ $(addsuffix .c, \
 		) \
 		$(addprefix builtin/, \
 			cd \
+			cd_utils_1 \
+			cd_utils_2 \
 			echo \
 			env \
 			exit \
-			export_utils \
+			exit_utils \
 			export \
+			export_utils_1 \
+			export_utils_2 \
 			list_utils \
 			list \
 			pwd \
@@ -116,6 +133,7 @@ val:
 	@valgrind $(VFLAGS) ./$(NAME) 2> $(VALGRIND_LOG)
 
 norm:
+	@$(call check_norminette, $(LIBFT_DIR))
 	@$(call check_norminette, $(SRCS_DIR))
 	@$(call check_norminette, $(INCLUDES_DIR))
 
