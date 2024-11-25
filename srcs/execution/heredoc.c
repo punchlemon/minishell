@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:45:01 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 17:19:14 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:32:44 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "get_next_line.h"
 #include "ft_printf.h"
 #include "ft_printf_stderr.h"
+#include "sig.h"
 #include "libft.h"
 
 int	get_heredoc(char *delimiter)

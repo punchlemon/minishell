@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 16:38:58 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/23 19:37:16 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:01:03 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,17 @@ void	set_exec_child_handler(void)
 	sig.sa_flags = 0;
 	sig.sa_handler = SIG_DFL;
 	sigaction(SIGINT, &sig, NULL);
+	sigaction(SIGQUIT, &sig, NULL);
+}
+
+void	set_heredoc_handler(void)
+{
+	struct sigaction	sig;
+
+	sigemptyset(&sig.sa_mask);
+	sig.sa_flags = 0;
+	sig.sa_handler = heredoc_handler;
+	sigaction(SIGINT, &sig, NULL);
+	sig.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sig, NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:50:24 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 16:42:39 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 21:07:46 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,24 @@ void	store_expand_heredoc(char **expanded, const char *line, t_env *env,
 void	read_heredoc(char *delimiter, int *pipe_fd)
 {
 	char	*line;
+	size_t	i;
 
+	i = 0;
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
-			break ;
-		if (ft_strcmp(line, delimiter) == 0)
 		{
-			free(line);
+			ft_printf_stderr("minishell: warning: here-document at line %d", i);
+			ft_printf_stderr(" delimited by end-of-file");
+			ft_printf_stderr(" (wanted `%s')\n", delimiter);
 			break ;
 		}
+		if (ft_strcmp(line, delimiter) == 0)
+			return (free(line), (void)0);
 		ft_putendl_fd(line, pipe_fd[1]);
 		free(line);
+		i++;
 	}
 }
 
@@ -93,21 +98,25 @@ void	read_heredoc_expand(char *delimiter, int *pipe_fd, t_env *env, char *st)
 {
 	char	*line;
 	char	*expanded;
+	size_t	i;
 
+	i = 0;
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
-			break ;
-		if (ft_strcmp(line, delimiter) == 0)
 		{
-			free(line);
+			ft_printf_stderr("minishell: warning: here-document delimited by");
+			ft_printf_stderr(" end-of-file (wanted `%s')\n", delimiter);
 			break ;
 		}
+		if (ft_strcmp(line, delimiter) == 0)
+			return (free(line), (void)0);
 		expanded = expand_heredoc(line, env, st);
 		ft_putendl_fd(expanded, pipe_fd[1]);
 		free(expanded);
 		free(line);
+		i++;
 	}
 }
 
