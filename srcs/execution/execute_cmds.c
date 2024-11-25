@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 15:47:41 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:42:16 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	is_builtin(char *cmd)
 {
 	if (cmd == NULL)
 		return (0);
-	if (strcmp(cmd, "cd") == 0 || strcmp(cmd, "echo") == 0 || \
-		strcmp(cmd, "env") == 0 || strcmp(cmd, "exit") == 0 || \
-		strcmp(cmd, "export") == 0 || strcmp(cmd, "pwd") == 0 || \
-		strcmp(cmd, "unset") == 0)
+	if (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "echo") == 0 || \
+		ft_strcmp(cmd, "env") == 0 || ft_strcmp(cmd, "exit") == 0 || \
+		ft_strcmp(cmd, "export") == 0 || ft_strcmp(cmd, "pwd") == 0 || \
+		ft_strcmp(cmd, "unset") == 0)
 	{
 		return (1);
 	}

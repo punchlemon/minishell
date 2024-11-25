@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:50:24 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 17:22:43 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:42:39 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	read_heredoc(char *delimiter, int *pipe_fd)
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (strcmp(line, delimiter) == 0)
+		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
 			break ;
@@ -99,7 +99,7 @@ void	read_heredoc_expand(char *delimiter, int *pipe_fd, t_env *env, char *st)
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (strcmp(line, delimiter) == 0)
+		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
 			break ;

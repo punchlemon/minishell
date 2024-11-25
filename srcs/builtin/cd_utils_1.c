@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:29:55 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 16:22:27 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:40:45 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*search_env_return_its_value(t_env *env, char *key)
 {
 	while (env != NULL)
 	{
-		if (strcmp(env->key, key) == 0)
+		if (ft_strcmp(env->key, key) == 0)
 			return (env->value);
 		env = env->next;
 	}
@@ -31,7 +31,7 @@ t_env	*ft_getenv(t_env *env, char *key)
 		return (NULL);
 	while (env != NULL)
 	{
-		if (strcmp(env->key, key) != 0)
+		if (ft_strcmp(env->key, key) != 0)
 			return (env);
 		env = env->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:30:54 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/24 16:22:17 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:43:20 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int	search_abspath_from_relpath_2(char *relpath, char **target, size_t i)
 	single = ft_substr(relpath, 0, i);
 	if (single == NULL)
 		return (0);
-	if (strcmp(single, "..") == 0)
+	if (ft_strcmp(single, "..") == 0)
 	{
 		if (back_single(target) == NULL)
 			return (0);
 	}
-	else if (strcmp(single, ".") != 0)
+	else if (ft_strcmp(single, ".") != 0)
 	{
 		if (join_target_str(target, single) == NULL)
 			return (0);
