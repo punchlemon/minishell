@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:09:54 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/25 16:56:17 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:23:36 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st)
 		if (type_is_red(tkns[t_i].type))
 		{
 			cmd->reds[r_i].type = tkns[t_i++].type;
-			if (store_red(&(cmd->reds[r_i++]), &tkns[t_i], env, st))
+			if (!store_red(&(cmd->reds[r_i++]), &tkns[t_i], env, st))
 				return (cmd->reds[--r_i].type = TAIL, delete_cmd_exe(cmd), 0);
 		}
 		else if (!is_env_variable(tkns[t_i].head, tkns[t_i].tail)
