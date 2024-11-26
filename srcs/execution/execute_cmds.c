@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 16:42:16 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/25 23:09:22 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_cmd	*init_cmds(t_cmd_a *cmd_a_s)
 	return (cmds);
 }
 
-int	_execute_cmd(t_cmd *cmd, t_env **env, int status, char **splited_path_env)
+int	_execute_cmd(t_cmd *cmd, t_env **env, int *status, char **splited_path_env)
 {
 	cmd->pid = fork();
 	if (cmd->pid < 0)
@@ -95,7 +95,7 @@ int	_execute_cmd(t_cmd *cmd, t_env **env, int status, char **splited_path_env)
 	return (1);
 }
 
-int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *st_p)
+int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 {
 	size_t	i;
 	char	**s_path_env;
@@ -108,17 +108,17 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *st_p)
 	{
 		if (prepare_pipe(&cmds[i]))
 			break ;
-		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns, *env, *st_p))
+		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns, *env, *status))
 			return (0);
 		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL)
-			return (execute_builtin_in_parent(cmds, env, st_p, s_path_env));
-		if (!_execute_cmd(&cmds[i], env, *st_p, s_path_env))
+			return (execute_builtin_in_parent(cmds, env, status, s_path_env));
+		if (!_execute_cmd(&cmds[i], env, status, s_path_env))
 			break ;
 		i++;
 	}
-	*st_p = destruct_forks(cmds, i);
+	*status = destruct_forks(cmds, i);
 	free_two_dimensional_array(s_path_env);
 	delete_cmd_exe(cmds);
 	free(cmds);
-	return (*st_p);
+	return (*status);
 }

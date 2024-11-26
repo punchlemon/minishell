@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:00:43 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/25 19:37:29 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/26 17:36:01 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	heredoc_handler(int signum)
 	if (signum == SIGINT)
 	{
 		g_signal = signum;
-		ft_putchar_fd('\n', STDERR_FILENO);
+		close(0);
 	}
 }
 
