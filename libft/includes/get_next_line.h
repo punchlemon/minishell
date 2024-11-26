@@ -22,7 +22,7 @@
 
 char	*get_next_line(int fd);
 int		put(char **ans, char *buf, char **mem);
-char	*all_free(char **ans, char **buf, char **mem, char flag);
+char	*all_free(char **ans, char **buf, char **mem, int flag);
 int		nobu_set(char **ans, char **buf, int *flag);
 char	*nobu_strjoin(char const *s1, char const *s2, ssize_t n);
 ssize_t	nobu_strchar(const char *s, char c);

@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-char	*all_free(char **ans, char **buf, char **mem, char flag)
+char	*all_free(char **ans, char **buf, char **mem, int flag)
 {
 	if (flag == -1 || **ans == '\0')
 	{
