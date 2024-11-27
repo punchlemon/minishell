@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:14 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/27 17:09:18 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:14:42 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	check_is_file(char *path_cmd, char *cmd)
 	}
 }
 
-void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env, int *status)
+void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env,
+	int *status)
 {
 	char	*path_cmd;
 	char	**environ;

@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:53:24 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/27 17:09:52 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:15:47 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	cause_error_open_file(t_red *reds, size_t i, int is_child, int *status)
 		return (0);
 }
 
-void	open_file(t_red *red, int is_child, t_env *env, int *status)
+void	open_file(t_red *red, int is_child, t_env *env, int *stat)
 {
 	if (red->type == LESS)
 	{
@@ -58,9 +58,9 @@ void	open_file(t_red *red, int is_child, t_env *env, int *status)
 	else if (red->type == DLESS || red->type == NO_EX_DLESS)
 	{
 		if (red->type == DLESS)
-			red->file_fd = get_heredoc_expand(red->target, is_child, env, status);
+			red->file_fd = get_heredoc_expand(red->target, is_child, env, stat);
 		if (red->type == NO_EX_DLESS)
-			red->file_fd = get_heredoc(red->target, is_child, status);
+			red->file_fd = get_heredoc(red->target, is_child, stat);
 		red->std_target_fd = 0;
 	}
 	else if (red->type == DGREAT)
