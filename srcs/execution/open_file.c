@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:53:24 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/26 17:22:30 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/27 13:00:03 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,20 @@ int	is_ambiguous_dir(t_red *reds, int i, int is_child)
 		return (0);
 }
 
-int	cause_error_open_file(t_red *reds, size_t i, int is_child)
+int	cause_error_open_file(t_red *reds, size_t i, int is_child, int *status)
 {
 	ft_printf_stderr("minishell: %s: %s\n", reds[i].target,
 		strerror(errno));
 	while (i--)
 		close(reds[i].file_fd);
+	(void)status;
+	// ここでstatusを変更
+	if (errno == ENOENT)
+		ft_printf_stderr("errno == ENOENT\n"); // test
+	if (errno == EACCES)
+		ft_printf_stderr("errno == EACCES\n"); // test
+	// if (errno == EISDIR) // あったらダメっぽい
+	// 	ft_printf_stderr("errno == EISDIR\n"); // test
 	if (is_child)
 		exit(1);
 	else
@@ -83,7 +91,7 @@ int	open_all_file(t_red *reds, int is_child, t_env *env, int *status)
 		if (g_signal == SIGINT)
 			return (0);
 		if (reds[i].file_fd < 0)
-			return (cause_error_open_file(reds, i, is_child));
+			return (cause_error_open_file(reds, i, is_child, status));
 		i++;
 	}
 	return (1);
