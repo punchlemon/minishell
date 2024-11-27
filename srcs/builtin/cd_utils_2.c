@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:30:54 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 18:49:38 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:44:42 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,5 @@ char	*make_target_path(t_env **env, char **args, int *status)
 		target_path = ft_strdup(args[0]);
 	else
 		target_path = search_abspath_from_relpath(args[0]);
-	ft_printf_stderr("target path = %s\n", target_path);
 	return (target_path);
 }
