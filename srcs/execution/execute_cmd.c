@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:14 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 16:40:14 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:14:42 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	check_is_file(char *path_cmd, char *cmd)
 	}
 }
 
-void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env, int status)
+void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env,
+	int *status)
 {
 	char	*path_cmd;
 	char	**environ;
@@ -69,7 +70,7 @@ int	execute_builtin_in_parent(t_cmd *cmds, t_env **env, int *status,
 
 	tmp_in = dup(0);
 	tmp_out = dup(1);
-	*status = execute_builtin_cmd(env, &cmds[0], *status, 0);
+	*status = execute_builtin_cmd(env, &cmds[0], status, 0);
 	free_two_dimensional_array(splited_path_env);
 	delete_cmd_exe(cmds);
 	free(cmds);
@@ -80,14 +81,14 @@ int	execute_builtin_in_parent(t_cmd *cmds, t_env **env, int *status,
 	return (*status);
 }
 
-int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
+int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int *status, int is_child)
 {
 	char	*command_name;
 
 	if (is_child)
 		prepare_pipe_in_child(cmd);
 	if (!open_all_file(cmd->reds, is_child, *env, status))
-		return (1);
+		return (*status);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
 	command_name = cmd->words[0];
@@ -100,7 +101,7 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int status, int is_child)
 	else if (ft_strcmp(command_name, "env") == 0)
 		return (builtin_env(env, &cmd->words[1]));
 	else if (ft_strcmp(command_name, "exit") == 0)
-		return (builtin_exit(*env, &cmd->words[1], status, is_child));
+		return (builtin_exit(*env, &cmd->words[1], *status, is_child));
 	else if (ft_strcmp(command_name, "export") == 0)
 		return (builtin_export(env, &cmd->words[1]));
 	else if (ft_strcmp(command_name, "unset") == 0)

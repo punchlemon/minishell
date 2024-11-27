@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/24 21:51:00 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:13:25 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ t_cmd		*init_cmds(t_cmd_a *cmd_a_s);
 int			exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status);
 
 // execute_cmds
-int			execute_builtin_cmd(t_env **env, t_cmd *cmd, int status,
+int			execute_builtin_cmd(t_env **env, t_cmd *cmd, int *status,
 				int is_child);
 void		excute_cmd(t_cmd *cmd, char **splited_path_env,
-				t_env **env, int status);
+				t_env **env, int *status);
 void		check_is_file(char *path_cmd, char *cmd);
 
 // expand
@@ -91,24 +91,26 @@ void		prepare_pipe_in_child(t_cmd *cmd);
 void		prepare_pipe_in_parent(t_cmd *cmd);
 
 // heredoc
-int			get_heredoc(char *delimiter);
-int			get_heredoc_expand(char *delimiter, t_env *env, char *st);
+int			get_heredoc(char *delimiter, int is_child, int *status);
+int			get_heredoc_expand(char *delimiter, int is_child, t_env *env,
+				int *status);
 void		count_expand_heredoc(size_t *word_len, const char *line, t_env *env,
 				char *st);
 void		store_expand_heredoc(char **expanded, const char *line, t_env *env,
 				char *st);
-void		read_heredoc(char *delimiter, int *pipe_fd);
+void		read_heredoc(char *delimiter, int *pipe_fd, int *status);
 void		read_heredoc_expand(char *delimiter, int *pipe_fd, t_env *env,
-				char *st);
-char		*expand_heredoc(const char *line, t_env *env, char *st);
+				int *status);
+char		*expand_heredoc(const char *line, t_env *env, int *status);
 
 // redirect
 void		do_redirect(t_red *red);
 void		set_redirects(t_red *reds);
 int			is_ambiguous_dir(t_red *reds, int i, int is_child);
-int			cause_error_open_file(t_red *reds, size_t i, int is_child);
-void		open_file(t_red *reds, size_t i, t_env *env, char *st);
-int			open_all_file(t_red *reds, int is_child, t_env *env, int status);
+int			cause_error_open_file(t_red *reds, size_t i, int is_child,
+				int *status);
+void		open_file(t_red *reds, int is_child, t_env *env, int *status);
+int			open_all_file(t_red *reds, int is_child, t_env *env, int *status);
 
 // itoa // for test
 char		*reverse(char *temp);
