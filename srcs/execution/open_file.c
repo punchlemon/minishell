@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:53:24 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/27 13:00:03 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:29:05 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	cause_error_open_file(t_red *reds, size_t i, int is_child, int *status)
 		close(reds[i].file_fd);
 	(void)status;
 	// ここでstatusを変更
-	if (errno == ENOENT)
-		ft_printf_stderr("errno == ENOENT\n"); // test
-	if (errno == EACCES)
-		ft_printf_stderr("errno == EACCES\n"); // test
+	// if (errno == ENOENT)
+	// 	ft_printf_stderr("errno == ENOENT\n"); // test
+	// if (errno == EACCES)
+		// ft_printf_stderr("errno == EACCES\n"); // test
 	// if (errno == EISDIR) // あったらダメっぽい
 	// 	ft_printf_stderr("errno == EISDIR\n"); // test
 	if (is_child)
