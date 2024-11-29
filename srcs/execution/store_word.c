@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_word.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 15:59:22 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/25 16:31:27 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/28 14:20:06 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	store_word_in_a_tkn_normal(char *dst, t_tkn *tkn, t_env *env, char *st)
 		if (sub)
 		{
 			tmp = get_value(&tkn->head[i], env, st);
-			i += sub;
+			i += sub; // koko
 			if (!tmp)
 				continue ;
 			ft_memmove(&dst[d_i], tmp, ft_strlen(tmp));
