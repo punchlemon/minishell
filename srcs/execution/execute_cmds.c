@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 23:09:22 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:09:49 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ int	destruct_forks(t_cmd *cmds, size_t len)
 		waitpid(cmds[i].pid, &status, 0);
 		if (WIFSIGNALED(status))
 		{
+			if (status == 131)
+				return (ft_printf_stderr("Quit (core dumped)\n"), status);
 			return_status = WTERMSIG(status) + 128;
 			if (return_status == 130)
-				ft_printf_stderr("\n");
+				return (ft_printf_stderr("\n"), return_status);
 		}
 		if (WIFEXITED(status))
 			return_status = WEXITSTATUS(status);
@@ -103,22 +105,21 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 
 	s_path_env = get_splited_path_env(*env);
 	cmds = init_cmds(cmd_a_s);
+	expand_cmds(cmds, cmd_a_s, *env, *status);
+	if (read_heredoc_of_cmds(cmds, *env, status))
+		return (*status);
+	if (is_builtin(cmds[0].words[0]) && cmds[1].type == TAIL)
+		return (execute_builtin_in_parent(cmds, env, status, s_path_env));
 	i = 0;
 	while (cmds[i].type != TAIL)
 	{
 		if (prepare_pipe(&cmds[i]))
 			break ;
-		if (!expand_cmd(&cmds[i], cmd_a_s[i].tkns, *env, *status))
-			return (0);
-		if (is_builtin(cmds[i].words[0]) && i == 0 && cmds[i + 1].type == TAIL)
-			return (execute_builtin_in_parent(cmds, env, status, s_path_env));
 		if (!_execute_cmd(&cmds[i], env, status, s_path_env))
 			break ;
 		i++;
 	}
 	*status = destruct_forks(cmds, i);
-	free_two_dimensional_array(s_path_env);
-	delete_cmd_exe(cmds);
-	free(cmds);
+	destroy_exe(s_path_env, cmds);
 	return (*status);
 }

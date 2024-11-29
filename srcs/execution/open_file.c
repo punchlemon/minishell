@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:53:24 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/27 17:15:47 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/29 16:24:16 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	cause_error_open_file(t_red *reds, size_t i, int is_child, int *status)
 		return (0);
 }
 
-void	open_file(t_red *red, int is_child, t_env *env, int *stat)
+void	open_file(t_red *red)
 {
 	if (red->type == LESS)
 	{
@@ -55,14 +55,6 @@ void	open_file(t_red *red, int is_child, t_env *env, int *stat)
 				O_CREAT | O_RDWR | O_TRUNC, 0644);
 		red->std_target_fd = 1;
 	}
-	else if (red->type == DLESS || red->type == NO_EX_DLESS)
-	{
-		if (red->type == DLESS)
-			red->file_fd = get_heredoc_expand(red->target, is_child, env, stat);
-		if (red->type == NO_EX_DLESS)
-			red->file_fd = get_heredoc(red->target, is_child, stat);
-		red->std_target_fd = 0;
-	}
 	else if (red->type == DGREAT)
 	{
 		red->file_fd = open(red->target, \
@@ -71,7 +63,7 @@ void	open_file(t_red *red, int is_child, t_env *env, int *stat)
 	}
 }
 
-int	open_all_file(t_red *reds, int is_child, t_env *env, int *status)
+int	open_all_file(t_red *reds, int is_child, int *status)
 {
 	size_t	i;
 
@@ -80,7 +72,7 @@ int	open_all_file(t_red *reds, int is_child, t_env *env, int *status)
 	{
 		if (reds[i].is_ambiguous)
 			return (is_ambiguous_dir(reds, i, is_child));
-		open_file(&reds[i], is_child, env, status);
+		open_file(&reds[i]);
 		if (g_signal == SIGINT)
 			return (0);
 		if (reds[i].file_fd < 0)

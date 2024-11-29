@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/25 19:56:44 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/29 17:27:10 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static void	execute(char *line, t_env **env, int *status)
 	conds = analysis(line);
 	if (conds)
 	{
-		if (g_signal == SIGINT)
-			*status = 130;
 		i = 0;
 		while (conds[i].type != TAIL)
 		{
@@ -40,6 +38,8 @@ static void	execute(char *line, t_env **env, int *status)
 			else if (*status)
 				*status = exe_cmds(conds[i].cmds, env, status);
 			i++;
+			if (*status == SIGINT)
+				break ;
 		}
 		delete_conds(conds);
 	}

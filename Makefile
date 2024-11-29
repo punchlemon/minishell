@@ -36,23 +36,24 @@ $(addsuffix .c, \
 		) \
 		$(addprefix execution/, \
 			count_cmd \
-			store_cmd \
 			count_word \
-			store_word \
 			create_heredoc \
-			get_value \
-			expand_cmd \
-			pipe \
+			destroy_exe \
 			execute_cmd \
 			execute_cmds \
 			execute_utils \
-			redirect \
-			heredoc \
-			heredoc_utils \
+			expand_cmd \
+			ft_itoa \
 			get_path_cmd \
 			get_path_cmd_utils \
+			get_value \
 			open_file \
-			ft_itoa \
+			pipe \
+			read_all_heredoc \
+			read_heredoc \
+			redirect \
+			store_cmd \
+			store_word \
 		) \
 		$(addprefix signal/, \
 			signal_handler \

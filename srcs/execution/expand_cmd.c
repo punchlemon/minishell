@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:17:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 23:09:04 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:48:36 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,16 @@ t_cmd	*expand_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, int status)
 	if (!store_cmd(cmd, tkns, env, st))
 		return (free(st), NULL);
 	return (free(st), cmd);
+}
+
+void	expand_cmds(t_cmd *cmds, t_cmd_a *cmd_as, t_env *env, int status)
+{
+	size_t	i;
+
+	i = 0;
+	while (cmds[i].type != TAIL)
+	{
+		expand_cmd(&cmds[i], cmd_as[i].tkns, env, status);
+		i++;
+	}
 }

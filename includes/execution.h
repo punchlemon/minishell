@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/27 17:13:25 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/29 16:30:07 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,13 @@ size_t		store_heredoc(t_red *red, t_tkn *tkns, size_t t_len);
 int			create_heredoc(t_red *red, t_tkn *tkns);
 int			store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st);
 t_cmd		*expand_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, int status);
+void		expand_cmds(t_cmd *cmds, t_cmd_a *cmd_as, t_env *env, int status);
+
+// read_heredoc_cmds
+int			read_heredoc_of_cmds(t_cmd *cmds, t_env *env, int *status);
+
+// destroy_exe
+void		destroy_exe(char **s_path_env, t_cmd *cmds);
 
 // execute_utils
 size_t		count_env_len(t_env *env);
@@ -91,8 +98,8 @@ void		prepare_pipe_in_child(t_cmd *cmd);
 void		prepare_pipe_in_parent(t_cmd *cmd);
 
 // heredoc
-int			get_heredoc(char *delimiter, int is_child, int *status);
-int			get_heredoc_expand(char *delimiter, int is_child, t_env *env,
+int			get_heredoc(char *delimiter, int *status);
+int			get_heredoc_expand(char *delimiter, t_env *env,
 				int *status);
 void		count_expand_heredoc(size_t *word_len, const char *line, t_env *env,
 				char *st);
@@ -109,8 +116,8 @@ void		set_redirects(t_red *reds);
 int			is_ambiguous_dir(t_red *reds, int i, int is_child);
 int			cause_error_open_file(t_red *reds, size_t i, int is_child,
 				int *status);
-void		open_file(t_red *reds, int is_child, t_env *env, int *status);
-int			open_all_file(t_red *reds, int is_child, t_env *env, int *status);
+void		open_file(t_red *reds);
+int			open_all_file(t_red *reds, int is_child, int *status);
 
 // itoa // for test
 char		*reverse(char *temp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:14 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/27 17:14:42 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/29 16:25:34 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	excute_cmd(t_cmd *cmd, char **splited_path_env, t_env **env,
 
 	set_exec_child_handler();
 	prepare_pipe_in_child(cmd);
-	if (!open_all_file(cmd->reds, 1, *env, status))
+	if (!open_all_file(cmd->reds, 1, status))
 		exit(1);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);
@@ -87,7 +87,7 @@ int	execute_builtin_cmd(t_env **env, t_cmd *cmd, int *status, int is_child)
 
 	if (is_child)
 		prepare_pipe_in_child(cmd);
-	if (!open_all_file(cmd->reds, is_child, *env, status))
+	if (!open_all_file(cmd->reds, is_child, status))
 		return (*status);
 	if (cmd->reds != NULL)
 		set_redirects(cmd->reds);

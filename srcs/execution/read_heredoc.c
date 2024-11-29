@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:50:24 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 23:13:44 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/29 16:40:01 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,25 @@ void	read_heredoc(char *delimiter, int *pipe_fd, int *status)
 	}
 }
 
+char	*expand_heredoc(const char *line, t_env *env, int *status)
+{
+	char	*expanded;
+	char	*st;
+	size_t	len;
+
+	st = ft_itoa(*status);
+	if (!st)
+		exit(1);
+	count_expand_heredoc(&len, line, env, st);
+	expanded = ft_xcalloc(sizeof(char) * (len + 1));
+	if (!expanded)
+		return (free(st), exit(1), NULL);
+	expanded[len] = '\0';
+	store_expand_heredoc(&expanded, line, env, st);
+	free(st);
+	return (expanded);
+}
+
 void	read_heredoc_expand(char *delimiter, int *pipe_fd, t_env *env,
 	int *status)
 {
@@ -123,23 +142,4 @@ void	read_heredoc_expand(char *delimiter, int *pipe_fd, t_env *env,
 		free(line);
 		i++;
 	}
-}
-
-char	*expand_heredoc(const char *line, t_env *env, int *status)
-{
-	char	*expanded;
-	char	*st;
-	size_t	len;
-
-	st = ft_itoa(*status);
-	if (!st)
-		exit(1);
-	count_expand_heredoc(&len, line, env, st);
-	expanded = ft_xcalloc(sizeof(char) * (len + 1));
-	if (!expanded)
-		return (free(st), exit(1), NULL);
-	expanded[len] = '\0';
-	store_expand_heredoc(&expanded, line, env, st);
-	free(st);
-	return (expanded);
 }

@@ -87,7 +87,7 @@ $(OUT_DIR)/%.o: %.c
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 clean:
-	@$(RM) -r $(OBJS_DIR)
+	@$(RM) -r $(OUT_DIR)
 
 fclean: clean
 	@$(RM) $(NAME) $(VALGRIND_LOG)
