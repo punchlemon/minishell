@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:09:54 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/27 18:04:37 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:43:59 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	store_red(t_red *red, t_tkn *tkn, t_env *env, char *st)
 		if (!create_heredoc(red, tkn))
 			return (0);
 	}
-	else if (!create_word(&(red->target), tkn, env, st))
+	else if (!create_word(&(red->target), tkn, env, st)) // koko iran
 		return (0);
 	else if (is_env_variable(tkn->head, tkn->tail)
 		&& !get_value(tkn->head, env, st))
