@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:14 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/29 16:25:34 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/29 19:12:19 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,13 @@ int	execute_builtin_in_parent(t_cmd *cmds, t_env **env, int *status,
 	int	tmp_in;
 	int	tmp_out;
 
-	tmp_in = dup(0);
-	tmp_out = dup(1);
+	tmp_in = 0;
+	tmp_out = 0;
+	if (ft_strcmp(cmds[0].words[0], "exit") != 0)
+	{
+		tmp_in = dup(0);
+		tmp_out = dup(1);
+	}
 	*status = execute_builtin_cmd(env, &cmds[0], status, 0);
 	free_two_dimensional_array(splited_path_env);
 	delete_cmd_exe(cmds);
