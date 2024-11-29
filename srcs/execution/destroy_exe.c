@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy_exe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:19:15 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/29 16:19:33 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/29 20:48:56 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 void	destroy_exe(char **s_path_env, t_cmd *cmds)
 {
+	size_t	i;
+
+	i = 0;
 	free_two_dimensional_array(s_path_env);
-	delete_cmd_exe(cmds);
+	while (cmds[i].type != TAIL)
+	{
+		delete_cmd_exe(&cmds[i]);
+		i++;
+	}
 	free(cmds);
 }
