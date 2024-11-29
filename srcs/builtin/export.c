@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:23:05 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/25 17:01:46 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/29 21:37:10 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ void	print_env(t_env *env)
 	sorted_env = sort_env(env);
 	while (sorted_env != NULL)
 	{
-		ft_printf("declare -x ");
-		if (sorted_env->value)
-			ft_printf("%s=\"%s\"\n", sorted_env->key, sorted_env->value);
-		else
-			ft_printf("%s\n", sorted_env->key);
+		if (ft_strcmp(sorted_env->key, "_") != 0)
+		{
+			ft_printf("declare -x ");
+			if (sorted_env->value)
+				ft_printf("%s=\"%s\"\n", sorted_env->key, sorted_env->value);
+			else
+				ft_printf("%s\n", sorted_env->key);
+		}
 		sorted_env = sorted_env->next;
 	}
 }
