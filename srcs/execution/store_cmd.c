@@ -34,6 +34,18 @@ int	create_word(char **pp, t_tkn *tkns, t_env *env, char *st)
 	return (1);
 }
 
+int	only_empty_variable(t_tkn *tkn, t_env *env, char *st)
+{
+	int	ret;
+
+	ret = is_env_variable(tkn->head, tkn->tail);
+	ret &= !get_value(tkn->head, env, st);
+	if (ret && tkn->type == TAIL)
+		return (ret);
+	ret &= (tkn[1].head - tkn->tail) == 1;
+	return (ret);
+}
+
 int	store_red(t_red *red, t_tkn *tkn, t_env *env, char *st)
 {
 	red->file_fd = -1;
@@ -44,8 +56,7 @@ int	store_red(t_red *red, t_tkn *tkn, t_env *env, char *st)
 		if (!create_heredoc(red, tkn))
 			return (0);
 	}
-	else if (is_env_variable(tkn->head, tkn->tail)
-		&& !get_value(tkn->head, env, st))
+	else if (only_empty_variable(tkn, env, st))
 	{
 		red->target = ft_xcalloc(sizeof(char) * (tkn->tail - tkn->head + 1));
 		if (!red->target)
@@ -76,8 +87,7 @@ int	store_cmd(t_cmd *cmd, t_tkn *tkns, t_env *env, char *st)
 			if (!store_red(&(cmd->reds[r_i++]), &tkns[t_i], env, st))
 				return (cmd->reds[--r_i].type = TAIL, delete_cmd_exe(cmd), 0);
 		}
-		else if (!is_env_variable(tkns[t_i].head, tkns[t_i].tail)
-			|| get_value(tkns[t_i].head, env, st))
+		else if (!only_empty_variable(&(tkns[t_i]), env, st))
 			if (!create_word(&(cmd->words[w_i++]), &tkns[t_i], env, st))
 				return (delete_cmd_exe(cmd), 0);
 		t_i += count_tkns_for_word(&tkns[t_i]);

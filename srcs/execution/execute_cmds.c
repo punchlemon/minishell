@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/29 18:09:49 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/29 19:47:09 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,26 @@ int	destruct_forks(t_cmd *cmds, size_t len)
 	size_t	i;
 	int		status;
 	int		return_status;
+	int		tmp;
 
-	i = 0;
+	i = -1;
 	status = 0;
 	return_status = 0;
-	while (i < len)
+	tmp = 0;
+	while (++i < len)
 	{
 		waitpid(cmds[i].pid, &status, 0);
 		if (WIFSIGNALED(status))
 		{
-			if (status == 131)
-				return (ft_printf_stderr("Quit (core dumped)\n"), status);
 			return_status = WTERMSIG(status) + 128;
-			if (return_status == 130)
-				return (ft_printf_stderr("\n"), return_status);
+			if (return_status == 130 && !tmp)
+				tmp = ft_printf_stderr("\n");
 		}
-		if (WIFEXITED(status))
-			return_status = WEXITSTATUS(status);
-		i++;
 	}
+	if (WIFEXITED(status))
+		return_status = WEXITSTATUS(status);
+	if (WCOREDUMP(status))
+		ft_printf_stderr("Quit (core dumped)\n");
 	return (return_status);
 }
 

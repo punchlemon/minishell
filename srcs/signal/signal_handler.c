@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:00:43 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/29 17:33:51 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/29 19:45:31 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,5 @@ void	exec_handler(int signum)
 	if (signum == SIGQUIT)
 	{
 		g_signal = signum;
-		ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
-		rl_replace_line("", 0);
-		rl_on_new_line();
 	}
 }
