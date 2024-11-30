@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:26:01 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/27 17:39:27 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/30 14:28:19 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	builtin_env(t_env **env, char **args)
 	top = *env;
 	if (args[0] != NULL)
 	{
-		ft_printf_stderr("env: Syntax Error\n");
-		return (1);
+		ft_printf_stderr("env: ‘%s’: No such file or directory\n", args[0]);
+		return (127);
 	}
 	while (top)
 	{
