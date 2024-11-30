@@ -6,7 +6,7 @@
 /*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:35:03 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/29 19:47:09 by hnakayam         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:59:07 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	exe_cmds(t_cmd_a *cmd_a_s, t_env **env, int *status)
 	cmds = init_cmds(cmd_a_s);
 	expand_cmds(cmds, cmd_a_s, *env, *status);
 	if (read_heredoc_of_cmds(cmds, *env, status))
-		return (*status);
+		return (destroy_exe(s_path_env, cmds), *status);
 	if (is_builtin(cmds[0].words[0]) && cmds[1].type == TAIL)
 		return (execute_builtin_in_parent(cmds, env, status, s_path_env));
 	i = 0;
