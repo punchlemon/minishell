@@ -6,7 +6,7 @@
 /*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:09:54 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/29 20:08:22 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/11/30 04:51:20 by retanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ int	only_empty_variable(t_tkn *tkn, t_env *env, char *st)
 	int	ret;
 
 	ret = is_env_variable(tkn->head, tkn->tail);
-	ret &= !get_value(tkn->head, env, st);
-	if (ret && tkn->type == TAIL)
+	ret = ret && !get_value(tkn->head, env, st);
+	if (ret && tkn[1].type == TAIL)
 		return (ret);
-	ret &= (tkn[1].head - tkn->tail) == 1;
-	return (ret);
+	return (ret && (tkn[1].head - tkn->tail));
 }
 
 int	store_red(t_red *red, t_tkn *tkn, t_env *env, char *st)
