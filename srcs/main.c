@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:28:08 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/29 17:27:10 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:26:09 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@ volatile sig_atomic_t	g_signal;
 static void	execute(char *line, t_env **env, int *status)
 {
 	t_cond	*conds;
-	size_t	i;
+	int		i;
 
 	add_history(line);
 	set_exec_handler(false);
 	conds = analysis(line);
 	if (conds)
 	{
-		i = 0;
-		while (conds[i].type != TAIL)
+		if (g_signal == SIGINT)
+			*status = 130;
+		i = -1;
+		while (conds[++i].type != TAIL)
 		{
 			if (conds[i].type == HEAD)
 				*status = exe_cmds(conds[i].cmds, env, status);
@@ -37,7 +39,6 @@ static void	execute(char *line, t_env **env, int *status)
 				*status = exe_cmds(conds[i].cmds, env, status);
 			else if (*status)
 				*status = exe_cmds(conds[i].cmds, env, status);
-			i++;
 			if (*status == SIGINT)
 				break ;
 		}

@@ -88,14 +88,14 @@ CFLAGS = -Wall -Werror -Wextra
 IFLAGS = -I$(INCLUDES_DIR) -I$(INCLUDES_DIR)/analysis -I$(LIBFT_DIR)/$(INCLUDES_DIR)
 LFLAGS = -lreadline -L$(LIBFT_DIR) -lft
 VFLAGS = \
-	--track-origins=yes \
 	--leak-check=full \
-	# --show-leak-kinds=all
-	--show-leak-kinds=definite,indirect \
 	--suppressions=readline.supp \
-	--gen-suppressions=all \
 	--trace-children=yes \
 	--track-fds=yes \
+#  --track-origins=yes \
+#  --show-leak-kinds=all \
+#  --gen-suppressions=all
+#  --show-leak-kinds=definite,indirect
 
 # --track-origins=yes --leak-check=full --show-leak-kinds=definite,indirect --suppressions=readline.supp --gen-suppressions=all --trace-children=yes --track-fds=yes
 
