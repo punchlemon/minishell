@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:09:54 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/30 04:51:20 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:46:32 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	only_empty_variable(t_tkn *tkn, t_env *env, char *st)
 	int	ret;
 
 	ret = is_env_variable(tkn->head, tkn->tail);
-	ret = ret && !get_value(tkn->head, env, st);
+	ret = (ret && !get_value(tkn->head, env, st));
 	if (ret && tkn[1].type == TAIL)
 		return (ret);
 	return (ret && (tkn[1].head - tkn->tail));
