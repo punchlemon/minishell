@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:26:05 by retanaka          #+#    #+#             */
-/*   Updated: 2024/11/29 16:30:07 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/02 10:24:59 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char		*expand_heredoc(const char *line, t_env *env, int *status);
 // redirect
 void		do_redirect(t_red *red);
 void		set_redirects(t_red *reds);
-int			is_ambiguous_dir(t_red *reds, int i, int is_child);
+int			is_ambiguous_dir(t_red *reds, int i, int is_child, int *status);
 int			cause_error_open_file(t_red *reds, size_t i, int is_child,
 				int *status);
 void		open_file(t_red *reds);

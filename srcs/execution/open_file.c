@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: retanaka <retanaka@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hnakayam <hnakayam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:53:24 by hnakayam          #+#    #+#             */
-/*   Updated: 2024/11/29 16:24:16 by retanaka         ###   ########.fr       */
+/*   Updated: 2024/12/02 10:24:01 by hnakayam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "libft.h"
 #include "sig.h"
 
-int	is_ambiguous_dir(t_red *reds, int i, int is_child)
+int	is_ambiguous_dir(t_red *reds, int i, int is_child, int *status)
 {
 	ft_printf_stderr("minishell: %s: ambiguous redirect\n", reds[i].target);
 	while (i--)
@@ -26,7 +26,10 @@ int	is_ambiguous_dir(t_red *reds, int i, int is_child)
 	if (is_child)
 		exit(1);
 	else
+	{
+		*status = 1;
 		return (0);
+	}
 }
 
 int	cause_error_open_file(t_red *reds, size_t i, int is_child, int *status)
@@ -35,11 +38,13 @@ int	cause_error_open_file(t_red *reds, size_t i, int is_child, int *status)
 		strerror(errno));
 	while (i--)
 		close(reds[i].file_fd);
-	(void)status;
 	if (is_child)
 		exit(1);
 	else
+	{
+		*status = 1;
 		return (0);
+	}
 }
 
 void	open_file(t_red *red)
@@ -71,7 +76,7 @@ int	open_all_file(t_red *reds, int is_child, int *status)
 	while (reds[i].type != TAIL)
 	{
 		if (reds[i].is_ambiguous)
-			return (is_ambiguous_dir(reds, i, is_child));
+			return (is_ambiguous_dir(reds, i, is_child, status));
 		open_file(&reds[i]);
 		if (g_signal == SIGINT)
 			return (0);
